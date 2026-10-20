@@ -31,6 +31,12 @@ DIAGRAM_TYPE = re.compile(
 )
 INIT_BLOCK = "%%{init:"
 
+# Templates that generate a document with a diagram must define the init line.
+DIAGRAM_TEMPLATES = (
+    "skills/ai-init/templates/docs/architecture.md",
+    "skills/ai-init/templates/docs/threat-model.md",
+)
+
 # Documents that must demonstrate a rendered diagram when they exist.
 EXAMPLE_DOCUMENTS = ("docs/architecture.md", "docs/threat-model.md")
 
@@ -108,6 +114,33 @@ class MermaidTests(unittest.TestCase):
             [],
             offenders,
             "start every Mermaid diagram with the canonical init block:\n"
+            + "\n".join(offenders),
+        )
+
+    def test_diagram_templates_define_the_init_line(self) -> None:
+        offenders = [
+            relative
+            for relative in DIAGRAM_TEMPLATES
+            if INIT_BLOCK not in (REPO_ROOT / relative).read_text(encoding="utf-8")
+        ]
+        self.assertEqual(
+            [],
+            offenders,
+            "a template that generates a diagram carries the canonical init line:\n"
+            + "\n".join(offenders),
+        )
+
+    def test_working_example_replaces_the_example_nodes(self) -> None:
+        offenders = [
+            relative
+            for relative in EXAMPLE_DOCUMENTS
+            if (REPO_ROOT / relative).is_file()
+            and "(replace)" in (REPO_ROOT / relative).read_text(encoding="utf-8")
+        ]
+        self.assertEqual(
+            [],
+            offenders,
+            "a template's example nodes are a starting point, not content:\n"
             + "\n".join(offenders),
         )
 

@@ -27,6 +27,7 @@ replaces; there is no separate status field to maintain.
 | D-16 | Titles name the document type, and template links resolve in the output |
 | D-17 | Templates name documents instead of linking them |
 | D-18 | A Mermaid block never contains a template token |
+| D-19 | A diagram template is a valid example, not a blank |
 
 ## Decision Records
 
@@ -314,6 +315,26 @@ replaces; there is no separate status field to maintain.
 - **Reason:** A diagram is a rendering, not a form field. A token inside it is a
   syntax error, so the failure is visible to every reader rather than to the
   person who was supposed to replace it.
+
+### D-19 — A diagram template is a valid example, not a blank
+
+- **Context:** D-18 removed the Mermaid block from the architecture and
+  threat-model templates to stop a parse error. That also removed the only place
+  where a generated document met the canonical init line: the definition lived in
+  the skill reference, which is not copied into a target repository, so a
+  generator following the template wrote no diagram at all.
+- **Decision:** A template that generates a diagram carries a valid, renderable
+  example block: the canonical init line, a diagram type, and example nodes
+  labelled `(replace)`. The skill replaces those nodes with verified evidence, or
+  deletes the block and states why the view is omitted. No template token appears
+  inside any Mermaid block. This replaces the "no Mermaid block" clause of D-18
+  and keeps its rule against tokens inside a diagram.
+- **Consequences:** The init line now lands in the generated document, so a later
+  editor has the definition at hand. The example reads as unfinished because every
+  label says `(replace)`, and `tests/test_diagrams.py` fails if one survives into
+  the working example.
+- **Reason:** A template can show the shape of a diagram without inventing its
+  content, and the init line is part of the shape rather than the content.
 
 ## Related Docs
 

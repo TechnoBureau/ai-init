@@ -19,24 +19,29 @@
 ## System Context
 
 Every generated architecture document must include at least one compact,
-evidence-based high-level diagram. Use `flowchart TB` by default and show only
-the main actors, components, and relationships verified in active code or
-configuration. Write the diagram from that evidence: a Mermaid block is
-rendered as written, so a template token inside it breaks the page instead of
-marking a gap. If no meaningful relationships are evidenced, do not
-invent them; omit this document and explain why.
+evidence-based high-level diagram. Start from this block and keep the init line:
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+flowchart TB
+  %% Example only. Replace the nodes and the edge with verified actors,
+  %% systems, and relationships; delete the block when none is evidenced.
+  actor["Actor (replace)"] --> system["System (replace)"]
+```
+
+Replace the example nodes with the main actors, components, and relationships
+verified in active code or configuration, and keep labels short. A Mermaid block
+is rendered as written, so a template token inside it breaks the page instead of
+marking a gap. If no meaningful relationships are evidenced, do not invent them;
+omit this document and explain why.
 
 Add separate diagrams only when they clarify verified behavior: a flowchart
 for a non-trivial workflow, a sequence diagram for a time-ordered interaction,
 or a mind map for a genuine hierarchy. Keep each diagram focused, use short
 labels, and aim for about 5–8 nodes. Split by boundary or concern when a view
-would be too wide or dense to read at normal GitHub / Markdown preview size;
-do not combine the whole system into one diagram. Start each Mermaid diagram
-with this init block and keep labels short:
-
-```text
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
-```
+would be too wide or dense to read at normal GitHub / Markdown preview size; do
+not combine the whole system into one diagram, and start every additional
+diagram with the same init line.
 
 ## Containers and Components
 

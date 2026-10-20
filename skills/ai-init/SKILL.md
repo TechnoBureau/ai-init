@@ -189,7 +189,8 @@ pipeline complexity. Every generated architecture document must include at
 least one compact, verified high-level diagram. Use `TB` for flowcharts by
 default; add workflow, sequence, or mind-map diagrams only when they clarify
 verified behavior, and split large views for normal GitHub / Markdown preview
-readability. Write each diagram from verified evidence: a Mermaid block is
+readability. Start from the example diagram in the template, keep its init
+line, and replace every example node with verified evidence; a Mermaid block is
 parsed as written, so a template token inside it is a syntax error rather than
 a gap. Follow the full rules in
 [`references/architecture/mermaid-standard.md`](./references/architecture/mermaid-standard.md).

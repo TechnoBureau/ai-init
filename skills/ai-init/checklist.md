@@ -184,6 +184,8 @@ item means it was verified in the current worktree, not assumed.
   the document rather than copied from a template.
 - [ ] No Mermaid block contains a template token. The block is valid Mermaid as
   written, because the renderer parses it before any token is substituted.
+- [ ] Every example node or edge from a template diagram was replaced with
+  verified evidence, and the canonical init line is kept.
 - [ ] A generated `docs/architecture.md` has at least one compact, verified
   high-level diagram; flowcharts default to `TB`, and optional workflow,
   sequence, or mind-map diagrams are included only when they clarify real

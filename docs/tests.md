@@ -29,7 +29,7 @@ defined in a manifest, workflow, or hook configuration.
 | `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, hook flags, and dependency wiring | Unit | `unittest` |
 | `tests/test_pinning.py` | Version-tag pinning for hooks and actions, and Dependabot coverage | Unit | `unittest` |
 | `tests/test_docs_state.py` | Documents describe current state; no frozen runs, duplicated pins, or bookkeeping columns, and the structure doc lists every reference | Unit | `unittest` |
-| `tests/test_diagrams.py` | Every Mermaid block is closed, declares a diagram type, starts with the init block, and contains no template token | Unit | `unittest` |
+| `tests/test_diagrams.py` | Every Mermaid block is closed, declares a diagram type, starts with the init block, and contains no template token; diagram templates define the init line and the working example replaces the example nodes | Unit | `unittest` |
 | `tests/test_template_links.py` | Templates carry no relative link, name only generated documents, and fill a related-document footer from the placeholder | Unit | `unittest` |
 | `scripts/validate_skills.py` | Every checked-in skill and eval fixture | Static | Project script |
 | `scripts/check_links.py` | All Markdown, including templates | Static | Project script |

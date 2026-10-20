@@ -1,4 +1,4 @@
-# Tests and Verification — {{PROJECT_NAME}}
+# Tests and Verification
 
 > Document actual test and validation mechanisms from test files, project
 > manifests, CI workflows, and tool configuration. Do not infer coverage or
@@ -114,4 +114,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Security](./security.md) · [Architecture](./architecture.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

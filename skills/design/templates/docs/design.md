@@ -1,4 +1,4 @@
-# Design System — {{PROJECT_NAME}}
+# Design System
 
 > **Applicability:** ONLY for projects with a UI/UX surface (web, mobile,
 > desktop apps). Not applicable to CLIs, APIs, CI/CD pipelines, scripts,
@@ -141,4 +141,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Style](./style.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

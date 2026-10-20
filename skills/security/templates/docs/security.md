@@ -1,4 +1,4 @@
-# Security Profile — {{PROJECT_NAME}}
+# Security Profile
 
 ## Executive Summary
 
@@ -220,4 +220,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Decisions](./decisions.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

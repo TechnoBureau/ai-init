@@ -1,7 +1,7 @@
-# Decisions — {{PROJECT_NAME}}
+# Decisions
 
 This is the supporting register for the D-IDs summarized in
-[docs/PRD.md](./PRD.md). Preserve IDs once assigned. Separate decisions
+`docs/PRD.md`. Preserve IDs once assigned. Separate decisions
 explicitly recorded by maintainers from choices merely visible in the current
 implementation; do not assign unverified rationale.
 
@@ -36,4 +36,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Structure](./structure.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

@@ -189,7 +189,9 @@ pipeline complexity. Every generated architecture document must include at
 least one compact, verified high-level diagram. Use `TB` for flowcharts by
 default; add workflow, sequence, or mind-map diagrams only when they clarify
 verified behavior, and split large views for normal GitHub / Markdown preview
-readability. Follow the full rules in
+readability. Write each diagram from verified evidence: a Mermaid block is
+parsed as written, so a template token inside it is a syntax error rather than
+a gap. Follow the full rules in
 [`references/architecture/mermaid-standard.md`](./references/architecture/mermaid-standard.md).
 Create `docs/governance.md` when roles, review rules, or change classes must be
 recorded; create `docs/threat-model.md` with `$security` when a dedicated threat
@@ -221,6 +223,13 @@ every generated document.
   columns to a table, and do not add those fields to a decision. When a table
   must say whether something holds, use one `Assessment` column (`Coverage` for
   requirement traceability) and the claim vocabulary.
+- **Titles and links.** Name the document type in the H1; never append a
+  project name. A template contains no relative link, because it is copied into
+  another repository where that path does not exist; name the document in a code
+  span and write the link when you write the document. Link only to output that
+  exists in the target repository, fill a related-document footer from
+  `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}`, and never link into
+  `references/`.
 - **Architecture.** Use C4-style boundaries (context, container, component) and
   ISO/IEC/IEEE 42010 concerns, viewpoints, and views. Keep diagrams small and
   verify every node and edge.

@@ -1,4 +1,4 @@
-# Governance — {{PROJECT_NAME}}
+# Governance
 
 This document defines how the project is owned, changed, reviewed, and
 supported. It applies to source code, documentation, configuration, and
@@ -75,8 +75,8 @@ approve. Undocumented exceptions are defects.
 
 ## Security response
 
-- Report vulnerabilities through [SECURITY.md](../SECURITY.md), not a public
-  issue.
+- Report vulnerabilities through {{SECURITY_REPORTING_CHANNEL_OR_NOT_CONFIGURED}},
+  not a public issue.
 - Triage, fix, regression-test, and disclose through a coordinated process.
 - Do not include exploit details, secrets, or personal data in a public
   advisory.
@@ -105,7 +105,4 @@ a safety or security rule requires maintainer and security-reviewer approval.
 
 ## Related documents
 
-- [Architecture](./architecture.md)
-- [Threat model](./threat-model.md)
-- [Security posture](./security.md)
-- [Decisions](./decisions.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

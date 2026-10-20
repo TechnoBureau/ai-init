@@ -1,4 +1,4 @@
-# Architecture — AI Init Skills
+# Architecture
 
 This repository distributes instructions, templates, and validation tooling. It
 is not a running service. The architecture exists to keep generated

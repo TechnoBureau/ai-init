@@ -1,4 +1,4 @@
-# Threat Model — AI Init Skills
+# Threat Model
 
 This is a design-level threat model. It records what the collection protects,
 where trust changes, and which threats and controls exist. It is not a

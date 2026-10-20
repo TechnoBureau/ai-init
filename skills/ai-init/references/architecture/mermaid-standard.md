@@ -4,6 +4,11 @@ Use Mermaid diagrams only when they make a verified system, relationship, or
 workflow easier to understand. Every diagram in `docs/` must start with this
 exact init block; do not use Mermaid's default theme.
 
+A Mermaid block is rendered as written: the parser runs before any template
+token is substituted, so a placeholder inside a diagram is a syntax error, not a
+gap. Never put one there. A template describes the diagram in prose and the
+skill writes a diagram from verified evidence, or states why it is omitted.
+
 ```text
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 ```

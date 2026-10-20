@@ -70,6 +70,31 @@ and a record does not carry paperwork that no process consumes.
 - The record of when and why a change happened is the commit and the pull
   request, not a field in the document.
 
+## Titles and links
+
+A generated repository contains `README.md`, the `AGENTS.md` and `CLAUDE.md`
+symlinks, and the default `docs/` set. Every other document is created only when
+the repository supports it, so the output set differs per repository.
+
+- A title names the document type, not the project. Do not carry a project name
+  in an H1 and do not suffix it with a separator: `# Architecture`, not
+  `# Architecture — <project>`.
+- Link only to a document that exists. A generated page may link any document
+  in its own repository; a link to a skipped document is a broken link.
+- A template contains no relative link. It is copied into another repository, so
+  a link inside it resolves against this repository's layout, where the target
+  does not exist. Name the document in a code span and let the skill write the
+  link when it writes the document.
+- A related-document footer is written as
+  `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}`. Replace it with links to the
+  documents that were actually written, and delete the section when none remain.
+- A template never links into the skill tree either. `references/` ships with the
+  skill, not with the repository it documents, so state the rule inline and show
+  any required code block in the template itself.
+- An index row names a document and its file in parentheses; the skill turns the
+  name into a link and deletes the parenthetical. Keep only rows for documents
+  that exist, and delete the instruction paragraph once the page is written.
+
 ## Decisions
 
 Use a short ADR-style record:
@@ -98,6 +123,10 @@ views, and correspondences.
   targets that affect security or operations.
 - Label each diagram with its scope and viewpoint. Every node and edge must be
   traceable to code, configuration, or a confirmed decision.
+- Draw the diagram rather than filling in a blank. A Mermaid block is rendered
+  as written, so a template token inside it is a syntax error; a template
+  describes the view in prose and the skill writes valid Mermaid, or states why
+  the view is omitted.
 - Include quality attributes and known constraints. arc42 or a similar
   structure may supply the section checklist; do not copy its boilerplate
   without content.

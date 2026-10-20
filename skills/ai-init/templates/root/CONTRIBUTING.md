@@ -1,4 +1,4 @@
-# Contributing to {{PROJECT_NAME}}
+# Contributing
 
 Thank you for contributing. This guide describes how to propose a change, run
 the project's checks, and get a change reviewed.
@@ -7,9 +7,9 @@ the project's checks, and get a change reviewed.
 
 - Search existing issues and pull requests to avoid duplicate work.
 - Open an issue for a large change so scope and approach can be agreed first.
-- Report security issues through [SECURITY.md](./SECURITY.md), not a public
-  issue.
-- By participating, you agree to the [Code of Conduct](./CODE_OF_CONDUCT.md).
+- Report security issues through {{SECURITY_REPORTING_CHANNEL_OR_NOT_CONFIGURED}},
+  not a public issue.
+- By participating, you agree to the code of conduct: {{CODE_OF_CONDUCT_REFERENCE_OR_NOT_CONFIGURED}}.
 
 ## Development setup
 

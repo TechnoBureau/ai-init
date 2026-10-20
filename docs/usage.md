@@ -1,4 +1,4 @@
-# Usage — AI Init Skills
+# Usage
 
 Commands below are verified from `requirements-dev.txt`, the scripts, and the
 workflow configuration. Commands that do not exist are marked

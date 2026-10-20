@@ -1,29 +1,27 @@
-# Documentation — {{PROJECT_NAME}}
+# Documentation
 
-This directory holds the project documentation. [README.md](../README.md) is the
-root entry point for people and AI agents; this page is the index for `docs/`.
+This directory holds the project documentation. The repository root
+`README.md` is the entry point for people and AI agents; this page is the index
+for `docs/`.
 
 ## Documents
 
-Keep only the rows for documents that exist. A broken or aspirational index is
-worse than a short one.
+Keep only the rows for documents that exist. When you write this page, turn
+each document name into a link to the path in parentheses and delete the
+parenthetical. A broken or aspirational index is worse than a short one.
 
 | Document | Purpose |
-|---|---|---|
-| [Product requirements](./PRD.md) | Goals, scope, requirements, workflows, product type | Code, configuration, confirmed decisions |
-| [Architecture](./architecture.md) | Components, data flows, deployment, trust boundaries | Active code and deployment configuration |
-| [Repository structure](./structure.md) | Verified directory and component map | Repository tree |
-| [Decisions](./decisions.md) | Decision records with context and consequences | Confirmed decisions and code evidence |
-| [Security](./security.md) | Security posture, applicable profiles, gaps | Repository security evidence |
-| [Threat model](./threat-model.md) | Assets, trust boundaries, threats, controls | Architecture and security evidence |
-| [Tests](./tests.md) | Test layout, commands, coverage gaps | Test files and CI configuration |
-| [Design](./design.md) | Design system, tokens, accessibility | UI implementation and audits |
-| [Style](./style.md) | Languages, tooling, conventions | Formatter, linter, and CI configuration |
-| [Rules](./rules.md) | Contribution, security, and documentation rules | Repository policy and configuration |
-| [Usage](./usage.md) | Verified install, configuration, and run commands | Manifests, scripts, workflows |
-| [Governance](./governance.md) | Roles, change classes, review cadence | Repository policy |
-| [Tasks](./tasks.md) | Maintained task board | Project planning records |
-| [Memory](./memory.md) | Append-only project log | Recorded outcomes |
+|---|---|
+| Product requirements (`PRD.md`) | Goals, scope, requirements, workflows, product type |
+| Repository structure (`structure.md`) | Verified directory and component map |
+| Decisions (`decisions.md`) | Decision records with context and consequences |
+| Security (`security.md`) | Security posture, applicable profiles, gaps |
+
+These documents are generated only when the repository supports them:
+`architecture.md`, `threat-model.md`, `tests.md`, `design.md`, `style.md`,
+`rules.md`, `usage.md`, `governance.md`, `tasks.md`, and `memory.md`. Add a row
+per document that exists, using the same two columns, then delete this
+paragraph.
 
 ## Documentation conventions
 
@@ -33,7 +31,9 @@ worse than a short one.
   Never invent owners, controls, commands, dates, or compliance status.
 - Use one H1 per page, sequential headings, descriptive link text, and table
   header rows.
-- Link only to files that exist. Keep links relative and verify them.
+- Link only to files that exist. Keep links relative and verify them. A
+  template names a document in a code span; the skill writes the link when it
+  writes the document.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
 - Do not add a per-document changelog or control block unless the project has
   adopted a policy that requires one.
@@ -50,7 +50,7 @@ worse than a short one.
 1. Create the document under `docs/` in lowercase kebab-case (`PRD.md` is the
    recorded acronym exception).
 2. Add a row to the table above.
-3. Update any related links in [README.md](../README.md).
+3. Update any related links in the root `README.md`.
 4. Remove rows for documents that are deleted or renamed; leave no dead links.
 
 ## Ownership and review

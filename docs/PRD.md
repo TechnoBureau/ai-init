@@ -1,4 +1,4 @@
-# Product Requirements Document — AI Init Skills
+# Product Requirements Document
 
 ## 1. Overview
 
@@ -98,6 +98,7 @@ No adoption target or date has been confirmed.
 | D-13 | Pin hooks and actions by exact version tag, not commit SHA | Reviewers can check a release; Dependabot keeps pins current |
 | D-14 | Documents describe current state and link the file that owns each value | A duplicated value drifts while still reading as fact |
 | D-15 | Documents carry no bookkeeping status, date, owner, evidence, verification, baseline, target, alternative, or supersession data | Nothing consumes those fields, and a stale value reads as fact |
+| D-16 | Titles name the document type, and template links resolve in the generated repository | A renamed project or skipped document must not leave a broken reference |
 
 Full context and consequences are in [decisions.md](./decisions.md).
 
@@ -143,9 +144,8 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-12 | Every skill MUST have an eval fixture with trigger, non-trigger, and adversarial cases | Both trigger states present; unique IDs |
 | FR-13 | CI MUST run the validator, link checker, tests, Markdown lint, and hygiene hooks on push and pull request | Workflow green on the default branch |
 | FR-14 | The repository MUST demonstrate its own output | Every template has a generated counterpart or a documented exemption |
-| FR-21 | Generated documents MUST NOT carry per-row status, date, owner, evidence, verification, baseline, target, alternative, or supersession metadata | No such column or decision field remains |
-| FR-20 | Every remote hook and action MUST be pinned by exact version tag, never by branch or raw commit SHA | No branch or SHA reference remains in configuration |
 | FR-19 | `ai-init` MUST ship starter configuration for `.gitignore`, the IBM detect-secrets baseline, EditorConfig, Git attributes, and pre-commit, merging into existing files instead of overwriting them | Existing entries preserved; baseline and hook policy match |
+| FR-20 | Every remote hook and action MUST be pinned by exact version tag, never by branch or raw commit SHA | No branch or SHA reference remains in configuration |
 
 ### Documentation content
 
@@ -155,6 +155,10 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-16 | Requirement and decision IDs MUST be permanent | A record is never renumbered or deleted |
 | FR-17 | PRDs MUST contain exactly the ten required sections in order | Section headings match |
 | FR-18 | Security documents MUST use only the defined control statuses and MUST NOT claim certification | Status vocabulary enforced by instruction and template |
+| FR-21 | Generated documents MUST NOT carry per-row status, date, owner, evidence, verification, baseline, target, alternative, or supersession metadata | No such column or decision field remains |
+| FR-22 | Generated documents MUST link only to files that exist in the target repository, and a title MUST name the document type rather than the project | Every template link resolves to an always-created output; no H1 carries a project name |
+| FR-23 | A template MUST NOT contain a relative link; it MUST name the document and the skill MUST write the link only for a file it wrote | `check_links.py` and `tests/test_template_links.py` find no relative link in a template; generated pages link every generated document |
+| FR-24 | A generated Mermaid block MUST be valid as written: canonical init block, a diagram type on the first code line, and no template token | `tests/test_diagrams.py` passes and no diagram renders a parse error |
 
 ## 8. Non-Functional Requirements
 

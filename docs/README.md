@@ -1,4 +1,4 @@
-# Documentation — AI Init Skills
+# Documentation
 
 This directory holds the project documentation. [README.md](../README.md) is the
 root entry point for people and AI agents; this page is the index for `docs/`.
@@ -36,7 +36,9 @@ documented rather than fabricated.
   Never invent owners, controls, commands, dates, or compliance status.
 - Use one H1 per page, sequential headings, descriptive link text, and table
   header rows.
-- Link only to files that exist. Keep links relative and verify them.
+- Link only to files that exist. Keep links relative and verify them. A
+  template names a document in a code span; the skill writes the link when it
+  writes the document.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
 - Do not add a per-document changelog or control block. Change history lives in
   Git and the pull request.

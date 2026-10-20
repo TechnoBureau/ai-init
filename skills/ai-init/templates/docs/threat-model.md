@@ -1,4 +1,4 @@
-# Threat Model — {{PROJECT_NAME}}
+# Threat Model
 
 This is a design-level threat model. It records what the system protects, where
 trust changes, and which threats and controls exist. It is not a penetration
@@ -24,11 +24,11 @@ the integrity of generated documentation.
 
 ## Trust boundaries
 
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
-flowchart TB
-  {{VERIFIED_USERS_AND_SYSTEMS}}
-```
+Begin this section with a compact `flowchart TB` diagram of the verified
+users, systems, and trust boundaries, then explain the boundary table below.
+Write the diagram from verified evidence: a Mermaid block is rendered as
+written, so a template token inside it breaks the page instead of marking a
+gap. Omit the diagram rather than inventing one.
 
 | Boundary | What changes here | Expected control |
 |---|---|---|
@@ -89,7 +89,4 @@ Review this model when:
 
 ## Related documents
 
-- [Security posture](./security.md)
-- [Architecture](./architecture.md)
-- [Decisions](./decisions.md)
-- [Governance](./governance.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

@@ -16,6 +16,16 @@ item means it was verified in the current worktree, not assumed.
 - [ ] No volatile state is copied into the output: exact version pins, hook
   revisions, test counts, run dates, or coverage percentages. The document
   links the config or workflow that owns the value instead.
+- [ ] The H1 names the document type and carries no project name or
+  separator suffix.
+- [ ] The template you started from contains no relative link; the written
+  document links the files that exist, and no link points into `skills/` or
+  `references/`.
+- [ ] A related-document footer was replaced from
+  `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}` with links that exist, or
+  the section was deleted when none remain.
+- [ ] Every index row names a document that was written, and its name is a link.
+  `python scripts/check_links.py` reports no broken link.
 - [ ] Checked every destination before writing; existing content and
   permanent IDs are preserved rather than replaced wholesale.
 - [ ] If a lowercase root `readme.md` exists, its content was reviewed and
@@ -169,9 +179,11 @@ item means it was verified in the current worktree, not assumed.
 - [ ] Relative links resolve to files actually generated; links to skipped
   docs were removed.
 - [ ] The README index matches the documents that exist.
-- [ ] Every Mermaid diagram begins with the exact block in
-  `references/architecture/mermaid-standard.md`; it is copied into
-  `docs/references/architecture/` when generated docs link to it.
+- [ ] Every Mermaid diagram begins with the exact init block in the skill's
+  `references/architecture/mermaid-standard.md`, and the block is written into
+  the document rather than copied from a template.
+- [ ] No Mermaid block contains a template token. The block is valid Mermaid as
+  written, because the renderer parses it before any token is substituted.
 - [ ] A generated `docs/architecture.md` has at least one compact, verified
   high-level diagram; flowcharts default to `TB`, and optional workflow,
   sequence, or mind-map diagrams are included only when they clarify real

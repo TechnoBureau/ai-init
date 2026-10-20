@@ -1,4 +1,4 @@
-# Governance — AI Init Skills
+# Governance
 
 This document defines how the project is owned, changed, reviewed, and
 supported. It applies to source code, skill instructions, documentation,

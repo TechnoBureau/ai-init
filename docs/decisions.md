@@ -1,4 +1,4 @@
-# Decisions — AI Init Skills
+# Decisions
 
 This is the supporting register for the D-IDs summarized in
 [docs/PRD.md](./PRD.md). IDs are permanent and records are never renumbered
@@ -24,6 +24,9 @@ replaces; there is no separate status field to maintain.
 | D-13 | Pin hooks and actions by version tag, not commit SHA |
 | D-14 | Documents describe current state and link the owner of each value |
 | D-15 | Documents carry no bookkeeping metadata |
+| D-16 | Titles name the document type, and template links resolve in the output |
+| D-17 | Templates name documents instead of linking them |
+| D-18 | A Mermaid block never contains a template token |
 
 ## Decision Records
 
@@ -246,6 +249,71 @@ replaces; there is no separate status field to maintain.
 - **Reason:** Bookkeeping that nothing consumes drifts, and a stale status is
   worse than no status because it reads as fact. This extends D-10 from
   document headers to table columns and decision fields.
+
+### D-16 — Titles name the document type, and template links resolve in the output
+
+- **Context:** Every generated title ended with an em dash and the project name,
+  so a renamed repository left a stale name in twelve documents, and the root
+  README had no title of its own. Templates also linked documents that are created only
+  when a repository supports them, and two templates linked a Mermaid reference
+  that ships with the skill and is never copied. Nothing resolved those links:
+  `check_links.py` skipped templates, and the working-example test only proved
+  that a template had an output.
+- **Decision:** An H1 states the document type — `# Overview`, `# Architecture`,
+  `# Product Requirements Document` — with no project name and no separator
+  suffix. A template links only to output that every generated repository
+  contains; a conditional document is named in backticks or reached through
+  `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}`, which the skill fills with
+  links that exist. A template never links into `skills/` or `references/`.
+- **Consequences:** Titles survive a rename and read the same in every repository.
+  Most templates now contain fewer literal links, and the related-document footer
+  becomes a deliberate step rather than a copy of a fixed list. `docs/` keeps real
+  links because every generated document exists here.
+- **Reason:** A link is a promise that the target exists. Promising a document
+  that the same run decided to skip is the defect, and a project name in a title
+  is a copy of a value the repository root already states.
+
+### D-17 — Templates name documents instead of linking them
+
+- **Context:** A template is copied into another repository, but its links are
+  written in this one. Reading `skills/ai-init/templates/docs/README.md` in the
+  repository, `../README.md` resolves to `skills/ai-init/templates/README.md` and
+  `./PRD.md` to a directory that holds no such file; the generated page is correct
+  and the source is broken. `check_links.py` skipped every `templates/` directory,
+  so nineteen of twenty-two template links were never verified. A link checker
+  that treats `readme.md` as a host name reports `http://readme.md`.
+- **Decision:** A template contains no relative link. It names a document in a
+  code span and the skill writes the link when it writes that document, only for
+  files that exist. An index row names the document and its file in parentheses;
+  the skill turns the name into a link and deletes the parenthetical. This
+  replaces the link clause of D-16 and keeps its title rule.
+- **Consequences:** Every template link is now a link that exists, so
+  `check_links.py` covers the templates and the no-link rule has its own test.
+  Generated pages still carry links, and the working example shows the result.
+  A template reader sees a path, not a dead link.
+- **Reason:** A link is a promise that the target exists. A template cannot know
+  which repository it will be copied into, so it cannot promise a target; the
+  skill can, at the moment it writes the file.
+
+### D-18 — A Mermaid block never contains a template token
+
+- **Context:** The architecture and threat-model templates put
+  `{{VERIFIED_ACTORS_AND_SYSTEMS}}` and `{{VERIFIED_USERS_AND_SYSTEMS}}` inside a
+  `mermaid` fence. The renderer parses the block before anything is substituted,
+  so the template displayed a parse error — `got 'DIAMOND_START'` — instead of a
+  diagram, and the same defect would reach any repository whose diagram was left
+  unfilled.
+- **Decision:** A template contains no Mermaid block. It describes the view the
+  document needs, and the skill writes the diagram from verified evidence, or
+  states why the view is omitted. A generated diagram starts with the canonical
+  init block, declares a diagram type on its first code line, and carries no
+  template token. `tests/test_diagrams.py` enforces all four properties.
+- **Consequences:** The templates render as prose and the working example carries
+  the two rendered views. An author can no longer ship a half-filled diagram that
+  looks complete in the source and fails in the browser.
+- **Reason:** A diagram is a rendering, not a form field. A token inside it is a
+  syntax error, so the failure is visible to every reader rather than to the
+  person who was supposed to replace it.
 
 ## Related Docs
 

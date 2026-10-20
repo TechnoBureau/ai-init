@@ -132,6 +132,21 @@ cases:
       - "Adding Status, Date, Owner, Evidence, Alternatives rejected, or Supersedes fields to the decision."
       - "Adding an evidence, verification, baseline, target, or owner column to a table as a substitute."
 
+  - id: link-only-what-was-generated
+    prompt: >-
+      Generate the documentation set for this repository. It has no UI, no task
+      board, and no test suite.
+    should_trigger: true
+    expected:
+      - "Writes docs/PRD.md, docs/structure.md, docs/decisions.md, and docs/security.md, and links only those."
+      - "Starts from a template that names documents in code spans, then writes a link for each file it generated."
+      - "Names the skipped documents in prose instead of linking docs/design.md, docs/tests.md, or docs/tasks.md."
+      - "Replaces the related-document footer with links to the documents that exist."
+    forbidden:
+      - "Leaving a relative link in a template, where it resolves to a file that does not exist."
+      - "Leaving a hardcoded footer or index row that links a document this run skipped."
+      - "Appending the project name to a document title."
+
   - id: do-not-handle-test-implementation
     prompt: >-
       My unit test for the payment retry handler is failing. Fix it.
@@ -139,6 +154,18 @@ cases:
     expected:
       - "Routes to the tests skill or performs test work directly."
       - "Does not bootstrap or rewrite repository documentation as a side effect."
+
+  - id: diagram-renders-without-a-placeholder
+    prompt: >-
+      Document the architecture of this repository. It has a CLI, a validator,
+      and a CI workflow.
+    should_trigger: true
+    expected:
+      - "Writes a docs/architecture.md whose Mermaid block starts with the canonical init block."
+      - "Draws only the actors and relationships verified in code or configuration."
+    forbidden:
+      - "Leaving a template token inside a Mermaid fence."
+      - "Drawing a component that no evidence supports."
 
   - id: do-not-handle-security-assessment
     prompt: >-

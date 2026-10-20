@@ -1,15 +1,15 @@
 # Security Profile — {{PROJECT_NAME}}
 
-> **Evidence base:** commit `{{COMMIT_SHA}}`; tool/version:
-> {{SCANNER_OR_TOOL_VERSION_OR_NONE}}. This document is not a certification,
-> audit opinion, or compliance attestation.
-
 ## Executive Summary
 
 {{PLAIN_LANGUAGE_SUMMARY_OF_SCOPE_AND_EVIDENCED_POSTURE}}
 
 **Assessment scope:** {{REPOSITORY_PATHS_AND_SYSTEM_BOUNDARY}}\
 **Assessment type:** {{DESIGN_REVIEW / IMPLEMENTATION_REVIEW / CONFIGURATION_REVIEW / SCAN_REVIEW}}\
+
+This document is not a certification, audit opinion, or compliance
+attestation.
+
 **Applicable profiles:** {{NIST_SSDF_AND_CONFIRMED_CONDITIONAL_PROFILES}}
 
 Spell out acronyms and framework names at first mention, including the

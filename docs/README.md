@@ -9,20 +9,20 @@ collection's own output.
 
 ## Documents
 
-| Document | Purpose | Evidence base |
-|---|---|---|
-| [Product requirements](./PRD.md) | Goals, scope, requirements, workflows, product type | Skills, scripts, workflows |
-| [Architecture](./architecture.md) | Components, data flows, deployment, trust boundaries | Active code and configuration |
-| [Repository structure](./structure.md) | Verified directory and component map | Repository tree |
-| [Decisions](./decisions.md) | Decision records with context and alternatives | Confirmed decisions and code evidence |
-| [Security](./security.md) | Security posture, applicable profiles, gaps | Repository security evidence |
-| [Threat model](./threat-model.md) | Assets, trust boundaries, threats, controls | Architecture and security evidence |
-| [Tests](./tests.md) | Test layout, commands, coverage gaps | Test files and CI configuration |
-| [Style](./style.md) | Languages, tooling, conventions | Formatter, linter, and CI configuration |
-| [Rules](./rules.md) | Contribution, security, and documentation rules | Repository policy and configuration |
-| [Usage](./usage.md) | Verified install, validation, and run commands | Manifests, scripts, workflows |
-| [Governance](./governance.md) | Roles, change classes, review cadence | Repository policy |
-| [Skill authoring standard](./skill-standard.md) | Repository-specific skill format and review rules | Agent Skills specification, validator |
+| Document | Purpose |
+|---|---|
+| [Product requirements](./PRD.md) | Goals, scope, requirements, workflows, product type |
+| [Architecture](./architecture.md) | Components, data flows, deployment, trust boundaries |
+| [Repository structure](./structure.md) | Verified directory and component map |
+| [Decisions](./decisions.md) | Decision records with context and alternatives |
+| [Security](./security.md) | Security posture, applicable profiles, gaps |
+| [Threat model](./threat-model.md) | Assets, trust boundaries, threats, controls |
+| [Tests](./tests.md) | Test layout, commands, coverage gaps |
+| [Style](./style.md) | Languages, tooling, conventions |
+| [Rules](./rules.md) | Contribution, security, and documentation rules |
+| [Usage](./usage.md) | Verified install, validation, and run commands |
+| [Governance](./governance.md) | Roles, change classes, review cadence |
+| [Skill authoring standard](./skill-standard.md) | Repository-specific skill format and review rules |
 
 `docs/design.md` is intentionally absent: this repository has no rendered user
 interface, so the `design` skill does not apply. That conditional output is
@@ -38,7 +38,6 @@ documented rather than fabricated.
   header rows.
 - Link only to files that exist. Keep links relative and verify them.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
-- Record the commit SHA where a document makes claims about current behavior.
 - Do not add a per-document changelog or control block. Change history lives in
   Git and the pull request.
 

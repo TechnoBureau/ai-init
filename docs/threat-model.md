@@ -12,8 +12,6 @@ effectively.
 - Environments: contributor workstation and GitHub Actions.
 - Out of scope: the target repository a skill is applied to, the agent host's
   sandbox, and platform-level GitHub settings.
-- Evidence base: commit `HEAD`; sources: `skills/`, `scripts/`, `tests/`,
-  `.github/`.
 
 Assumptions:
 

@@ -57,8 +57,8 @@ requirements; do not turn a control catalog into a generic compliance claim.
 1. For an empty repository, create an initial profile, not an assertion of
    security. Use `Not assessed` until scope is known and `Not evidenced` only
    after inspecting the relevant repository area.
-1. Record the reviewed commit, assessment date, evidence paths, and tool/data
-   versions so another reviewer can reproduce the assessment.
+1. Record the assessed boundary and the files, configurations, and tool results
+   examined so another reviewer can repeat the assessment.
 
 ## Scope, data, and threat model
 

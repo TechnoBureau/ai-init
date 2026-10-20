@@ -53,7 +53,7 @@ project-specific decisions in the generated document.
 - If no UI exists, do not create `docs/design.md`. If a new UI repository has
   no implemented system yet, document `Not selected` rather than inventing a
   design system, palette, or assets.
-- Record the reviewed commit, date, and evidence paths.
+- Record the components and paths examined so the review can be repeated.
 
 ## Create the design document
 

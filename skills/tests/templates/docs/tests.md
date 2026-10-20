@@ -2,7 +2,7 @@
 
 > Document actual test and validation mechanisms from test files, project
 > manifests, CI workflows, and tool configuration. Do not infer coverage or
-> quality gates from conventions alone. Record the commit and date reviewed.
+> quality gates from conventions alone.
 
 ## Scope and Strategy
 

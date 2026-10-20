@@ -63,8 +63,6 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
    (`Architecture.md` → temporary name → `architecture.md`) and update links.
 1. Compare `.editorconfig`, `.gitattributes`, and `.pre-commit-config.yaml`
    before adding starter files; never copy over an existing configuration.
-1. Record the commit SHA and files inspected so generated claims are
-   reproducible.
 
 ## Root README and agent links
 
@@ -134,8 +132,8 @@ Always create or refresh, preserving existing content:
 - `docs/PRD.md` with `$prd`.
 - `docs/structure.md` — verified directory tree and active component map.
 - `docs/decisions.md` — confirmed decisions distinguished from observations.
-- `docs/security.md` with `$security` — modular, evidence-based security
-  posture.
+- `docs/security.md` with `$security` — modular security posture derived from
+  inspected configuration.
 
 Each document comes from the template at the matching path, so generation never
 requires a mapping table:
@@ -173,7 +171,7 @@ clearly useful to ongoing work.
 Apply [the documentation standard](./references/documentation-standard.md) to
 every generated document.
 
-- **Evidence provenance.** Record the commit SHA and evidence paths. Distinguish `Verified`, `Observed`, `Planned`, and
+- **Claim status.** Distinguish `Verified`, `Observed`, `Planned`, and
   `Not documented` claims. A file's existence is not proof that it runs.
 - **Normative language.** Use RFC 2119/8174 keywords (`MUST`, `MUST NOT`,
   `SHOULD`, `MAY`) only for actual requirements, and define their meaning once.
@@ -214,7 +212,7 @@ If there is an existing security or cryptographic implementation, do not
 prescribe new algorithms as part of documentation bootstrap; `$security`
 handles its applicable profile and migration assessment.
 
-## Evidence and readability
+## Verification and readability
 
 - Derive current behavior from code, manifests, tests, workflows, deployment
   and security configuration, and the actual tree. Markdown is useful for
@@ -224,7 +222,8 @@ handles its applicable profile and migration assessment.
   code cleanup only when `$code-quality` is requested.
 - Write for product, engineering, security, operations, and leadership
   readers: lead with a plain-language summary, expand acronyms, separate
-  evidence from observations and unknowns, and use concise tables for detail.
+  verified facts from observations and unknowns, and use concise tables for
+  detail.
 - Link only to files that exist. Keep generated project documentation under
   `docs/`, except root `README.md` and its two symbolic links. Copy linked
   style and architecture references to `docs/references/style/` and

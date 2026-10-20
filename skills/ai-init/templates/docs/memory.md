@@ -11,7 +11,7 @@
 
 **Context:** Why this entry exists and what was being decided or observed.
 **Decision / outcome:** What changed, or `No decision recorded`.
-**Evidence or references:** Commit SHA, paths, issue, or test result.
+**References:** Paths, issue, or test result.
 **Author:** Human or agent identifier.
 **Supersedes:** Prior entry or decision ID, when applicable.
 ```

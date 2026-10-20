@@ -5,20 +5,20 @@ skill. They make documentation auditable, maintainable, and usable by both
 people and AI agents. Repository-specific instructions take precedence when
 they are stricter.
 
-## Evidence provenance
+## Claim status
 
 Every substantive claim is one of:
 
 | Type | Meaning | Required support |
 |---|---|---|
-| Verified | Reproduced from the current commit | Exact path, command, or result |
+| Verified | Reproduced from the repository as inspected | Exact path, command, or result |
 | Observed | Visible in code/configuration but not executed | Path and interpretation |
 | Planned | Confirmed intent not yet implemented | Decision or issue reference |
 | Not documented | No reliable evidence | Explicit statement |
 | Not assessed | Review did not cover it | Scope limit |
 
-- Record the commit SHA where the document makes claims about current
-  behavior.
+- Do not add a provenance header naming a branch, revision, or tool version.
+  Cite the path, command, or result that supports each claim instead.
 - Do not present generated prose, old documentation, comments, or file names as
   proof that behavior is active.
 - Inferences must be labeled as inferences and must name the evidence.

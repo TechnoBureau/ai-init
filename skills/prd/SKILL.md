@@ -143,7 +143,7 @@ category is relevant but unresolved; do not fabricate targets.
   coverage that was not measured.
 - Record requirement changes with date, owner, reason, and superseded ID.
 - Do not mark a requirement `Implemented` without evidence in the current
-  commit. Use `Observed`, `Partial`, `Planned`, or `Not evidenced` precisely.
+  code. Use `Observed`, `Partial`, `Planned`, or `Not evidenced` precisely.
 - Approval is a human decision. Include a sign-off table only when names,
   roles, and dates are confirmed; otherwise state `Approval not documented`.
 

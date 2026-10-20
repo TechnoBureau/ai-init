@@ -17,6 +17,7 @@ never renumbered or deleted.
 | D-7 | Use lowercase kebab-case under `docs/` with `PRD.md` as the exception | Accepted | 2026-10-20 | TechnoBureau | This folder |
 | D-8 | Keep this repository's `docs/` as generated output, not hand-written prose | Accepted | 2026-10-20 | TechnoBureau | `tests/test_working_example.py` |
 | D-9 | No changelog or release numbering at the initial state | Accepted | 2026-10-20 | TechnoBureau | `docs/governance.md` |
+| D-10 | Generated documents carry no branch, revision, or tool-version provenance | Accepted | 2026-10-20 | TechnoBureau | `tests/test_working_example.py` |
 
 ## Decision Records
 
@@ -193,6 +194,30 @@ never renumbered or deleted.
 - **Alternatives rejected:** Semantic Versioning per skill — rejected as
   premature; a single repository version — rejected for the same reason.
 - **Evidence:** `docs/governance.md`, `docs/skill-standard.md`.
+- **Supersedes / superseded by:** None.
+
+### D-10 — Generated documents carry no branch, revision, or tool-version provenance
+
+- **Status:** Accepted
+- **Date:** 2026-10-20
+- **Owner:** TechnoBureau
+- **Context:** Generated documents opened with an evidence-base line naming a
+  working branch, `HEAD`, and scanner versions. The line goes stale as soon as
+  the branch moves, duplicates what Git already records, and implies the
+  document is bound to one snapshot.
+- **Decision:** Do not emit an evidence-base header, and do not name a branch,
+  revision, or tool version as document provenance. Claims cite the path,
+  command, or result that supports them; change history stays in Git and the
+  pull request.
+- **Consequences:** Documents describe current behavior rather than the
+  snapshot they were generated from. Reviewers verify the worktree; the pull
+  request records what changed.
+- **Reason:** Provenance that duplicates Git rots immediately and creates false
+  precision about when a document was last correct.
+- **Alternatives rejected:** Keeping a revision in a footer instead of a
+  header — rejected as the same stale metadata in a different position.
+- **Evidence:** `tests/test_working_example.py`,
+  `skills/ai-init/references/documentation-standard.md`.
 - **Supersedes / superseded by:** None.
 
 ## Related Docs

@@ -1,8 +1,7 @@
 # Product Requirements Document — {{PROJECT_NAME}}
 
-> **Evidence base:** commit `{{COMMIT_SHA}}`; files inspected: {{PATHS}}.
-> Existing Markdown can preserve requirement ID history but is not evidence
-> that a behavior is implemented. Keep exactly the ten sections below.
+Existing Markdown can preserve requirement ID history but is not evidence that
+a behavior is implemented. Keep exactly the ten sections below.
 
 ## 1. Overview
 

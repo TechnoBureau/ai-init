@@ -12,7 +12,7 @@
 
 Distinguish what is implemented from decisions that are confirmed but not yet
 implemented. Mark unknowns `Not documented` or `Not selected`. Record the
-reviewed commit and evidence paths.
+paths examined so the review can be repeated.
 
 ## 1. Chosen Design System
 

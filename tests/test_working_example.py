@@ -19,6 +19,16 @@ PLACEHOLDER_RE = re.compile(r"\{\{[^}]+\}\}")
 CODE_BLOCK_RE = re.compile(r"```.*?```", re.DOTALL)
 INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
 
+# Document provenance must not be baked into generated output or template text.
+# Supply-chain pins are different: they name a reviewed revision in configuration,
+# not in the prose a reader is asked to trust.
+PROVENANCE_PATTERNS = (
+    re.compile(r"evidence base", re.IGNORECASE),
+    re.compile(r"\{\{COMMIT_SHA\}\}"),
+    re.compile(r"arena/[0-9a-z-]+"),
+    re.compile(r"commit `?HEAD`?"),
+)
+
 
 def unresolved_placeholders(text: str) -> list[str]:
     """Return placeholders outside code spans and fenced blocks."""
@@ -116,6 +126,21 @@ class WorkingExampleTests(unittest.TestCase):
             text = document.read_text(encoding="utf-8")
             for token in unresolved_placeholders(text):
                 offenders.append(f"{document.name}: {token}")
+        self.assertEqual([], offenders, "\n".join(offenders))
+
+    def test_outputs_and_skills_embed_no_document_provenance(self) -> None:
+        scanned = sorted(DOCS.glob("*.md")) + sorted(TEMPLATES.rglob("*.md"))
+        self.assertTrue(scanned, "no documents or templates found")
+        offenders = []
+        for path in scanned:
+            for number, line in enumerate(
+                path.read_text(encoding="utf-8").splitlines(), start=1
+            ):
+                for pattern in PROVENANCE_PATTERNS:
+                    if pattern.search(line):
+                        offenders.append(
+                            f"{path.relative_to(REPO_ROOT)}:{number}: {line.strip()}"
+                        )
         self.assertEqual([], offenders, "\n".join(offenders))
 
     def test_documentation_index_lists_every_document(self) -> None:

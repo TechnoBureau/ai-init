@@ -1,4 +1,4 @@
-# Usage — {{PROJECT_NAME}}
+# Usage
 
 > Include only commands and configuration verified in manifests, scripts,
 > workflows, or deployment files. Omit sections that do not apply. Never
@@ -75,4 +75,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Security](./security.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

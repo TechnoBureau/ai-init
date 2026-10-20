@@ -1,4 +1,4 @@
-# Product Requirements Document — {{PROJECT_NAME}}
+# Product Requirements Document
 
 Existing Markdown can preserve requirement ID history but is not evidence that
 a behavior is implemented. Keep exactly the ten sections below.
@@ -159,4 +159,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [Architecture](./architecture.md) · [Decisions](./decisions.md) · [Security](./security.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

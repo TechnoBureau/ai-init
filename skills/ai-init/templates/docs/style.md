@@ -1,4 +1,4 @@
-# Code Style — {{PROJECT_NAME}}
+# Code Style
 
 > Include only languages, formatters, and linters confirmed by source,
 > configuration, or CI. Copy and link only the reference guides that apply.
@@ -20,9 +20,10 @@ policy enforces it.
 - Naming and file layout: {{VERIFIED_OR_NOT_DOCUMENTED}}
 - Commit conventions: {{VERIFIED_OR_NOT_DOCUMENTED}}
 - Branch and merge conventions: {{VERIFIED_OR_NOT_DOCUMENTED}}
-- Diagrams: use the canonical block in
-  [`references/architecture/mermaid-standard.md`](./references/architecture/mermaid-standard.md)
-  when a Mermaid diagram is present.
+- Diagrams: start each Mermaid diagram with the canonical init block
+  (`%%{init: {'theme':'base', ...}}%%`), keep labels short, and split a view that
+  grows past about 8 nodes. Any Mermaid diagram elsewhere in `docs/` shows the
+  full block.
 - YAML frontmatter and other machine-readable metadata must never be
   reformatted as prose.
 
@@ -61,8 +62,8 @@ policy enforces it.
 
 ## Language References
 
-Link only guides copied into `docs/references/style/` and relevant to
-languages actually used. Treat these as adaptable baselines, not enforced
+Link only guides that already exist in this repository and are relevant to
+languages actually used. Treat them as adaptable baselines, not enforced
 repository policy unless configuration or CI verifies that:
 
 {{LINKS_TO_APPLICABLE_STYLE_REFERENCES}}
@@ -88,4 +89,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [Rules](./rules.md) · [Architecture](./architecture.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

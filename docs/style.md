@@ -1,4 +1,4 @@
-# Code Style — AI Init Skills
+# Code Style
 
 Only languages, formatters, and tools that exist in the repository are listed.
 Nothing here is enforced unless pre-commit or CI runs it.
@@ -31,8 +31,10 @@ Markdown: a formatter that does not understand YAML frontmatter can convert
   `feat(ai-init): generate repository meta files`.
 - Branch and merge conventions: work on a branch and merge by pull request;
   direct pushes to the default branch are not part of the documented process.
-- Diagrams: use the canonical init block in
-  [`mermaid-standard.md`](../skills/ai-init/references/architecture/mermaid-standard.md).
+- Diagrams: start each Mermaid diagram with the canonical init block
+  (`%%{init: {'theme':'base', ...}}%%`), keep labels short, and split a view that
+  grows past about 8 nodes. Any Mermaid diagram elsewhere in `docs/` shows the
+  full block.
 - YAML frontmatter is data and must never be reformatted as prose.
 
 ## Modular Code and Contracts

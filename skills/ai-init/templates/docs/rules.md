@@ -1,4 +1,4 @@
-# Repository Rules — {{PROJECT_NAME}}
+# Repository Rules
 
 > Record rules established by repository configuration, maintainer policy, or
 > explicit user confirmation. Do not turn conventions from this template into
@@ -82,4 +82,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Security](./security.md) · [Style](./style.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

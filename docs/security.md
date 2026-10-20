@@ -1,4 +1,4 @@
-# Security Profile — AI Init Skills
+# Security Profile
 
 ## Executive Summary
 

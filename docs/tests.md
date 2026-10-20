@@ -1,4 +1,4 @@
-# Tests and Verification — AI Init Skills
+# Tests and Verification
 
 This document records the verification mechanisms that exist in the repository.
 It does not infer quality gates from tool names; every command below is
@@ -29,6 +29,7 @@ defined in a manifest, workflow, or hook configuration.
 | `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, hook flags, and dependency wiring | Unit | `unittest` |
 | `tests/test_pinning.py` | Version-tag pinning for hooks and actions, and Dependabot coverage | Unit | `unittest` |
 | `tests/test_docs_state.py` | Documents describe current state; no frozen runs, duplicated pins, or bookkeeping columns, and the structure doc lists every reference | Unit | `unittest` |
+| `tests/test_template_links.py` | Template titles and links resolve in a generated repository; conditional documents stay behind a placeholder | Unit | `unittest` |
 | `scripts/validate_skills.py` | Every checked-in skill and eval fixture | Static | Project script |
 | `scripts/check_links.py` | All non-template Markdown | Static | Project script |
 | `.pre-commit-config.yaml` | Format, hygiene, secrets, lint | Static | pre-commit |

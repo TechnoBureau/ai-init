@@ -1,4 +1,4 @@
-# Repository Structure — {{PROJECT_NAME}}
+# Repository Structure
 
 > This map must match the repository tree. Include primary directories and
 > key active components; omit generated, vendored, and obsolete content unless
@@ -38,4 +38,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

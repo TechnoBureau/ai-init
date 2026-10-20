@@ -1,4 +1,4 @@
-# Threat Model — {{PROJECT_NAME}}
+# Threat Model
 
 This is a design-level threat model. It records what the system protects, where
 trust changes, and which threats and controls exist. It is not a penetration
@@ -89,7 +89,4 @@ Review this model when:
 
 ## Related documents
 
-- [Security posture](./security.md)
-- [Architecture](./architecture.md)
-- [Decisions](./decisions.md)
-- [Governance](./governance.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

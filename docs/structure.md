@@ -1,4 +1,4 @@
-# Repository Structure — AI Init Skills
+# Repository Structure
 
 This map must match the repository tree. It lists primary directories and key
 active components, and omits generated or ignored content.
@@ -65,6 +65,7 @@ active components, and omits generated or ignored content.
 │   ├── test_docs_state.py
 │   ├── test_pinning.py
 │   ├── test_secret_scanning.py
+│   ├── test_template_links.py
 │   ├── test_validate_skills.py
 │   └── test_working_example.py
 ├── AGENTS.md -> README.md

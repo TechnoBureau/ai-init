@@ -1,4 +1,4 @@
-# Repository Rules — AI Init Skills
+# Repository Rules
 
 Rules recorded here are established by repository configuration, maintainer
 policy, or an explicit decision. Advisory material is labelled as such.
@@ -62,7 +62,8 @@ recommendations.
 ## AI Agent Collaboration
 
 - Start from [README.md](../README.md) and the [documentation index](./README.md).
-- Follow the operating constraints in the skill being executed.
+- Follow root [AGENTS.md](../AGENTS.md) and the operating constraints in the
+  skill being executed.
 - Verify behavior and commands from source, manifests, and configuration.
 - Do not run destructive Git commands, force-push shared branches, or rewrite
   history unless explicitly authorized.

@@ -1,4 +1,4 @@
-# Project Log — {{PROJECT_NAME}}
+# Project Log
 
 > Use for ongoing projects that benefit from shared historical context. Keep
 > entries append-only: add a dated correction instead of rewriting history.
@@ -34,4 +34,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [Agents](../AGENTS.md) · [Decisions](./decisions.md) · [Tasks](./tasks.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

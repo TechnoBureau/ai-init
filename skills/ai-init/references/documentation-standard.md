@@ -70,6 +70,27 @@ and a record does not carry paperwork that no process consumes.
 - The record of when and why a change happened is the commit and the pull
   request, not a field in the document.
 
+## Titles and links
+
+A generated repository contains `README.md`, the `AGENTS.md` and `CLAUDE.md`
+symlinks, and the default `docs/` set. Every other document is created only when
+the repository supports it, so the output set differs per repository.
+
+- A title names the document type, not the project. Do not carry a project name
+  in an H1 and do not suffix it with a separator: `# Architecture`, not
+  `# Architecture — <project>`.
+- Link only to a document that exists. In a template, that means the
+  always-created output; name a conditional document in backticks until the
+  skill has decided to generate it.
+- A related-document footer is written as
+  `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}`. Replace it with links to the
+  documents that were actually written, and delete the section when none remain.
+- A template never links into the skill tree. `references/` ships with the skill,
+  not with the repository it documents, so state the rule inline and show any
+  required code block in the template itself.
+- An index table lists only generated files. Keep the always-created rows and
+  add a row per optional document that exists; delete the instruction paragraph.
+
 ## Decisions
 
 Use a short ADR-style record:

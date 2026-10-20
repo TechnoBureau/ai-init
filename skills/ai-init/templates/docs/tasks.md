@@ -1,4 +1,4 @@
-# Tasks — {{PROJECT_NAME}}
+# Tasks
 
 > Use for an ongoing project when a shared task board is useful. Link work to
 > permanent PRD or decision IDs where applicable; do not add unsupported
@@ -49,4 +49,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Decisions](./decisions.md) · [Memory](./memory.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

@@ -80,6 +80,4 @@ Do not imply authorization to test third-party systems or to violate law.
 
 ## Related documents
 
-- [Threat model](./docs/threat-model.md)
-- [Security posture](./docs/security.md)
-- [Contributing](./CONTRIBUTING.md)
+{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}

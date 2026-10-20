@@ -1,4 +1,4 @@
-# Decisions — AI Init Skills
+# Decisions
 
 This is the supporting register for the D-IDs summarized in
 [docs/PRD.md](./PRD.md). IDs are permanent and records are never renumbered
@@ -24,6 +24,7 @@ replaces; there is no separate status field to maintain.
 | D-13 | Pin hooks and actions by version tag, not commit SHA |
 | D-14 | Documents describe current state and link the owner of each value |
 | D-15 | Documents carry no bookkeeping metadata |
+| D-16 | Titles name the document type, and template links resolve in the output |
 
 ## Decision Records
 
@@ -246,6 +247,29 @@ replaces; there is no separate status field to maintain.
 - **Reason:** Bookkeeping that nothing consumes drifts, and a stale status is
   worse than no status because it reads as fact. This extends D-10 from
   document headers to table columns and decision fields.
+
+### D-16 — Titles name the document type, and template links resolve in the output
+
+- **Context:** Every generated title ended with an em dash and the project name,
+  so a renamed repository left a stale name in twelve documents, and the root
+  README had no title of its own. Templates also linked documents that are created only
+  when a repository supports them, and two templates linked a Mermaid reference
+  that ships with the skill and is never copied. Nothing resolved those links:
+  `check_links.py` skips templates, and the working-example test only proved that
+  a template had an output.
+- **Decision:** An H1 states the document type — `# Overview`, `# Architecture`,
+  `# Product Requirements Document` — with no project name and no separator
+  suffix. A template links only to output that every generated repository
+  contains; a conditional document is named in backticks or reached through
+  `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}`, which the skill fills with
+  links that exist. A template never links into `skills/` or `references/`.
+- **Consequences:** Titles survive a rename and read the same in every repository.
+  Most templates now contain fewer literal links, and the related-document footer
+  becomes a deliberate step rather than a copy of a fixed list. `docs/` keeps real
+  links because every generated document exists here.
+- **Reason:** A link is a promise that the target exists. Promising a document
+  that the same run decided to skip is the defect, and a project name in a title
+  is a copy of a value the repository root already states.
 
 ## Related Docs
 

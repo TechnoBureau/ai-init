@@ -221,6 +221,11 @@ every generated document.
   columns to a table, and do not add those fields to a decision. When a table
   must say whether something holds, use one `Assessment` column (`Coverage` for
   requirement traceability) and the claim vocabulary.
+- **Titles and links.** Name the document type in the H1; never append a
+  project name. Link only to output that exists in the target repository:
+  a conditional document is named in backticks, a related-document footer is
+  filled from `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}` with links
+  that resolve, and a template never links into `references/`.
 - **Architecture.** Use C4-style boundaries (context, container, component) and
   ISO/IEC/IEEE 42010 concerns, viewpoints, and views. Keep diagrams small and
   verify every node and edge.

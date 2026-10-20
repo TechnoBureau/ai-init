@@ -1,4 +1,4 @@
-# AI Init Skills
+# Overview
 
 A modular, evidence-grounded Agent Skills collection for repository
 documentation, product requirements, enterprise security, test work, design
@@ -127,6 +127,7 @@ pre-commit run --all-files
 | `tests/test_working_example.py` | Every template has a generated counterpart in `docs/`; no placeholders or orphan documents |
 | `tests/test_secret_scanning.py` | Baseline policy: no keyword scan, no findings, standard files excluded, hook flags, dependencies, and exclude parity |
 | `tests/test_docs_state.py` | Documents describe current state: no frozen run, duplicated pin, bookkeeping column, or extra decision field |
+| `tests/test_template_links.py` | Every template title names the document type, and every template link resolves in a generated repository |
 | [CI](./.github/workflows/validate.yml) | All of the above on push and pull request with version-pinned actions and read-only permissions |
 
 The validator is deliberately strict: a missing `---` on line 1 is a blocking
@@ -184,6 +185,10 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 - Generated documentation uses uppercase root `README.md`; other project
   documents belong under `docs/` in lowercase kebab-case, with `PRD.md` as the
   recorded acronym exception.
+- A document title names its type, not the project: `# Architecture`, not
+  `# Architecture — <project>`. A template links only to documents every
+  generated repository contains; a conditional document is named in backticks
+  or reached through the related-document placeholder the skill fills in.
 - No document contains secrets, credentials, private keys, or unredacted
   personal data.
 

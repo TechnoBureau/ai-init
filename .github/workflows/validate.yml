@@ -45,4 +45,20 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Run repository hygiene hooks
-        run: pre-commit run --all-files --show-diff-on-failure
+        id: hygiene
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          pre-commit run --all-files --show-diff-on-failure 2>&1 | tee hygiene.log
+
+      - name: Report hook failure
+        if: steps.hygiene.outcome == 'failure'
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          lines = Path("hygiene.log").read_text(encoding="utf-8").splitlines()
+          message = "\n".join(lines[-60:]).replace("%", "%25").replace("\r", "")
+          print("::error title=hygiene::" + message.replace("\n", "%0A"))
+          PY
+          exit 1

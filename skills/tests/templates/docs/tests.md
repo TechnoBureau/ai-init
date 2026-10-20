@@ -20,16 +20,17 @@
 
 ## Commands
 
-| Purpose | Exact command | Defined in | Last verified |
+| Purpose | Exact command | Defined in | Enforced by |
 |---|---|---|---|
-| Unit tests | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{DATE_OR_NOT_VERIFIED}} |
-| Integration / end-to-end | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{DATE_OR_NOT_VERIFIED}} |
-| Lint / static validation | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{DATE_OR_NOT_VERIFIED}} |
-| Type / schema validation | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{DATE_OR_NOT_VERIFIED}} |
-| Security scans | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{DATE_OR_NOT_VERIFIED}} |
+| Unit tests | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{WORKFLOW_JOB_OR_NOT_IN_CI}} |
+| Integration / end-to-end | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{WORKFLOW_JOB_OR_NOT_IN_CI}} |
+| Lint / static validation | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{WORKFLOW_JOB_OR_NOT_IN_CI}} |
+| Type / schema validation | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{WORKFLOW_JOB_OR_NOT_IN_CI}} |
+| Security scans | `{{VERIFIED_COMMAND_OR_NONE}}` | `{{MANIFEST_OR_WORKFLOW}}` | {{WORKFLOW_JOB_OR_NOT_IN_CI}} |
 
 Do not list a command you did not verify. Use `Not configured` where none
-exists.
+exists. Name the workflow job that enforces a command instead of recording
+when it last passed.
 
 ## CI Verification
 
@@ -86,16 +87,19 @@ configured validation checks. Do not present coverage as quality by itself.
 - Cleanup and isolation: {{VERIFIED_OR_NOT_DOCUMENTED}}
 - External services or network dependencies: {{VERIFIED_OR_NOT_DOCUMENTED}}
 
-## Evidence and Results
+## Verification Status
 
-Record recent, reproducible evidence:
+State which gates pass and where they are enforced. CI is the record of a run;
+do not paste a dated log, a revision, an exact tool version, or a test count
+into the document, because each one is stale after the next commit or upgrade.
+
+Record a failure investigation only while it is open, with the command,
+environment, and result for that run:
 
 ```text
 Command: <exact command>
-Commit: <SHA>
-Environment: <OS/runtime/tool versions>
-Result: Passed | Failed | Blocked | Not run
-Artifacts: <paths, if any>
+Environment: <OS/runtime>
+Result: Failed | Blocked
 Failures: <test IDs and short diagnostics>
 Not covered: <explicit gaps>
 ```

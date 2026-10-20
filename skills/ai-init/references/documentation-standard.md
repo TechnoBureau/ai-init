@@ -19,6 +19,12 @@ Every substantive claim is one of:
 
 - Do not add a provenance header naming a branch, revision, or tool version.
   Cite the path, command, or result that supports each claim instead.
+- Describe the state that exists now, not a snapshot of the last run. Do not
+  copy values the configuration already owns — exact version pins, hook
+  revisions, test counts, run dates, coverage percentages — because duplicates
+  drift. Link the file that owns the value: `.pre-commit-config.yaml`,
+  `requirements-dev.txt`, the workflow, or the manifest. A decision record may
+  quote the value it chose; a description of current behavior must not.
 - Do not present generated prose, old documentation, comments, or file names as
   proof that behavior is active.
 - Inferences must be labeled as inferences and must name the evidence.

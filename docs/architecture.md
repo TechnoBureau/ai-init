@@ -15,7 +15,7 @@ skill is loaded by an agent host and applied to a target repository.
 | Stakeholder | Concern | Addressed by |
 |---|---|---|
 | Skill maintainer | Changes must not break discovery or safety rules | Validator, tests, CI, authoring standard |
-| Platform engineer | Generated documents must be trustworthy | Evidence taxonomy, templates, checklists |
+| Platform engineer | Generated documents must be trustworthy | Claim-status vocabulary, templates, checklists |
 | Security reviewer | No secret leakage or compliance overclaim | Operating constraints, anti-overclaim rules |
 | AI agent | Unambiguous workflow and scope boundaries | `SKILL.md` structure |
 | Reader | Documentation that matches reality | Generated `docs/`, link checker |
@@ -90,7 +90,7 @@ No database, queue, cache, or user data store exists.
 | Attribute | Requirement / target | Architectural mechanism | Evidence |
 |---|---|---|---|
 | Reliability | Validation must be deterministic and fail closed | Pure functions, explicit exit codes | `scripts/validate_skills.py` |
-| Security | No secrets in the repository or generated output | gitleaks, private-key detection, review | `.pre-commit-config.yaml` |
+| Security | No secrets in the repository or generated output | gitleaks, IBM detect-secrets, private-key detection, review | `.pre-commit-config.yaml` |
 | Privacy | No personal data processed | Public repository content only | `docs/security.md` |
 | Observability | Failures identify the rule and path | Rule codes such as `SKILL010`, `EVAL015` | Validator output |
 | Maintainability | Every rule is tested | Unit tests and fixtures | `tests/` |

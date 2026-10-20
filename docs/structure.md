@@ -40,9 +40,11 @@ active components, and omits generated or ignored content.
 │   │   ├── files/              # .editorconfig, .gitattributes, .gitignore, .secrets.baseline, .pre-commit-config.yaml
 │   │   ├── references/
 │   │   │   ├── architecture/mermaid-standard.md
+│   │   │   ├── style/style-*.md
 │   │   │   ├── documentation-standard.md
+│   │   │   ├── gitignore-standard.md
 │   │   │   ├── licensing.md
-│   │   │   └── style/style-*.md
+│   │   │   └── secret-scanning.md
 │   │   └── templates/
 │   │       ├── root/           # README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, CODEOWNERS
 │   │       └── docs/           # docs/ document set
@@ -60,6 +62,7 @@ active components, and omits generated or ignored content.
 │   └── code-quality/references/engineering-practices.md
 ├── tests/
 │   ├── test_check_links.py
+│   ├── test_docs_state.py
 │   ├── test_pinning.py
 │   ├── test_secret_scanning.py
 │   ├── test_validate_skills.py
@@ -87,7 +90,7 @@ active components, and omits generated or ignored content.
 | `evals/*.yaml` | Trigger, non-trigger, and adversarial evaluation cases | `scripts/validate_skills.py` | TechnoBureau |
 | `scripts/validate_skills.py` | Specification and enterprise metadata gate | `python scripts/validate_skills.py --strict` | TechnoBureau |
 | `scripts/check_links.py` | Local Markdown link integrity | `python scripts/check_links.py` | TechnoBureau |
-| `tests/` | Regression tests for the validators, the working example, and the secret-scanning policy | `python -m unittest discover -s tests` | TechnoBureau |
+| `tests/` | Regression tests for the validators, the working example, pinning, documentation state, and the secret-scanning policy | `python -m unittest discover -s tests` | TechnoBureau |
 | `.github/workflows/validate.yml` | CI enforcement of every gate | Push and pull request | TechnoBureau |
 | `docs/` | Generated documentation, this folder | Regenerated from `skills/*/templates/` | TechnoBureau |
 

@@ -9,8 +9,10 @@
 |---|---|---|---|---|---|
 | {{LANGUAGE}} | {{SUPPORTED_VERSION}} | {{VERIFIED_TOOL_OR_NONE}} | {{VERIFIED_TOOL_OR_NONE}} | {{PRE_COMMIT_CI_OR_NOT_ENFORCED}} | `{{CONFIG_PATH}}` |
 
-Pin tool versions where the repository already pins them. Do not describe a
-tool as required unless pre-commit, CI, or review policy enforces it.
+Record the supported version range, then link the file that pins the exact
+version. Do not copy an exact pin into the table; it is stale after the next
+update. Do not describe a tool as required unless pre-commit, CI, or review
+policy enforces it.
 
 ## Repository Conventions
 

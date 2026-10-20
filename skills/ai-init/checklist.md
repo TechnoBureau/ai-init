@@ -9,6 +9,9 @@ item means it was verified in the current worktree, not assumed.
   security configuration before using existing Markdown for context.
 - [ ] No branch, revision, or tool-version provenance header appears in the
   output; claims cite paths, commands, or results.
+- [ ] No volatile state is copied into the output: exact version pins, hook
+  revisions, test counts, run dates, or coverage percentages. The document
+  links the config or workflow that owns the value instead.
 - [ ] Checked every destination before writing; existing content and
   permanent IDs are preserved rather than replaced wholesale.
 - [ ] If a lowercase root `readme.md` exists, its content was reviewed and

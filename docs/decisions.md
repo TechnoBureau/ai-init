@@ -259,10 +259,11 @@ never renumbered or deleted.
   detector flags ordinary prose such as `password: example`, and dependency
   lockfiles are full of high-entropy hashes, so a default scan produces noise
   that reviewers learn to ignore.
-- **Decision:** Ship one `.secrets.baseline` for IBM detect-secrets 0.13.1 with
-  the keyword detector omitted, dependency and generated paths excluded, and no
-  findings. Wire the hook with `--baseline` and `--no-keyword-scan`, pinned by
-  commit, and keep gitleaks as the complementary gate.
+- **Decision:** Ship one `.secrets.baseline` for the IBM detect-secrets fork
+  with the keyword detector omitted, dependency and generated paths excluded,
+  and no findings. Run the hook with `--baseline`, `--use-all-plugins`,
+  `--no-keyword-scan`, and `--fail-on-unaudited`; keep gitleaks as the
+  complementary gate. D-13 governs how the hook is pinned.
 - **Consequences:** Keyword-only secrets are not detected by this scanner; the
   reference records that trade-off and keeps provider and entropy detectors on.
   Two scanners must be maintained. Tests pin the policy so a regenerated
@@ -304,6 +305,38 @@ never renumbered or deleted.
   Branch pins — rejected as unreviewable and unauditable.
 - **Evidence:** `.pre-commit-config.yaml`, `.github/workflows/validate.yml`,
   `tests/test_pinning.py`.
+- **Supersedes / superseded by:** None.
+
+### D-14 — Documents describe current state and link the owner of each value
+
+- **Status:** Accepted
+- **Date:** 2026-10-20
+- **Owner:** TechnoBureau
+- **Context:** Documents copied exact tool pins, hook revisions, test counts,
+  local run dates, and environment lines into prose and into the tests
+  template. Every one of those values belongs to a file that changes it, so the
+  prose was stale after any upgrade or commit while still reading as fact. A
+  "Last verified" column turned a green run into a permanent claim.
+- **Decision:** A document states behavior as it exists now and links the file
+  that owns a volatile value: `requirements-dev.txt`, `.pre-commit-config.yaml`,
+  the workflow, or the manifest. Do not duplicate exact pins, hook revisions,
+  test counts, run dates, coverage percentages, or environment lines. Templates
+  do not ask a copier to record them. Only an unresolved failure investigation
+  may record the command, environment, and result of that run.
+- **Consequences:** A version bump changes one configuration file, and no
+  document needs editing to stay true. A reader who needs the pin follows one
+  link to the source of truth. Decision records remain the exception: a record
+  may quote the value it chose, because the choice is history rather than a
+  claim about the current tree.
+- **Reason:** A duplicated value is a second source of truth that no test or
+  automation updates, so it decays silently. Linking the owner keeps the
+  document correct by construction.
+- **Alternatives rejected:** A "last reviewed" date with a periodic refresh
+  checklist — rejected because it records effort rather than correctness and
+  still goes stale between reviews. Pasting a CI badge or run link — rejected
+  as the same snapshot in another form.
+- **Evidence:** `tests/test_docs_state.py`,
+  `skills/ai-init/references/documentation-standard.md`, `docs/tests.md`.
 - **Supersedes / superseded by:** None.
 
 ## Related Docs

@@ -6,8 +6,9 @@ defined in a manifest, workflow, or hook configuration.
 
 ## Scope and Strategy
 
-- Systems covered: the skill validator, the link checker, and the
-  template-to-document correspondence.
+- Systems covered: the skill validator, the link checker, the
+  template-to-document correspondence, the pinning policy, the secret-scanning
+  baseline, and the documentation state checks.
 - Levels in use: unit tests, static validation, and CI enforcement. No
   integration, end-to-end, performance, or accessibility automation runs
   against a runtime, because there is no runtime.
@@ -27,21 +28,22 @@ defined in a manifest, workflow, or hook configuration.
 | `tests/test_working_example.py` | Template-to-`docs/` and starter-file correspondence | Unit | `unittest` | File |
 | `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, hook flags, and dependency wiring | Unit | `unittest` | File |
 | `tests/test_pinning.py` | Version-tag pinning for hooks and actions, and Dependabot coverage | Unit | `unittest` | File |
+| `tests/test_docs_state.py` | Documents describe current state; no frozen runs or duplicated pins, and the structure doc lists every reference | Unit | `unittest` | File |
 | `scripts/validate_skills.py` | Every checked-in skill and eval fixture | Static | Project script | File |
 | `scripts/check_links.py` | All non-template Markdown | Static | Project script | File |
 | `.pre-commit-config.yaml` | Format, hygiene, secrets, lint | Static | pre-commit | Configuration |
 
 ## Commands
 
-| Purpose | Exact command | Defined in | Last verified |
+| Purpose | Exact command | Defined in | Enforced by |
 |---|---|---|---|
-| Unit tests | `python -m unittest discover -s tests -v` | `tests/` | Local run, 38 tests passing |
-| Skill validation | `python scripts/validate_skills.py --strict` | `scripts/validate_skills.py` | Local run, 6 skills, 0 errors |
-| Link check | `python scripts/check_links.py` | `scripts/check_links.py` | Local run, 0 broken links |
-| Markdown lint | `pre-commit run markdownlint-cli2 --all-files` | `.pre-commit-config.yaml` | Local run, 0 issues |
-| All hooks | `pre-commit run --all-files` | `.pre-commit-config.yaml` | Local run, all hooks pass |
-| Secret scan | `pre-commit run detect-secrets --all-files` | `.pre-commit-config.yaml` | Local run, baseline policy applied |
-| Install tooling | `python -m pip install -r requirements-dev.txt` | `requirements-dev.txt` | Verified in CI |
+| Unit tests | `python -m unittest discover -s tests -v` | `tests/` | CI job `validate` |
+| Skill validation | `python scripts/validate_skills.py --strict` | `scripts/validate_skills.py` | CI job `validate`, pre-commit hook |
+| Link check | `python scripts/check_links.py` | `scripts/check_links.py` | CI job `validate`, pre-commit hook |
+| Markdown lint | `pre-commit run markdownlint-cli2 --all-files` | `.pre-commit-config.yaml` | CI job `validate`, pre-commit hook |
+| All hooks | `pre-commit run --all-files` | `.pre-commit-config.yaml` | CI job `validate` |
+| Secret scan | `pre-commit run detect-secrets --all-files` | `.pre-commit-config.yaml` | CI job `validate`, pre-commit hook |
+| Install tooling | `python -m pip install -r requirements-dev.txt` | `requirements-dev.txt` | CI job `validate` |
 
 `gitleaks` runs in CI. In a restricted environment where the hook cannot
 download its runtime, it must be reported as not run rather than as passing.
@@ -79,7 +81,7 @@ They are marked `Partial` where no automated evidence exists.
 
 | Area | Status | Evidence / gap |
 |---|---|---|
-| Unit and error paths | Verified | 38 tests across five modules |
+| Unit and error paths | Verified | Six test modules under `tests/` |
 | Integration and contracts | Partial | Skills CLI discovery is verified manually, not in CI |
 | Authentication and authorization | Not applicable | No authenticated surface in this repository |
 | Input validation and injection | Partial | Validator validates structure; no fuzzing |
@@ -113,26 +115,17 @@ They are marked `Partial` where no automated evidence exists.
   exit.
 - External services: none contacted by the test suite.
 
-## Evidence and Results
+## Verification Status
 
-```text
-Command: python scripts/validate_skills.py --strict
-Environment: Python 3.11.2, PyYAML 6.0.3, Linux
-Result: Passed
-Output: 6 skills checked; 0 error(s), 0 warning(s).
+Every command in the table above is defined in a manifest, workflow, or hook
+configuration, and the CI job runs each one on every push and pull request. The
+workflow run is the record of a result, so this document does not repeat a
+timestamp, revision, environment, or test count.
 
-Command: python scripts/check_links.py
-Result: Passed
-Output: 0 broken local link(s) found.
-
-Command: python -m unittest discover -s tests -v
-Result: Passed
-Output: 38 tests, OK.
-
-Command: pre-commit run --all-files
-Result: Passed (gitleaks executed in CI; skipped locally where the sandbox
-blocks the hook runtime and reported as skipped, not passed).
-```
+Run the commands above before opening a pull request. `gitleaks` needs network
+access to download its runtime; where that is blocked, the hook reports
+`Skipped` and must not be described as passing. The IBM detect-secrets hook reads the committed baseline
+and requires no network access after its environment is installed.
 
 ## Defects, Gaps, and Actions
 

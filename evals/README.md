@@ -46,7 +46,7 @@ fixtures manually or through an agent evaluation runner:
 3. Send the prompt exactly as written.
 4. Record whether the skill triggered and whether each expected/forbidden
    behavior occurred.
-5. Report the model, host, and skill version with the result.
+5. Report the model and host with the result. There is no skill version field.
 
 Do not record a pass without an observed session. Do not edit a fixture to make
 a failing behavior look acceptable; change the skill or the expected behavior

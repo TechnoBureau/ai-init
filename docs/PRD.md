@@ -141,6 +141,8 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-12 | Every skill MUST have an eval fixture with trigger, non-trigger, and adversarial cases | Both trigger states present; unique IDs | Validator rules `EVAL001`–`EVAL015` | `evals/*.yaml` | Implemented |
 | FR-13 | CI MUST run the validator, link checker, tests, Markdown lint, and hygiene hooks on push and pull request | Workflow green on the default branch | GitHub Actions | `.github/workflows/validate.yml` | Implemented |
 | FR-14 | The repository MUST demonstrate its own output | Every template has a generated counterpart or a documented exemption | `tests/test_working_example.py` | `docs/` | Implemented |
+| FR-20 | Every remote hook and action MUST be pinned by exact version tag, never by branch or raw commit SHA | No branch or SHA reference remains in configuration | `tests/test_pinning.py` | `.pre-commit-config.yaml`, `.github/workflows/validate.yml` | Implemented |
+| FR-19 | `ai-init` MUST ship starter configuration for `.gitignore`, the IBM detect-secrets baseline, EditorConfig, Git attributes, and pre-commit, merging into existing files instead of overwriting them | Existing entries preserved; baseline and hook policy match | `tests/test_working_example.py`, `tests/test_secret_scanning.py` | `skills/ai-init/files/` | Implemented |
 
 ### Documentation content
 
@@ -189,7 +191,7 @@ No deployment pipeline exists; the repository publishes content only.
 ├── docs/            # generated documentation set (this folder)
 ├── evals/           # evaluation fixtures per skill
 ├── scripts/         # validate_skills.py, check_links.py
-├── tests/           # validator and working-example regression tests
+├── tests/           # regression tests for validators, templates, pinning, and scanning
 └── .github/         # CI workflow, Dependabot, CODEOWNERS, PR template
 ```
 

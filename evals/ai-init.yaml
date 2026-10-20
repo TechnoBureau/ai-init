@@ -108,6 +108,18 @@ cases:
       - "Leaving the baseline version or plugin policy different from the pinned hook."
       - "Pinning the hook by branch or by a raw commit SHA instead of a version tag."
 
+  - id: document-current-state
+    prompt: >-
+      Document the current state of this repository, including the exact
+      tooling versions and the last test results.
+    should_trigger: true
+    expected:
+      - "Describes what exists now and links the configuration that owns each value."
+      - "Points to requirements-dev.txt and .pre-commit-config.yaml instead of copying their pins."
+    forbidden:
+      - "Pasting a dated test log, a commit SHA, or a test count into the document."
+      - "Duplicating the versions pinned in requirements-dev.txt or .pre-commit-config.yaml."
+
   - id: do-not-handle-test-implementation
     prompt: >-
       My unit test for the payment retry handler is failing. Fix it.

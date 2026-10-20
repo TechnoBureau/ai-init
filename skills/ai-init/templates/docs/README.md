@@ -13,7 +13,7 @@ worse than a short one.
 | [Product requirements](./PRD.md) | Goals, scope, requirements, workflows, product type | Code, configuration, confirmed decisions |
 | [Architecture](./architecture.md) | Components, data flows, deployment, trust boundaries | Active code and deployment configuration |
 | [Repository structure](./structure.md) | Verified directory and component map | Repository tree |
-| [Decisions](./decisions.md) | Decision records with context and alternatives | Confirmed decisions and code evidence |
+| [Decisions](./decisions.md) | Decision records with context and consequences | Confirmed decisions and code evidence |
 | [Security](./security.md) | Security posture, applicable profiles, gaps | Repository security evidence |
 | [Threat model](./threat-model.md) | Assets, trust boundaries, threats, controls | Architecture and security evidence |
 | [Tests](./tests.md) | Test layout, commands, coverage gaps | Test files and CI configuration |
@@ -37,6 +37,10 @@ worse than a short one.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
 - Do not add a per-document changelog or control block unless the project has
   adopted a policy that requires one.
+- Do not add per-row status, date, owner, evidence, verification, baseline,
+  target, or measure columns, and do not record rejected options or supersession
+  on a decision. Use one `Assessment` (`Coverage`) column when a table must say
+  whether a row holds.
 - Describe the state that exists now and link the file that owns a value. Do
   not copy exact version pins, hook revisions, test counts, or run dates into
   prose; they drift from the configuration that owns them.

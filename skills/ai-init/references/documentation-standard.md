@@ -9,13 +9,13 @@ they are stricter.
 
 Every substantive claim is one of:
 
-| Type | Meaning | Required support |
-|---|---|---|
-| Verified | Reproduced from the repository as inspected | Exact path, command, or result |
-| Observed | Visible in code/configuration but not executed | Path and interpretation |
-| Planned | Confirmed intent not yet implemented | Decision or issue reference |
-| Not documented | No reliable evidence | Explicit statement |
-| Not assessed | Review did not cover it | Scope limit |
+| Type | Meaning |
+|---|---|
+| Verified | Reproduced from the repository as inspected; a path, command, or run supports it |
+| Observed | Visible in code or configuration but not executed |
+| Planned | Confirmed intent that is not implemented yet |
+| Not documented | No reliable support found |
+| Not assessed | The review did not cover it |
 
 - Do not add a provenance header naming a branch, revision, or tool version.
   Cite the path, command, or result that supports each claim instead.
@@ -27,8 +27,9 @@ Every substantive claim is one of:
   quote the value it chose; a description of current behavior must not.
 - Do not present generated prose, old documentation, comments, or file names as
   proof that behavior is active.
-- Inferences must be labeled as inferences and must name the evidence.
-- When evidence conflicts, surface the conflict rather than choosing silently.
+- Inferences must be labeled as inferences and must name the file, command,
+  or record they rest on.
+- When sources conflict, surface the conflict rather than choosing silently.
 
 ## Normative language
 
@@ -54,26 +55,37 @@ not use these words for aspirations, observations, or marketing. Lowercase
 Do not mix a tutorial, full reference, and design rationale in one page. Link
 between classes instead. The README is an index, not a tutorial.
 
+## No bookkeeping metadata
+
+A table states a subject and a finding. It does not carry per-row bookkeeping,
+and a record does not carry paperwork that no process consumes.
+
+- Do not add a column for status, date, owner, evidence, verification,
+  baseline, target, or measure.
+- Do not record rejected options or supersession as fields. If a decision is
+  replaced, the replacing record names the one it replaces.
+- When a table has to say whether something holds, use at most one column
+  named `Assessment`, or `Coverage` for requirement traceability, and put the
+  claim and its basis in that cell.
+- The record of when and why a change happened is the commit and the pull
+  request, not a field in the document.
+
 ## Decisions
 
-Use an ADR/MADR-style record:
+Use a short ADR-style record:
 
 ```text
 ### D-12 — Short decision title
 
-- Status: Proposed | Accepted | Superseded | Deprecated
-- Date: YYYY-MM-DD
-- Owner: <role or Not documented>
 - Context: the forces and constraints
 - Decision: what was chosen
 - Consequences: positive, negative, and follow-up work
-- Alternatives rejected: option and why
-- Supersedes / superseded by: D-XX or None
-- Evidence: path, issue, or meeting record
+- Reason: the rationale, or Not documented
 ```
 
-Preserve permanent IDs. Mark a decision superseded rather than deleting it. Do
-not invent rationale or rejected alternatives; write `Not documented`.
+Preserve permanent IDs and never delete or renumber a record. Do not invent a
+rationale; write `Not documented`. When a record is replaced, the new record
+names the one it replaces.
 
 ## Architecture
 
@@ -136,7 +148,7 @@ competing indexes.
   operations in the pull request description.
 - Set a review cadence by risk: security and architecture documents at least
   quarterly, operational runbooks more often, stable reference pages annually.
-- On review, re-verify commands, paths, links, and control statuses.
+- On review, re-verify commands, paths, links, and control descriptions.
 
 ## Data handling
 
@@ -156,4 +168,4 @@ competing indexes.
 - No placeholders, secrets, or personal data remain.
 - Accessibility basics are satisfied.
 - README index matches the files that exist.
-- Review status is honest.
+- The claim vocabulary is used honestly and no row is left unstated.

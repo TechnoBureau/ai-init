@@ -5,7 +5,7 @@
 
 ## Languages and Tooling
 
-| Language / format | Version | Formatter | Linter / validator | Enforced by | Configuration evidence |
+| Language / format | Version | Formatter | Linter / validator | Enforced by | Configuration file |
 |---|---|---|---|---|---|
 | {{LANGUAGE}} | {{SUPPORTED_VERSION}} | {{VERIFIED_TOOL_OR_NONE}} | {{VERIFIED_TOOL_OR_NONE}} | {{PRE_COMMIT_CI_OR_NOT_ENFORCED}} | `{{CONFIG_PATH}}` |
 
@@ -80,9 +80,9 @@ in `docs/tests.md` only when that optional document exists.
 
 ## Exceptions
 
-| Convention | Exception | Rationale | Owner | Review date |
-|---|---|---|---|---|
-| {{RULE_OR_NONE}} | {{EXCEPTION_OR_NONE}} | {{CONFIRMED_RATIONALE}} | {{OWNER_OR_UNKNOWN}} | {{DATE_OR_NOT_DECIDED}} |
+| Convention | Exception | Rationale |
+|---|---|---|
+| {{RULE_OR_NONE}} | {{EXCEPTION_OR_NONE}} | {{CONFIRMED_RATIONALE}} |
 
 ______________________________________________________________________
 

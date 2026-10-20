@@ -20,7 +20,7 @@ paths examined so the review can be repeated.
 
 **Version / package:** {{VERIFIED_VERSION_OR_NOT_DOCUMENTED}}
 
-**Why this system:** {{EVIDENCE_BASED_RATIONALE_OR_NOT_DOCUMENTED}}
+**Why this system:** {{CONFIRMED_RATIONALE_OR_NOT_DOCUMENTED}}
 
 **Adopt as-is vs. adapt:**
 
@@ -88,9 +88,9 @@ accessible authentication. Do not claim conformance without a completed audit.
 
 ## 5. Layout and Responsiveness
 
-| Breakpoint / range | Layout behavior | Navigation behavior | Evidence |
-|---|---|---|---|
-| {{VERIFIED_RANGE}} | {{GRID_OR_STACKING}} | {{NAV_PATTERN}} | `{{PATH}}` |
+| Breakpoint / range | Layout behavior | Navigation behavior |
+|---|---|---|
+| {{VERIFIED_RANGE}} | {{GRID_OR_STACKING}} | {{NAV_PATTERN}} |
 
 - Grid and spacing system: {{VERIFIED_OR_NOT_DOCUMENTED}}
 - Reflow and 400% zoom behavior: {{VERIFIED_OR_NOT_ASSESSED}}
@@ -106,12 +106,12 @@ accessible authentication. Do not claim conformance without a completed audit.
 
 ## 7. Localization and Internationalization
 
-| Concern | Current behavior | Evidence |
-|---|---|---|
-| Supported locales | {{CONFIRMED_LIST_OR_NOT_DOCUMENTED}} | `{{PATH}}` |
-| Right-to-left support | {{VERIFIED_OR_NOT_IMPLEMENTED}} | `{{PATH}}` |
-| Text expansion tolerance | {{VERIFIED_OR_NOT_TESTED}} | `{{PATH}}` |
-| Date/number/currency formatting | {{VERIFIED_OR_NOT_DOCUMENTED}} | `{{PATH}}` |
+| Concern | Current behavior |
+|---|---|
+| Supported locales | {{CONFIRMED_LIST_OR_NOT_DOCUMENTED}} |
+| Right-to-left support | {{VERIFIED_OR_NOT_IMPLEMENTED}} |
+| Text expansion tolerance | {{VERIFIED_OR_NOT_TESTED}} |
+| Date/number/currency formatting | {{VERIFIED_OR_NOT_DOCUMENTED}} |
 
 ## 8. Motion and Interaction
 

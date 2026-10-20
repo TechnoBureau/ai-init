@@ -79,7 +79,9 @@ recommendations.
   instead of renumbering or deleting them.
 - Keep generated project documentation under `docs/`, except root
   `README.md` and its two symbolic links.
-- Do not add per-document control blocks, status fields, or a changelog.
+- Do not add per-document control blocks, bookkeeping fields, or a changelog.
+  Do not record status, date, owner, evidence, baseline, target, alternatives,
+  or supersession in a table or on a decision.
 - Use lowercase kebab-case for `docs/` filenames with `PRD.md` as the recorded
   exception.
 - Review security and architecture documents at least quarterly; update both
@@ -88,8 +90,8 @@ recommendations.
 
 ## Exceptions
 
-No exceptions are recorded. An exception requires the rule, rationale,
-compensating control, approver, and an expiry or review date.
+No exceptions are recorded. An exception requires the rule, a documented
+rationale, and a compensating control.
 
 ## Related Docs
 

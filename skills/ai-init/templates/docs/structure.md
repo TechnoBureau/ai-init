@@ -12,9 +12,9 @@
 
 ## Components
 
-| Path | Responsibility | Active entry point / evidence | Owner |
-|---|---|---|---|
-| `{{EXACT_PATH}}` | {{VERIFIED_PURPOSE}} | `{{REFERENCE_OR_CONFIG_PATH}}` | {{OWNER_OR_UNKNOWN}} |
+| Path | Responsibility | Active entry point |
+|---|---|---|
+| `{{EXACT_PATH}}` | {{VERIFIED_PURPOSE}} | `{{REFERENCE_OR_CONFIG_PATH}}` |
 
 ## Build and Generated Content
 

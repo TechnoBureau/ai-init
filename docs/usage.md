@@ -96,10 +96,10 @@ Detailed test inventory is in [tests.md](./tests.md). Coverage thresholds are
 There is no deployment step. Distribution is a `git push` followed by the
 Skills CLI reading the repository. CI runs on every push and pull request.
 
-| Environment | Method | Required approvals | Evidence |
-|---|---|---|---|
-| Contributor workstation | Local commands above | None | This document |
-| CI | GitHub Actions `Validate` workflow | Pull-request review per CODEOWNERS | `.github/workflows/validate.yml` |
+| Environment | Method | Required approvals |
+|---|---|---|
+| Contributor workstation | Local commands above | None |
+| CI | GitHub Actions `Validate` workflow | Pull-request review per CODEOWNERS |
 
 ## Troubleshooting
 

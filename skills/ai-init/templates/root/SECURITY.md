@@ -39,12 +39,12 @@ Typical out-of-scope items include third-party services, social engineering,
 and physical security unless the project owner states otherwise. Do not assert
 an out-of-scope list that the owner has not confirmed.
 
-## Response targets
+## Response expectations
 
-These are project targets, not a contractual service-level agreement. Replace
-them only with confirmed values.
+These are project expectations, not a contractual service-level agreement.
+Replace them only with confirmed values.
 
-| Stage | Target |
+| Stage | Expected response |
 |---|---|
 | Acknowledgement | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
 | Initial triage and severity | {{CONFIRMED_OR_NOT_DOCUMENTED}} |

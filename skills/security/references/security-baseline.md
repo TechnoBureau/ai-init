@@ -79,7 +79,7 @@ Framework (SSDF), version 1.1](https://csrc.nist.gov/pubs/sp/800/218/final):
 Select these only when a confirmed obligation exists. Record the exact edition,
 scope, control identifiers, and evidence owner.
 
-| Obligation or evidence | Profile | What repository evidence can support |
+| Obligation or trigger | Profile | What repository evidence can support |
 |---|---|---|
 | Organization operates an information security management system | [ISO/IEC 27001:2022](https://www.iso.org/standard/27001) Annex A | Control implementation evidence, not certification |
 | Governance and risk program | [NIST Cybersecurity Framework (CSF) 2.0](https://www.nist.gov/cyberframework) | Govern, Identify, Protect, Detect, Respond, Recover activities |
@@ -100,7 +100,7 @@ audit readiness, legal compliance, or operating effectiveness by itself.
 
 ## Conditional enterprise and application profiles
 
-| Repository or system evidence | Profile to select | Boundary and evidence |
+| Repository or system signal | Profile to select | Boundary and inputs |
 |---|---|---|
 | Web application or application programming interface (API) | [OWASP Application Security Verification Standard (ASVS)](https://github.com/OWASP/ASVS/releases) | Select a version (ASVS 5.0 when confirmed) and verification level; assess implemented application behavior. |
 | Continuous integration / continuous delivery (CI/CD), package publishing, or artifact build | [OWASP Software Supply Chain Security](https://cheatsheetseries.owasp.org/cheatsheets/Software_Supply_Chain_Security_Cheat_Sheet.html) | Review source control, build identity, dependencies, artifacts, and release permissions present in the system. |
@@ -198,12 +198,12 @@ Use this when prompts, models, RAG, agents, or tool calling are in scope.
   CISA KEV. Do not equate a high score with automatic exploitation.
 - Track exceptions with owner, rationale, compensating control, expiry, and
   review date.
-- Preserve evidence: scanner version, database date, affected artifact digest,
-  and fix verification.
+- Preserve the scanner version, database date, affected artifact digest, and
+  the verification of the fix.
 - Do not publish live exploit details or sensitive reproduction steps in a
   broadly circulated project document.
 
-## Evidence status and claim types
+## Claim types and statuses
 
 - **Verified:** direct evidence plus a suitable validation method/result
   supports the claim.

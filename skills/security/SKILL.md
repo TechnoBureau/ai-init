@@ -42,14 +42,14 @@ requirements; do not turn a control catalog into a generic compliance claim.
   configuration, or infrastructure unless the user explicitly requests that
   implementation and the scope is authorized.
 - Keep findings, exceptions, and proposed actions separate. Never invent risk
-  ratings, owners, dates, waivers, or acceptance criteria.
+  ratings, deadlines, waivers, or acceptance criteria.
 
 ## Preflight
 
 1. Inspect the worktree, repository instructions, source, manifests,
    infrastructure, protocols, identity, secrets, dependencies, build/release,
    logging, and security configuration relevant to the task.
-1. Read existing `docs/security.md` and preserve confirmed controls, owners,
+1. Read existing `docs/security.md` and preserve confirmed controls,
    exceptions, prior findings, and user-authored content. Update in place;
    never overwrite it wholesale.
 1. Identify system boundaries, data types, environments, and regulatory or
@@ -91,7 +91,7 @@ frameworks or making cryptographic/hardening recommendations.
   surface instead of scattering algorithm literals; allow only explicit
   approved profiles, validate configuration, use staged rollout and
   telemetry, enforce downgrade resistance, and bound fallback with
-  owner, expiry, and removal conditions. A rollback must not restore a
+  explicit approval, expiry, and removal conditions. A rollback must not restore a
   prohibited algorithm. Do not silently fall back to quantum-vulnerable
   public-key cryptography. Treat hybrid operation as conditional on a supported
   protocol and an approved design.
@@ -118,9 +118,10 @@ frameworks or making cryptographic/hardening recommendations.
   or other enterprise controls only when the platform, boundary, and applicable
   policy are confirmed. Do not assume a law, certification, or audit scope.
 
-For every selected profile, name the framework and version, assessed boundary,
-control status, repository evidence, verification method, and owner only when
-known. Omit irrelevant modules rather than marking every possible control
+For every selected profile, name the framework and version and the assessed
+boundary. For each control area, state the claim type and status together in
+one `Assessment` cell. Do not add evidence, verification, or owner columns.
+Omit irrelevant modules rather than marking every possible control
 `Not applicable`.
 
 ## Mandatory enterprise control domains
@@ -129,9 +130,9 @@ Assess each domain that applies to the system. A domain may be `Not assessed`
 when access or evidence is insufficient; omit it only when it is genuinely
 irrelevant.
 
-| Domain | Evidence to inspect | Minimum output |
+| Domain | What to inspect | Minimum output |
 |---|---|---|
-| Governance and policy | Ownership files, SECURITY.md, review records, exceptions | Owner, review cadence, exception register |
+| Governance and policy | Ownership files, SECURITY.md, review records, exceptions | Review cadence, exception register |
 | Asset and data inventory | Repositories, services, stores, schemas, classification | Boundary and classified data map |
 | Identity and access | AuthN/AuthZ, MFA, sessions, roles, service accounts, JIT access | Least-privilege assessment |
 | Secure development | Threat model, review rules, SAST/SCA/secret/IaC scanning | Gate status and gaps |
@@ -168,9 +169,9 @@ enforced.
 
 ## Vulnerability and incident management
 
-- Identify the intake channel, triage owner, severity method (for example
-  CVSS v4.0 plus EPSS and CISA KEV context), remediation targets, and
-  verification method. If targets are not confirmed, record `Not decided`.
+- Identify the intake channel, triage role, severity method (for example
+  CVSS v4.0 plus EPSS and CISA KEV context), and remediation timeline. If the
+  timeline is not confirmed, record `Not decided`.
 - Separate dependency, container, IaC, secret, and application findings.
 - Distinguish a scanner finding from a validated vulnerability and an accepted
   exception. Include scanner and database versions.
@@ -203,17 +204,18 @@ or tool allowlist as an enforceable sandbox unless the host enforces it.
 
 ## Document requirements
 
-- Use only `Verified`, `Partial`, `Not evidenced`, `Not assessed`, or `Not applicable` for control status; explain the evidence behind each status.
+- Use only `Verified`, `Partial`, `Not evidenced`, `Not assessed`, or
+  `Not applicable` in the single `Assessment` column, and write the basis in
+  the same cell.
 - State whether each statement is a **design**, **implementation**, or
-  **operating-effectiveness** claim. Most repository reviews can support only
-  design or implementation evidence.
+  **operating-effectiveness** claim inside that cell. Most repository reviews
+  can support only design or implementation grounds.
 - Expand framework acronyms at first use. State the assessment scope and
   limits in plain language before detailed control tables.
 - Separate existing controls and scan findings from proposed remediation.
-  Do not invent risk ratings, owners, target dates, waivers, or acceptance
-  criteria.
-- Include an exceptions/risk-acceptance register format with owner, rationale,
-  compensating control, expiry, and review date; mark missing fields unknown.
+  Do not invent risk ratings, deadlines, waivers, or acceptance criteria.
+- Include an exceptions/risk-acceptance register with the rule, rationale,
+  and compensating control. Approval history lives in the pull request.
 - Keep related-document links only when their targets exist; use the README
   as the shared documentation index.
 - Do not describe a partial review or a tool's presence as proof that the

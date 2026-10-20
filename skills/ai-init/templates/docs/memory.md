@@ -12,8 +12,6 @@
 **Context:** Why this entry exists and what was being decided or observed.
 **Decision / outcome:** What changed, or `No decision recorded`.
 **References:** Paths, issue, or test result.
-**Author:** Human or agent identifier.
-**Supersedes:** Prior entry or decision ID, when applicable.
 ```
 
 ## Entries
@@ -23,14 +21,12 @@
 **Context:** Documentation was reviewed against repository code and
 configuration.\
 **Decision / outcome:** {{CONFIRMED_OUTCOME_OR_NO_DECISIONS_RECORDED}}\
-**Evidence or references:** {{RELEVANT_FILES_OR_PATHS}}\
-**Author:** {{HUMAN_OR_AGENT}}\
-**Supersedes:** None
+**References:** {{RELEVANT_FILES_OR_PATHS}}
 
 ## Maintenance Rules
 
 - Append corrections; do not rewrite prior entries.
-- Link evidence that another reviewer can reproduce.
+- Link the path or record that another reviewer can reproduce.
 - Keep entries short and factual; move durable rationale into an ADR.
 - Record follow-up work in `docs/tasks.md`, not only here.
 

@@ -70,8 +70,8 @@ documents; a broken or aspirational index is worse than a short one.
 | [Product requirements](./docs/PRD.md) | Goals, scope, requirements, workflows, and product type |
 | [Architecture](./docs/architecture.md) | Components, data flows, deployment, and system boundaries |
 | [Repository structure](./docs/structure.md) | Verified directory and component map |
-| [Decisions](./docs/decisions.md) | Decision IDs, context, and evidence |
-| [Security](./docs/security.md) | Evidenced controls and security configuration |
+| [Decisions](./docs/decisions.md) | Decision IDs, context, and consequences |
+| [Security](./docs/security.md) | Controls and security configuration |
 | [Design](./docs/design.md) | UI design system and interaction rules |
 | [Style](./docs/style.md) | Repository conventions and applicable language guidance |
 | [Rules](./docs/rules.md) | Confirmed contribution and workflow conventions |

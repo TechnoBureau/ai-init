@@ -89,7 +89,7 @@ Include these areas when applicable; omit only with an explicit reason:
 | Theming | Light/dark/high-contrast behavior and system preference handling |
 | Motion | Purpose, duration/easing tokens, reduced-motion behavior |
 | Assets | Icons, illustration, fonts, licensing, source-of-truth location |
-| Governance | Owner, change process, review cadence, deprecation policy |
+| Governance | Change process, review cadence, deprecation policy |
 
 ## Accessibility baseline
 
@@ -108,8 +108,7 @@ and test methods.
   authentication flows.
 - Include accessibility acceptance criteria in component definitions, not as a
   separate afterthought.
-- Record known exceptions with the affected criterion, scope, workaround,
-  owner, and review date.
+- Record known exceptions with the affected criterion, scope, and workaround.
 
 ## Privacy, safety, and ethics
 

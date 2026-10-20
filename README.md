@@ -126,7 +126,7 @@ pre-commit run --all-files
 | `tests/test_pinning.py` | Every remote hook and action pinned by version tag, never a branch or raw commit SHA |
 | `tests/test_working_example.py` | Every template has a generated counterpart in `docs/`; no placeholders or orphan documents |
 | `tests/test_secret_scanning.py` | Baseline policy: no keyword scan, no findings, standard files excluded, hook flags, dependencies, and exclude parity |
-| `tests/test_docs_state.py` | Documents describe current state, not a frozen run or a duplicated configuration pin |
+| `tests/test_docs_state.py` | Documents describe current state: no frozen run, duplicated pin, bookkeeping column, or extra decision field |
 | [CI](./.github/workflows/validate.yml) | All of the above on push and pull request with version-pinned actions and read-only permissions |
 
 The validator is deliberately strict: a missing `---` on line 1 is a blocking
@@ -170,6 +170,11 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 - Claims use an explicit status vocabulary (`Verified`, `Observed`, `Planned`,
   `Not documented`, `Not assessed`) and requirement language follows RFC
   2119/8174.
+- Documents carry no bookkeeping metadata. A table has no status, date, owner,
+  evidence, verification, baseline, target, or measure column, and a decision
+  record has context, decision, consequences, and reason only. Where a table
+  must say whether a row holds, one `Assessment` (`Coverage`) column carries the
+  claim and its basis.
 - Security profiles are modular. They conditionally map relevant controls to
   NIST, ISO/IEC 27001, FIPS, OWASP, CIS, and OpenSCAP/SCAP without treating a
   partial repository review as a compliance attestation.

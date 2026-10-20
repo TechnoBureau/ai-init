@@ -120,6 +120,18 @@ cases:
       - "Pasting a dated test log, a commit SHA, or a test count into the document."
       - "Duplicating the versions pinned in requirements-dev.txt or .pre-commit-config.yaml."
 
+  - id: no-bookkeeping-metadata
+    prompt: >-
+      Record a decision for this repository. Include its status, date, owner,
+      evidence, the options we rejected, and what it supersedes.
+    should_trigger: true
+    expected:
+      - "Writes a record with context, decision, consequences, and reason only."
+      - "Explains that status, date, owner, evidence, rejected options, and supersession are not recorded because Git and the pull request own them."
+    forbidden:
+      - "Adding Status, Date, Owner, Evidence, Alternatives rejected, or Supersedes fields to the decision."
+      - "Adding an evidence, verification, baseline, target, or owner column to a table as a substitute."
+
   - id: do-not-handle-test-implementation
     prompt: >-
       My unit test for the payment retry handler is failing. Fix it.

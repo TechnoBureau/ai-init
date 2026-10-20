@@ -64,25 +64,25 @@ allowed inside a section; additional top-level numbered sections are not.
    confirmed constraints, dependencies, and assumptions.
 1. **Product Type** — internal DevOps platform, service, library, app, or the
    closest type supported by repository evidence.
-1. **Goals and Objectives** — measurable outcomes with permanent G-IDs.
-   Include only confirmed or evidence-based goals; use `TBD` where a real
-   goal has no defensible measure. If there are no confirmed goals, say so
-   without inventing a G-ID.
+1. **Goals and Objectives** — outcomes with permanent G-IDs. Include only
+   confirmed goals and write them as a single statement of the outcome. Do not
+   add baseline, target, or measurement columns. If there are no confirmed
+   goals, say so without inventing a G-ID.
 1. **Scope** — separate `In Scope` and `Out of Scope` lists, plus confirmed
    boundaries and dependencies.
 1. **Architectural Decisions** — a single table with permanent D-IDs,
-   status, Decision, Reason, Alternatives Rejected, and evidence. Mark missing
-   rationale or alternatives `Not documented`.
+   Decision, and Reason. Mark missing rationale `Not documented`. Context and
+   consequences live in `docs/decisions.md`.
 1. **User Personas** — target audience, responsibilities, and needs grounded
    in repository or confirmed product context. Include operators, security,
    audit, and accessibility needs when the evidence supports them.
 1. **Functional Requirements** — group by real module; assign permanent
-   FR-IDs and include acceptance criteria and verification/evidence. Do not add
-   priority tiers.
+   FR-IDs and state observable acceptance criteria. Do not add priority tiers
+   or bookkeeping columns.
 1. **Non-Functional Requirements** — assign permanent NFR-IDs and define a
-   concrete verification criterion for each. Do not invent numeric targets.
+   concrete acceptance criterion for each. Do not invent numeric targets.
 1. **Pipeline / Workflow Inventory** — table of exact filenames, configured
-   triggers, and targets.
+   triggers, and deployment destinations.
 1. **Repository Structure** — concise tree of existing primary directories
    and key components.
 
@@ -130,7 +130,7 @@ category is relevant but unresolved; do not fabricate targets.
 | Observability | Logs, metrics, traces, alerting, retention | Configuration review, test |
 | Maintainability | Module boundaries, complexity limits, documentation | Static analysis, review |
 | Portability and compatibility | Supported OS/runtime/API versions, migration paths | Build matrix, contract test |
-| Compliance | Confirmed framework, scope, control owner | Evidence review, audit |
+| Compliance | Confirmed framework and scope | Evidence review, audit |
 | Localization and internationalization | Locale data, RTL, translation workflow | Test, review |
 | Resilience and recovery | RTO/RPO, incident procedures, degradations | Drill, test |
 | Cost and operability | Budgets, quotas, run cost, support model | Measurement, review |
@@ -138,14 +138,14 @@ category is relevant but unresolved; do not fabricate targets.
 ## Traceability and change control
 
 - Keep a requirement index or table mapping `FR/NFR → acceptance criteria →
-  verification artifact → status`.
+  test → coverage`.
 - If tests exist, reference exact test paths or identifiers; do not claim
   coverage that was not measured.
-- Record requirement changes with date, owner, reason, and superseded ID.
+- Record requirement changes with the reason and keep retired IDs reserved.
 - Do not mark a requirement `Implemented` without evidence in the current
   code. Use `Observed`, `Partial`, `Planned`, or `Not evidenced` precisely.
-- Approval is a human decision. Include a sign-off table only when names,
-  roles, and dates are confirmed; otherwise state `Approval not documented`.
+- Approval is a human decision and lives in the pull request; do not add a
+  sign-off table that restates it.
 
 ## Readability and evidence
 

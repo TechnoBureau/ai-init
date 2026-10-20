@@ -41,45 +41,45 @@ with the exact init block and follow the guidance in
 
 ## Containers and Components
 
-| Component | Responsibility | Technology | Interfaces | Evidence |
-|---|---|---|---|---|
-| {{COMPONENT}} | {{VERIFIED_ROLE}} | {{VERIFIED_TECH}} | {{VERIFIED_INTERFACE_OR_NONE}} | `{{CODE_OR_CONFIG_PATH}}` |
+| Component | Responsibility | Technology | Interfaces |
+|---|---|---|---|
+| {{COMPONENT}} | {{VERIFIED_ROLE}} | {{VERIFIED_TECH}} | {{VERIFIED_INTERFACE_OR_NONE}} |
 
 ## Interfaces and Data Flow
 
 {{DOCUMENT_ONLY_VERIFIED_APIS_EVENTS_STORAGE_AND_EXTERNAL_CONNECTIONS}}
 
-| Interface | Direction | Protocol / schema | Authentication | Evidence |
-|---|---|---|---|---|
-| {{INTERFACE}} | {{INBOUND_OUTBOUND_BIDIRECTIONAL}} | {{VERIFIED_PROTOCOL_AND_VERSION}} | {{CONFIRMED_MECHANISM_OR_NOT_DOCUMENTED}} | `{{PATH}}` |
+| Interface | Direction | Protocol / schema | Authentication |
+|---|---|---|---|
+| {{INTERFACE}} | {{INBOUND_OUTBOUND_BIDIRECTIONAL}} | {{VERIFIED_PROTOCOL_AND_VERSION}} | {{CONFIRMED_MECHANISM_OR_NOT_DOCUMENTED}} |
 
 ## Data Architecture
 
-| Data store | Data class | Owner | Retention / backup | Evidence |
-|---|---|---|---|---|
-| {{STORE_OR_NONE}} | {{CLASSIFICATION}} | {{OWNER_OR_UNKNOWN}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} | `{{PATH}}` |
+| Data store | Data class | Retention / backup |
+|---|---|---|
+| {{STORE_OR_NONE}} | {{CLASSIFICATION}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
 
 Describe consistency, migration, and deletion behavior only where verified.
 
 ## Quality Attributes
 
-| Attribute | Requirement / target | Architectural mechanism | Evidence |
-|---|---|---|---|
-| Availability / reliability | {{CONFIRMED_TARGET_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} | `{{PATH}}` |
-| Performance / capacity | {{CONFIRMED_BUDGET_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} | `{{PATH}}` |
-| Security | {{CONFIRMED_CONTROL_OR_NOT_ASSESSED}} | {{MECHANISM_OR_NONE}} | `{{PATH}}` |
-| Privacy | {{CONFIRMED_OBLIGATION_OR_NOT_DOCUMENTED}} | {{MECHANISM_OR_NONE}} | `{{PATH}}` |
-| Observability | {{REQUIRED_SIGNALS_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} | `{{PATH}}` |
-| Maintainability | {{CONFIGURED_CHECKS_OR_NOT_DOCUMENTED}} | {{MECHANISM_OR_NONE}} | `{{PATH}}` |
+| Attribute | Requirement | Architectural mechanism |
+|---|---|---|
+| Availability / reliability | {{CONFIRMED_TARGET_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} |
+| Performance / capacity | {{CONFIRMED_BUDGET_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} |
+| Security | {{CONFIRMED_CONTROL_OR_NOT_ASSESSED}} | {{MECHANISM_OR_NONE}} |
+| Privacy | {{CONFIRMED_OBLIGATION_OR_NOT_DOCUMENTED}} | {{MECHANISM_OR_NONE}} |
+| Observability | {{REQUIRED_SIGNALS_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} |
+| Maintainability | {{CONFIGURED_CHECKS_OR_NOT_DOCUMENTED}} | {{MECHANISM_OR_NONE}} |
 
-Do not invent numeric targets. Mark unconfirmed qualities `Not decided` or
+Do not invent numeric thresholds. Mark unconfirmed qualities `Not decided` or
 `Not assessed`.
 
 ## Deployment and Environments
 
-| Environment / target | Deployment mechanism | Configuration source | Evidence |
-|---|---|---|---|
-| {{TARGET}} | {{CONFIGURED_MECHANISM}} | {{CONFIG_PATH_OR_SECRET_STORE_REFERENCE}} | `{{CONFIG_PATH}}` |
+| Environment | Deployment mechanism | Configuration source |
+|---|---|---|
+| {{TARGET}} | {{CONFIGURED_MECHANISM}} | {{CONFIG_PATH_OR_SECRET_STORE_REFERENCE}} |
 
 Include network boundaries, ingress/egress, identity, and secret-delivery
 paths where verified. Never record secret values or internal hostnames that

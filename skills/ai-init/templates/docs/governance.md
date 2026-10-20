@@ -6,7 +6,7 @@ automation.
 
 ## Scope and principles
 
-- Decisions are recorded with their evidence, alternatives, and consequences.
+- Decisions are recorded with their context, consequences, and reason.
 - Changes are reviewable, reversible, and traceable through Git history.
 - Safety and correctness take precedence over speed.
 - Security and privacy concerns can block a change until resolved.
@@ -37,7 +37,7 @@ project; the review requirements below still apply.
 
 ## Change classes
 
-| Class | Examples | Required evidence |
+| Class | Examples | Required checks |
 |---|---|---|
 | Editorial | Typos, link repair, clarity without behavior change | Build and link checks |
 | Capability | New feature, new document section, new optional control | Tests, review |
@@ -70,8 +70,7 @@ privacy, and destructive-action impacts stated?
 ## Approval and exceptions
 
 An exception requires the rule being waived, a documented rationale and
-compensating control, an accountable owner, an expiry or review date, and
-approval from a maintainer. For security rules, the security reviewer must
+compensating control, and maintainer approval. For security rules, the security reviewer must
 approve. Undocumented exceptions are defects.
 
 ## Security response

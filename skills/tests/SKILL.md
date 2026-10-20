@@ -54,7 +54,7 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 - If the user requested test code, use the current framework and conventions.
   Do not add dependencies, broad test infrastructure, coverage thresholds, or
   CI gates unless requested or justified by the task.
-- Record the baseline: which commands pass before your change, and which fail
+- Record the starting state: which commands pass before your change, and which fail
   for pre-existing reasons.
 
 ## Test strategy and traceability
@@ -114,8 +114,8 @@ justify.
   when risk and runtime warrant it.
 - Report the exact command, environment, exit status, and whether failures are
   new or pre-existing. Include the failing test name and a short diagnostic.
-- For flaky tests, reproduce before changing anything. Quarantine only with an
-  owner, reason, and removal condition; do not silently retry indefinitely.
+- For flaky tests, reproduce before changing anything. Quarantine only with a
+  linked issue, reason, and removal condition; do not silently retry indefinitely.
 - Capture artifacts (JUnit/XML, coverage, traces, screenshots) only when the
   project already produces them or the task requires them. Do not commit large
   generated artifacts.

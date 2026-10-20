@@ -38,26 +38,26 @@ where the agent reads evidence and writes documents.
 
 ## Containers and Components
 
-| Component | Responsibility | Technology | Interfaces | Evidence |
-|---|---|---|---|---|
-| Skill entry points | Trigger, workflow, constraints | Markdown with YAML frontmatter | Agent host skill loader | `skills/*/SKILL.md` |
-| Template set | Output documents whose paths mirror the target (`templates/root/` and `templates/docs/`) | Markdown, plain text | Copied by the skill | `skills/*/templates/` |
-| Reference set | Standards loaded on demand | Markdown | Relative links from `SKILL.md` | `skills/*/references/` |
-| Starter files | `.gitignore`, `.secrets.baseline`, EditorConfig, Git attributes, pre-commit | Configuration | Copied or merged only when absent | `skills/ai-init/files/` |
-| Validator | Schema, metadata, size, link, and eval gate | Python 3.11, PyYAML | CLI exit status | `scripts/validate_skills.py` |
-| Link checker | Local Markdown link integrity | Python standard library | CLI exit status | `scripts/check_links.py` |
-| Evaluation fixtures | Trigger and non-trigger cases | YAML | Read by validator and reviewers | `evals/*.yaml` |
-| CI workflow | Enforcement on push and pull request | GitHub Actions | Repository events | `.github/workflows/validate.yml` |
+| Component | Responsibility | Technology | Interfaces |
+|---|---|---|---|
+| Skill entry points | Trigger, workflow, constraints | Markdown with YAML frontmatter | Agent host skill loader |
+| Template set | Output documents whose paths mirror the target (`templates/root/` and `templates/docs/`) | Markdown, plain text | Copied by the skill |
+| Reference set | Standards loaded on demand | Markdown | Relative links from `SKILL.md` |
+| Starter files | `.gitignore`, `.secrets.baseline`, EditorConfig, Git attributes, pre-commit | Configuration | Copied or merged only when absent |
+| Validator | Schema, metadata, size, link, and eval gate | Python 3.11, PyYAML | CLI exit status |
+| Link checker | Local Markdown link integrity | Python standard library | CLI exit status |
+| Evaluation fixtures | Trigger and non-trigger cases | YAML | Read by validator and reviewers |
+| CI workflow | Enforcement on push and pull request | GitHub Actions | Repository events |
 
 ## Interfaces and Data Flow
 
-| Interface | Direction | Protocol / schema | Authentication | Evidence |
-|---|---|---|---|---|
-| Skill discovery | Inbound to agent | Agent Skills frontmatter (`name`, `description`) | Host-defined | `scripts/validate_skills.py` |
-| Validator CLI | Local and CI | Process exit status, text or JSON output | None | `scripts/validate_skills.py` |
-| Link checker CLI | Local and CI | Process exit status, text or JSON output | None | `scripts/check_links.py` |
-| Pre-commit hooks | Local commit | Git hook protocol | None | `.pre-commit-config.yaml` |
-| CI trigger | Repository event | GitHub Actions workflow schema | GitHub token, read-only | `.github/workflows/validate.yml` |
+| Interface | Direction | Protocol / schema | Authentication |
+|---|---|---|---|
+| Skill discovery | Inbound to agent | Agent Skills frontmatter (`name`, `description`) | Host-defined |
+| Validator CLI | Local and CI | Process exit status, text or JSON output | None |
+| Link checker CLI | Local and CI | Process exit status, text or JSON output | None |
+| Pre-commit hooks | Local commit | Git hook protocol | None |
+| CI trigger | Repository event | GitHub Actions workflow schema | GitHub token, read-only |
 
 ### Validation pipeline
 
@@ -77,37 +77,38 @@ skipped and because branch protection should require the CI check.
 
 ## Data Architecture
 
-| Data store | Data class | Owner | Retention / backup | Evidence |
-|---|---|---|---|---|
-| Git repository | Public | TechnoBureau | Retained in Git history; mirrored by the hosting platform | Repository |
-| Generated `docs/` | Public | TechnoBureau | Committed, regenerated on template change | `docs/` |
-| Evaluation fixtures | Public | TechnoBureau | Committed | `evals/` |
+| Data store | Data class | Retention / backup |
+|---|---|---|
+| Git repository | Public | Retained in Git history; mirrored by the hosting platform |
+| Generated `docs/` | Public | Committed, regenerated on template change |
+| Evaluation fixtures | Public | Committed |
 
 No database, queue, cache, or user data store exists.
 
 ## Quality Attributes
 
-| Attribute | Requirement / target | Architectural mechanism | Evidence |
-|---|---|---|---|
-| Reliability | Validation must be deterministic and fail closed | Pure functions, explicit exit codes | `scripts/validate_skills.py` |
-| Security | No secrets in the repository or generated output | gitleaks, IBM detect-secrets, private-key detection, review | `.pre-commit-config.yaml` |
-| Privacy | No personal data processed | Public repository content only | `docs/security.md` |
-| Observability | Failures identify the rule and path | Rule codes such as `SKILL010`, `EVAL015` | Validator output |
-| Maintainability | Every rule is tested | Unit tests and fixtures | `tests/` |
-| Compatibility | Agent Skills 1.0 frontmatter | Validator plus Skills CLI check | `docs/skill-standard.md` |
-| Performance | CI completes in minutes | Small tree, pinned dependencies, pip cache | Workflow file |
-| Accessibility | Readable documents | markdownlint, one H1, table headers, diagram text | `.markdownlint-cli2.yaml` |
-| Portability | POSIX and Windows | Python standard library, relative paths | Scripts |
+| Attribute | Requirement | Architectural mechanism |
+|---|---|---|
+| Reliability | Validation must be deterministic and fail closed | Pure functions, explicit exit codes |
+| Security | No secrets in the repository or generated output | gitleaks, IBM detect-secrets, private-key detection, review |
+| Privacy | No personal data processed | Public repository content only |
+| Observability | Failures identify the rule and path | Rule codes such as `SKILL010`, `EVAL015` |
+| Maintainability | Every rule is tested | Unit tests and fixtures |
+| Compatibility | Agent Skills 1.0 frontmatter | Validator plus Skills CLI check |
+| Performance | CI completes in minutes | Small tree, pinned dependencies, pip cache |
+| Accessibility | Readable documents | markdownlint, one H1, table headers, diagram text |
+| Portability | POSIX and Windows | Python standard library, relative paths |
 
-Targets that are not confirmed, such as explicit SLOs, are not invented.
+Quality requirements that are not confirmed, such as explicit SLOs, are not
+invented.
 
 ## Deployment and Environments
 
-| Environment / target | Deployment mechanism | Configuration source | Evidence |
-|---|---|---|---|
-| Contributor workstation | Git clone, virtual environment, pre-commit install | `requirements-dev.txt`, `.pre-commit-config.yaml` | Repository files |
-| CI | GitHub Actions on `ubuntu-latest` | `.github/workflows/validate.yml` | Workflow file |
-| Distribution | Skills CLI installs from the repository | `README.md` install section | Documentation |
+| Environment | Deployment mechanism | Configuration source |
+|---|---|---|
+| Contributor workstation | Git clone, virtual environment, pre-commit install | `requirements-dev.txt`, `.pre-commit-config.yaml` |
+| CI | GitHub Actions on `ubuntu-latest` | `.github/workflows/validate.yml` |
+| Distribution | Skills CLI installs from the repository | `README.md` install section |
 
 No server, container image, or infrastructure-as-code is deployed.
 

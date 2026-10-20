@@ -5,7 +5,7 @@ Nothing here is enforced unless pre-commit or CI runs it.
 
 ## Languages and Tooling
 
-| Language / format | Version | Formatter | Linter / validator | Enforced by | Configuration evidence |
+| Language / format | Version | Formatter | Linter / validator | Enforced by | Configuration file |
 |---|---|---|---|---|---|
 | Markdown | CommonMark plus YAML frontmatter | None configured | `markdownlint-cli2` | pre-commit, CI | `.markdownlint-cli2.yaml` |
 | YAML | Not pinned | None configured | `check-yaml`, `validate_skills.py` | pre-commit, CI | `.pre-commit-config.yaml` |

@@ -1,0 +1,66 @@
+# EditorConfig: https://editorconfig.org
+# This is the top-most EditorConfig file
+root = true
+
+# ============================================
+# Default for ALL files
+# ============================================
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# ============================================
+# Language-specific overrides
+# ============================================
+
+# Python — PEP8 standard
+[*.py]
+indent_size = 4
+
+# Go — gofmt uses tabs
+[*.go]
+indent_style = tab
+indent_size = 4
+
+# Makefiles require tabs (hard requirement, not style)
+[Makefile]
+indent_style = tab
+
+[*.{c,h,cpp,hpp,cc,cs,java,kt}]
+indent_size = 4
+
+# Rust — rustfmt default
+[*.rs]
+indent_size = 4
+
+# Markdown — trailing whitespace can be meaningful (line breaks), so disable trimming
+[*.md]
+trim_trailing_whitespace = false
+
+# JSON / YAML / web — 2 spaces is near-universal convention
+[*.{json,jsonc,yml,yaml,js,jsx,ts,tsx,html,css,scss,less,vue}]
+indent_size = 2
+
+# Windows batch / PowerShell scripts — must stay CRLF to run correctly
+[*.{bat,cmd,ps1}]
+end_of_line = crlf
+
+# Shell scripts must stay LF regardless of OS (break otherwise)
+[*.sh]
+end_of_line = lf
+indent_size = 2
+
+# Tab-width-sensitive files
+[*.tsv]
+indent_style = tab
+
+# Don't touch minified/generated/vendor files
+[{*.min.js,*.min.css,package-lock.json,yarn.lock,pnpm-lock.yaml}]
+insert_final_newline = false
+trim_trailing_whitespace = false
+indent_style = unset
+indent_size = unset

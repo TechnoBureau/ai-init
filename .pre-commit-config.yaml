@@ -1,0 +1,15 @@
+repos:
+  # =============================================================================
+  # Repository hygiene
+  # =============================================================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: detect-private-key
+  # =============================================================================
+  # Additional Secret Scanning
+  # =============================================================================
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks

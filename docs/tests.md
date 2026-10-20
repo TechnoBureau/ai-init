@@ -81,7 +81,7 @@ They are marked `Partial` where no automated evidence exists.
 
 | Area | Status | Evidence / gap |
 |---|---|---|
-| Unit and error paths | Verified | Six test modules under `tests/` |
+| Unit and error paths | Verified | The modules listed in the table above cover every script and starter policy |
 | Integration and contracts | Partial | Skills CLI discovery is verified manually, not in CI |
 | Authentication and authorization | Not applicable | No authenticated surface in this repository |
 | Input validation and injection | Partial | Validator validates structure; no fuzzing |

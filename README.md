@@ -62,6 +62,7 @@ sync: `templates/root/x` produces `x`, and `templates/docs/x.md` produces
 | `SECURITY.md` | `templates/root/SECURITY.md` | A private reporting channel is confirmed |
 | `.github/CODEOWNERS` | `templates/root/CODEOWNERS` | Owners are confirmed by the user or existing configuration |
 | `.gitignore` | `files/.gitignore` | Always; merge missing sections into an existing file |
+| `.secrets.baseline` | `files/.secrets.baseline` | When the project adopts IBM detect-secrets |
 | `docs/README.md` | `templates/docs/README.md` | Always, alongside the first generated document |
 | `docs/PRD.md` | `skills/prd/templates/docs/PRD.md` | Always |
 | `docs/structure.md`, `docs/decisions.md` | `templates/docs/` | Always |
@@ -121,8 +122,9 @@ pre-commit run --all-files
 | [`check_links.py`](./scripts/check_links.py) | Every local Markdown link resolves (templates excluded because they are generated later) |
 | [`tests/`](./tests) | Validator rules and a regression that reproduces frontmatter corruption |
 | [markdownlint-cli2](./.markdownlint-cli2.yaml) | Markdown structure and consistency without rewriting YAML frontmatter |
-| [pre-commit](./.pre-commit-config.yaml) | YAML/JSON/TOML validity, whitespace, merge markers, large files, private keys, gitleaks, Markdown lint, skill validation |
+| [pre-commit](./.pre-commit-config.yaml) | YAML/JSON/TOML validity, whitespace, merge markers, large files, private keys, gitleaks, IBM detect-secrets, Markdown lint, skill validation |
 | `tests/test_working_example.py` | Every template has a generated counterpart in `docs/`; no placeholders or orphan documents |
+| `tests/test_secret_scanning.py` | Baseline policy: no keyword scan, no findings, standard files excluded, pinned hook wiring |
 | [CI](./.github/workflows/validate.yml) | All of the above on push and pull request with pinned actions and read-only permissions |
 
 The validator is deliberately strict: a missing `---` on line 1 is a blocking
@@ -206,7 +208,7 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 │   │   ├── templates/
 │   │   │   ├── root/                  # README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, CODEOWNERS
 │   │   │   └── docs/                  # docs/ document set
-│   │   └── files/                     # .gitignore, EditorConfig, Git attributes, pre-commit starters
+│   │   └── files/                     # .gitignore, .secrets.baseline, EditorConfig, Git attributes, pre-commit starters
 │   ├── prd/templates/docs/PRD.md
 │   ├── security/
 │   │   ├── references/                # Modular enterprise security baseline
@@ -218,7 +220,7 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 │   │   ├── references/                # Catalog + accessibility standard
 │   │   └── templates/docs/design.md
 │   └── code-quality/references/       # Repository-fit engineering practices
-├── tests/                      # Validator and working-example tests
+├── tests/                      # Validator, working-example, and secret-scanning tests
 ├── AGENTS.md -> README.md      # AI agent entry point
 ├── CLAUDE.md -> README.md      # AI agent entry point
 ├── CONTRIBUTING.md
@@ -233,6 +235,7 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 ├── .gitignore
 ├── .markdownlint-cli2.yaml
 ├── .pre-commit-config.yaml
+├── .secrets.baseline
 └── requirements-dev.txt
 ```
 
@@ -242,6 +245,8 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
   optional `license`, `compatibility`, `metadata`, `allowed-tools`).
 - Validator: Python 3.11 or later; PyYAML 6.0.3; pre-commit 4.7.0;
   markdownlint-cli2 0.23.3.
+- Secret scanning: gitleaks 8.30.1 and IBM detect-secrets 0.13.1, both pinned
+  by commit in `.pre-commit-config.yaml`.
 - Platforms: POSIX and Windows. `ai-init` needs symlink support for the agent
   entry points; if unavailable, it reports the constraint rather than copying.
 - Network: skills do not require network access. CI installs pinned tooling.

@@ -71,7 +71,12 @@ environment where the hook cannot download its runtime; that is reported as
 skipped, never as passed.
 
 - Expected startup indicator: `6 skills checked; 0 error(s), 0 warning(s).`
-- Local dependencies: none beyond the pinned Python packages.
+- Secret scanning: IBM detect-secrets reads `.secrets.baseline`, which disables
+  keyword scanning and excludes generated dependency files. If the baseline
+  version does not match the pinned hook, the hook rewrites the file and exits
+  with status 3; commit the update.
+- Local dependencies: none beyond the pinned Python packages; pre-commit
+  installs each hook environment.
 
 ## Validate
 

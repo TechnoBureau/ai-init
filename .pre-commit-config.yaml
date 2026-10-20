@@ -29,6 +29,14 @@ repos:
     rev: 83d9cd684c87d95d656c1458ef04895a7f1cbd8e # v8.30.1
     hooks:
       - id: gitleaks
+  # IBM detect-secrets adds provider plugins and an audited baseline. The
+  # baseline disables keyword scanning and excludes generated dependency files;
+  # keep its policy sections aligned with skills/ai-init/files/.secrets.baseline.
+  - repo: https://github.com/IBM/detect-secrets
+    rev: a3e7998bfa4924b13df3f9cb49070abdbdff8802 # v0.13.1
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline', '--no-keyword-scan']
   # =============================================================================
   # Markdown consistency (frontmatter-aware; does not rewrite YAML)
   # =============================================================================

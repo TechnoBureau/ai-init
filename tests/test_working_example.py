@@ -62,6 +62,7 @@ ROOT_OUTPUTS = {
 STARTERS = TEMPLATES / "ai-init" / "files"
 TAILORED_STARTERS = {
     ".pre-commit-config.yaml": "Scaffolding with commented examples that each repository tailors.",
+    ".secrets.baseline": "Records per-repository findings; policy parity is checked by test_secret_scanning.py.",
 }
 
 

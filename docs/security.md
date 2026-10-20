@@ -57,7 +57,7 @@ Full detail is in [threat-model.md](./threat-model.md).
 |---|---|---|---|
 | `SKILL.md` metadata | Tampering | Strict validator, regression test, CI gate | A bypassed hook is caught by CI; a compromised CI is out of scope |
 | Agent instructions | Spoofing / Elevation | Operating constraints, scope boundaries, review | Model behavior is probabilistic; instructions reduce, not eliminate |
-| Repository secrets | Information disclosure | gitleaks, private-key detection, explicit prohibition | Secrets already present could be copied by a careless run |
+| Repository secrets | Information disclosure | gitleaks, IBM detect-secrets baseline, private-key detection, explicit prohibition | Secrets already present could be copied; keyword-only secrets are missed |
 | CI workflow | Tampering | Pinned action SHAs, read-only permissions, Dependabot review | Upstream compromise before pinning |
 | Generated documentation | Repudiation (overclaim) | Evidence taxonomy, anti-overclaim rules, review checklist | Reviewer may accept unsupported prose |
 
@@ -114,6 +114,7 @@ skill performs the inventory there.
 | CI token and release permissions minimized | `contents: read` | `.github/workflows/validate.yml` | Verified |
 | Third-party actions pinned | Pinned by commit SHA | Workflow file | Verified |
 | Pre-commit hooks pinned | Pinned by commit SHA or exact revision | `.pre-commit-config.yaml` | Verified |
+| Secret-scanning baseline policy | Keyword detector disabled; dependency and generated files excluded; no findings | `.secrets.baseline` | Accepted trade-off; provider and entropy detectors remain enabled |
 | Dependency update automation | Dependabot for actions, pre-commit, and pip | `.github/dependabot.yml` | Verified |
 
 No SBOM is generated. This is recorded as a gap rather than implied coverage.
@@ -184,8 +185,9 @@ prioritise them.
 - No penetration test, red-team exercise, or model-behavior evaluation was run.
 - GitHub repository settings (branch protection, required checks, private
   vulnerability reporting, secret scanning) were not inspected from this tree.
-- gitleaks and pre-commit were configured but not executed for this assessment
-  in the authoring environment; CI executes them on push.
+- IBM detect-secrets was exercised against synthetic inputs locally; gitleaks
+  runs in CI. Detection efficacy over this repository's history was not
+  measured.
 - Operating effectiveness of any control was not measured over time.
 - Target repositories that a skill is applied to were not assessed here.
 

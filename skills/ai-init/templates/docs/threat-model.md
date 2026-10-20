@@ -14,8 +14,8 @@ State assumptions explicitly. An unstated assumption cannot be reviewed.
 
 ## Assets
 
-| Asset | Why it matters |
-|---|---|
+| Asset     | Why it matters            |
+| --------- | ------------------------- |
 | {{ASSET}} | {{IMPACT_IF_COMPROMISED}} |
 
 Typical assets include identities and sessions, credentials and keys, personal
@@ -29,7 +29,7 @@ users, systems, and trust boundaries, starting from this block and keeping the
 init line:
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 flowchart TB
   %% Example only. Replace the nodes with verified users, systems, and trust
   %% boundaries; delete the block when none is evidenced.
@@ -41,8 +41,8 @@ Replace the example nodes with verified evidence, then explain the boundary
 table below. A Mermaid block is rendered as written, so a template token inside
 it breaks the page instead of marking a gap.
 
-| Boundary | What changes here | Expected control |
-|---|---|---|
+| Boundary     | What changes here             | Expected control                           |
+| ------------ | ----------------------------- | ------------------------------------------ |
 | {{BOUNDARY}} | {{TRUST_OR_PRIVILEGE_CHANGE}} | {{AUTHENTICATION_VALIDATION_OR_ISOLATION}} |
 
 Keep the diagram to about 5–8 nodes and show only relationships verified in
@@ -53,8 +53,8 @@ code or configuration; omit the diagram rather than inventing one.
 Use STRIDE for security threats and LINDDUN for privacy threats. Assign stable
 T-IDs and never recycle them.
 
-| ID | Threat | Category | Impact | Controls | Residual risk |
-|---|---|---|---|---|---|
+| ID   | Threat                 | Category           | Impact     | Controls                     | Residual risk                 |
+| ---- | ---------------------- | ------------------ | ---------- | ---------------------------- | ----------------------------- |
 | T-01 | {{THREAT_DESCRIPTION}} | {{STRIDE_LINDDUN}} | {{IMPACT}} | {{EXISTING_CONTROL_OR_NONE}} | {{EVIDENCED_OR_NOT_ASSESSED}} |
 
 Consider at minimum, where applicable:
@@ -73,18 +73,18 @@ Consider at minimum, where applicable:
 
 ## Data flows and privacy
 
-| Data | Source | Destination | Crosses trust boundary | Retention |
-|---|---|---|---|---|
-| {{DATA_TYPE}} | {{SOURCE}} | {{DESTINATION}} | {{YES_NO}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
+| Data          | Source     | Destination     | Crosses trust boundary | Retention                       |
+| ------------- | ---------- | --------------- | ---------------------- | ------------------------------- |
+| {{DATA_TYPE}} | {{SOURCE}} | {{DESTINATION}} | {{YES_NO}}             | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
 
 Apply data minimization and purpose limitation. Do not infer a legal basis or
 retention obligation from the presence of data; record only confirmed policy.
 
 ## Controls mapped to threats
 
-| Control | Threat IDs | Type |
-|---|---|---|
-| {{CONTROL}} | {{T_IDS}} | {{PREVENT_DETECT_RECOVER}} |
+| Control     | Threat IDs | Type                       |
+| ----------- | ---------- | -------------------------- |
+| {{CONTROL}} | {{T_IDS}}  | {{PREVENT_DETECT_RECOVER}} |
 
 A control listed here reduces risk; it does not prove operating effectiveness.
 

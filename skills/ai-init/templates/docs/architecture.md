@@ -12,8 +12,8 @@
 
 ### Stakeholders and concerns
 
-| Stakeholder | Concern | Addressed by |
-|---|---|---|
+| Stakeholder                       | Concern                       | Addressed by                         |
+| --------------------------------- | ----------------------------- | ------------------------------------ |
 | {{STAKEHOLDER_OR_NOT_DOCUMENTED}} | {{QUALITY_ATTRIBUTE_OR_RISK}} | {{DOCUMENT_SECTION_OR_NOT_ASSESSED}} |
 
 ## System Context
@@ -22,7 +22,7 @@ Every generated architecture document must include at least one compact,
 evidence-based high-level diagram. Start from this block and keep the init line:
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 flowchart TB
   %% Example only. Replace the nodes and the edge with verified actors,
   %% systems, and relationships; delete the block when none is evidenced.
@@ -45,45 +45,45 @@ diagram with the same init line.
 
 ## Containers and Components
 
-| Component | Responsibility | Technology | Interfaces |
-|---|---|---|---|
+| Component     | Responsibility    | Technology        | Interfaces                     |
+| ------------- | ----------------- | ----------------- | ------------------------------ |
 | {{COMPONENT}} | {{VERIFIED_ROLE}} | {{VERIFIED_TECH}} | {{VERIFIED_INTERFACE_OR_NONE}} |
 
 ## Interfaces and Data Flow
 
 {{DOCUMENT_ONLY_VERIFIED_APIS_EVENTS_STORAGE_AND_EXTERNAL_CONNECTIONS}}
 
-| Interface | Direction | Protocol / schema | Authentication |
-|---|---|---|---|
+| Interface     | Direction                          | Protocol / schema                 | Authentication                            |
+| ------------- | ---------------------------------- | --------------------------------- | ----------------------------------------- |
 | {{INTERFACE}} | {{INBOUND_OUTBOUND_BIDIRECTIONAL}} | {{VERIFIED_PROTOCOL_AND_VERSION}} | {{CONFIRMED_MECHANISM_OR_NOT_DOCUMENTED}} |
 
 ## Data Architecture
 
-| Data store | Data class | Retention / backup |
-|---|---|---|
+| Data store        | Data class         | Retention / backup              |
+| ----------------- | ------------------ | ------------------------------- |
 | {{STORE_OR_NONE}} | {{CLASSIFICATION}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
 
 Describe consistency, migration, and deletion behavior only where verified.
 
 ## Quality Attributes
 
-| Attribute | Requirement | Architectural mechanism |
-|---|---|---|
-| Availability / reliability | {{CONFIRMED_TARGET_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} |
-| Performance / capacity | {{CONFIRMED_BUDGET_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} |
-| Security | {{CONFIRMED_CONTROL_OR_NOT_ASSESSED}} | {{MECHANISM_OR_NONE}} |
-| Privacy | {{CONFIRMED_OBLIGATION_OR_NOT_DOCUMENTED}} | {{MECHANISM_OR_NONE}} |
-| Observability | {{REQUIRED_SIGNALS_OR_NOT_DECIDED}} | {{MECHANISM_OR_NONE}} |
-| Maintainability | {{CONFIGURED_CHECKS_OR_NOT_DOCUMENTED}} | {{MECHANISM_OR_NONE}} |
+| Attribute                  | Requirement                                | Architectural mechanism |
+| -------------------------- | ------------------------------------------ | ----------------------- |
+| Availability / reliability | {{CONFIRMED_TARGET_OR_NOT_DECIDED}}        | {{MECHANISM_OR_NONE}}   |
+| Performance / capacity     | {{CONFIRMED_BUDGET_OR_NOT_DECIDED}}        | {{MECHANISM_OR_NONE}}   |
+| Security                   | {{CONFIRMED_CONTROL_OR_NOT_ASSESSED}}      | {{MECHANISM_OR_NONE}}   |
+| Privacy                    | {{CONFIRMED_OBLIGATION_OR_NOT_DOCUMENTED}} | {{MECHANISM_OR_NONE}}   |
+| Observability              | {{REQUIRED_SIGNALS_OR_NOT_DECIDED}}        | {{MECHANISM_OR_NONE}}   |
+| Maintainability            | {{CONFIGURED_CHECKS_OR_NOT_DOCUMENTED}}    | {{MECHANISM_OR_NONE}}   |
 
 Do not invent numeric thresholds. Mark unconfirmed qualities `Not decided` or
 `Not assessed`.
 
 ## Deployment and Environments
 
-| Environment | Deployment mechanism | Configuration source |
-|---|---|---|
-| {{TARGET}} | {{CONFIGURED_MECHANISM}} | {{CONFIG_PATH_OR_SECRET_STORE_REFERENCE}} |
+| Environment | Deployment mechanism     | Configuration source                      |
+| ----------- | ------------------------ | ----------------------------------------- |
+| {{TARGET}}  | {{CONFIGURED_MECHANISM}} | {{CONFIG_PATH_OR_SECRET_STORE_REFERENCE}} |
 
 Include network boundaries, ingress/egress, identity, and secret-delivery
 paths where verified. Never record secret values or internal hostnames that
@@ -110,7 +110,7 @@ points, and data flows that cross them.
 See `decisions.md` for permanent D-IDs, rationale, and
 alternatives. Do not maintain a second decision register here.
 
-______________________________________________________________________
+---
 
 ### Related Docs
 

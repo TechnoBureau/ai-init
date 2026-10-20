@@ -11,7 +11,7 @@ the init line and the expected shape; the skill replaces its example nodes with
 verified evidence before delivery and deletes the block when none exists.
 
 ```text
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 ```
 
 ## Readability and diagram choice
@@ -37,7 +37,7 @@ verified evidence before delivery and deletes the block when none exists.
 ## Flowchart
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 flowchart TB
   Source --> Processor
   Processor --> Output
@@ -56,7 +56,7 @@ interaction; sequence diagrams are naturally horizontal, so split long
 interactions into separate scenarios.
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 sequenceDiagram
   participant U as User
   participant A as API
@@ -70,7 +70,7 @@ sequenceDiagram
 ## ER diagram
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 erDiagram
   USER ||--o{ ORDER : places
   ORDER ||--|{ LINE_ITEM : contains
@@ -79,7 +79,7 @@ erDiagram
 ## State diagram
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 stateDiagram-v2
   [*] --> Pending
   Pending --> Running
@@ -94,7 +94,7 @@ repository domains. It is not a substitute for showing runtime connections or
 workflow order. Keep the hierarchy shallow and concise.
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 mindmap
   root((Verified domain))
     Area A

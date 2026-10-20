@@ -24,14 +24,14 @@ defined in a manifest, workflow, or hook configuration.
 | Path / pattern | Scope | Level | Framework or tool |
 |---|---|---|---|
 | `tests/test_validate_skills.py` | Frontmatter, metadata, links, size, eval rules | Unit | `unittest` |
-| `tests/test_check_links.py` | Link resolution and template exclusion | Unit | `unittest` |
+| `tests/test_check_links.py` | Link resolution, including template directories | Unit | `unittest` |
 | `tests/test_working_example.py` | Template-to-`docs/` and starter-file correspondence | Unit | `unittest` |
 | `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, hook flags, and dependency wiring | Unit | `unittest` |
 | `tests/test_pinning.py` | Version-tag pinning for hooks and actions, and Dependabot coverage | Unit | `unittest` |
 | `tests/test_docs_state.py` | Documents describe current state; no frozen runs, duplicated pins, or bookkeeping columns, and the structure doc lists every reference | Unit | `unittest` |
-| `tests/test_template_links.py` | Template titles and links resolve in a generated repository; conditional documents stay behind a placeholder | Unit | `unittest` |
+| `tests/test_template_links.py` | Templates carry no relative link, name only generated documents, and fill a related-document footer from the placeholder | Unit | `unittest` |
 | `scripts/validate_skills.py` | Every checked-in skill and eval fixture | Static | Project script |
-| `scripts/check_links.py` | All non-template Markdown | Static | Project script |
+| `scripts/check_links.py` | All Markdown, including templates | Static | Project script |
 | `.pre-commit-config.yaml` | Format, hygiene, secrets, lint | Static | pre-commit |
 
 ## Commands

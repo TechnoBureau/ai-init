@@ -139,9 +139,11 @@ cases:
     should_trigger: true
     expected:
       - "Writes docs/PRD.md, docs/structure.md, docs/decisions.md, and docs/security.md, and links only those."
+      - "Starts from a template that names documents in code spans, then writes a link for each file it generated."
       - "Names the skipped documents in prose instead of linking docs/design.md, docs/tests.md, or docs/tasks.md."
       - "Replaces the related-document footer with links to the documents that exist."
     forbidden:
+      - "Leaving a relative link in a template, where it resolves to a file that does not exist."
       - "Leaving a hardcoded footer or index row that links a document this run skipped."
       - "Appending the project name to a document title."
 

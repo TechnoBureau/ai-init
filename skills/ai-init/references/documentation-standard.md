@@ -79,17 +79,21 @@ the repository supports it, so the output set differs per repository.
 - A title names the document type, not the project. Do not carry a project name
   in an H1 and do not suffix it with a separator: `# Architecture`, not
   `# Architecture — <project>`.
-- Link only to a document that exists. In a template, that means the
-  always-created output; name a conditional document in backticks until the
-  skill has decided to generate it.
+- Link only to a document that exists. A generated page may link any document
+  in its own repository; a link to a skipped document is a broken link.
+- A template contains no relative link. It is copied into another repository, so
+  a link inside it resolves against this repository's layout, where the target
+  does not exist. Name the document in a code span and let the skill write the
+  link when it writes the document.
 - A related-document footer is written as
   `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}`. Replace it with links to the
   documents that were actually written, and delete the section when none remain.
-- A template never links into the skill tree. `references/` ships with the skill,
-  not with the repository it documents, so state the rule inline and show any
-  required code block in the template itself.
-- An index table lists only generated files. Keep the always-created rows and
-  add a row per optional document that exists; delete the instruction paragraph.
+- A template never links into the skill tree either. `references/` ships with the
+  skill, not with the repository it documents, so state the rule inline and show
+  any required code block in the template itself.
+- An index row names a document and its file in parentheses; the skill turns the
+  name into a link and deletes the parenthetical. Keep only rows for documents
+  that exist, and delete the instruction paragraph once the page is written.
 
 ## Decisions
 

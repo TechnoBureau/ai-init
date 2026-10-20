@@ -61,9 +61,9 @@ recommendations.
 
 ## AI Agent Collaboration
 
-- Start from [README.md](../README.md) and the [documentation index](./README.md).
-- Follow root [AGENTS.md](../AGENTS.md) and the operating constraints in the
-  skill being executed.
+- Start from the root [README.md](../README.md), the shared documentation index.
+- Follow root [AGENTS.md](../AGENTS.md) and any more specific repository
+  instructions, including the operating constraints in the skill being executed.
 - Verify behavior and commands from source, manifests, and configuration.
 - Do not run destructive Git commands, force-push shared branches, or rewrite
   history unless explicitly authorized.
@@ -85,6 +85,9 @@ recommendations.
   or supersession in a table or on a decision.
 - Use lowercase kebab-case for `docs/` filenames with `PRD.md` as the recorded
   exception.
+- Never put a relative link in a template. It is copied into another repository,
+  so name the document in a code span and write the link when writing the file;
+  `scripts/check_links.py` and `tests/test_template_links.py` enforce this.
 - Review security and architecture documents at least quarterly; update both
   indexes whenever a document is added, renamed, or removed.
 - Never let a formatter rewrite YAML frontmatter or machine-readable metadata.

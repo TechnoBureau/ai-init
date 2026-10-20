@@ -18,10 +18,14 @@ item means it was verified in the current worktree, not assumed.
   links the config or workflow that owns the value instead.
 - [ ] The H1 names the document type and carries no project name or
   separator suffix.
-- [ ] Every link resolves in the generated repository. A conditional
-  document is named in backticks, a related-document footer was replaced
-  from `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}` with links that
-  exist, and no link points into `skills/` or `references/`.
+- [ ] The template you started from contains no relative link; the written
+  document links the files that exist, and no link points into `skills/` or
+  `references/`.
+- [ ] A related-document footer was replaced from
+  `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}` with links that exist, or
+  the section was deleted when none remain.
+- [ ] Every index row names a document that was written, and its name is a link.
+  `python scripts/check_links.py` reports no broken link.
 - [ ] Checked every destination before writing; existing content and
   permanent IDs are preserved rather than replaced wholesale.
 - [ ] If a lowercase root `readme.md` exists, its content was reviewed and

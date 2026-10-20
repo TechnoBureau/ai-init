@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Check every local Markdown link in this repository.
 
-Templates under ``skills/*/templates/`` are excluded because their links are
-resolved after ``ai-init`` copies them into a target repository. All other
-Markdown must link only to files that exist so generated documentation never
-ships a broken index.
+Every Markdown file is checked, including the document templates. A template is
+copied into another repository, so a relative link inside it would resolve
+against this repository's layout, where the generated file does not exist.
+Templates therefore name a document in a code span and let the skill write the
+link when it writes the document.
 
 Usage:
     python scripts/check_links.py
@@ -28,7 +29,6 @@ LINK_RE = re.compile(
 REF_DEF_RE = re.compile(r"^\s{0,3}\[[^\]]+\]:\s*(\S+)", re.MULTILINE)
 EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "tel:", "data:", "ftp://")
 EXCLUDED_PARTS = {".git", ".venv", "node_modules", "__pycache__"}
-EXCLUDED_DIR_NAMES = {"templates"}
 
 
 @dataclass(frozen=True)
@@ -44,8 +44,6 @@ class BrokenLink:
 def markdown_files(root: Path) -> Iterator[Path]:
     for path in sorted(root.rglob("*.md")):
         if any(part in EXCLUDED_PARTS for part in path.parts):
-            continue
-        if any(part in EXCLUDED_DIR_NAMES for part in path.relative_to(root).parts):
             continue
         yield path
 

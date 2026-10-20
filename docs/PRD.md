@@ -157,6 +157,7 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-18 | Security documents MUST use only the defined control statuses and MUST NOT claim certification | Status vocabulary enforced by instruction and template |
 | FR-21 | Generated documents MUST NOT carry per-row status, date, owner, evidence, verification, baseline, target, alternative, or supersession metadata | No such column or decision field remains |
 | FR-22 | Generated documents MUST link only to files that exist in the target repository, and a title MUST name the document type rather than the project | Every template link resolves to an always-created output; no H1 carries a project name |
+| FR-23 | A template MUST NOT contain a relative link; it MUST name the document and the skill MUST write the link only for a file it wrote | `check_links.py` and `tests/test_template_links.py` find no relative link in a template; generated pages link every generated document |
 
 ## 8. Non-Functional Requirements
 

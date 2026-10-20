@@ -119,7 +119,7 @@ pre-commit run --all-files
 | Gate | What it enforces |
 |---|---|
 | [`validate_skills.py`](./scripts/validate_skills.py) | Spec frontmatter, name/directory match, description triggers, enterprise metadata, body limits, relative links, eval coverage |
-| [`check_links.py`](./scripts/check_links.py) | Every local Markdown link resolves (templates excluded because they are generated later) |
+| [`check_links.py`](./scripts/check_links.py) | Every local Markdown link resolves, including links in templates |
 | [`tests/`](./tests) | Validator rules and a regression that reproduces frontmatter corruption |
 | [markdownlint-cli2](./.markdownlint-cli2.yaml) | Markdown structure and consistency without rewriting YAML frontmatter |
 | [pre-commit](./.pre-commit-config.yaml) | YAML/JSON/TOML validity, whitespace, merge markers, large files, private keys, gitleaks, IBM detect-secrets, Markdown lint, skill validation |
@@ -186,9 +186,10 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
   documents belong under `docs/` in lowercase kebab-case, with `PRD.md` as the
   recorded acronym exception.
 - A document title names its type, not the project: `# Architecture`, not
-  `# Architecture — <project>`. A template links only to documents every
-  generated repository contains; a conditional document is named in backticks
-  or reached through the related-document placeholder the skill fills in.
+  `# Architecture — <project>`. A template contains no relative link: it names
+  the document in a code span, and the skill writes the link only when it writes
+  that file. A related-document footer starts from a placeholder the skill fills
+  in.
 - No document contains secrets, credentials, private keys, or unredacted
   personal data.
 

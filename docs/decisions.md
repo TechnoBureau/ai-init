@@ -25,6 +25,7 @@ replaces; there is no separate status field to maintain.
 | D-14 | Documents describe current state and link the owner of each value |
 | D-15 | Documents carry no bookkeeping metadata |
 | D-16 | Titles name the document type, and template links resolve in the output |
+| D-17 | Templates name documents instead of linking them |
 
 ## Decision Records
 
@@ -255,8 +256,8 @@ replaces; there is no separate status field to maintain.
   README had no title of its own. Templates also linked documents that are created only
   when a repository supports them, and two templates linked a Mermaid reference
   that ships with the skill and is never copied. Nothing resolved those links:
-  `check_links.py` skips templates, and the working-example test only proved that
-  a template had an output.
+  `check_links.py` skipped templates, and the working-example test only proved
+  that a template had an output.
 - **Decision:** An H1 states the document type — `# Overview`, `# Architecture`,
   `# Product Requirements Document` — with no project name and no separator
   suffix. A template links only to output that every generated repository
@@ -270,6 +271,28 @@ replaces; there is no separate status field to maintain.
 - **Reason:** A link is a promise that the target exists. Promising a document
   that the same run decided to skip is the defect, and a project name in a title
   is a copy of a value the repository root already states.
+
+### D-17 — Templates name documents instead of linking them
+
+- **Context:** A template is copied into another repository, but its links are
+  written in this one. Reading `skills/ai-init/templates/docs/README.md` in the
+  repository, `../README.md` resolves to `skills/ai-init/templates/README.md` and
+  `./PRD.md` to a directory that holds no such file; the generated page is correct
+  and the source is broken. `check_links.py` skipped every `templates/` directory,
+  so nineteen of twenty-two template links were never verified. A link checker
+  that treats `readme.md` as a host name reports `http://readme.md`.
+- **Decision:** A template contains no relative link. It names a document in a
+  code span and the skill writes the link when it writes that document, only for
+  files that exist. An index row names the document and its file in parentheses;
+  the skill turns the name into a link and deletes the parenthetical. This
+  replaces the link clause of D-16 and keeps its title rule.
+- **Consequences:** Every template link is now a link that exists, so
+  `check_links.py` covers the templates and the no-link rule has its own test.
+  Generated pages still carry links, and the working example shows the result.
+  A template reader sees a path, not a dead link.
+- **Reason:** A link is a promise that the target exists. A template cannot know
+  which repository it will be copied into, so it cannot promise a target; the
+  skill can, at the moment it writes the file.
 
 ## Related Docs
 

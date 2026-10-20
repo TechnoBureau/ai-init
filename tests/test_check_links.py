@@ -37,7 +37,9 @@ class LinkCheckerTests(unittest.TestCase):
             self.assertEqual(3, findings[0].line)
             self.assertEqual("docs/missing.md", findings[0].target)
 
-    def test_template_links_are_excluded(self) -> None:
+    def test_template_links_are_checked(self) -> None:
+        # A template is copied elsewhere, so a link is broken where it is
+        # written even when the generated file will exist somewhere else.
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             template = root / "skills" / "demo" / "templates"
@@ -45,7 +47,9 @@ class LinkCheckerTests(unittest.TestCase):
             (template / "doc.md").write_text(
                 "[Generated](./does-not-exist-yet.md)\n", encoding="utf-8"
             )
-            self.assertEqual([], check_links.check_repository(root))
+            findings = check_links.check_repository(root)
+            self.assertEqual(1, len(findings))
+            self.assertEqual("does-not-exist-yet.md", findings[0].target.split("/")[-1])
 
     def test_checked_in_repository_has_no_broken_links(self) -> None:
         findings = check_links.check_repository(REPO_ROOT)

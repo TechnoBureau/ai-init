@@ -1,15 +1,14 @@
-"""Every link in a document template must resolve in a generated repository.
+"""Document templates must survive the copy into another repository.
 
-`check_links.py` skips templates because they contain placeholders, and
-`test_working_example.py` only proves that each template has an output. Neither
-reads a template link the way a reader of the generated repository would, so a
-template could point at a document that is only sometimes generated, or at a
-file in the skill tree that is never copied into the target.
+A template is written here and copied somewhere else, so a relative link inside
+it resolves against this repository's layout, where the generated document does
+not exist. Every template therefore names a document in a code span and lets the
+skill write the link when it writes the document. `check_links.py` checks the
+same files, so a later link cannot slip back in unnoticed.
 
-A generated repository always contains `README.md`, the two agent symlinks, and
-the default `docs/` set. Everything else is conditional, so a template may name
-it in prose or behind `{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}`, never
-as a live link.
+The tests below also keep the template set and the working example in step: each
+template output is classified, each conditional output has a template, and a
+document named in a template is linked by the generated page that mirrors it.
 """
 
 from __future__ import annotations
@@ -23,10 +22,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 TEMPLATES = REPO_ROOT / "skills"
 
 LINK = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
+CODE_SPAN = re.compile(r"`([^`\n]+)`")
+DOCUMENT_NAME = re.compile(r"^[A-Za-z0-9_./-]+\.md$")
+# An index row names a document and its file: "| Security (`security.md`) | ... |".
+INDEX_ROW = re.compile(r"^\|\s*[^|`]+?\s*\(`([^`]+)`\)\s*\|")
 PLACEHOLDER = "{{RELATED_DOC_LINKS_TO_EXISTING_FILES_OR_NONE}}"
 FOOTER_HEADINGS = ("### Related Docs", "## Related documents")
 
-# Created on every run, so a template may link them directly.
+# Created on every run, so the skill always writes a link to them.
 ALWAYS_CREATED = {
     "README.md",
     "AGENTS.md",
@@ -38,8 +41,8 @@ ALWAYS_CREATED = {
     "docs/security.md",
 }
 
-# Created only when the repository supports them. A link to one of these, or to
-# any path outside this set, is broken in the repositories that skip it.
+# Created only when the repository supports them, so a template may name one
+# but must not link it.
 CONDITIONAL = {
     "CONTRIBUTING.md",
     "CODE_OF_CONDUCT.md",
@@ -120,45 +123,61 @@ def relative_links(text: str) -> list[tuple[int, str]]:
     return found
 
 
-def resolve(template: Path, target: str) -> str:
-    """Resolve a template link against the generated repository, not the tree."""
+def index_rows(text: str) -> list[tuple[int, str]]:
+    """Return line number and target path for every index row naming a file."""
 
-    return os.path.normpath(os.path.join(landing_dir(template), target)).replace(
-        "\\", "/"
-    )
+    found = []
+    for number, line in enumerate(text.splitlines(), start=1):
+        match = INDEX_ROW.match(line)
+        if match:
+            found.append((number, match.group(1)))
+    return found
+
+
+def named_documents(text: str) -> list[tuple[int, str]]:
+    """Return line number and path for every document named in a code span."""
+
+    found = []
+    for number, line in enumerate(text.splitlines(), start=1):
+        for token in CODE_SPAN.findall(line):
+            if DOCUMENT_NAME.match(token):
+                found.append((number, token))
+    return found
+
+
+def resolve(base: str, target: str) -> str:
+    """Resolve a path against a directory, relative to the repository root."""
+
+    return os.path.normpath(os.path.join(base, target)).replace("\\", "/")
 
 
 class TemplateLinkTests(unittest.TestCase):
-    def test_templates_link_only_to_outputs_that_always_exist(self) -> None:
+    def test_templates_contain_no_relative_links(self) -> None:
         offenders = []
         for template in template_files():
             for number, target in relative_links(template.read_text(encoding="utf-8")):
-                resolved = resolve(template, target)
-                if resolved not in ALWAYS_CREATED:
-                    offenders.append(
-                        f"{template.relative_to(REPO_ROOT)}:{number}: {target}"
-                        f" -> {resolved}"
-                    )
+                offenders.append(f"{template.relative_to(REPO_ROOT)}:{number}: {target}")
         self.assertEqual(
             [],
             offenders,
-            "a template link must resolve in every generated repository; "
-            "name a conditional document in prose or behind "
-            f"{PLACEHOLDER}:\n" + "\n".join(offenders),
+            "a template is copied into another repository, where this link "
+            "resolves to nothing; name the document in a code span and let the "
+            "skill write the link:\n" + "\n".join(offenders),
         )
 
-    def test_templates_do_not_link_into_the_skill_tree(self) -> None:
+    def test_named_documents_are_generated(self) -> None:
+        generated = {Path(path).name for path in ALWAYS_CREATED | CONDITIONAL}
         offenders = []
         for template in template_files():
-            for number, target in relative_links(template.read_text(encoding="utf-8")):
-                if "/skills/" in f"/{resolve(template, target)}" or "references/" in target:
+            for number, token in named_documents(template.read_text(encoding="utf-8")):
+                if Path(token).name not in generated:
                     offenders.append(
-                        f"{template.relative_to(REPO_ROOT)}:{number}: {target}"
+                        f"{template.relative_to(REPO_ROOT)}:{number}: {token}"
                     )
         self.assertEqual(
             [],
             offenders,
-            "skill references are not copied into a target repository:\n"
+            "a template names a document the collection never generates:\n"
             + "\n".join(offenders),
         )
 
@@ -202,7 +221,7 @@ class TemplateLinkTests(unittest.TestCase):
             [], stale, f"conditional outputs with no template: {', '.join(stale)}"
         )
 
-    def test_working_example_links_stay_inside_the_repository(self) -> None:
+    def test_index_rows_link_the_generated_document(self) -> None:
         offenders = []
         for template in template_files():
             output = output_path(template)
@@ -211,12 +230,36 @@ class TemplateLinkTests(unittest.TestCase):
             document = REPO_ROOT / output
             if not document.is_file():
                 continue
+            linked = {
+                resolve("docs", target)
+                for _number, target in relative_links(
+                    document.read_text(encoding="utf-8")
+                )
+            }
+            for number, token in index_rows(template.read_text(encoding="utf-8")):
+                target = resolve(landing_dir(template), token)
+                if not (REPO_ROOT / target).exists():
+                    continue
+                if target not in linked:
+                    offenders.append(
+                        f"{template.relative_to(REPO_ROOT)}:{number}: {token} is "
+                        f"not linked from {output}"
+                    )
+        self.assertEqual(
+            [],
+            offenders,
+            "an index row names a file, so the generated index must link it:\n"
+            + "\n".join(offenders),
+        )
+
+    def test_working_example_links_stay_inside_the_repository(self) -> None:
+        offenders = []
+        for document in sorted((REPO_ROOT / "docs").glob("*.md")):
             for number, target in relative_links(document.read_text(encoding="utf-8")):
-                resolved = os.path.normpath(
-                    os.path.join("docs", target)
-                ).replace("\\", "/")
-                if resolved.startswith(".."):
-                    offenders.append(f"{output}:{number}: {target}")
+                if resolve("docs", target).startswith(".."):
+                    offenders.append(
+                        f"{document.relative_to(REPO_ROOT)}:{number}: {target}"
+                    )
         self.assertEqual(
             [],
             offenders,
@@ -258,35 +301,6 @@ class TemplateLinkTests(unittest.TestCase):
             [],
             offenders,
             "generated titles must match their template:\n" + "\n".join(offenders),
-        )
-
-    def test_working_example_keeps_every_literal_template_link(self) -> None:
-        offenders = []
-        for template in template_files():
-            output = output_path(template)
-            if not output.startswith("docs/"):
-                continue
-            document = REPO_ROOT / output
-            if not document.is_file():
-                continue
-            document_links = {
-                resolve(template, target)
-                for _number, target in relative_links(
-                    document.read_text(encoding="utf-8")
-                )
-            }
-            for number, target in relative_links(template.read_text(encoding="utf-8")):
-                resolved = resolve(template, target)
-                if resolved not in document_links:
-                    offenders.append(
-                        f"{template.relative_to(REPO_ROOT)}:{number}: {target} is"
-                        f" missing from {output}"
-                    )
-        self.assertEqual(
-            [],
-            offenders,
-            "the working example must exercise every literal template link, "
-            "otherwise the template drifts:\n" + "\n".join(offenders),
         )
 
 

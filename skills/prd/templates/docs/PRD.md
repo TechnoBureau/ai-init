@@ -68,7 +68,7 @@ example row. Do not create a D-ID for an implementation observation unless the
 PRD clearly distinguishes it from an approved decision. Never recycle a
 retired ID.
 
-See [decisions.md](./decisions.md) for context and consequences. Preserve
+See `decisions.md` for context and consequences. Preserve
 existing D-IDs when refining this document. Do not invent a reason.
 
 ## 6. User Personas
@@ -153,7 +153,7 @@ workflow name or badge.
 {{VERIFIED_PRIMARY_DIRECTORY_AND_COMPONENT_TREE}}
 ```
 
-See [structure.md](./structure.md) for the fuller verified repository map.
+See `structure.md` for the fuller verified repository map.
 
 ______________________________________________________________________
 

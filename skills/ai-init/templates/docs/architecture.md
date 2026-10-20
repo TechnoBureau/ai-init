@@ -91,7 +91,7 @@ are not already appropriate for the document's classification.
 ## Security Boundaries
 
 Summarize only architecture-level boundaries visible in configuration or
-implementation. See [security.md](./security.md) for the repository security
+implementation. See `security.md` for the repository security
 posture. Identify trust boundaries, authentication/authorization enforcement
 points, and data flows that cross them.
 
@@ -106,7 +106,7 @@ points, and data flows that cross them.
 
 ## Decisions
 
-See [decisions.md](./decisions.md) for permanent D-IDs, rationale, and
+See `decisions.md` for permanent D-IDs, rationale, and
 alternatives. Do not maintain a second decision register here.
 
 ______________________________________________________________________

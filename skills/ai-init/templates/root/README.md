@@ -25,7 +25,7 @@ and say `Not configured` rather than leaving a runnable-looking placeholder.
 {{BRIEF_SUMMARY_OF_EVIDENCED_GOALS_FROM_DOCS_PRD_MD}}
 
 Full requirements, acceptance criteria, and permanent traceability IDs are in
-[docs/PRD.md](./docs/PRD.md).
+`docs/PRD.md`.
 
 ## Quick Start
 
@@ -51,7 +51,7 @@ Keep detailed diagrams there rather than duplicating them in this index.
 ## Security and Compliance
 
 Security posture, applicable profiles, and known gaps are documented in
-[docs/security.md](./docs/security.md). No statement in this repository is a
+`docs/security.md`. No statement in this repository is a
 certification, audit opinion, or compliance attestation unless an approved
 record explicitly says so.
 
@@ -61,16 +61,18 @@ record explicitly says so.
 
 ## Documentation Index
 
-Keep only links to files that were generated. Remove rows for skipped optional
-documents; a broken or aspirational index is worse than a short one.
+Keep only rows for files that were generated. When you write this page, turn
+each document name into a link to the path in parentheses and delete the
+parenthetical; remove rows for skipped optional documents. A broken or
+aspirational index is worse than a short one.
 
 | Document | Purpose |
 |---|---|
-| [Documentation index](./docs/README.md) | Entry point for everything under `docs/` |
-| [Product requirements](./docs/PRD.md) | Goals, scope, requirements, workflows, and product type |
-| [Repository structure](./docs/structure.md) | Verified directory and component map |
-| [Decisions](./docs/decisions.md) | Decision IDs, context, and consequences |
-| [Security](./docs/security.md) | Controls and security configuration |
+| Documentation index (`docs/README.md`) | Entry point for everything under `docs/` |
+| Product requirements (`docs/PRD.md`) | Goals, scope, requirements, workflows, and product type |
+| Repository structure (`docs/structure.md`) | Verified directory and component map |
+| Decisions (`docs/decisions.md`) | Decision IDs, context, and consequences |
+| Security (`docs/security.md`) | Controls and security configuration |
 
 These documents are generated only when the repository supports them:
 `architecture.md`, `design.md`, `tests.md`, `style.md`, `rules.md`, `usage.md`,
@@ -79,8 +81,8 @@ document that exists, using the same two columns, then delete this paragraph.
 
 ## AI Agent Entry Points
 
-- [AGENTS.md](./AGENTS.md) — symbolic link to this shared README.
-- [CLAUDE.md](./CLAUDE.md) — symbolic link to this shared README.
+- `AGENTS.md` — symbolic link to this shared README.
+- `CLAUDE.md` — symbolic link to this shared README.
 
 When working in this repository, inspect relevant source, configuration, and
 linked documentation before describing behavior or running commands. Follow

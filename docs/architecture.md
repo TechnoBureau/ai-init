@@ -35,6 +35,7 @@ repository.
 | `scripts/check_links.py` | Local Markdown link integrity | `scripts/check_links.py` |
 | `tests/` | Regression tests for the validators | `tests/` |
 | `.github/workflows/validate.yml` | CI enforcement | `.github/workflows/validate.yml` |
+| `skills/ai-init/templates/` | README, meta files, and `docs/` templates | `skills/ai-init/templates/` |
 
 ## Validation pipeline
 
@@ -92,7 +93,7 @@ none may depend on another skill's reference files at load time.
 ```text
 .
 ├── .github/                 # CI, Dependabot, pull-request template
-├── docs/                    # Governance, standard, threat model, architecture
+├── docs/                    # Index, governance, standard, threat model, architecture
 ├── evals/                   # Trigger/non-trigger fixtures per skill
 ├── scripts/                 # Validators (stdlib + PyYAML)
 ├── skills/
@@ -103,7 +104,6 @@ none may depend on another skill's reference files at load time.
 │   ├── design/              # Design system + accessibility
 │   └── code-quality/        # Cleanup + engineering practices
 ├── tests/                   # Validator regression tests
-├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 └── README.md
@@ -120,7 +120,7 @@ none may depend on another skill's reference files at load time.
 | Broken documentation index | Link checker and generation rules that omit skipped docs |
 | Skill bloat | Progressive disclosure and body size limits |
 | Inconsistent enterprise coverage | Shared standard, per-skill standards metadata, evals |
-| Silent regression | Versioned evals, changelog, required review |
+| Silent regression | Evals, required review, and CI gates |
 
 ## Operational assumptions
 

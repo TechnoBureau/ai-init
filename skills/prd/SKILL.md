@@ -12,7 +12,6 @@ compatibility: >-
   network access. Works with any language or platform.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
   standards: >-
     Agent Skills 1.0; ISO/IEC/IEEE 29148:2018; INCOSE Guide to Writing
     Requirements v4; RFC 2119/8174; ISO/IEC 25010:2023

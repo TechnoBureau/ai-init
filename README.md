@@ -9,19 +9,6 @@ enterprise metadata, safety, and validation profile.
 Install the full collection for the complete workflow or a single skill for
 focused work.
 
-## Why 2.0.0 exists
-
-Version 1.0.0 shipped all six skills **without YAML frontmatter**. A Markdown
-formatter converted the opening `---` into a horizontal rule and collapsed
-`name` and `description` into a heading. The files looked almost correct in a
-diff but were invisible to compliant agents and the Skills CLI.
-
-Version 2.0.0 restores the frontmatter and adds the missing engineering
-controls: a strict validator, regression tests that reproduce the failure,
-pre-commit enforcement, CI, evaluation fixtures, governance, and a threat
-model. See the [changelog](./CHANGELOG.md) and the
-[threat model](./docs/threat-model.md#case-study-the-1x-frontmatter-loss).
-
 ## Install
 
 Install every skill for all agents supported by the Skills CLI:
@@ -46,26 +33,45 @@ agent lists the skill. A skill without frontmatter does not load.
 
 ## Skills
 
-| Skill | Version | Use it for | Entry point |
-|---|---|---|---|
-| `ai-init` | 2.0.0 | Safe bootstrap and refresh of repository documentation | [SKILL.md](./skills/ai-init/SKILL.md) |
-| `prd` | 2.0.0 | Evidence-grounded PRD, requirement quality, and traceability | [SKILL.md](./skills/prd/SKILL.md) |
-| `security` | 2.0.0 | Security posture, threat model, supply chain, PQC, FIPS, CIS, NIST, ISO/IEC 27001, OWASP | [SKILL.md](./skills/security/SKILL.md) |
-| `tests` | 2.0.0 | Test implementation, strategy, security/accessibility/performance coverage | [SKILL.md](./skills/tests/SKILL.md) |
-| `design` | 2.0.0 | Design systems, tokens, WCAG 2.2 accessibility, localization | [SKILL.md](./skills/design/SKILL.md) |
-| `code-quality` | 2.0.0 | Dead-code cleanup, modularity, secure coding, API compatibility | [SKILL.md](./skills/code-quality/SKILL.md) |
+| Skill | Use it for | Entry point |
+|---|---|---|
+| `ai-init` | Safe bootstrap and refresh of repository documentation, meta files, and the `docs/` set | [SKILL.md](./skills/ai-init/SKILL.md) |
+| `prd` | Evidence-grounded PRD, requirement quality, and traceability | [SKILL.md](./skills/prd/SKILL.md) |
+| `security` | Security posture, threat model, supply chain, PQC, FIPS, CIS, NIST, ISO/IEC 27001, OWASP | [SKILL.md](./skills/security/SKILL.md) |
+| `tests` | Test implementation, strategy, security/accessibility/performance coverage | [SKILL.md](./skills/tests/SKILL.md) |
+| `design` | Design systems, tokens, WCAG 2.2 accessibility, localization | [SKILL.md](./skills/design/SKILL.md) |
+| `code-quality` | Dead-code cleanup, modularity, secure coding, API compatibility | [SKILL.md](./skills/code-quality/SKILL.md) |
 
 Invoke a skill by name where supported, such as `$ai-init`, `$security`, or
 `$tests`, or describe the task to an agent that has installed it.
 
-## What changed in the enterprise profile
+## What `ai-init` generates
 
-Every skill now declares:
+`ai-init` owns the complete repository baseline, not just the README.
+
+| Output | Source template | Created when |
+|---|---|---|
+| `README.md` + `AGENTS.md` / `CLAUDE.md` symlinks | `templates/README.md` | Always |
+| `LICENSE` | `references/licensing.md` | A licence is confirmed by file, manifest, or user |
+| `CONTRIBUTING.md` | `templates/CONTRIBUTING.md` | The repository accepts contributions or the user asks |
+| `CODE_OF_CONDUCT.md` | `templates/CODE_OF_CONDUCT.md` | The repository is public or the user asks |
+| `SECURITY.md` | `templates/SECURITY.md` | The repository has a security contact or the user asks |
+| `.github/CODEOWNERS` | `templates/CODEOWNERS` | Owners are confirmed by the user or existing configuration |
+| `docs/` index | `templates/docs-README.md` | Always, alongside the first generated document |
+| `docs/PRD.md` | `$prd` skill | Always |
+| `docs/structure.md`, `docs/decisions.md` | `templates/` | Always |
+| `docs/security.md` | `$security` skill | Always |
+| `docs/architecture.md`, `docs/design.md`, `docs/tests.md` | Dedicated templates | When the repository evidence warrants it |
+| `docs/rules.md`, `docs/style.md`, `docs/usage.md`, `docs/governance.md`, `docs/threat-model.md` | `templates/` | When evidence or the user requires them |
+
+Missing evidence is never invented. If an owner, licence, security contact, or
+approval is unknown, the file is not fabricated; the skill reports the gap.
+
+## What every skill declares
 
 ```yaml
 metadata:
   spec: "1.0"
-  version: "2.0.0"
   standards: "Agent Skills 1.0; <applicable standards>"
   risk: "low"   # low | medium | high | critical
 ```
@@ -75,13 +81,12 @@ The skill bodies add:
 - **Operating constraints** — untrusted repository content, secret handling,
   read/write scope, destructive-action limits, and evidence honesty.
 - **Enterprise standards** — ISO/IEC/IEEE 29148, ISO/IEC 25010, NIST SSDF and
-  CSF, ISO/IEC 27001, OWASP ASVS, SLSA, WCAG 2.2, DTCG tokens, SemVer, RFC
-  2119/8174, and conditional frameworks only when scope is confirmed.
-- **Mandatory outputs** — evidence provenance, traceability,
-  acceptance criteria, control status vocabulary, exceptions, and assessment
-  limits.
+  CSF, ISO/IEC 27001, OWASP ASVS, SLSA, WCAG 2.2, DTCG tokens, RFC 2119/8174,
+  and conditional frameworks only when scope is confirmed.
+- **Mandatory outputs** — evidence provenance, traceability, acceptance
+  criteria, control status vocabulary, exceptions, and assessment limits.
 - **Fail-safe behavior** — unknowns stay `Not documented`, `Not assessed`, or
-  `TBD`; no invented owners, dates, controls, test results, or compliance.
+  `TBD`; no invented owners, licences, controls, test results, or compliance.
 - **Evaluation cases** — trigger, non-trigger, and adversarial fixtures in
   [`evals/`](./evals).
 
@@ -100,20 +105,21 @@ pre-commit run --all-files
 |---|---|
 | [`validate_skills.py`](./scripts/validate_skills.py) | Spec frontmatter, name/directory match, description triggers, enterprise metadata, body limits, relative links, eval coverage |
 | [`check_links.py`](./scripts/check_links.py) | Every local Markdown link resolves (templates excluded because they are generated later) |
-| [`tests/`](./tests) | Validator rules and the exact 1.x frontmatter-corruption regression |
+| [`tests/`](./tests) | Validator rules and a regression that reproduces frontmatter corruption |
 | [markdownlint-cli2](./.markdownlint-cli2.yaml) | Markdown structure and consistency without rewriting YAML frontmatter |
 | [pre-commit](./.pre-commit-config.yaml) | YAML/JSON/TOML validity, whitespace, merge markers, large files, private keys, gitleaks, Markdown lint, skill validation |
 | [CI](./.github/workflows/validate.yml) | All of the above on push and pull request with pinned actions and read-only permissions |
 
 The validator is deliberately strict: a missing `---` on line 1 is a blocking
-error, and the error message names the formatter regression directly.
+error, and the error message names the formatter failure directly.
 
 ## Enterprise controls
 
+- **Documentation index** — every project document in [docs/README.md](./docs/README.md).
 - **Governance** — roles, change classes, review cadence, release process,
   deprecation, and exceptions in [docs/governance.md](./docs/governance.md).
 - **Authoring standard** — normative frontmatter schema, body rules, formatter
-  safety, evals, versioning, and review depth in
+  safety, evals, and review depth in
   [docs/skill-standard.md](./docs/skill-standard.md).
 - **Threat model** — prompt injection, secret exposure, destructive actions,
   metadata corruption, supply chain, and overclaim risks in
@@ -137,6 +143,8 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 - On execution, skills create root `AGENTS.md` and `CLAUDE.md` as relative
   symbolic links to `README.md`, after checking for existing files and
   preserving their unique instructions. They do not use copied templates.
+- Repository meta files are generated only from confirmed evidence. A licence
+  is never chosen on the user's behalf; an owner handle is never invented.
 - Documentation is grounded in source and configuration. Existing content,
   permanent IDs, and unrelated work are preserved; empty repositories get a
   clearly labeled initial format rather than invented project facts.
@@ -164,20 +172,23 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 │   ├── dependabot.yml          # Action and dependency updates
 │   └── PULL_REQUEST_TEMPLATE.md
 ├── docs/
+│   ├── README.md               # Documentation index
 │   ├── architecture.md         # Collection structure and pipeline
-│   ├── governance.md           # Roles, releases, deprecation
+│   ├── governance.md           # Roles, review, deprecation
 │   ├── skill-standard.md       # Normative authoring standard
 │   └── threat-model.md         # Asset, threat, and control model
-├── evals/                      # Trigger/non-trigger/adversarial fixtures + README
+├── evals/                      # Trigger/non-trigger/adversarial fixtures
 ├── scripts/
 │   ├── validate_skills.py      # Spec + enterprise gate
 │   └── check_links.py          # Local link integrity
 ├── skills/
 │   ├── ai-init/
-│   │   ├── references/style/          # Adaptable language guidance
-│   │   ├── references/architecture/   # Mermaid standard
-│   │   ├── references/documentation-standard.md
-│   │   ├── templates/                 # Common docs; README.md is the only root template
+│   │   ├── references/
+│   │   │   ├── architecture/          # Mermaid standard
+│   │   │   ├── style/                 # Adaptable language guidance
+│   │   │   ├── documentation-standard.md
+│   │   │   └── licensing.md           # Licence rules
+│   │   ├── templates/                 # README plus repo meta files and docs
 │   │   └── files/                     # EditorConfig, Git attributes, pre-commit starters
 │   ├── prd/templates/                 # PRD
 │   ├── security/
@@ -193,11 +204,11 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 ├── tests/                      # Validator regression tests
 ├── AGENTS.md -> README.md      # AI agent entry point
 ├── CLAUDE.md -> README.md      # AI agent entry point
-├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
 ├── CODEOWNERS
 ├── SECURITY.md
+├── LICENSE
 ├── .gitignore
 ├── .markdownlint-cli2.yaml
 ├── .pre-commit-config.yaml
@@ -224,19 +235,11 @@ Report vulnerabilities privately through
 Do not open a public issue. See [SECURITY.md](./SECURITY.md) and the
 [threat model](./docs/threat-model.md).
 
-## Versioning
-
-The collection follows [Semantic Versioning 2.0.0](https://semver.org/). Each
-skill carries its own `metadata.version`, and user-visible changes are recorded
-in [CHANGELOG.md](./CHANGELOG.md). Breaking changes include renamed skills,
-changed output paths, or new mandatory sections.
-
 ## Contributing
 
 Read [CONTRIBUTING.md](./CONTRIBUTING.md) and the
 [skill authoring standard](./docs/skill-standard.md). Pull requests must pass
-the validation workflow and include a changelog entry, version bump, and
-evaluation case for behavior changes.
+the validation workflow and include an evaluation case for behavior changes.
 
 ## License
 

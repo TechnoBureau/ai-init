@@ -57,26 +57,21 @@ provide the real boundary.
 | T-12 | Denial of service via huge files, recursive traversal, or unbounded scans | Denial of service | Tool exhaustion, cost | Bounded inspection guidance; no unbounded scanners in skills; host timeouts | Repository size varies; host limits are external |
 | T-13 | Release of an unvalidated tree | Repudiation / Tampering | Users receive broken or unsafe skills | CI gate, signed tag, release checklist, post-release frontmatter check | Manual release steps can be skipped if governance is not followed |
 
-## Case study: the 1.x frontmatter loss
+## Failure analysis: frontmatter loss
 
-**What happened.** A Markdown formatting pass rewrote the opening YAML
-delimiter as a horizontal rule and merged `name` and `description` into a
-heading. Every skill remained valid Markdown, so visual review did not detect
-the defect. Compliant agents and the Skills CLI could not discover any skill.
+**Failure mode.** A Markdown formatting pass rewrites the opening YAML
+delimiter as a horizontal rule and merges `name` and `description` into a
+heading. The file remains valid Markdown, so visual review does not detect it.
 
-**Impact.** Complete loss of primary function for all six skills; downstream
-users would install content that never activates.
+**Impact.** Compliant agents and the Skills CLI cannot discover or load the
+affected skills.
 
 **Root cause.** Machine-readable metadata had no automated validation, and a
 formatter was allowed to parse it as prose.
 
-**Controls added in 2.0.0.**
-
-- strict frontmatter, metadata, link, and size validation;
-- regression tests that reproduce the exact corruption;
-- pre-commit and CI gates that fail on missing or malformed frontmatter;
-- formatter guidance in the authoring standard;
-- release verification that published skills begin with `---`.
+**Controls.** Strict frontmatter validation, a regression test that reproduces
+the corruption, pre-commit and CI gates, formatter guidance, and a release
+check that published skills begin with `---`.
 
 **Residual risk.** A contributor can bypass a local hook, and a future tool may
 rewrite the file differently. CI remains the authoritative gate; branch

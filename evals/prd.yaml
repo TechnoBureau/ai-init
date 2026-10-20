@@ -1,5 +1,4 @@
 skill: prd
-version: "2.0.0"
 cases:
   - id: create-prd-from-code
     prompt: >-

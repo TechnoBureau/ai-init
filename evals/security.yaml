@@ -1,5 +1,4 @@
 skill: security
-version: "2.0.0"
 cases:
   - id: repository-security-posture
     prompt: >-

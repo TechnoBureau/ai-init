@@ -3,8 +3,7 @@
 
 The validator is intentionally strict. It is the release gate that prevents a
 formatter, merge, or manual edit from silently corrupting ``SKILL.md``
-frontmatter again -- the failure mode that made every skill in this collection
-unloadable before version 2.0.0.
+frontmatter again -- the failure mode that makes a skill undiscoverable.
 
 Checks implemented
 ------------------
@@ -13,8 +12,8 @@ Checks implemented
 * ``name`` matches the parent directory and the specification grammar.
 * Optional fields (``license``, ``compatibility``, ``metadata``,
   ``allowed-tools``) conform to the specification.
-* Enterprise metadata (``version``, ``standards``, ``risk``, ``spec``) is
-  present as strings.
+* Enterprise metadata (``spec``, ``standards``, ``risk``) is present as
+  strings.
 * The body has one H1, stays within progressive-disclosure limits, contains no
   unresolved ``{{PLACEHOLDER}}`` tokens, and every relative link resolves.
 * ``evals/<name>.yaml`` exists, matches the skill version, and contains both
@@ -63,7 +62,6 @@ REQUIRED_FIELDS = {"name", "description"}
 # Enterprise profile: every skill in this repository must declare these.
 REQUIRED_METADATA = {
     "spec",
-    "version",
     "standards",
     "risk",
 }
@@ -85,10 +83,6 @@ RESERVED_WORDS = ("anthropic", "claude")
 SUPPORTED_SPEC_VERSION = "1.0"
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-SEMVER_RE = re.compile(
-    r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
-    r"(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$"
-)
 TRIGGER_RE = re.compile(r"\bUse (when|for|to|after|before|only)\b", re.IGNORECASE)
 XML_TAG_RE = re.compile(r"<\/?[A-Za-z][^>]*>")
 PLACEHOLDER_RE = re.compile(r"\{\{[^}]+\}\}")
@@ -469,11 +463,6 @@ def _validate_frontmatter(
             )
         )
 
-    version = metadata.get("version")
-    if isinstance(version, str) and not SEMVER_RE.match(version):
-        findings.append(
-            error(rel, "SKILL065", f"metadata.version '{version}' is not SemVer (MAJOR.MINOR.PATCH)")
-        )
     spec = metadata.get("spec")
     if isinstance(spec, str) and spec != SUPPORTED_SPEC_VERSION:
         findings.append(
@@ -532,30 +521,6 @@ def _validate_reference_files(skill_dir: Path, repo_root: Path) -> list[Finding]
 # --------------------------------------------------------------------------
 
 
-def _skill_version(skill_dir: Path) -> str | None:
-    """Return ``metadata.version`` from a skill, or ``None`` when unavailable."""
-
-    if yaml is None:
-        return None
-    skill_file = skill_dir / "SKILL.md"
-    if not skill_file.is_file():
-        return None
-    frontmatter, _ = split_frontmatter(skill_file.read_text(encoding="utf-8"))
-    if not frontmatter:
-        return None
-    try:
-        data = yaml.safe_load(frontmatter)
-    except yaml.YAMLError:
-        return None
-    if not isinstance(data, dict):
-        return None
-    metadata = data.get("metadata")
-    if not isinstance(metadata, dict):
-        return None
-    version = metadata.get("version")
-    return version if isinstance(version, str) else None
-
-
 def validate_evals(repo_root: Path, skills: Sequence[Path]) -> list[Finding]:
     findings: list[Finding] = []
     evals_dir = repo_root / "evals"
@@ -582,22 +547,6 @@ def validate_evals(repo_root: Path, skills: Sequence[Path]) -> list[Finding]:
         if data.get("skill") != skill_dir.name:
             findings.append(
                 error(rel, "EVAL006", f"skill must be '{skill_dir.name}'")
-            )
-
-        eval_version = data.get("version")
-        skill_version = _skill_version(skill_dir)
-        if not isinstance(eval_version, str) or not SEMVER_RE.match(eval_version):
-            findings.append(
-                error(rel, "EVAL016", "version must be a SemVer string matching the skill")
-            )
-        elif skill_version and eval_version != skill_version:
-            findings.append(
-                error(
-                    rel,
-                    "EVAL017",
-                    f"version '{eval_version}' must match SKILL.md metadata.version "
-                    f"'{skill_version}'",
-                )
             )
 
         cases = data.get("cases")

@@ -12,7 +12,6 @@ compatibility: >-
   own tooling; no network access is required for documentation.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
   standards: >-
     Agent Skills 1.0; WCAG 2.2; W3C Design Tokens Community Group format;
     WAI-ARIA Authoring Practices 1.2; EN 301 549; ISO 9241-210:2019

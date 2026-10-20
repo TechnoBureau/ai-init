@@ -13,7 +13,6 @@ compatibility: >-
   skill must not contact production services.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
   standards: >-
     Agent Skills 1.0; ISO/IEC/IEEE 29119-1:2022; ISTQB CTFL 4.0; OWASP
     ASVS 5.0; OWASP WSTG; WCAG 2.2; ISO/IEC 25010:2023

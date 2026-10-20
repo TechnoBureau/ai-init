@@ -37,17 +37,17 @@ requirements below still apply.
   evidence, and decision in the pull request or an ADR.
 - Security and privacy concerns can block a change until resolved.
 - Changes that alter a public contract (skill name, output path, required
-  section, ID semantics) require a major version and migration guidance.
+  section, ID semantics) require migration guidance and a deprecation period.
 
 ## Change classes
 
-| Class | Examples | Required evidence | Version impact |
-|---|---|---|---|
-| Editorial | Typos, link repair, clarity without behavior change | Validator and link check | Patch |
-| Capability | New check, new optional section, new reference | Tests, eval case, review | Minor |
-| Behavior | Changed workflow, new mandatory output, stricter safety rule | Tests, eval cases, threat-model update, two reviewers | Minor or major |
-| Contract | Skill rename/removal, output path change, ID semantics | Migration plan, changelog, deprecation period | Major |
-| Security fix | Secret exposure, destructive instruction, injection risk | Private report, regression test, advisory if needed | Patch or minor |
+| Class | Examples | Required evidence |
+|---|---|---|
+| Editorial | Typos, link repair, clarity without behavior change | Validator and link check |
+| Capability | New check, new optional section, new reference | Tests, eval case, review |
+| Behavior | Changed workflow, new mandatory output, stricter safety rule | Tests, eval cases, threat-model update, two reviewers |
+| Contract | Skill rename/removal, output path change, ID semantics | Migration plan, deprecation notice |
+| Security fix | Secret exposure, destructive instruction, injection risk | Private report, regression test, advisory if needed |
 
 ## Pull-request requirements
 
@@ -55,8 +55,6 @@ Every pull request must:
 
 - pass the validation workflow;
 - state the problem, evidence, and change class;
-- update `CHANGELOG.md` for user-visible changes;
-- update `metadata.version` and eval version for affected skills;
 - add or update a regression case when fixing a defect;
 - preserve unrelated user work and permanent IDs;
 - avoid secrets, personal data, customer identifiers, and live credentials;
@@ -86,29 +84,26 @@ claim a review happened without the evidence having been checked.
 
 ## Release process
 
-1. Confirm the validation workflow is green on the release commit.
-2. Update `CHANGELOG.md` using Keep a Changelog categories.
-3. Bump `metadata.version` for every changed skill and its eval file.
-4. Update documentation and migration notes.
-5. Create a signed, annotated Git tag (`vMAJOR.MINOR.PATCH`) from the reviewed
-   commit.
-6. Publish a GitHub release with the changelog entry and any breaking-change
-   notice.
-7. Verify the published archive contains `SKILL.md` files that start with YAML
+This collection has no release versioning or changelog at its initial state.
+A release is a snapshot of the default branch that passes the validation
+workflow.
+
+1. Confirm the validation workflow is green on the commit to publish.
+2. Update documentation affected by the change.
+3. Tag the reviewed commit if a downloadable snapshot is needed.
+4. Verify the published archive contains `SKILL.md` files that start with YAML
    frontmatter.
 
-A release is not valid because a tag exists; it is valid because the tagged
+A snapshot is not valid because a tag exists; it is valid because the tagged
 tree passed the gates.
 
 ## Deprecation
 
-- Announce the deprecation in `CHANGELOG.md`, the skill's `SKILL.md`, and the
-  README.
+- Announce the deprecation in the skill's `SKILL.md` and the README.
 - Name the replacement and the migration steps.
-- Keep the deprecated skill for at least one major release.
+- Keep the deprecated skill for at least one review cycle.
 - Do not delete historical documentation or recycle IDs.
-- Remove the skill only after the deprecation period, with a final changelog
-  entry.
+- Remove the skill only after the deprecation period.
 
 ## Exceptions and risk acceptance
 
@@ -165,5 +160,4 @@ Track, without inventing targets:
 ## Amending this document
 
 Governance changes follow the same pull-request process. A change that weakens
-a safety rule requires explicit maintainer and security-reviewer approval and a
-changelog entry.
+a safety rule requires explicit maintainer and security-reviewer approval.

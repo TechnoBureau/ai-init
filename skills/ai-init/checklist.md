@@ -36,6 +36,22 @@ item means it was verified in the current worktree, not assumed.
 - [ ] Filenames follow the naming rule: root meta files uppercase, `docs/`
   lowercase kebab-case, `PRD.md` as the recorded acronym exception.
 
+## Repository meta files
+
+- [ ] `LICENSE` exists only when a licence was evidenced or explicitly
+  confirmed; the text is canonical, the SPDX identifier matches the manifest
+  and README, and no holder was invented.
+- [ ] `CONTRIBUTING.md` records only verified setup, test, and review commands.
+- [ ] `CODE_OF_CONDUCT.md` contains a confirmed private enforcement contact, not
+  a placeholder address.
+- [ ] `SECURITY.md` contains a confirmed private reporting channel and does not
+  claim an unconfirmed response target.
+- [ ] `CODEOWNERS` uses real users or teams and is placed where the hosting
+  platform reads it; enforcement is verified rather than assumed.
+- [ ] No meta file was created from an invented owner, licence, or contact.
+- [ ] Conflicts between manifest, `LICENSE`, and README were reported, not
+  silently resolved.
+
 ## Root README and agent links
 
 - [ ] Root `README.md` is the shared summary and index for humans and AI,
@@ -66,6 +82,8 @@ item means it was verified in the current worktree, not assumed.
 
 ## Supporting documents
 
+- [ ] `docs/README.md` indexes exactly the documents that exist; no skipped
+  document is linked.
 - [ ] `docs/structure.md`, `docs/decisions.md`, and `docs/security.md`
   reflect inspected evidence and do not invent facts.
 - [ ] Decisions use context, decision, consequences, alternatives, status,

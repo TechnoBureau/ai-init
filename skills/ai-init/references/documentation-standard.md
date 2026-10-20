@@ -88,7 +88,7 @@ views, and correspondences.
 
 | Location | Convention | Examples |
 |---|---|---|
-| Repository root | Uppercase meta files | `README.md`, `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md` |
+| Repository root | Uppercase meta files | `README.md`, `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` |
 | `docs/` | Lowercase kebab-case | `architecture.md`, `decisions.md`, `security.md`, `tests.md` |
 | Acronym exception | Established uppercase acronym | `PRD.md` |
 | References | Mirror the source category | `docs/references/style/`, `docs/references/architecture/` |
@@ -121,13 +121,13 @@ competing indexes.
 - Keep diagram labels short and legible at normal zoom.
 - Do not embed critical information only in an image or screenshot.
 
-## Versioning, changelog, and review
+## Review and change management
 
-- Apply Semantic Versioning to released products and to this skill collection.
-- Maintain `CHANGELOG.md` using Keep a Changelog categories: Added, Changed,
-  Deprecated, Removed, Fixed, Security.
+- Change history lives in Git and in the pull request that makes the change.
+  Do not add a changelog or per-document version number unless the project has
+  adopted a release policy that requires one.
 - Record documentation changes that affect requirements, contracts, or
-  operations; typo fixes do not require an entry.
+  operations in the pull request description.
 - Set a review cadence by risk: security and architecture documents at least
   quarterly, operational runbooks more often, stable reference pages annually.
 - On review, re-verify commands, paths, links, and control statuses.

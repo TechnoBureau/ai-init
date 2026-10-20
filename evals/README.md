@@ -8,7 +8,6 @@ claim that a particular model passes them.
 
 ```yaml
 skill: example-skill      # must match the directory in skills/
-version: "1.2.3"          # must match metadata.version in SKILL.md
 cases:
   - id: unique-case-id
     prompt: >-
@@ -23,7 +22,6 @@ cases:
 Requirements enforced by the validator:
 
 - the skill name matches the directory;
-- the version is valid SemVer and matches `SKILL.md`;
 - at least two cases exist;
 - both `should_trigger: true` and `should_trigger: false` are present;
 - every case has a unique ID, a prompt, and a non-empty `expected` list.

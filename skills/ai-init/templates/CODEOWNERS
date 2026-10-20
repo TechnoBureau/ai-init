@@ -1,0 +1,41 @@
+# CODEOWNERS
+#
+# Purpose: request review from the people or teams accountable for a path.
+# Location: .github/CODEOWNERS (also valid at repository root or docs/).
+# Syntax:  <pattern> <owner> [<owner> ...]
+# Owner:   a user (@name), a team (@org/team), or an email address.
+#
+# Replace every placeholder with a confirmed owner. Never invent a handle: an
+# incorrect owner silently routes review to the wrong person, and an
+# unconfirmed owner can block every pull request. If no owner is confirmed,
+# do not create this file; report the gap instead.
+
+# Default owner for everything not matched below.
+* {{CONFIRMED_DEFAULT_OWNER}}
+
+# Application source
+{{SOURCE_PATH}} {{CONFIRMED_SOURCE_OWNER}}
+
+# Tests and fixtures
+{{TEST_PATH}} {{CONFIRMED_TEST_OWNER}}
+
+# Infrastructure, deployment, and CI
+{{INFRA_PATH}} {{CONFIRMED_INFRA_OWNER}}
+.github/ {{CONFIRMED_CI_OWNER}}
+
+# Security-sensitive configuration and policy
+SECURITY.md {{CONFIRMED_SECURITY_OWNER}}
+{{SECURITY_CONFIG_PATH}} {{CONFIRMED_SECURITY_OWNER}}
+
+# Dependency manifests and lockfiles
+{{DEPENDENCY_MANIFEST_PATH}} {{CONFIRMED_DEPENDENCY_OWNER}}
+
+# Documentation
+docs/ {{CONFIRMED_DOCS_OWNER}}
+
+# Guidance:
+# - The last matching pattern wins; place specific rules after broad ones.
+# - Prefer teams over individuals so review does not depend on one person.
+# - Keep this file small enough to review in one pass.
+# - Protected branches must require CODEOWNERS review for this file to have
+#   any effect; verify that setting rather than assuming it.

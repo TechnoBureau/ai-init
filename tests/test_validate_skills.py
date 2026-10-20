@@ -28,7 +28,6 @@ license: MIT
 compatibility: Requires Python 3.11 or later.
 metadata:
   spec: "1.0"
-  version: "1.0.0"
   standards: "Agent Skills 1.0; RFC 2119"
   risk: "low"
 allowed-tools: "Read Grep"
@@ -36,7 +35,6 @@ allowed-tools: "Read Grep"
 """
 
 VALID_EVAL = """skill: sample-skill
-version: "1.0.0"
 cases:
   - id: positive-case
     prompt: Initialize the repository documentation.
@@ -99,7 +97,7 @@ class SkillValidationTests(unittest.TestCase):
         self.assertIn("SKILL010", self.codes(findings))
 
     def test_reformatted_frontmatter_regression_is_rejected(self) -> None:
-        # Exact 1.x failure mode: mdformat rendered '---' as a rule and joined
+        # Failure mode: a formatter rendered '---' as a rule and joined
         # name/description into a heading.
         (self.fixture.skill_dir / "SKILL.md").write_text(
             textwrap.dedent(
@@ -136,13 +134,6 @@ class SkillValidationTests(unittest.TestCase):
         )
         (self.fixture.skill_dir / "SKILL.md").write_text(content, encoding="utf-8")
         self.assertIn("SKILL030", self.codes(self.fixture.validate()))
-
-    def test_metadata_values_must_be_strings(self) -> None:
-        content = (self.fixture.skill_dir / "SKILL.md").read_text(encoding="utf-8")
-        (self.fixture.skill_dir / "SKILL.md").write_text(
-            content.replace('version: "1.0.0"', "version: 1.0", 1), encoding="utf-8"
-        )
-        self.assertIn("SKILL063", self.codes(self.fixture.validate()))
 
     def test_unknown_frontmatter_field_is_rejected(self) -> None:
         content = (self.fixture.skill_dir / "SKILL.md").read_text(encoding="utf-8")
@@ -182,19 +173,6 @@ class SkillValidationTests(unittest.TestCase):
             encoding="utf-8",
         )
         self.assertIn("SKILL043", self.codes(self.fixture.validate()))
-
-    def test_eval_version_must_match_skill(self) -> None:
-        content = (self.fixture.root / "evals" / "sample-skill.yaml").read_text(
-            encoding="utf-8"
-        )
-        (self.fixture.root / "evals" / "sample-skill.yaml").write_text(
-            content.replace('version: "1.0.0"', 'version: "9.9.9"', 1),
-            encoding="utf-8",
-        )
-        findings = validator.validate_evals(
-            self.fixture.root, [self.fixture.skill_dir]
-        )
-        self.assertIn("EVAL017", self.codes(findings))
 
     def test_eval_fixture_requires_both_trigger_states(self) -> None:
         (self.fixture.root / "evals" / "sample-skill.yaml").write_text(

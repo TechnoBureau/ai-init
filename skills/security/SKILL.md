@@ -14,7 +14,6 @@ compatibility: >-
   produce the document.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
   standards: >-
     Agent Skills 1.0; NIST SSDF SP 800-218 v1.1; NIST CSF 2.0; ISO/IEC
     27001:2022; OWASP ASVS 5.0; SLSA v1.x; FIPS 203/204/205; FIPS 140-3

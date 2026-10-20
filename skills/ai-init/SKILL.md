@@ -14,10 +14,9 @@ compatibility: >-
   elevated privileges. No network access is required.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
   standards: >-
     Agent Skills 1.0; RFC 2119/8174; ISO/IEC/IEEE 42010:2022; Diátaxis;
-    MADR 4.0; Keep a Changelog 1.1.0; SemVer 2.0.0; WCAG 2.2
+    MADR 4.0; WCAG 2.2
   risk: "low"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---
@@ -89,11 +88,47 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
   path applies, and more specific files override broader ones. Do not create
   nested AGENTS files unless the repository already uses that structure.
 
+## Repository meta files
+
+Create or refresh the standard repository files from confirmed evidence. Each
+one has a template in `templates/` except `LICENSE`, which follows
+[the licence guidance](./references/licensing.md).
+
+| Output | Template | Rule |
+|---|---|---|
+| `README.md` | `templates/README.md` | Always |
+| `LICENSE` | none | Only when a licence is evidenced or confirmed; never choose one silently |
+| `CONTRIBUTING.md` | `templates/CONTRIBUTING.md` | Create for any repository that accepts contributions |
+| `CODE_OF_CONDUCT.md` | `templates/CODE_OF_CONDUCT.md` | Create only with a confirmed private enforcement contact |
+| `SECURITY.md` | `templates/SECURITY.md` | Create only with a confirmed private reporting channel |
+| `.github/CODEOWNERS` | `templates/CODEOWNERS` | Create only when owners are confirmed |
+| `.github/PULL_REQUEST_TEMPLATE.md` | none | Create only when the review process is confirmed |
+
+Rules:
+
+- Check the exact path before writing, including case variants. Preserve an
+  existing file and merge only unique missing sections.
+- Do not invent a licence, copyright holder, owner handle, email address, or
+  support commitment. If the required fact is unconfirmed, skip that file and
+  report the gap with the decision the user needs to make.
+- `LICENSE` is a legal artifact. Copy canonical licence text verbatim, keep the
+  SPDX identifier aligned with the manifest and README, and surface conflicts
+  instead of resolving them. Recommend legal review for copyleft, dual
+  licensing, or relicensing.
+- `CODEOWNERS` must use real users or teams. Prefer teams over individuals.
+  Verify that the hosting platform enforces it before describing it as a gate.
+- `SECURITY.md` and `CODE_OF_CONDUCT.md` must not ship placeholder contact
+  details. A wrong address is worse than a missing file.
+- A `.github/` directory is created only when a file belongs in it. Do not move
+  existing root-level meta files merely to match a preferred layout.
+
 ## Default documentation set
 
 Always create or refresh, preserving existing content:
 
 - Root `README.md`, plus the two agent-entry symbolic links described above.
+- `docs/README.md` — the documentation index. Create it with the first
+  generated document and keep it in step with the files that exist.
 - `docs/PRD.md` with `$prd`.
 - `docs/structure.md` — verified directory tree and active component map.
 - `docs/decisions.md` — confirmed decisions distinguished from observations.
@@ -114,8 +149,10 @@ default; add workflow, sequence, or mind-map diagrams only when they clarify
 verified behavior, and split large views for normal GitHub / Markdown preview
 readability. Follow the full rules in
 [`references/architecture/mermaid-standard.md`](./references/architecture/mermaid-standard.md).
-Create tasks or memory documents only when requested or clearly useful to
-ongoing work.
+Create `docs/governance.md` when roles, review rules, or change classes must be
+recorded; create `docs/threat-model.md` with `$security` when a dedicated threat
+model is requested. Create tasks or memory documents only when requested or
+clearly useful to ongoing work.
 
 ## Enterprise documentation standard
 
@@ -136,15 +173,18 @@ every generated document.
   ISO/IEC/IEEE 42010 concerns, viewpoints, and views. Keep diagrams small and
   verify every node and edge.
 - **Naming.** Root meta files are uppercase (`README.md`, `LICENSE`,
-  `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`). Documents under `docs/`
+  `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`). Documents under `docs/`
   use lowercase kebab-case; `PRD.md` is the recorded acronym exception. Do not
   put dates or personal names in filenames.
 - **Accessibility.** Use one H1, sequential headings, descriptive link text,
   alt text for meaningful images, table header rows, and a text explanation for
   every diagram. Never convey meaning by color alone.
-- **Change management.** Use Semantic Versioning for released artifacts and
-  Keep a Changelog for user-visible changes. Never recycle retired requirement,
-  decision, or task IDs; mark superseded items instead.
+- **Change management.** Record change history in Git and the pull request. Do
+  not add a changelog or per-document version number unless the project has
+  adopted a release policy that requires one. Never recycle retired
+  requirement, decision, or task IDs; mark superseded items instead.
+- **Ownership.** Record accountability in `CODEOWNERS` and, when the project
+  needs it, `docs/governance.md`. Do not repeat an owner on every page.
 
 ## Empty or scaffold-only repositories
 
@@ -182,7 +222,8 @@ handles its applicable profile and migration assessment.
 
 1. Inventory the repository and inspect active source/configuration.
 1. Check each output and agent-link path; preserve existing content and IDs.
-1. Create only the default documents and conditional documents that apply.
+1. Create only the default documents and conditional documents that apply,
+   including the repository meta files whose required facts are confirmed.
    Invoke dedicated skills for PRD, security, design, or requested test/code
    quality tasks. If a required companion is not installed, finish common
    documents, omit that companion-owned output, and report what is missing;
@@ -197,9 +238,10 @@ handles its applicable profile and migration assessment.
 
 ## Resources
 
-- `templates/` — common project-document templates; the only root entry
-  template is `README.md`.
+- `templates/` — README, repository meta files, and the `docs/` document set.
 - `files/` — EditorConfig, Git attributes, and pre-commit starters.
+- `references/licensing.md` — licence detection, selection rules, and SPDX
+  identifiers.
 - `references/documentation-standard.md` — enterprise documentation rules.
 - `references/style/` — adaptable language references.
 - `references/architecture/mermaid-standard.md` — Mermaid theme reference.

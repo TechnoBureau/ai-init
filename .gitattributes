@@ -8,6 +8,8 @@
 # ============================================
 *.txt      text eol=lf
 *.md       text eol=lf
+*.mdx      text eol=lf
+SKILL.md   text eol=lf
 *.json     text eol=lf
 *.jsonc    text eol=lf
 *.yml      text eol=lf
@@ -36,6 +38,10 @@
 *.cpp      text eol=lf
 *.hpp      text eol=lf
 *.php      text eol=lf
+*.pyi      text eol=lf
+*.tf       text eol=lf
+*.tfvars   text eol=lf
+*.hcl      text eol=lf
 *.sql      text eol=lf
 *.graphql  text eol=lf
 *.proto    text eol=lf
@@ -53,6 +59,7 @@
 *.bat      text eol=crlf
 *.cmd      text eol=crlf
 *.ps1      text eol=crlf
+*.psm1     text eol=crlf
 
 # ============================================
 # C# / .NET — Windows-origin projects typically prefer CRLF
@@ -78,6 +85,7 @@ pnpm-lock.yaml       linguist-generated=true
 Cargo.lock           linguist-generated=true
 *.min.js             linguist-generated=true -diff
 *.min.css            linguist-generated=true -diff
+
 dist/**              linguist-generated=true -diff
 build/**             linguist-generated=true -diff
 vendor/**            linguist-vendored=true

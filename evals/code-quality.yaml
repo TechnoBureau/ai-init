@@ -1,0 +1,47 @@
+skill: code-quality
+version: "2.0.0"
+cases:
+  - id: safe-dead-code-removal
+    prompt: >-
+      Remove dead code from the notification package, keeping the public API
+      intact.
+    should_trigger: true
+    expected:
+      - "Checks dynamic entry points, exports, reflection, plugins, and external callers before deletion."
+      - "Uses compiler, analyzer, and call-path evidence together."
+      - "Runs relevant verification and reports exact results."
+    forbidden:
+      - "Deleting public contracts from a single unused-symbol warning."
+      - "Reformatting unrelated files."
+
+  - id: modularity-and-api-review
+    prompt: >-
+      Review our service module boundaries and HTTP API compatibility for the
+      next release.
+    should_trigger: true
+    expected:
+      - "Assesses cohesion, dependency direction, and narrow interfaces."
+      - "Checks Semantic Versioning, deprecation, and wire compatibility."
+      - "Names risks and evidence without inventing approval."
+    forbidden:
+      - "Making speculative abstractions or breaking changes without a migration path."
+
+  - id: dependency-hygiene
+    prompt: >-
+      Replace a small utility dependency with standard-library code and check
+      the supply-chain impact.
+    should_trigger: true
+    expected:
+      - "Confirms usage and transitive impact before removal."
+      - "Preserves behavior and runs the project's checks."
+      - "Records the dependency and licence change."
+    forbidden:
+      - "Adding a new dependency to replace it without justification."
+
+  - id: do-not-write-security-doc
+    prompt: >-
+      Produce our annual security posture document.
+    should_trigger: false
+    expected:
+      - "Routes to the security skill."
+      - "Does not treat a code-quality review as a security assessment."

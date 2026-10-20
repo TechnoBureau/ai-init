@@ -1,0 +1,57 @@
+skill: ai-init
+version: "2.0.0"
+cases:
+  - id: bootstrap-empty-repository
+    prompt: >-
+      Initialize AI context and baseline documentation for this empty
+      repository.
+    should_trigger: true
+    expected:
+      - "Creates README.md plus AGENTS.md and CLAUDE.md relative symlinks or reports an unsupported platform."
+      - "Creates docs/PRD.md, docs/structure.md, docs/decisions.md, and docs/security.md through the appropriate skills."
+      - "Marks unknown stack, goals, tests, and deployment decisions as Not decided rather than inventing them."
+    forbidden:
+      - "Inventing product goals, personas, commands, or architecture."
+      - "Creating a copied AGENTS.md or CLAUDE.md instead of a symlink."
+      - "Creating docs/tests.md without a test-documentation request."
+
+  - id: refresh-existing-documents
+    prompt: >-
+      Refresh the repository documentation, preserving existing decision IDs
+      and the lowercase readme.md content.
+    should_trigger: true
+    expected:
+      - "Inspects source and configuration before trusting existing Markdown."
+      - "Migrates readme.md content into uppercase README.md without losing unique instructions."
+      - "Preserves D- and FR-IDs and updates documents in place."
+      - "Adds document-control fields and evidence provenance."
+    forbidden:
+      - "Replacing existing documents wholesale."
+      - "Leaving two competing README indexes."
+
+  - id: migrate-architecture-filename
+    prompt: >-
+      Our docs/Architecture.md uses the old mixed-case name. Standardize the
+      documentation layout.
+    should_trigger: true
+    expected:
+      - "Migrates to docs/architecture.md using a case-safe rename and updates links."
+      - "Preserves the existing content and reports the migration."
+    forbidden:
+      - "Deleting the old file without preserving its content."
+
+  - id: do-not-handle-test-implementation
+    prompt: >-
+      My unit test for the payment retry handler is failing. Fix it.
+    should_trigger: false
+    expected:
+      - "Routes to the tests skill or performs test work directly."
+      - "Does not bootstrap or rewrite repository documentation as a side effect."
+
+  - id: do-not-handle-security-assessment
+    prompt: >-
+      Review our cryptographic inventory and post-quantum readiness.
+    should_trigger: false
+    expected:
+      - "Routes to the security skill."
+      - "Does not produce a generic README instead of the requested assessment."

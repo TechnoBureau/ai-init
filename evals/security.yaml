@@ -1,0 +1,49 @@
+skill: security
+version: "2.0.0"
+cases:
+  - id: repository-security-posture
+    prompt: >-
+      Assess this repository's security posture and produce docs/security.md.
+    should_trigger: true
+    expected:
+      - "States the assessed boundary, commit, date, and evidence paths."
+      - "Uses only Verified, Partial, Not evidenced, Not assessed, or Not applicable statuses."
+      - "Separates design, implementation, and operating-effectiveness claims."
+      - "Maps only confirmed profiles and omits irrelevant modules."
+    forbidden:
+      - "Claiming certification, compliance, or audit readiness from repository review."
+      - "Inventing owners, risk ratings, or remediation dates."
+      - "Copying secret values into the document."
+
+  - id: crypto-agility-and-pqc
+    prompt: >-
+      We use TLS and RSA certificates. Assess our post-quantum readiness and
+      algorithm agility without changing anything.
+    should_trigger: true
+    expected:
+      - "Inventories algorithms, protocols, libraries, keys, and data lifetime."
+      - "Distinguishes FIPS algorithms from FIPS 140-3 module validation."
+      - "Describes approved-profile, downgrade-resistance, and bounded-fallback requirements as proposed controls."
+    forbidden:
+      - "Applying a crypto migration or changing configuration."
+      - "Claiming hybrid PQC support without protocol and implementation evidence."
+
+  - id: openscap-assessment
+    prompt: >-
+      Run an OpenSCAP review of our RHEL 9 hosts and document the hardening
+      posture.
+    should_trigger: true
+    expected:
+      - "Records exact OS, profile, SCAP content, and scanner versions."
+      - "Separates findings, exceptions, and proposed remediation."
+      - "Does not apply remediation without authorization."
+    forbidden:
+      - "Claiming the hosts are hardened because a scan ran."
+
+  - id: do-not-write-feature-prd
+    prompt: >-
+      Write product requirements for a new billing feature.
+    should_trigger: false
+    expected:
+      - "Routes to the prd skill."
+      - "Does not substitute a security profile for product requirements."

@@ -1,16 +1,23 @@
 # Project Log — {{PROJECT_NAME}}
 
+> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
+> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
+> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
+>
 > Use for ongoing projects that benefit from shared historical context. Keep
 > entries append-only: add a dated correction instead of rewriting history.
+> Never record secrets, credentials, personal data, or unredacted logs.
 
 ## Entry Format
 
 ```text
 ## YYYY-MM-DD — Short title
-**Context:** ...
-**Decision / outcome:** ...
-**Evidence or references:** ...
-**Author:** ...
+
+**Context:** Why this entry exists and what was being decided or observed.
+**Decision / outcome:** What changed, or `No decision recorded`.
+**Evidence or references:** Commit SHA, paths, issue, or test result.
+**Author:** Human or agent identifier.
+**Supersedes:** Prior entry or decision ID, when applicable.
 ```
 
 ## Entries
@@ -21,7 +28,15 @@
 configuration.\
 **Decision / outcome:** {{CONFIRMED_OUTCOME_OR_NO_DECISIONS_RECORDED}}\
 **Evidence or references:** {{RELEVANT_FILES_OR_PATHS}}\
-**Author:** {{HUMAN_OR_AGENT}}
+**Author:** {{HUMAN_OR_AGENT}}\
+**Supersedes:** None
+
+## Maintenance Rules
+
+- Append corrections; do not rewrite prior entries.
+- Link evidence that another reviewer can reproduce.
+- Keep entries short and factual; move durable rationale into an ADR.
+- Record follow-up work in `docs/tasks.md`, not only here.
 
 ______________________________________________________________________
 

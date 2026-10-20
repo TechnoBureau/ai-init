@@ -1,0 +1,9 @@
+# Default owner for every path. Update this handle or team when ownership
+# changes; governance requires a reviewer with write access.
+* @ganapathichidambaram
+
+# Security-sensitive automation and policies need security review.
+/.github/          @ganapathichidambaram
+/scripts/          @ganapathichidambaram
+SECURITY.md        @ganapathichidambaram
+/docs/threat-model.md @ganapathichidambaram

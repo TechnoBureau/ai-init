@@ -1,0 +1,49 @@
+skill: prd
+version: "2.0.0"
+cases:
+  - id: create-prd-from-code
+    prompt: >-
+      Write a PRD for this service based on what the code and workflows
+      actually do.
+    should_trigger: true
+    expected:
+      - "Uses exactly the ten required sections in order."
+      - "Assigns permanent G-, D-, FR-, and NFR-IDs with acceptance criteria and verification methods."
+      - "Cites repository evidence and marks unknowns Not documented or TBD."
+    forbidden:
+      - "Inventing users, numeric targets, or compliance obligations."
+      - "Adding priority tiers."
+      - "Claiming a requirement is implemented from README text alone."
+
+  - id: refine-requirements-traceability
+    prompt: >-
+      Refine the existing PRD so each FR traces to a test or verification
+      method, and do not renumber the IDs.
+    should_trigger: true
+    expected:
+      - "Preserves existing IDs and records supersession instead of reuse."
+      - "Adds a traceability table with Covered, Partial, or Gap status."
+      - "States gaps honestly when no test exists."
+    forbidden:
+      - "Renumbering or recycling permanent IDs."
+      - "Claiming coverage from a test name alone."
+
+  - id: empty-repository-prd
+    prompt: >-
+      Create a PRD for this new empty repository. We have not decided the
+      product yet.
+    should_trigger: true
+    expected:
+      - "Keeps the ten-section structure and marks unknowns as Not decided."
+      - "States that no goals, personas, or requirements are recorded."
+      - "Does not assign filler IDs."
+    forbidden:
+      - "Inventing a product vision or personas to fill sections."
+
+  - id: route-security-work
+    prompt: >-
+      Document our security controls and FIPS posture.
+    should_trigger: false
+    expected:
+      - "Routes to the security skill."
+      - "Does not substitute a PRD for a security assessment."

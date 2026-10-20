@@ -1,0 +1,16 @@
+# markdownlint-cli2 configuration.
+# Frontmatter is YAML data, not Markdown; markdownlint parses it natively.
+config:
+  MD013: false          # Tables and control lines are intentionally wide
+  MD024:
+    siblings_only: true # Repeated "Related Docs" headings are acceptable
+  MD029: false          # Ordered lists use repeated "1." for stable diffs
+  MD033: false          # Autolinks and the occasional inline HTML are allowed
+  MD041: true           # Every document starts with exactly one H1
+  MD060: false          # Table alignment is not worth churn in generated docs
+globs:
+  - "**/*.md"
+ignores:
+  - ".venv/**"
+  - "node_modules/**"
+  - ".github/PULL_REQUEST_TEMPLATE.md"

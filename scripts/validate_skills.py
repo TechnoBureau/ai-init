@@ -178,6 +178,36 @@ def unresolved_placeholders(text: str) -> list[str]:
     return PLACEHOLDER_RE.findall(cleaned)
 
 
+def load_yaml_mapping(text: str) -> dict:
+    """Parse YAML into a mapping and reject a key that appears twice.
+
+    ``yaml.safe_load`` keeps the last value for a duplicated key, so a broken
+    fixture can pass every downstream check while a stricter parser refuses it.
+    """
+
+    class UniqueKeyLoader(yaml.SafeLoader):
+        pass
+
+    def construct_mapping(loader, node, deep=False):
+        mapping = {}
+        for key_node, value_node in node.value:
+            key = loader.construct_object(key_node, deep=deep)
+            if key in mapping:
+                raise yaml.constructor.ConstructorError(
+                    "while constructing a mapping",
+                    node.start_mark,
+                    f"found duplicate key {key!r}",
+                    key_node.start_mark,
+                )
+            mapping[key] = loader.construct_object(value_node, deep=deep)
+        return mapping
+
+    UniqueKeyLoader.add_constructor(
+        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, construct_mapping
+    )
+    return yaml.load(text, Loader=UniqueKeyLoader)
+
+
 def error(path: Path, code: str, message: str) -> Finding:
     return Finding("error", path, code, message)
 
@@ -241,7 +271,7 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
         ]
 
     try:
-        data = yaml.safe_load(frontmatter)
+        data = load_yaml_mapping(frontmatter)
     except yaml.YAMLError as exc:
         return findings + [
             error(rel, "SKILL013", f"frontmatter is not valid YAML: {exc}")
@@ -537,7 +567,7 @@ def validate_evals(repo_root: Path, skills: Sequence[Path]) -> list[Finding]:
             findings.append(error(rel, "EVAL003", "PyYAML is required to validate evals"))
             continue
         try:
-            data = yaml.safe_load(eval_file.read_text(encoding="utf-8"))
+            data = load_yaml_mapping(eval_file.read_text(encoding="utf-8"))
         except yaml.YAMLError as exc:
             findings.append(error(rel, "EVAL004", f"invalid YAML: {exc}"))
             continue

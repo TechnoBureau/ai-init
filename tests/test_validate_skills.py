@@ -200,6 +200,45 @@ class SkillValidationTests(unittest.TestCase):
         self.assertIn("EVAL015", self.codes(findings))
 
 
+    def test_duplicate_eval_key_is_rejected(self) -> None:
+        # PyYAML keeps the last value for a duplicated key, so a fixture that
+        # repeats ``prompt`` could pass every later check while a stricter
+        # parser rejects the file.
+        eval_file = self.fixture.root / "evals" / "sample-skill.yaml"
+        eval_file.write_text(
+            textwrap.dedent(
+                """\
+                skill: sample-skill
+                cases:
+                  - id: positive-case
+                    prompt: Initialize the repository documentation.
+                    should_trigger: true
+                    expected:
+                      - "Creates documentation from evidence."
+                    prompt: Refresh the repository documentation.
+                  - id: negative-case
+                    prompt: Explain quantum chromodynamics.
+                    should_trigger: false
+                    expected:
+                      - "Does not activate the repository workflow."
+                """
+            ),
+            encoding="utf-8",
+        )
+        findings = validator.validate_evals(
+            self.fixture.root, [self.fixture.skill_dir]
+        )
+        self.assertIn("EVAL004", self.codes(findings))
+
+    def test_duplicate_frontmatter_key_is_rejected(self) -> None:
+        content = (self.fixture.skill_dir / "SKILL.md").read_text(encoding="utf-8")
+        (self.fixture.skill_dir / "SKILL.md").write_text(
+            content.replace("name: sample-skill", "name: sample-skill\nname: other-skill", 1),
+            encoding="utf-8",
+        )
+        self.assertIn("SKILL013", self.codes(self.fixture.validate()))
+
+
 class RepositoryTests(unittest.TestCase):
     def test_checked_in_skills_are_valid(self) -> None:
         findings = validator.validate_repository(REPO_ROOT)

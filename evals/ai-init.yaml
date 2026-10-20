@@ -144,6 +144,8 @@ cases:
     forbidden:
       - "Leaving a hardcoded footer or index row that links a document this run skipped."
       - "Appending the project name to a document title."
+
+  - id: do-not-handle-test-implementation
     prompt: >-
       My unit test for the payment retry handler is failing. Fix it.
     should_trigger: false

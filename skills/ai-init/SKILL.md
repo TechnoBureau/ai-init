@@ -3,7 +3,7 @@ name: ai-init
 description: >-
   Bootstrap or refresh an evidence-grounded, stakeholder-readable documentation
   set for a new or existing repository. Use when asked to initialize AI context,
-  create or refresh README.md, AGENTS.md, or CLAUDE.md, map repository
+  create or refresh README.md or AGENTS.md, map repository
   structure, record architecture decisions, or establish baseline project
   documentation. Routes PRD, security, tests, design, and code-quality work to
   dedicated skills.
@@ -65,24 +65,41 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
    `.pre-commit-config.yaml` before adding starter files; never copy over an
    existing configuration.
 
+## Refreshing an existing repository
+
+An existing document is a previous snapshot, not an authority. It was true when
+it was written, and its presence is not evidence that its statements still hold.
+Generating only the missing files leaves the stale ones in place, so treat every
+managed output as something to verify and update, not to skip.
+
+1. Read each existing document for permanent IDs, decision records, and sections
+   a maintainer wrote by hand; keep them.
+2. Re-derive the facts from the current tree: source, manifests, tests,
+   workflows, deployment, and security configuration.
+3. Edit in place. Correct a statement that no longer matches, re-scope or remove
+   a section whose subject no longer exists, and add evidence that appeared
+   since the last update. Never leave a stale claim because the file already
+   exists, and never replace a file wholesale merely because a template exists.
+4. Update the README index and cross-links to the documents that exist after the
+   change, then report what changed and what could not be verified.
+
 ## Root README and agent links
 
 - Create or refresh root `README.md` from [the README template](./templates/root/README.md).
   It is the one shared project summary and documentation index for people and
   agents.
-- Create root relative symbolic links `AGENTS.md -> README.md` and
-  `CLAUDE.md -> README.md` as separate paths at execution time. There are no
-  AGENTS or CLAUDE templates.
-- Before creating either link, inspect that exact path. Leave an existing
+- Create the root relative symbolic link `AGENTS.md -> README.md` at execution
+  time. There is no AGENTS template.
+- Before creating the link, inspect that exact path. Leave an existing
   symlink to `README.md` unchanged. If a regular file or a link to another
   target exists, preserve its unique instructions by merging them into the
   README before replacing it with the requested link. If safe preservation is
   uncertain, do not replace it; report the conflict. Never make a broken link.
-- Use relative symlink targets. On POSIX use `ln -s README.md AGENTS.md` and
-  `ln -s README.md CLAUDE.md`; on Windows use the equivalent symbolic-link
-  operation. If the platform cannot create symlinks, report that constraint;
-  do not silently substitute copied files. Remove links to absent aliases from
-  `README.md` so it has no broken links, and report the missing aliases.
+- Use a relative symlink target. On POSIX use `ln -s README.md AGENTS.md`; on
+  Windows use the equivalent symbolic-link operation. If the platform cannot
+  create symlinks, report that constraint; do not silently substitute a copied
+  file. Remove a link to an absent alias from `README.md` so it has no broken
+  links, and report the missing alias.
 - Follow the open `AGENTS.md` convention: the nearest AGENTS file to the edited
   path applies, and more specific files override broader ones. Do not create
   nested AGENTS files unless the repository already uses that structure.
@@ -107,8 +124,9 @@ mirrors the output path: `templates/root/x` produces `x`, and
 
 Rules:
 
-- Check the exact path before writing, including case variants. Preserve an
-  existing file and merge only unique missing sections.
+- Check the exact path before writing, including case variants. Refresh an
+  existing file in place: correct a statement that no longer matches the current
+  configuration, and add only the sections it lacks.
 - Do not invent a licence, copyright holder, owner handle, email address, or
   support commitment. If the required fact is unconfirmed, skip that file and
   report the gap with the decision the user needs to make.
@@ -154,9 +172,10 @@ not maintain rather than leaving a hook nobody acts on.
 
 ## Default documentation set
 
-Always create or refresh, preserving existing content:
+Always create or refresh from the current tree, preserving permanent IDs and
+sections a maintainer wrote by hand:
 
-- Root `README.md`, plus the two agent-entry symbolic links described above.
+- Root `README.md`, plus the agent-entry symbolic link described above.
 - `docs/README.md` — the documentation index. Create it with the first
   generated document and keep it in step with the files that exist.
 - `docs/PRD.md` with `$prd`.
@@ -275,7 +294,7 @@ handles its applicable profile and migration assessment.
   verified facts from observations and unknowns, and use concise tables for
   detail.
 - Link only to files that exist. Keep generated project documentation under
-  `docs/`, except root `README.md` and its two symbolic links. Copy linked
+  `docs/`, except root `README.md` and its symbolic link. Copy linked
   style and architecture references to `docs/references/style/` and
   `docs/references/architecture/` respectively.
 - Do not present a documentation review, control mapping, or scan as a
@@ -284,7 +303,9 @@ handles its applicable profile and migration assessment.
 ## Workflow
 
 1. Inventory the repository and inspect active source/configuration.
-1. Check each output and agent-link path; preserve existing content and IDs.
+1. Check each output and agent-link path; refresh an existing document
+   against the current tree, preserving permanent IDs and user-authored
+   sections.
 1. Create only the default documents and conditional documents that apply,
    including the repository meta files whose required facts are confirmed.
    Invoke dedicated skills for PRD, security, design, or requested test/code

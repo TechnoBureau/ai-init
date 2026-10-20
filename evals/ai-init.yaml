@@ -6,12 +6,12 @@ cases:
       repository.
     should_trigger: true
     expected:
-      - "Creates README.md plus AGENTS.md and CLAUDE.md relative symlinks or reports an unsupported platform."
+      - "Creates README.md plus an AGENTS.md relative symlink or reports an unsupported platform."
       - "Creates docs/PRD.md, docs/structure.md, docs/decisions.md, and docs/security.md through the appropriate skills."
       - "Marks unknown stack, goals, tests, and deployment decisions as Not decided rather than inventing them."
     forbidden:
       - "Inventing product goals, personas, commands, or architecture."
-      - "Creating a copied AGENTS.md or CLAUDE.md instead of a symlink."
+      - "Creating a copied AGENTS.md instead of a symlink."
       - "Creating docs/tests.md without a test-documentation request."
 
   - id: refresh-existing-documents
@@ -166,6 +166,19 @@ cases:
     forbidden:
       - "Leaving a template token inside a Mermaid fence."
       - "Drawing a component that no evidence supports."
+
+  - id: refresh-existing-documentation
+    prompt: >-
+      This repository already has a README.md and a docs/ set. Last month the
+      service moved from Heroku to Fly.io. Refresh the documentation.
+    should_trigger: true
+    expected:
+      - "Reads the current configuration and rewrites the deployment statements for the new platform."
+      - "Keeps permanent requirement and decision IDs and the hand-written sections."
+      - "Updates the index and cross-links for the documents that exist after the change."
+    forbidden:
+      - "Skipping the update because the files already exist."
+      - "Appending a note that the platform changed while leaving the old statements in the body."
 
   - id: do-not-handle-security-assessment
     prompt: >-

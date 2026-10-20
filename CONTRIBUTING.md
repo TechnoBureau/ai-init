@@ -130,7 +130,7 @@ CI checks structure; reviewers check truthfulness and safety.
 
 Follow the [documentation standard](./docs/skill-standard.md) and keep links
 valid. Generated project documentation belongs under `docs/`, except the root
-`README.md` and its `AGENTS.md`/`CLAUDE.md` symbolic links.
+`README.md` and its `AGENTS.md` symbolic link.
 
 ## License
 

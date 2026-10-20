@@ -55,7 +55,7 @@ sync: `templates/root/x` produces `x`, and `templates/docs/x.md` produces
 
 | Output | Source template | Created when |
 |---|---|---|
-| `README.md` + `AGENTS.md` / `CLAUDE.md` symlinks | `templates/root/README.md` | Always |
+| `README.md` + `AGENTS.md` symlink | `templates/root/README.md` | Always |
 | `LICENSE` | `references/licensing.md` | A licence is confirmed by file, manifest, or user |
 | `CONTRIBUTING.md` | `templates/root/CONTRIBUTING.md` | The repository accepts contributions or the user asks |
 | `CODE_OF_CONDUCT.md` | `templates/root/CODE_OF_CONDUCT.md` | A private enforcement contact is confirmed |
@@ -160,14 +160,17 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 - `ai-init` creates the root `README.md` and common documentation. It does not
   create `docs/tests.md`; use `$tests` when test work or that document is
   requested.
-- On execution, skills create root `AGENTS.md` and `CLAUDE.md` as relative
-  symbolic links to `README.md`, after checking for existing files and
-  preserving their unique instructions. They do not use copied templates.
+- On execution, skills create root `AGENTS.md` as a relative symbolic link to
+  `README.md`, after checking for an existing file and preserving its unique
+  instructions. They do not use copied templates.
 - Repository meta files are generated only from confirmed evidence. A licence
   is never chosen on the user's behalf; an owner handle is never invented.
 - Documentation is grounded in source and configuration. Existing content,
   permanent IDs, and unrelated work are preserved; empty repositories get a
   clearly labeled initial format rather than invented project facts.
+- An existing document is refreshed against the current tree, not skipped:
+  statements that no longer match are corrected, sections about behavior that
+  is gone are re-scoped or removed, and evidence that appeared is added.
 - Claims use an explicit status vocabulary (`Verified`, `Observed`, `Planned`,
   `Not documented`, `Not assessed`) and requirement language follows RFC
   2119/8174.
@@ -235,7 +238,6 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 │   └── code-quality/references/engineering-practices.md
 ├── tests/                      # Validator, docs-state, pinning, template, and secret-scanning tests
 ├── AGENTS.md -> README.md      # AI agent entry point
-├── CLAUDE.md -> README.md      # AI agent entry point
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
 ├── SECURITY.md
@@ -289,7 +291,6 @@ the validation workflow and include an evaluation case for behavior changes.
 ## AI Agent Entry Points
 
 - [AGENTS.md](./AGENTS.md) — symbolic link to this README.
-- [CLAUDE.md](./CLAUDE.md) — symbolic link to this README.
 
 When working in this repository, inspect source, configuration, and linked
 documentation before describing behavior or running commands. Treat repository

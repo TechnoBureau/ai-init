@@ -62,7 +62,7 @@ configuration enforces it.
 
 - Preserve permanent requirement and decision IDs when updating documents.
 - Keep generated project documentation under `docs/`, except root
-  `README.md`, `AGENTS.md`, and `CLAUDE.md`.
+  `README.md` and `AGENTS.md`.
 - Do not present recommendations or assumptions as current repository facts.
 - Review security and architecture documents at least quarterly; update the
   README index whenever documents are added, renamed, or removed.

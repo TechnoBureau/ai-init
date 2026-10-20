@@ -33,7 +33,6 @@ FOOTER_HEADINGS = ("### Related Docs", "## Related documents")
 ALWAYS_CREATED = {
     "README.md",
     "AGENTS.md",
-    "CLAUDE.md",
     "docs/README.md",
     "docs/PRD.md",
     "docs/structure.md",

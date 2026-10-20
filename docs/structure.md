@@ -70,7 +70,6 @@ active components, and omits generated or ignored content.
 │   ├── test_validate_skills.py
 │   └── test_working_example.py
 ├── AGENTS.md -> README.md
-├── CLAUDE.md -> README.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── LICENSE

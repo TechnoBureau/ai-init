@@ -3,8 +3,8 @@
 {{ONE_SENTENCE_DESCRIPTION_BASED_ON_CODE}}
 
 This is the shared starting point for people and AI agents. It summarizes the
-project and indexes its documentation. Root `AGENTS.md` and `CLAUDE.md` are
-symbolic links to this file, created by the skill at execution time.
+project and indexes its documentation. Root `AGENTS.md` is a symbolic link to
+this file, created by the skill at execution time.
 
 ## Purpose
 
@@ -82,7 +82,6 @@ document that exists, using the same two columns, then delete this paragraph.
 ## AI Agent Entry Points
 
 - `AGENTS.md` — symbolic link to this shared README.
-- `CLAUDE.md` — symbolic link to this shared README.
 
 When working in this repository, inspect relevant source, configuration, and
 linked documentation before describing behavior or running commands. Follow
@@ -108,7 +107,7 @@ generated; do not invent a support commitment or response time.
 - Review security and architecture documents at least quarterly; review this
   index whenever a document is added, renamed, or removed.
 - Keep generated project documentation under `docs/`, except this root
-  `README.md` and its two symbolic links.
+  `README.md` and its symbolic link.
 
 ## License
 

@@ -133,7 +133,7 @@ Full context and consequences are in [decisions.md](./decisions.md).
 
 | ID | Requirement | Acceptance criteria |
 |---|---|---|
-| FR-6 | `ai-init` MUST create root `README.md` and relative symlinks `AGENTS.md` and `CLAUDE.md` | Links resolve to `README.md`; conflicts reported |
+| FR-6 | `ai-init` MUST create root `README.md` and a relative symlink `AGENTS.md` | The link resolves to `README.md`; conflicts reported |
 | FR-7 | `ai-init` MUST create the default `docs/` set: index, PRD, structure, decisions, security | Files generated with no placeholders |
 | FR-8 | `ai-init` MUST create conditional documents only when evidence supports them | `docs/design.md` absent without a UI |
 | FR-9 | `ai-init` MUST generate `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CODEOWNERS`, and `LICENSE` only from confirmed facts | No invented owner, licence, or contact |
@@ -163,6 +163,7 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-23 | A template MUST NOT contain a relative link; it MUST name the document and the skill MUST write the link only for a file it wrote | `check_links.py` and `tests/test_template_links.py` find no relative link in a template; generated pages link every generated document |
 | FR-24 | A generated Mermaid block MUST be valid as written: canonical init block, a diagram type on the first code line, and no template token | `tests/test_diagrams.py` passes and no diagram renders a parse error |
 | FR-25 | A template that generates a diagram MUST carry the canonical init line in a valid example block, and the skill MUST replace every example node before delivery | Working example has no `(replace)` label; generated diagrams keep the init line |
+| FR-26 | `ai-init` MUST refresh an existing document against the current tree instead of skipping it, and MUST preserve permanent IDs and user-authored sections | A changed configuration is reflected in the existing document; no stale statement survives because the file existed |
 
 ## 8. Non-Functional Requirements
 

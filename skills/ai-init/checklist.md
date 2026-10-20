@@ -7,6 +7,10 @@ item means it was verified in the current worktree, not assumed.
 
 - [ ] Inspected source code, manifests, tests, workflows, deployment, and
   security configuration before using existing Markdown for context.
+- [ ] Refreshed every existing document against the current tree: stale
+  statements corrected, dead sections removed or re-scoped, new evidence added,
+  and permanent IDs plus hand-written sections preserved. No file was skipped
+  because it already existed.
 - [ ] No branch, revision, or tool-version provenance header appears in the
   output; claims cite paths, commands, or results.
 - [ ] No table carries a status, date, owner, evidence, verification, baseline,
@@ -72,11 +76,10 @@ item means it was verified in the current worktree, not assumed.
 ## Root README and agent links
 
 - [ ] Root `README.md` is the shared summary and index for humans and AI,
-  summarizes goals from `docs/PRD.md`, and links to root `AGENTS.md` and
-  `CLAUDE.md`.
-- [ ] Root `AGENTS.md` and `CLAUDE.md` are relative symbolic links to
-  `README.md` where supported; substantive conflicts are preserved/reported,
-  and README contains no links to aliases that could not be created.
+  summarizes goals from `docs/PRD.md`, and links to root `AGENTS.md`.
+- [ ] Root `AGENTS.md` is a relative symbolic link to `README.md` where
+  supported; a substantive conflict is preserved or reported, and README
+  contains no link to an alias that could not be created.
 - [ ] No nested `AGENTS.md` was invented; any existing agent instruction
   hierarchy is preserved.
 
@@ -110,7 +113,7 @@ item means it was verified in the current worktree, not assumed.
 - [ ] `docs/design.md` exists only when the project has a rendered UI and
   records accessibility evidence without claiming unverified conformance.
 - [ ] Every generated project document other than root `README.md` and its
-  root-level `AGENTS.md` / `CLAUDE.md` symbolic links is under `docs/`.
+  root-level `AGENTS.md` symbolic link is under `docs/`.
 
 ## Security and compliance integrity
 

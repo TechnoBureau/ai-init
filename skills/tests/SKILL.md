@@ -142,7 +142,7 @@ A test change is complete when:
 ## README agent-entry links
 
 After this skill runs, if root `README.md` exists, ensure
-`AGENTS.md` and `CLAUDE.md` are relative symbolic links to it. Inspect each
+`AGENTS.md` is a relative symbolic link to it. Inspect each
 path first. Leave a correct link unchanged. Preserve regular files or links
 with other targets; merge unique instructions into the README before replacing
 only when preservation is safe. If uncertain or symlink creation is not

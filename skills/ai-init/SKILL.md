@@ -61,8 +61,9 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
    exists, preserve its content and migrate to the lowercase canonical name.
    On case-insensitive filesystems, rename in two steps
    (`Architecture.md` → temporary name → `architecture.md`) and update links.
-1. Compare `.editorconfig`, `.gitattributes`, and `.pre-commit-config.yaml`
-   before adding starter files; never copy over an existing configuration.
+1. Compare `.gitignore`, `.editorconfig`, `.gitattributes`, and
+   `.pre-commit-config.yaml` before adding starter files; never copy over an
+   existing configuration.
 
 ## Root README and agent links
 
@@ -121,6 +122,24 @@ Rules:
   details. A wrong address is worse than a missing file.
 - A `.github/` directory is created only when a file belongs in it. Do not move
   existing root-level meta files merely to match a preferred layout.
+
+## Starter configuration
+
+`files/` holds copy-ready configuration for the target repository. Compare each
+file with the existing one, copy only when the repository has no equivalent, and
+tailor it to the detected stack.
+
+| File | Rule |
+|---|---|
+| `.gitignore` | Merge missing sections; never remove an entry the maintainers added. Follow [the gitignore standard](./references/gitignore-standard.md). |
+| `.editorconfig` | Copy when absent; adjust languages and indentation to the code. |
+| `.gitattributes` | Copy when absent; keep line-ending and binary rules. |
+| `.pre-commit-config.yaml` | Copy when absent; drop hooks for tools the project does not use. |
+
+Never ignore manifests, lockfiles, source, build scripts, CI configuration, or
+documentation. After changing `.gitignore`, run
+`git ls-files -ci --exclude-standard`; any output means a tracked file is now
+ignored, so fix the pattern rather than untracking the file.
 
 ## Default documentation set
 
@@ -241,8 +260,8 @@ handles its applicable profile and migration assessment.
    quality tasks. If a required companion is not installed, finish common
    documents, omit that companion-owned output, and report what is missing;
    do not imitate a specialist skill from stale or incomplete instructions.
-1. Copy absent starter configurations only after tailoring them to the actual
-   stack and tools.
+1. Create or merge starter configurations only after tailoring them to the
+   actual stack and tools.
 1. Update the README index to include generated documents and omit skipped
    optional documents.
 1. Run [checklist.md](./checklist.md). Verify uppercase `README.md`, valid
@@ -255,9 +274,12 @@ handles its applicable profile and migration assessment.
   repository root, except `CODEOWNERS` which targets `.github/CODEOWNERS`.
 - `templates/docs/` — the `docs/` document set; each file produces the same path
   under `docs/`.
-- `files/` — EditorConfig, Git attributes, and pre-commit starters.
+- `files/` — `.gitignore`, EditorConfig, Git attributes, and pre-commit
+  starters.
 - `references/licensing.md` — licence detection, selection rules, and SPDX
   identifiers.
+- `references/gitignore-standard.md` — merge rules, prohibited ignores, and
+  pattern cautions.
 - `references/documentation-standard.md` — enterprise documentation rules.
 - `references/style/` — adaptable language references.
 - `references/architecture/mermaid-standard.md` — Mermaid theme reference.

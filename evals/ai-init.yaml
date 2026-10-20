@@ -23,7 +23,7 @@ cases:
       - "Inspects source and configuration before trusting existing Markdown."
       - "Migrates readme.md content into uppercase README.md without losing unique instructions."
       - "Preserves D- and FR-IDs and updates documents in place."
-      - "Adds document-control fields and evidence provenance."
+      - "Updates claims from the current code without adding document-control fields or provenance headers."
     forbidden:
       - "Replacing existing documents wholesale."
       - "Leaving two competing README indexes."
@@ -79,6 +79,19 @@ cases:
     forbidden:
       - "Linking to documents that were skipped."
       - "Creating docs/tests.md without a test request."
+
+  - id: merge-gitignore
+    prompt: >-
+      Add a standard .gitignore for our mixed C, C++, Go, and shell repository,
+      and keep the entries we already have.
+    should_trigger: true
+    expected:
+      - "Merges missing sections into the existing .gitignore without deleting or rewriting maintainer entries."
+      - "Covers OS metadata, editors, swap and temporary files, secrets, logs, C and C++, Go, and shell."
+      - "Checks git ls-files -ci --exclude-standard and reports that no tracked file is ignored."
+    forbidden:
+      - "Replacing the existing .gitignore wholesale."
+      - "Ignoring go.mod, go.sum, Makefile, CMakeLists.txt, source files, or the .github directory."
 
   - id: do-not-handle-test-implementation
     prompt: >-

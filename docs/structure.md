@@ -37,7 +37,7 @@ active components, and omits generated or ignored content.
 │   ├── ai-init/
 │   │   ├── SKILL.md
 │   │   ├── checklist.md
-│   │   ├── files/              # .editorconfig, .gitattributes, .pre-commit-config.yaml
+│   │   ├── files/              # .gitignore, .editorconfig, .gitattributes, .pre-commit-config.yaml
 │   │   ├── references/
 │   │   │   ├── architecture/mermaid-standard.md
 │   │   │   ├── documentation-standard.md
@@ -70,7 +70,7 @@ active components, and omits generated or ignored content.
 ├── README.md
 ├── SECURITY.md
 ├── requirements-dev.txt
-└── configuration files (.editorconfig, .gitattributes, .gitignore,
+└── configuration files (.gitignore, .editorconfig, .gitattributes,
     .markdownlint-cli2.yaml, .pre-commit-config.yaml)
 ```
 
@@ -81,7 +81,7 @@ active components, and omits generated or ignored content.
 | `skills/*/SKILL.md` | Skill entry point, frontmatter, workflow, operating constraints | Loaded by an agent host | TechnoBureau |
 | `skills/*/templates/` | Output templates whose directory layout mirrors the target repository | Copied into a target by the skill | TechnoBureau |
 | `skills/*/references/` | Detailed standards loaded on demand | Linked from `SKILL.md` | TechnoBureau |
-| `skills/ai-init/files/` | Starter configuration for a target repository | Copied only when absent | TechnoBureau |
+| `skills/ai-init/files/` | `.gitignore`, EditorConfig, Git attributes, and pre-commit starters | Copied or merged only when absent | TechnoBureau |
 | `evals/*.yaml` | Trigger, non-trigger, and adversarial evaluation cases | `scripts/validate_skills.py` | TechnoBureau |
 | `scripts/validate_skills.py` | Specification and enterprise metadata gate | `python scripts/validate_skills.py --strict` | TechnoBureau |
 | `scripts/check_links.py` | Local Markdown link integrity | `python scripts/check_links.py` | TechnoBureau |

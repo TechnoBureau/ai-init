@@ -1,38 +1,220 @@
+# Repository .gitignore baseline.
+#
+# Keep the common sections and the sections for languages this repository
+# actually uses. Comments mark patterns that are easy to get wrong. When
+# updating an existing file, add missing entries and never delete or rewrite
+# one a maintainer added.
+#
+# Never add source files, manifests, lockfiles, build scripts, CI
+# configuration, or documentation here. .gitignore hides files from Git; it
+# does not protect secrets.
+
+# -----------------------------------------------------------------------------
+# Operating-system metadata
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# -----------------------------------------------------------------------------
+# Editors and IDEs
+# -----------------------------------------------------------------------------
+# Shared project settings can be committed deliberately. If the team
+# standardizes on a file inside these directories, unignore that exact file
+# rather than the whole directory.
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.vs/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+*.tmproj
+.project
+.classpath
+.settings/
+.factorypath
+.netrwhist
+.vim/
+.nvim/
+.emacs.desktop
+
+# -----------------------------------------------------------------------------
+# Swap, backup, and temporary files
+# -----------------------------------------------------------------------------
+*.swp
+*.swo
+*.swn
+*.swx
+.*.sw?
+*~
+.*~
+.#*
+\#*#
+*.bak
+*.orig
+*.rej
+*.tmp
+*.temp
+*.old
+
+# -----------------------------------------------------------------------------
+# Secrets and local environment
+# -----------------------------------------------------------------------------
+# Never commit credentials. Negate the specific fixture file if the project
+# intentionally ships fake keys for tests.
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+credentials.json
+.netrc
+
+# -----------------------------------------------------------------------------
+# Logs, cores, and crash dumps
+# -----------------------------------------------------------------------------
+*.log
+logs/
+*.core
+core.[0-9]*
+*.dmp
+*.stackdump
+
+# -----------------------------------------------------------------------------
+# Build and packaging output
+# -----------------------------------------------------------------------------
+build/
+dist/
+
+# -----------------------------------------------------------------------------
+# Compiled output (C, C++, Go, and similar)
+# -----------------------------------------------------------------------------
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.elf
+*.ko
+*.gch
+*.pch
+*.pdb
+*.idb
+
+# -----------------------------------------------------------------------------
+# C and C++
+# -----------------------------------------------------------------------------
+# Compiler dependency files. Remove this line for D-language repositories,
+# where *.d files are source.
+*.d
+# CMake. compile_commands.json is generated but is sometimes committed for
+# tooling; remove that line if the project tracks it.
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/Temporary/
+compile_commands.json
+cmake-build-*/
+*.gcda
+*.gcno
+*.gcov
+*.dSYM/
+# Autotools and libtool
+.deps/
+.libs/
+*.lo
+*.la
+
+# -----------------------------------------------------------------------------
+# Go
+# -----------------------------------------------------------------------------
+# Test binaries from `go test -c` and runtime profiles. Coverage output is
+# covered by *.out above.
+*.test
+*.prof
+*.pprof
+*.coverprofile
+__debug_bin*
+# Local workspace files. Commit them only when the team shares a workspace.
+go.work
+go.work.sum
+# Go projects normally commit vendor/. Uncomment only when this project does
+# not vendor dependencies.
+# vendor/
+
+# -----------------------------------------------------------------------------
+# Shell
+# -----------------------------------------------------------------------------
+# Shell scripts are source and must not be ignored. These entries cover local
+# history and process files only.
+.bash_history
+.zsh_history
+.sh_history
+*.pid
+*.pid.lock
+
+# -----------------------------------------------------------------------------
 # Python
+# -----------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
+*$py.class
 .venv/
 venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.tox/
+.nox/
 .coverage
+.coverage.*
 coverage.xml
 htmlcov/
+*.egg-info/
+*.egg
 
-# Node / Markdown tooling
+# -----------------------------------------------------------------------------
+# Node.js and Markdown tooling
+# -----------------------------------------------------------------------------
 node_modules/
 .npm/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Build and distribution
-build/
-dist/
-*.egg-info/
+# -----------------------------------------------------------------------------
+# GitHub and CI
+# -----------------------------------------------------------------------------
+# Workflows, CODEOWNERS, templates, and dependency configuration are tracked.
+# These patterns cover local run output and GitHub Pages builds only.
+.github/.cache/
+_site/
+.jekyll-cache/
 
-# Local environment and secrets
-.env
-.env.*
-!.env.example
-*.pem
-*.key
-id_rsa*
-credentials.json
-
-# Editor and OS
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-
+# -----------------------------------------------------------------------------
 # Local agent scratch files
+# -----------------------------------------------------------------------------
 .arena/

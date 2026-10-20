@@ -131,8 +131,15 @@ item means it was verified in the current worktree, not assumed.
   exists.
 - [ ] Coding standards reflect repository instructions, language needs, and
   configured tools; recommendations are distinguished from existing rules.
-- [ ] Applicable `.editorconfig`, `.gitattributes`, and
-  `.pre-commit-config.yaml` are copied to the target repository root.
+- [ ] Applicable `.gitignore`, `.editorconfig`, `.gitattributes`, and
+  `.pre-commit-config.yaml` are copied or merged into the target repository
+  root without overwriting existing configuration.
+- [ ] `.gitignore` keeps existing entries, adds only sections for languages in
+  use, and still covers OS metadata, editors, swap and temporary files,
+  secrets, and logs.
+- [ ] `git ls-files -ci --exclude-standard` returns no tracked file, and no
+  manifest, lockfile, source file, build script, CI configuration, or document
+  is ignored.
 - [ ] Pre-commit hooks match the target languages/tools, and required tools or
   baseline files are identified.
 - [ ] YAML frontmatter and machine-readable metadata were not reformatted as

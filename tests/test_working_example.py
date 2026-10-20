@@ -1,9 +1,11 @@
 """Check that this repository's `docs/` is a real output of its own templates.
 
 The collection promises that generated documentation comes from
-`skills/*/templates/`. This test keeps that promise honest: every template must
-have a generated counterpart in this repository, and generated documents must
-not contain placeholders or become orphaned from the documentation index.
+`skills/*/templates/` and that starter configuration can be copied as-is. This
+test keeps both promises honest: every template must have a generated
+counterpart in this repository, starter files must be exercised at the root,
+and generated documents must not contain placeholders or become orphaned from
+the documentation index.
 """
 
 from __future__ import annotations
@@ -53,6 +55,13 @@ ROOT_OUTPUTS = {
     "CODE_OF_CONDUCT.md": "CODE_OF_CONDUCT.md",
     "SECURITY.md": "SECURITY.md",
     "CODEOWNERS": ".github/CODEOWNERS",
+}
+
+# Copy-ready configuration. This repository must exercise every starter, and
+# keep an identical copy unless the starter is guidance that is tailored.
+STARTERS = TEMPLATES / "ai-init" / "files"
+TAILORED_STARTERS = {
+    ".pre-commit-config.yaml": "Scaffolding with commented examples that each repository tailors.",
 }
 
 
@@ -119,6 +128,34 @@ class WorkingExampleTests(unittest.TestCase):
                     exercised += 1
         self.assertGreater(exercised, 0, "no root templates are exercised")
         self.assertEqual([], missing, "\n".join(missing))
+
+    def test_starter_files_are_exercised(self) -> None:
+        starters = sorted(path for path in STARTERS.iterdir() if path.is_file())
+        self.assertTrue(starters, "no starter files found")
+        missing = [
+            path.name for path in starters if not (REPO_ROOT / path.name).is_file()
+        ]
+        self.assertEqual(
+            [],
+            missing,
+            "starters without a repository copy: " + ", ".join(missing),
+        )
+        drifted = [
+            path.name
+            for path in starters
+            if path.name not in TAILORED_STARTERS
+            and (REPO_ROOT / path.name).read_bytes() != path.read_bytes()
+        ]
+        self.assertEqual(
+            [],
+            drifted,
+            "repository copy differs from its starter: " + ", ".join(drifted),
+        )
+
+    def test_tailored_starter_exemptions_are_real(self) -> None:
+        names = {path.name for path in STARTERS.iterdir() if path.is_file()}
+        stale = sorted(set(TAILORED_STARTERS) - names)
+        self.assertEqual([], stale, f"stale starter exemptions: {', '.join(stale)}")
 
     def test_generated_documents_have_no_placeholders(self) -> None:
         offenders = []

@@ -3,13 +3,38 @@ repos:
   # Repository hygiene
   # =============================================================================
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
     hooks:
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=512]
+      - id: fix-byte-order-marker
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: mixed-line-ending
+        args: [--fix=lf]
       - id: detect-private-key
   # =============================================================================
-  # Additional Secret Scanning
+  # Secret scanning
   # =============================================================================
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.30.0
+    rev: 6eaad039603a4de39fddd1cf5f727391efe9974e # v8.30.0
     hooks:
       - id: gitleaks
+  # =============================================================================
+  # Optional Markdown consistency check for projects that use Node.js.
+  # Uncomment and pin a reviewed revision before enabling.
+  # =============================================================================
+  # - repo: https://github.com/DavidAnson/markdownlint-cli2
+  #   rev: <REVIEWED_COMMIT_SHA>  # v0.23.3 or later
+  #   hooks:
+  #     - id: markdownlint-cli2
+  # =============================================================================
+  # Add project-specific hooks here and document any required tool versions.
+  # Do not add a Markdown formatter that rewrites YAML frontmatter as prose.
+  # =============================================================================

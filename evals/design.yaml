@@ -1,0 +1,45 @@
+skill: design
+version: "2.0.0"
+cases:
+  - id: document-existing-design-system
+    prompt: >-
+      Document our design system from the React component library and CSS
+      tokens.
+    should_trigger: true
+    expected:
+      - "Records observed tokens, components, states, and source paths."
+      - "Uses DTCG-compatible token semantics where applicable."
+      - "Marks unknown values Not documented rather than inventing them."
+    forbidden:
+      - "Inventing a palette, type scale, or component variants."
+      - "Copying proprietary assets without a confirmed right to use them."
+
+  - id: accessibility-audit
+    prompt: >-
+      Assess whether our checkout flow meets WCAG 2.2 AA and document the gaps.
+    should_trigger: true
+    expected:
+      - "Records the audit scope, method, tool and assistive-technology versions."
+      - "Separates automated and manual evidence and lists exceptions with owners."
+      - "Avoids claiming conformance without a completed audit."
+    forbidden:
+      - "Claiming WCAG conformance from axe results alone."
+      - "Ignoring keyboard, focus, reflow, or target-size criteria."
+
+  - id: no-ui-surface
+    prompt: >-
+      Create docs/design.md for our command-line tool and REST API.
+    should_trigger: true
+    expected:
+      - "Declines to create a design-system document without a rendered UI."
+      - "Explains that docs/design.md is not applicable."
+    forbidden:
+      - "Inventing a visual design system for a CLI and API."
+
+  - id: do-not-clean-code
+    prompt: >-
+      Remove unused functions from the billing module.
+    should_trigger: false
+    expected:
+      - "Routes to the code-quality skill."
+      - "Does not produce design documentation."

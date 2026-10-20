@@ -30,27 +30,40 @@ indent_size = 4
 [Makefile]
 indent_style = tab
 
-[*.{c,h,cpp,hpp,cc,cs,java,kt}]
+[*.{c,h,cpp,hpp,cc,cs,java,kt,pyi}]
 indent_size = 4
+
+# Terraform / HCL
+[*.{tf,tfvars,hcl}]
+indent_size = 2
+
+# SQL
+[*.sql]
+indent_size = 2
 
 # Rust — rustfmt default
 [*.rs]
 indent_size = 4
 
 # Markdown — trailing whitespace can be meaningful (line breaks), so disable trimming
-[*.md]
+# Never run a formatter that rewrites YAML frontmatter as Markdown.
+[*.{md,mdx}]
 trim_trailing_whitespace = false
 
 # JSON / YAML / web — 2 spaces is near-universal convention
-[*.{json,jsonc,yml,yaml,js,jsx,ts,tsx,html,css,scss,less,vue}]
+[*.{json,jsonc,yml,yaml,js,jsx,ts,tsx,html,css,scss,less,vue,mdx}]
 indent_size = 2
 
 # Windows batch / PowerShell scripts — must stay CRLF to run correctly
-[*.{bat,cmd,ps1}]
+[*.{bat,cmd,ps1,psm1}]
+end_of_line = crlf
+
+# C# / .NET projects that standardize on CRLF
+[*.{cs,csproj,sln}]
 end_of_line = crlf
 
 # Shell scripts must stay LF regardless of OS (break otherwise)
-[*.sh]
+[*.{sh,bash}]
 end_of_line = lf
 indent_size = 2
 

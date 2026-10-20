@@ -1,8 +1,12 @@
 # Security Profile — {{PROJECT_NAME}}
 
-> Summarize the current repository security posture for engineering, security,
-> operations, product, and leadership readers. This document is not a
-> certification or compliance attestation.
+> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
+> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
+> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
+>
+> **Evidence base:** reviewed commit `{{COMMIT_SHA}}` on {{DATE}}; tool/version:
+> {{SCANNER_OR_TOOL_VERSION_OR_NONE}}. This document is not a certification,
+> audit opinion, or compliance attestation.
 
 ## Executive Summary
 
@@ -10,48 +14,93 @@
 
 **Assessment scope:** {{REPOSITORY_PATHS_AND_SYSTEM_BOUNDARY}}\
 **Assessment date:** {{DATE}}\
+**Assessment type:** {{DESIGN_REVIEW / IMPLEMENTATION_REVIEW / CONFIGURATION_REVIEW / SCAN_REVIEW}}\
 **Applicable profiles:** {{NIST_SSDF_AND_CONFIRMED_CONDITIONAL_PROFILES}}
 
 Spell out acronyms and framework names at first mention, including the
 National Institute of Standards and Technology (NIST), Federal Information
 Processing Standards (FIPS), Security Content Automation Protocol (SCAP),
-Center for Internet Security (CIS), and Open Worldwide Application Security
-Project (OWASP), Application Security Verification Standard (ASVS), and
-post-quantum cryptography (PQC). For example: NIST Secure Software
-Development Framework (SSDF), SP 800-218, version 1.1. Name the selected
-version for every additional framework or benchmark.
+Center for Internet Security (CIS), International Organization for
+Standardization (ISO), Open Worldwide Application Security Project (OWASP),
+Application Security Verification Standard (ASVS), and post-quantum
+cryptography (PQC). For example: NIST Secure Software Development Framework
+(SSDF), SP 800-218, version 1.1. Name the selected version for every
+additional framework or benchmark.
+
+State plainly what this review did **not** cover: runtime behavior, production
+configuration, staffing, third-party operations, legal compliance, or
+penetration testing, as applicable.
 
 ## System and Data Scope
 
 | Area | Evidence-based description |
 |---|---|
 | System purpose and environments | {{VERIFIED_OR_NOT_DOCUMENTED}} |
+| Components and trust boundaries | {{VERIFIED_OR_NOT_DOCUMENTED}} |
+| Identities and access paths | {{VERIFIED_OR_NOT_DOCUMENTED}} |
 | Data handled and classification | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
-| Trust boundaries and identities | {{VERIFIED_OR_NOT_DOCUMENTED}} |
 | External services and dependencies | {{VERIFIED_OR_NOT_DOCUMENTED}} |
+| Relevant regulatory or contractual scope | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
+
+### Data classification
+
+| Data type | Classification | Storage / transit | Retention | Evidence |
+|---|---|---|---|---|
+| {{DATA_TYPE_OR_NONE_IDENTIFIED}} | {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} | `{{PATH}}` |
+
+Use the organization's confirmed classification scheme. Do not infer an
+obligation from the presence of data alone.
+
+## Threat Model Summary
+
+Link to the full model when one exists; otherwise state `No threat model
+recorded` rather than inventing threats as facts.
+
+| Asset / entry point | Threat (STRIDE/LINDDUN) | Existing mitigation | Residual risk / evidence |
+|---|---|---|---|
+| {{ASSET_OR_INTERFACE}} | {{THREAT_CATEGORY_AND_DESCRIPTION}} | {{CONFIRMED_CONTROL_OR_NONE}} | {{RESIDUAL_RISK_OR_NOT_ASSESSED}} |
+
+Include abuse cases, supply-chain paths, insider risk, and AI/agent-specific
+threats where applicable.
+
+## Selected Profiles
+
+| Profile / framework | Exact version | Why selected | Assessed boundary | Evidence |
+|---|---|---|---|---|
+| NIST SSDF | SP 800-218 v1.1 | Secure development lifecycle mapping | {{BOUNDARY}} | `{{PATH}}` |
+| {{CONFIRMED_PROFILE_OR_NONE}} | {{VERSION}} | {{CONFIRMED_OBLIGATION_OR_RATIONALE}} | {{BOUNDARY}} | `{{PATH}}` |
+
+Omit profiles that do not apply instead of listing them as controls. Do not
+assume an ISO/IEC 27001, SOC 2, PCI DSS, HIPAA, FedRAMP, or sector obligation
+without confirmed scope.
 
 ## Control Status
 
 Use only the statuses `Verified`, `Partial`, `Not evidenced`, `Not assessed`,
 or `Not applicable`. Every status must include evidence or an explanation.
+State whether each row is a design, implementation, or operating-effectiveness
+claim.
 
-| Profile / control area | Status | Current implementation | Evidence | Verification / owner |
-|---|---|---|---|---|
-| Post-quantum cryptography readiness (if cryptography exists) | {{STATUS}} | {{INVENTORY_AND_GAP}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| Cryptographic agility / algorithm configuration (if applicable) | {{STATUS}} | {{PROFILE_SWITCH_FALLBACK_AND_DOWNGRADE_EVIDENCE}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| FIPS 140-3 module validation (only if required) | {{STATUS}} | {{MODULE_CERTIFICATE_AND_SCOPE_OR_NOT_APPLICABLE}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| NIST SSDF — Prepare the Organization | {{STATUS}} | {{EVIDENCE-BASED DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| NIST SSDF — Protect the Software | {{STATUS}} | {{EVIDENCE-BASED DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| NIST SSDF — Produce Well-Secured Software | {{STATUS}} | {{EVIDENCE-BASED DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| NIST SSDF — Respond to Vulnerabilities | {{STATUS}} | {{EVIDENCE-BASED DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| OpenSCAP / SCAP host hardening (only if platform is supported) | {{STATUS}} | {{OS_PROFILE_CONTENT_VERSION_AND_SCAN_RESULT}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| CIS / provider baseline (only if in scope) | {{STATUS}} | {{SELECTED_BASELINE_AND_VERSION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| OWASP application profile (only if applicable) | {{STATUS}} | {{SELECTED_PROFILE_VERSION_AND_LEVEL}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
-| {{OTHER_CONFIRMED_PROFILE_AND_CONTROL_AREA}} | {{STATUS}} | {{DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Profile / control area | Claim type | Status | Current implementation | Evidence | Verification / owner |
+|---|---|---|---|---|---|
+| Governance and policy | {{DESIGN_IMPLEMENTATION_OPERATING}} | {{STATUS}} | {{EVIDENCE_BASED_DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Asset and data inventory | {{TYPE}} | {{STATUS}} | {{DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Identity and access | {{TYPE}} | {{STATUS}} | {{AUTHN_AUTHZ_MFA_LEAST_PRIVILEGE}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Secure development (SSDF) | {{TYPE}} | {{STATUS}} | {{REVIEW_AND_SCANNING_EVIDENCE}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Supply chain and build integrity | {{TYPE}} | {{STATUS}} | {{SBOM_PROVENANCE_SIGNING_EVIDENCE}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Vulnerability management | {{TYPE}} | {{STATUS}} | {{INTAKE_TRIAGE_SLA_OR_NOT_DECIDED}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Logging and detection | {{TYPE}} | {{STATUS}} | {{COVERAGE_RETENTION_INTEGRITY}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Resilience and recovery | {{TYPE}} | {{STATUS}} | {{BACKUP_RESTORE_RTO_RPO}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Incident response and disclosure | {{TYPE}} | {{STATUS}} | {{RUNBOOK_AND_DISCLOSURE_EVIDENCE}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Privacy and data protection | {{TYPE}} | {{STATUS}} | {{MINIMIZATION_RETENTION_DPIA}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Third-party and dependency risk | {{TYPE}} | {{STATUS}} | {{VENDOR_AND_LICENCE_EVIDENCE}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| Platform hardening | {{TYPE}} | {{STATUS}} | {{BASELINE_AND_SCAN_RESULT}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| AI/agent security (if applicable) | {{TYPE}} | {{STATUS}} | {{PROMPT_TOOL_DATA_CONTROLS}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
+| {{OTHER_CONFIRMED_PROFILE_AND_CONTROL_AREA}} | {{TYPE}} | {{STATUS}} | {{DESCRIPTION}} | `{{PATH}}` | {{CHECK_AND_OWNER_OR_UNKNOWN}} |
 
 Add rows only for applicable modules. Name the selected framework or
-benchmark and version; omit irrelevant profiles instead of listing them as
-controls.
+benchmark and version; omit irrelevant profiles instead of marking every
+possible control `Not applicable`.
 
 ## Cryptographic Inventory and Migration
 
@@ -86,6 +135,50 @@ against downgrade attacks. A rollback must not re-enable a prohibited
 algorithm. Only document this as an existing control when configuration and
 tests prove it; otherwise label it a proposed action.
 
+## Supply Chain and Build Integrity
+
+| Expectation | Observed state | Evidence | Gap / action |
+|---|---|---|---|
+| Dependencies pinned; lockfiles committed | {{VERIFIED_OR_NOT_EVIDENCED}} | `{{PATH}}` | {{ACTION_OR_NONE}} |
+| SBOM generated (SPDX or CycloneDX, NTIA minimum elements) | {{VERIFIED_OR_NOT_CONFIGURED}} | `{{PATH}}` | {{ACTION_OR_NONE}} |
+| Artifacts signed and verified | {{VERIFIED_OR_NOT_CONFIGURED}} | `{{PATH}}` | {{ACTION_OR_NONE}} |
+| Provenance attestation (SLSA v1.x) | {{VERIFIED_OR_NOT_CONFIGURED}} | `{{PATH}}` | {{ACTION_OR_NONE}} |
+| CI token and release permissions minimized | {{VERIFIED_OR_NOT_EVIDENCED}} | `{{PATH}}` | {{ACTION_OR_NONE}} |
+| Dependency and licence policy enforced | {{VERIFIED_OR_NOT_CONFIGURED}} | `{{PATH}}` | {{ACTION_OR_NONE}} |
+
+Do not claim a provenance level from a workflow file alone. State which
+artifacts are built, which identity signs them, and whether verification is
+enforced.
+
+## AI and Agent Security
+
+Include only when models, agents, RAG, or tool calling are in scope.
+
+| Control area | Status | Evidence | Notes |
+|---|---|---|---|
+| Prompt injection (direct/indirect) | {{STATUS}} | `{{PATH}}` | {{RESIDUAL_RISK}} |
+| Tool and file/network permissions | {{STATUS}} | `{{PATH}}` | {{LEAST_PRIVILEGE_EVIDENCE}} |
+| Human approval for destructive actions | {{STATUS}} | `{{PATH}}` | {{EVIDENCE_OR_GAP}} |
+| Sensitive-data handling in prompts/logs | {{STATUS}} | `{{PATH}}` | {{EVIDENCE_OR_GAP}} |
+| Model/provider supply chain and version pinning | {{STATUS}} | `{{PATH}}` | {{EVIDENCE_OR_GAP}} |
+| Output validation before privileged sinks | {{STATUS}} | `{{PATH}}` | {{EVIDENCE_OR_GAP}} |
+| Evaluation and red-team evidence | {{STATUS}} | `{{PATH}}` | {{EVIDENCE_OR_GAP}} |
+
+A skill or tool allowlist is not a sandbox unless the host enforces it.
+
+## Vulnerability and Incident Management
+
+| Area | Confirmed process | Evidence | Gap |
+|---|---|---|---|
+| Vulnerability intake channel | {{VERIFIED_OR_NOT_DOCUMENTED}} | `{{PATH}}` | {{GAP_OR_NONE}} |
+| Severity and triage method | {{CVSS_EPSS_KEV_OR_NOT_DECIDED}} | `{{PATH}}` | {{GAP_OR_NONE}} |
+| Remediation targets | {{CONFIRMED_SLA_OR_NOT_DECIDED}} | `{{PATH}}` | {{GAP_OR_NONE}} |
+| Exception and risk acceptance | {{VERIFIED_OR_NOT_CONFIGURED}} | `{{PATH}}` | {{GAP_OR_NONE}} |
+| Incident response and disclosure | {{VERIFIED_OR_NOT_DOCUMENTED}} | `{{PATH}}` | {{GAP_OR_NONE}} |
+
+Repository files cannot prove staffing, on-call coverage, or exercised
+response. Mark those `Not assessed` unless records exist.
+
 ## Platform Hardening Assessment
 
 Include this section only for a supported host/platform profile that is in
@@ -100,11 +193,20 @@ Keep audit findings separate from remediation. Do not apply SCAP remediation
 scripts or host changes without an explicit request and an environment-appropriate
 impact review.
 
+## Exceptions and Risk Acceptance
+
+| ID | Control / requirement | Rationale | Compensating control | Owner | Expiry / review date | Status |
+|---|---|---|---|---|---|---|
+| EX-1 | {{CONTROL_ID_OR_NONE}} | {{CONFIRMED_RATIONALE_OR_NOT_DOCUMENTED}} | {{COMPENSATING_CONTROL_OR_NONE}} | {{OWNER_OR_UNKNOWN}} | {{DATE_OR_NOT_DECIDED}} | {{OPEN_CLOSED_EXPIRED}} |
+
+Never invent an accepted exception. If no register exists, state `No risk
+acceptance records found`.
+
 ## Gaps and Proposed Actions
 
-| Gap | Impact / evidence | Proposed action | Owner / target |
-|---|---|---|---|
-| {{EVIDENCED_GAP_OR_NO_GAPS_IDENTIFIED}} | {{WHY_IT_MATTERS_OR_NOT_ASSESSED}} | {{ACTION_OR_NONE}} | {{CONFIRMED_OWNER_AND_DATE_OR_UNKNOWN}} |
+| Gap | Impact / evidence | Proposed action | Priority basis | Owner / target |
+|---|---|---|---|---|
+| {{EVIDENCED_GAP_OR_NO_GAPS_IDENTIFIED}} | {{WHY_IT_MATTERS_OR_NOT_ASSESSED}} | {{ACTION_OR_NONE}} | {{CONFIRMED_RISK_BASIS_OR_NOT_DECIDED}} | {{CONFIRMED_OWNER_AND_DATE_OR_UNKNOWN}} |
 
 Keep proposed actions distinct from existing controls. Do not invent risk
 ratings, owners, deadlines, or organization-wide requirements.
@@ -121,4 +223,4 @@ ______________________________________________________________________
 
 ### Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./Architecture.md) · [Decisions](./decisions.md)
+[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Decisions](./decisions.md)

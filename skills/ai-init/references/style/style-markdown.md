@@ -4,6 +4,17 @@ Use the repository's configured Markdown linting and link-checking tools.
 `markdownlint-cli2` and link checkers such as `lychee` are options, not
 assumed dependencies or CI gates.
 
+## Machine-readable frontmatter
+
+- Files may begin with YAML frontmatter delimited by `---`. This is data, not
+  Markdown content: never let a formatter turn the delimiter into a horizontal
+  rule or merge `name`/`description` into a heading.
+- Use a frontmatter-aware formatter, or exclude `.md` files that carry
+  frontmatter from automatic formatting.
+- Validate frontmatter with the repository's schema or validator before
+  committing. A rendered preview is not proof that the metadata still parses.
+- Keep metadata values valid YAML: quote dates, versions, and numeric strings.
+
 ## Rules
 
 - ATX headings (`#`, `##`, ...), exactly one H1 per file, matching the
@@ -22,3 +33,6 @@ assumed dependencies or CI gates.
   copied into the target repository.
 - Add a "Related Docs" section only when it helps navigation; link only to
   files that exist in the target repository.
+- Use one H1, sequential headings, descriptive link text, and table header rows.
+- Provide alt text for meaningful images and a short text explanation for each
+  diagram; never convey meaning by color alone.

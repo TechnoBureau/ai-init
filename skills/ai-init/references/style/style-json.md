@@ -18,7 +18,7 @@ present in the repository's scripts or CI configuration.
   required, and say so in the filename/tooling config).
 - Key casing: follow the existing API/configuration contract. Do not change
   key names based only on the implementation language; document verified
-  cross-service contracts in `docs/Architecture.md`.
+  cross-service contracts in `docs/architecture.md`.
 - Sort keys alphabetically for generated/lock-style files where tooling
   supports it (improves diffs).
 - UTF-8 encoding, LF line endings, file ends with newline.

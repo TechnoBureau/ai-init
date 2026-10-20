@@ -4,13 +4,13 @@ Use Mermaid diagrams only when they make a verified system, relationship, or
 workflow easier to understand. Every diagram in `docs/` must start with this
 exact init block; do not use Mermaid's default theme.
 
-```
+```text
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 ```
 
 ## Readability and diagram choice
 
-- Every generated `docs/Architecture.md` includes at least one compact,
+- Every generated `docs/architecture.md` includes at least one compact,
   evidence-based high-level overview diagram.
 - Prefer `flowchart TB` (top-to-bottom) for overviews and workflows. Use
   another direction only when it makes a short, inherently horizontal view

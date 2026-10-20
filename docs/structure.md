@@ -62,6 +62,7 @@ active components, and omits generated or ignored content.
 │   └── code-quality/references/engineering-practices.md
 ├── tests/
 │   ├── test_check_links.py
+│   ├── test_diagrams.py
 │   ├── test_docs_state.py
 │   ├── test_pinning.py
 │   ├── test_secret_scanning.py

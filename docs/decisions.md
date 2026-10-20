@@ -26,6 +26,7 @@ replaces; there is no separate status field to maintain.
 | D-15 | Documents carry no bookkeeping metadata |
 | D-16 | Titles name the document type, and template links resolve in the output |
 | D-17 | Templates name documents instead of linking them |
+| D-18 | A Mermaid block never contains a template token |
 
 ## Decision Records
 
@@ -293,6 +294,26 @@ replaces; there is no separate status field to maintain.
 - **Reason:** A link is a promise that the target exists. A template cannot know
   which repository it will be copied into, so it cannot promise a target; the
   skill can, at the moment it writes the file.
+
+### D-18 — A Mermaid block never contains a template token
+
+- **Context:** The architecture and threat-model templates put
+  `{{VERIFIED_ACTORS_AND_SYSTEMS}}` and `{{VERIFIED_USERS_AND_SYSTEMS}}` inside a
+  `mermaid` fence. The renderer parses the block before anything is substituted,
+  so the template displayed a parse error — `got 'DIAMOND_START'` — instead of a
+  diagram, and the same defect would reach any repository whose diagram was left
+  unfilled.
+- **Decision:** A template contains no Mermaid block. It describes the view the
+  document needs, and the skill writes the diagram from verified evidence, or
+  states why the view is omitted. A generated diagram starts with the canonical
+  init block, declares a diagram type on its first code line, and carries no
+  template token. `tests/test_diagrams.py` enforces all four properties.
+- **Consequences:** The templates render as prose and the working example carries
+  the two rendered views. An author can no longer ship a half-filled diagram that
+  looks complete in the source and fails in the browser.
+- **Reason:** A diagram is a rendering, not a form field. A token inside it is a
+  syntax error, so the failure is visible to every reader rather than to the
+  person who was supposed to replace it.
 
 ## Related Docs
 

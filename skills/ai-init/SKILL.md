@@ -189,7 +189,9 @@ pipeline complexity. Every generated architecture document must include at
 least one compact, verified high-level diagram. Use `TB` for flowcharts by
 default; add workflow, sequence, or mind-map diagrams only when they clarify
 verified behavior, and split large views for normal GitHub / Markdown preview
-readability. Follow the full rules in
+readability. Write each diagram from verified evidence: a Mermaid block is
+parsed as written, so a template token inside it is a syntax error rather than
+a gap. Follow the full rules in
 [`references/architecture/mermaid-standard.md`](./references/architecture/mermaid-standard.md).
 Create `docs/governance.md` when roles, review rules, or change classes must be
 recorded; create `docs/threat-model.md` with `$security` when a dedicated threat

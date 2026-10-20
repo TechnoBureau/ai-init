@@ -123,6 +123,10 @@ views, and correspondences.
   targets that affect security or operations.
 - Label each diagram with its scope and viewpoint. Every node and edge must be
   traceable to code, configuration, or a confirmed decision.
+- Draw the diagram rather than filling in a blank. A Mermaid block is rendered
+  as written, so a template token inside it is a syntax error; a template
+  describes the view in prose and the skill writes valid Mermaid, or states why
+  the view is omitted.
 - Include quality attributes and known constraints. arc42 or a similar
   structure may supply the section checklist; do not copy its boilerplate
   without content.

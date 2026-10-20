@@ -18,17 +18,13 @@
 
 ## System Context
 
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
-flowchart TB
-  {{VERIFIED_ACTORS_AND_SYSTEMS}}
-```
-
 Every generated architecture document must include at least one compact,
 evidence-based high-level diagram. Use `flowchart TB` by default and show only
 the main actors, components, and relationships verified in active code or
-configuration. If no meaningful relationships are evidenced, do not invent
-them; omit this document and explain why.
+configuration. Write the diagram from that evidence: a Mermaid block is
+rendered as written, so a template token inside it breaks the page instead of
+marking a gap. If no meaningful relationships are evidenced, do not
+invent them; omit this document and explain why.
 
 Add separate diagrams only when they clarify verified behavior: a flowchart
 for a non-trivial workflow, a sequence diagram for a time-ordered interaction,

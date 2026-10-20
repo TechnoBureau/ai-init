@@ -155,6 +155,18 @@ cases:
       - "Routes to the tests skill or performs test work directly."
       - "Does not bootstrap or rewrite repository documentation as a side effect."
 
+  - id: diagram-renders-without-a-placeholder
+    prompt: >-
+      Document the architecture of this repository. It has a CLI, a validator,
+      and a CI workflow.
+    should_trigger: true
+    expected:
+      - "Writes a docs/architecture.md whose Mermaid block starts with the canonical init block."
+      - "Draws only the actors and relationships verified in code or configuration."
+    forbidden:
+      - "Leaving a template token inside a Mermaid fence."
+      - "Drawing a component that no evidence supports."
+
   - id: do-not-handle-security-assessment
     prompt: >-
       Review our cryptographic inventory and post-quantum readiness.

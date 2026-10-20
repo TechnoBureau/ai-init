@@ -27,6 +27,7 @@ def unresolved_placeholders(text: str) -> list[str]:
     cleaned = INLINE_CODE_RE.sub("", cleaned)
     return PLACEHOLDER_RE.findall(cleaned)
 
+
 # Templates whose output is intentionally absent from this repository, with the
 # reason. Add an entry only with a documented justification.
 EXEMPT_TEMPLATES = {
@@ -69,6 +70,10 @@ class WorkingExampleTests(unittest.TestCase):
     def test_templates_exist(self) -> None:
         directories = template_dirs()
         self.assertTrue(directories, "no templates directory found under skills/")
+
+    def test_exemptions_refer_to_real_templates(self) -> None:
+        stale = sorted(set(EXEMPT_TEMPLATES) - set(doc_templates()))
+        self.assertEqual([], stale, f"stale exemptions: {', '.join(stale)}")
 
     def test_document_templates_are_mirrored(self) -> None:
         generated = []
@@ -120,7 +125,8 @@ class WorkingExampleTests(unittest.TestCase):
             for document in sorted(DOCS.glob("*.md"))
             if document.name != "README.md" and f"./{document.name}" not in index
         ]
-        self.assertEqual([], unlisted, "documents missing from docs/README.md: " + ", ".join(unlisted))
+        message = "documents missing from docs/README.md: " + ", ".join(unlisted)
+        self.assertEqual([], unlisted, message)
 
     def test_templates_declare_no_unresolved_includes(self) -> None:
         # Templates may contain placeholders; they must not reference files that

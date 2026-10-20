@@ -30,9 +30,9 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/).
   the pre-commit ecosystem.
 - Enterprise metadata in every skill: spec version, SemVer, owner, review date,
   standards, classification, and risk.
-- Enterprise documentation standard, including document control, evidence
-  provenance, RFC 2119/8174 language, Diátaxis, ADR/MADR, C4/ISO 42010, naming,
-  accessibility, and change management.
+- Enterprise documentation standard, including evidence provenance, RFC
+  2119/8174 language, Diátaxis, ADR/MADR, C4/ISO 42010, naming, accessibility,
+  and change management.
 - Enterprise requirements standard in `prd`: requirement quality rules,
   acceptance criteria, traceability, and a non-functional requirement catalog.
 - Enterprise security baseline covering governance, control domains, supply
@@ -48,13 +48,30 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/).
   code of conduct, CODEOWNERS, and pull-request template.
 - Root `AGENTS.md` and `CLAUDE.md` symbolic links to the shared README.
 
+### Removed
+
+- Document-control blocks and their `Owner`, `Status`, `Version`,
+  `Last reviewed`, and `Classification` fields. Repository documents, generated
+  templates, and skill instructions no longer carry per-document metadata;
+  ownership stays in `CODEOWNERS` and review cadence in `docs/governance.md`.
+- The PRD approval/change-history table. Approval and revision history are
+  recorded in the pull request and Git history instead of duplicated in the
+  document.
+- `metadata.owner`, `metadata.reviewed`, and `metadata.classification` from
+  skill frontmatter, and the corresponding validator rules. Required metadata is
+  now `spec`, `version`, `standards`, and `risk`.
+- Review dates from template evidence lines; the reviewed commit SHA is kept.
+
+Data classification in the security profile is unchanged: it classifies the
+system's data, not the document.
+
 ### Changed
 
 - Renamed `docs/Architecture.md` to `docs/architecture.md` for consistent
   lowercase kebab-case documentation naming. `ai-init` migrates existing files
   case-safely and reports the change.
-- Expanded templates with document control, traceability, threat model,
-  accessibility, evidence, and verification sections.
+- Expanded templates with traceability, threat model, accessibility, evidence,
+  and verification sections.
 - Expanded `security`, `tests`, `design`, `prd`, `ai-init`, and `code-quality`
   skill instructions with explicit operating constraints and scope boundaries.
 - Updated README documentation index, validation instructions, and governance

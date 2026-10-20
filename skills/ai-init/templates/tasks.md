@@ -1,9 +1,5 @@
 # Tasks — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > Use for an ongoing project when a shared task board is useful. Link work to
 > permanent PRD or decision IDs where applicable; do not add unsupported
 > priority tiers.

@@ -15,12 +15,9 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; NIST SSDF SP 800-218 v1.1; NIST CSF 2.0; ISO/IEC
     27001:2022; OWASP ASVS 5.0; SLSA v1.x; FIPS 203/204/205; FIPS 140-3
-  classification: "Public"
   risk: "medium"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---

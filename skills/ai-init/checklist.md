@@ -7,8 +7,8 @@ item means it was verified in the current worktree, not assumed.
 
 - [ ] Inspected source code, manifests, tests, workflows, deployment, and
   security configuration before using existing Markdown for context.
-- [ ] Recorded the reviewed commit SHA and inspection date in each generated
-  document or its control block.
+- [ ] Recorded the commit SHA and inspected files where a document makes claims
+  about current behavior.
 - [ ] Checked every destination before writing; existing content and
   permanent IDs are preserved rather than replaced wholesale.
 - [ ] If a lowercase root `readme.md` exists, its content was reviewed and
@@ -25,12 +25,8 @@ item means it was verified in the current worktree, not assumed.
 - [ ] Existing or unreferenced code is not described as active product
   behavior; relevant exclusions are explained.
 
-## Standard document controls
+## Standard document conventions
 
-- [ ] Every generated document starts with a control line: owner (or
-  `Not documented`), status, SemVer version, last-reviewed date,
-  classification, and source of truth.
-- [ ] Status is `Draft` unless a human review or approval is recorded.
 - [ ] Claims are labeled `Verified`, `Observed`, `Planned`, `Not documented`, or
   `Not assessed` as appropriate.
 - [ ] RFC 2119/8174 keywords are used only for real requirements; ordinary prose

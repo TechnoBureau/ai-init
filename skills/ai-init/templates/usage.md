@@ -1,9 +1,5 @@
 # Usage — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > Include only commands and configuration verified in manifests, scripts,
 > workflows, or deployment files. Omit sections that do not apply. Never
 > include secret values; reference the secret-store path instead.

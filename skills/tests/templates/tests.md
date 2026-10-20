@@ -1,9 +1,5 @@
 # Tests and Verification — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > Document actual test and validation mechanisms from test files, project
 > manifests, CI workflows, and tool configuration. Do not infer coverage or
 > quality gates from conventions alone. Record the commit and date reviewed.

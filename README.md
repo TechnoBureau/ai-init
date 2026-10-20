@@ -1,8 +1,5 @@
 # AI Init Skills
 
-> **Document control** — Owner: TechnoBureau · Status: Draft · Version: 2.0.0
-> · Last reviewed: 2026-10-20 · Classification: Public
-
 A modular, evidence-grounded Agent Skills collection for repository
 documentation, product requirements, enterprise security, test work, design
 systems, and code quality. Every skill follows the open
@@ -69,10 +66,7 @@ Every skill now declares:
 metadata:
   spec: "1.0"
   version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: "Agent Skills 1.0; <applicable standards>"
-  classification: "Public"
   risk: "low"   # low | medium | high | critical
 ```
 
@@ -83,7 +77,7 @@ The skill bodies add:
 - **Enterprise standards** — ISO/IEC/IEEE 29148, ISO/IEC 25010, NIST SSDF and
   CSF, ISO/IEC 27001, OWASP ASVS, SLSA, WCAG 2.2, DTCG tokens, SemVer, RFC
   2119/8174, and conditional frameworks only when scope is confirmed.
-- **Mandatory outputs** — document control, evidence provenance, traceability,
+- **Mandatory outputs** — evidence provenance, traceability,
   acceptance criteria, control status vocabulary, exceptions, and assessment
   limits.
 - **Fail-safe behavior** — unknowns stay `Not documented`, `Not assessed`, or
@@ -146,8 +140,6 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 - Documentation is grounded in source and configuration. Existing content,
   permanent IDs, and unrelated work are preserved; empty repositories get a
   clearly labeled initial format rather than invented project facts.
-- Documents start with a control block: owner, status, version, review date,
-  classification, and source of truth.
 - Claims use an explicit evidence taxonomy (`Verified`, `Observed`, `Planned`,
   `Not documented`, `Not assessed`) and requirement language follows RFC
   2119/8174.

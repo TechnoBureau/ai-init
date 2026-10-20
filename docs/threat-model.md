@@ -1,7 +1,5 @@
 # Threat Model
 
-> **Document control** — Owner: TechnoBureau · Status: Draft · Version: 2.0.0 · Last reviewed: 2026-10-20 · Classification: Public
-
 This threat model covers the skill collection as an artifact that influences
 AI agents operating on other repositories. It is a design-level model, not an
 assertion that every control is operating effectively.

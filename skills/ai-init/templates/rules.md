@@ -1,9 +1,5 @@
 # Repository Rules — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > Record rules established by repository configuration, maintainer policy, or
 > explicit user confirmation. Do not turn conventions from this template into
 > project policy without evidence.
@@ -69,7 +65,6 @@ configuration enforces it.
 - Keep generated project documentation under `docs/`, except root
   `README.md`, `AGENTS.md`, and `CLAUDE.md`.
 - Do not present recommendations or assumptions as current repository facts.
-- Maintain document-control blocks and review dates.
 - Review security and architecture documents at least quarterly; update the
   README index whenever documents are added, renamed, or removed.
 - Never let a formatter rewrite YAML frontmatter or machine-readable metadata.

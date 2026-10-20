@@ -1,7 +1,5 @@
 # Governance
 
-> **Document control** — Owner: TechnoBureau · Status: Draft · Version: 2.0.0 · Last reviewed: 2026-10-20 · Classification: Public
-
 This document defines how the skill collection is owned, changed, reviewed,
 released, and deprecated. It applies to skill content, templates, references,
 evaluation fixtures, and repository automation.
@@ -83,8 +81,8 @@ Reviewers check substance, not just formatting:
 | Full collection audit | Annually | Every skill, template, eval, and governance control |
 | Post-incident review | After any security or integrity incident | Root cause, regression test, process change |
 
-A review updates `metadata.reviewed` only after the evidence has been checked.
-Changing a date without reviewing the content is a governance violation.
+A review records its outcome in the pull request that performs it. Do not
+claim a review happened without the evidence having been checked.
 
 ## Release process
 
@@ -158,7 +156,7 @@ than claiming the control exists.
 Track, without inventing targets:
 
 - validator and link-check status on the default branch;
-- age of the oldest unreviewed skill;
+- time since each skill's last recorded review, from pull-request history;
 - number of skills without eval coverage (target: zero);
 - open security reports and time to triage;
 - deprecated skills past their removal date;

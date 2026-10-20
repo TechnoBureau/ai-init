@@ -14,12 +14,9 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; ISO/IEC 25010:2023; CWE Top 25; OWASP ASVS 5.0;
     SemVer 2.0.0; OpenAPI 3.1; RFC 8594; RFC 9745
-  classification: "Public"
   risk: "medium"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---

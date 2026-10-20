@@ -13,12 +13,9 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; ISO/IEC/IEEE 29148:2018; INCOSE Guide to Writing
     Requirements v4; RFC 2119/8174; ISO/IEC 25010:2023
-  classification: "Public"
   risk: "low"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---
@@ -51,8 +48,6 @@ operations, and leadership readers.
 - Check whether `docs/PRD.md` exists. If it does, read it fully and preserve
   valid permanent IDs and useful user-authored content; update it in place
   rather than replacing it wholesale.
-- Identify the document owner, status, version, review date, and classification
-  from confirmed sources. Default status to `Draft`.
 - Use prior Markdown only for ID history, confirmed decisions, and context.
   Verify all claims about current behavior against source/configuration.
 - For an empty or scaffold-only repository, use the standard ten-section
@@ -66,8 +61,8 @@ operations, and leadership readers.
 Use exactly these ten numbered sections, in this order. Sub-headings are
 allowed inside a section; additional top-level numbered sections are not.
 
-1. **Overview** — document control, concise summary, evidenced problem, value
-   proposition, confirmed constraints, dependencies, and assumptions.
+1. **Overview** — concise summary, evidenced problem, value proposition,
+   confirmed constraints, dependencies, and assumptions.
 1. **Product Type** — internal DevOps platform, service, library, app, or the
    closest type supported by repository evidence.
 1. **Goals and Objectives** — measurable outcomes with permanent G-IDs.

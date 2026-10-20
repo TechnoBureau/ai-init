@@ -13,12 +13,9 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; WCAG 2.2; W3C Design Tokens Community Group format;
     WAI-ARIA Authoring Practices 1.2; EN 301 549; ISO 9241-210:2019
-  classification: "Public"
   risk: "low"
 allowed-tools: "Read Grep Glob Write Edit"
 ---

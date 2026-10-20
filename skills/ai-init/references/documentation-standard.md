@@ -5,29 +5,6 @@ skill. They make documentation auditable, maintainable, and usable by both
 people and AI agents. Repository-specific instructions take precedence when
 they are stricter.
 
-## Document control
-
-Every generated project document includes a control line immediately after the
-H1 title:
-
-```text
-> **Document control** — Owner: <owner or Not documented> · Status: Draft |
-> Reviewed | Approved · Version: <MAJOR.MINOR.PATCH> · Last reviewed:
-> YYYY-MM-DD · Classification: Public | Internal | Confidential | Restricted
-```
-
-Rules:
-
-- Use `Draft` unless a human review or approval is recorded. Never infer
-  approval from code review, CI success, or an agent run.
-- `Last reviewed` is the date evidence was inspected, not the date the file was
-  last formatted.
-- Classification follows the organization's scheme. If no scheme is confirmed,
-  use `Internal` for operational detail and `Public` only for content that is
-  already public.
-- Record the source of truth (repository path, commit, external system) when it
-  is not obvious.
-
 ## Evidence provenance
 
 Every substantive claim is one of:
@@ -40,8 +17,8 @@ Every substantive claim is one of:
 | Not documented | No reliable evidence | Explicit statement |
 | Not assessed | Review did not cover it | Scope limit |
 
-- Record the reviewed commit SHA and inspection date in the document or its
-  control block.
+- Record the commit SHA where the document makes claims about current
+  behavior.
 - Do not present generated prose, old documentation, comments, or file names as
   proof that behavior is active.
 - Inferences must be labeled as inferences and must name the evidence.
@@ -116,8 +93,8 @@ views, and correspondences.
 | Acronym exception | Established uppercase acronym | `PRD.md` |
 | References | Mirror the source category | `docs/references/style/`, `docs/references/architecture/` |
 
-Avoid spaces, dates, personal names, and version numbers in filenames. Use
-Git history or the document control block for dates and versions. Detect
+Avoid spaces, dates, personal names, and version numbers in filenames. Use Git
+history for dates and versions. Detect
 existing names case-insensitively and migrate deliberately; never leave two
 competing indexes.
 
@@ -153,8 +130,7 @@ competing indexes.
   operations; typo fixes do not require an entry.
 - Set a review cadence by risk: security and architecture documents at least
   quarterly, operational runbooks more often, stable reference pages annually.
-- On review, re-verify commands, paths, links, owners, and control statuses.
-  Update the control block only after the review is complete.
+- On review, re-verify commands, paths, links, and control statuses.
 
 ## Data handling
 
@@ -168,7 +144,7 @@ competing indexes.
 
 ## Delivery checklist
 
-- Frontmatter, IDs, and document control are intact.
+- Frontmatter and requirement IDs are intact.
 - Every claim is verified, observed, planned, or explicitly unknown.
 - Links resolve; no skipped optional document is linked.
 - No placeholders, secrets, or personal data remain.

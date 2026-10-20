@@ -1,9 +1,5 @@
 # {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
-
 {{ONE_SENTENCE_DESCRIPTION_BASED_ON_CODE}}
 
 This is the shared starting point for people and AI agents. It summarizes the
@@ -109,8 +105,6 @@ support commitment or response time.
 
 ## Documentation Maintenance
 
-- Every document carries a control block with owner, status, version, review
-  date, and classification.
 - Requirements and decision IDs are permanent; mark items superseded instead of
   deleting or renumbering them.
 - Review security and architecture documents at least quarterly; review this

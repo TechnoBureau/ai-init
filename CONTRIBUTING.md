@@ -70,10 +70,7 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "1.0.0"
-  owner: "TechnoBureau"
-  reviewed: "YYYY-MM-DD"
   standards: "Agent Skills 1.0; RFC 2119"
-  classification: "Public"
   risk: "low"
 allowed-tools: "Read Grep Glob"
 ---

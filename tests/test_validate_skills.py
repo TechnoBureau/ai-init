@@ -29,10 +29,7 @@ compatibility: Requires Python 3.11 or later.
 metadata:
   spec: "1.0"
   version: "1.0.0"
-  owner: "Repository maintainers"
-  reviewed: "2026-10-20"
   standards: "Agent Skills 1.0; RFC 2119"
-  classification: "Internal"
   risk: "low"
 allowed-tools: "Read Grep"
 ---
@@ -154,6 +151,23 @@ class SkillValidationTests(unittest.TestCase):
             encoding="utf-8",
         )
         self.assertIn("SKILL020", self.codes(self.fixture.validate()))
+
+    def test_document_control_metadata_is_not_required(self) -> None:
+        # owner/reviewed/classification were deliberately removed; a skill
+        # without them must still validate.
+        codes = self.codes(self.fixture.validate())
+        for code in ("SKILL060", "SKILL064", "SKILL065", "SKILL066", "SKILL067"):
+            self.assertNotIn(code, codes)
+
+    def test_document_control_metadata_is_not_accepted(self) -> None:
+        content = (self.fixture.skill_dir / "SKILL.md").read_text(encoding="utf-8")
+        (self.fixture.skill_dir / "SKILL.md").write_text(
+            content.replace(
+                '  standards:', '  reviewed: "2026-10-20"\n  standards:', 1
+            ),
+            encoding="utf-8",
+        )
+        self.assertIn("SKILL073", self.codes(self.fixture.validate()))
 
     def test_broken_relative_link_is_rejected(self) -> None:
         (self.fixture.skill_dir / "SKILL.md").write_text(

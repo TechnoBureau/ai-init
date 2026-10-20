@@ -15,12 +15,9 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; RFC 2119/8174; ISO/IEC/IEEE 42010:2022; Diátaxis;
     MADR 4.0; Keep a Changelog 1.1.0; SemVer 2.0.0; WCAG 2.2
-  classification: "Public"
   risk: "low"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---
@@ -67,8 +64,8 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
    (`Architecture.md` → temporary name → `architecture.md`) and update links.
 1. Compare `.editorconfig`, `.gitattributes`, and `.pre-commit-config.yaml`
    before adding starter files; never copy over an existing configuration.
-1. Record the commit SHA, review date, and files inspected so generated claims
-   are reproducible.
+1. Record the commit SHA and files inspected so generated claims are
+   reproducible.
 
 ## Root README and agent links
 
@@ -125,12 +122,7 @@ ongoing work.
 Apply [the documentation standard](./references/documentation-standard.md) to
 every generated document.
 
-- **Document control.** Each document starts with a compact control line:
-  owner, status (`Draft`, `Reviewed`, or `Approved`), version, last reviewed
-  date, classification, and source of truth. Use `Not documented` for an
-  unknown owner. Do not claim `Approved` without a recorded approval.
-- **Evidence provenance.** Record the reviewed commit, inspection date, and
-  evidence paths. Distinguish `Verified`, `Observed`, `Planned`, and
+- **Evidence provenance.** Record the commit SHA and evidence paths. Distinguish `Verified`, `Observed`, `Planned`, and
   `Not documented` claims. A file's existence is not proof that it runs.
 - **Normative language.** Use RFC 2119/8174 keywords (`MUST`, `MUST NOT`,
   `SHOULD`, `MAY`) only for actual requirements, and define their meaning once.
@@ -200,8 +192,8 @@ handles its applicable profile and migration assessment.
 1. Update the README index to include generated documents and omit skipped
    optional documents.
 1. Run [checklist.md](./checklist.md). Verify uppercase `README.md`, valid
-   relative links, relative symlink targets, requirement-ID continuity,
-   document-control fields, and absence of unresolved placeholders.
+   relative links, relative symlink targets, requirement-ID continuity, and
+   absence of unresolved placeholders.
 
 ## Resources
 

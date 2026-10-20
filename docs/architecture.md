@@ -1,7 +1,5 @@
 # Architecture
 
-> **Document control** — Owner: TechnoBureau · Status: Draft · Version: 2.0.0 · Last reviewed: 2026-10-20 · Classification: Public
-
 This repository is a collection of six Agent Skills plus the validation and
 governance machinery that keeps them loadable and safe. It is documentation and
 instruction content, not a running service.

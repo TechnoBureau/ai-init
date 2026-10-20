@@ -14,12 +14,9 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; ISO/IEC/IEEE 29119-1:2022; ISTQB CTFL 4.0; OWASP
     ASVS 5.0; OWASP WSTG; WCAG 2.2; ISO/IEC 25010:2023
-  classification: "Public"
   risk: "medium"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---

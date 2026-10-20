@@ -1,7 +1,5 @@
 # Skill Authoring Standard
 
-> **Document control** — Owner: TechnoBureau · Status: Draft · Version: 2.0.0 · Last reviewed: 2026-10-20 · Classification: Public
-
 This standard is normative for every skill in this repository. `metadata.risk`
 determines review depth, but these requirements apply to all skills.
 
@@ -56,10 +54,7 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "1.2.3"
-  owner: "TechnoBureau"
-  reviewed: "YYYY-MM-DD"
   standards: "Agent Skills 1.0; <applicable standards>"
-  classification: "Public"
   risk: "low"
 allowed-tools: "Read Grep Glob"
 ---
@@ -82,14 +77,11 @@ allowed-tools: "Read Grep Glob"
 |---|---|
 | `spec` | Agent Skills specification version; currently `"1.0"` |
 | `version` | SemVer `MAJOR.MINOR.PATCH`; bumped with the changelog |
-| `owner` | Accountable team or role, not an individual's personal identity |
-| `reviewed` | ISO 8601 date of the last evidence review |
 | `standards` | Semicolon-separated standards actually applied |
-| `classification` | `Public`, `Internal`, `Confidential`, or `Restricted` |
 | `risk` | `low`, `medium`, `high`, or `critical`; drives review depth |
 
-All metadata values must be quoted strings. Unquoted dates, versions, and
-numbers parse as YAML date/number types and violate the specification.
+All metadata values must be quoted strings. Unquoted versions and numbers
+parse as YAML number types and violate the specification.
 
 ### Description quality
 

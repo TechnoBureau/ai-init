@@ -1,13 +1,8 @@
 # Product Requirements Document — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
-> **Evidence base:** reviewed commit `{{COMMIT_SHA}}` on {{DATE}}; files
-> inspected: {{PATHS}}. Existing Markdown can preserve requirement ID history
-> but is not evidence that a behavior is implemented. Keep exactly the ten
-> sections below.
+> **Evidence base:** commit `{{COMMIT_SHA}}`; files inspected: {{PATHS}}.
+> Existing Markdown can preserve requirement ID history but is not evidence
+> that a behavior is implemented. Keep exactly the ten sections below.
 
 ## 1. Overview
 
@@ -28,15 +23,6 @@
 If the repository is empty or scaffold-only, state that no product goals,
 users, requirements, or workflows are recorded yet. Mark unknowns `Not
 decided`; do not fill this section with a generic product narrative.
-
-### Approval and change history
-
-Record approval only when it is real. Otherwise write `Approval not
-documented`.
-
-| Version | Date | Author | Change | Approver |
-|---|---|---|---|---|
-| {{SEMVER}} | {{DATE}} | {{AUTHOR_OR_NOT_DOCUMENTED}} | {{CHANGE}} | {{APPROVER_OR_NOT_DOCUMENTED}} |
 
 ## 2. Product Type
 

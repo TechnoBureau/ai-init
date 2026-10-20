@@ -13,8 +13,8 @@ Checks implemented
 * ``name`` matches the parent directory and the specification grammar.
 * Optional fields (``license``, ``compatibility``, ``metadata``,
   ``allowed-tools``) conform to the specification.
-* Enterprise metadata (``version``, ``owner``, ``reviewed``, ``standards``,
-  ``classification``, ``risk``, ``spec``) is present as strings.
+* Enterprise metadata (``version``, ``standards``, ``risk``, ``spec``) is
+  present as strings.
 * The body has one H1, stays within progressive-disclosure limits, contains no
   unresolved ``{{PLACEHOLDER}}`` tokens, and every relative link resolves.
 * ``evals/<name>.yaml`` exists, matches the skill version, and contains both
@@ -33,7 +33,6 @@ also fails on warnings.
 from __future__ import annotations
 
 import argparse
-import datetime
 import json
 import re
 import sys
@@ -65,13 +64,12 @@ REQUIRED_FIELDS = {"name", "description"}
 REQUIRED_METADATA = {
     "spec",
     "version",
-    "owner",
-    "reviewed",
     "standards",
-    "classification",
     "risk",
 }
-CLASSIFICATIONS = {"Public", "Internal", "Confidential", "Restricted"}
+# Removed from this collection's standard on purpose. Document-control fields
+# belong in CODEOWNERS, governance, and Git history, not in every document.
+DISALLOWED_METADATA = {"owner", "reviewed", "classification"}
 RISK_LEVELS = {"low", "medium", "high", "critical"}
 ALLOWED_TOOLS = {
     "Read",
@@ -91,7 +89,6 @@ SEMVER_RE = re.compile(
     r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
     r"(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$"
 )
-DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 TRIGGER_RE = re.compile(r"\bUse (when|for|to|after|before|only)\b", re.IGNORECASE)
 XML_TAG_RE = re.compile(r"<\/?[A-Za-z][^>]*>")
 PLACEHOLDER_RE = re.compile(r"\{\{[^}]+\}\}")
@@ -453,6 +450,15 @@ def _validate_frontmatter(
                     f"metadata.{key} must be a string (quote dates, versions, and numbers)",
                 )
             )
+    for key in sorted(DISALLOWED_METADATA & set(metadata)):
+        findings.append(
+            error(
+                rel,
+                "SKILL073",
+                f"metadata.{key} is not part of this collection's standard; "
+                "document-control metadata was removed deliberately",
+            )
+        )
     missing_meta = REQUIRED_METADATA - set(metadata)
     if missing_meta:
         findings.append(
@@ -468,36 +474,6 @@ def _validate_frontmatter(
         findings.append(
             error(rel, "SKILL065", f"metadata.version '{version}' is not SemVer (MAJOR.MINOR.PATCH)")
         )
-    reviewed = metadata.get("reviewed")
-    if isinstance(reviewed, str):
-        valid_date = bool(DATE_RE.match(reviewed))
-        if valid_date:
-            try:
-                datetime.date.fromisoformat(reviewed)
-            except ValueError:
-                valid_date = False
-        if not valid_date:
-            findings.append(
-                error(
-                    rel,
-                    "SKILL066",
-                    f"metadata.reviewed '{reviewed}' must be a real ISO 8601 date",
-                )
-            )
-    classification = metadata.get("classification")
-    if isinstance(classification, str) and classification not in CLASSIFICATIONS:
-        findings.append(
-            error(
-                rel,
-                "SKILL067",
-                f"metadata.classification must be one of {sorted(CLASSIFICATIONS)}",
-            )
-        )
-    risk = metadata.get("risk")
-    if isinstance(risk, str) and risk not in RISK_LEVELS:
-        findings.append(
-            error(rel, "SKILL068", f"metadata.risk must be one of {sorted(RISK_LEVELS)}")
-        )
     spec = metadata.get("spec")
     if isinstance(spec, str) and spec != SUPPORTED_SPEC_VERSION:
         findings.append(
@@ -507,9 +483,6 @@ def _validate_frontmatter(
                 f"metadata.spec must be '{SUPPORTED_SPEC_VERSION}'",
             )
         )
-    owner = metadata.get("owner")
-    if isinstance(owner, str) and not owner.strip():
-        findings.append(error(rel, "SKILL071", "metadata.owner must not be empty"))
     standards = metadata.get("standards")
     if isinstance(standards, str) and not standards.strip():
         findings.append(error(rel, "SKILL072", "metadata.standards must not be empty"))

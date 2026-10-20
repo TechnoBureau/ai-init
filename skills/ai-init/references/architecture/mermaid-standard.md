@@ -6,8 +6,9 @@ exact init block; do not use Mermaid's default theme.
 
 A Mermaid block is rendered as written: the parser runs before any template
 token is substituted, so a placeholder inside a diagram is a syntax error, not a
-gap. Never put one there. A template describes the diagram in prose and the
-skill writes a diagram from verified evidence, or states why it is omitted.
+gap. Never put one there. A template may carry a valid example diagram to define
+the init line and the expected shape; the skill replaces its example nodes with
+verified evidence before delivery and deletes the block when none exists.
 
 ```text
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%

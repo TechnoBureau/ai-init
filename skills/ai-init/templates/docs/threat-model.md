@@ -25,17 +25,28 @@ the integrity of generated documentation.
 ## Trust boundaries
 
 Begin this section with a compact `flowchart TB` diagram of the verified
-users, systems, and trust boundaries, then explain the boundary table below.
-Write the diagram from verified evidence: a Mermaid block is rendered as
-written, so a template token inside it breaks the page instead of marking a
-gap. Omit the diagram rather than inventing one.
+users, systems, and trust boundaries, starting from this block and keeping the
+init line:
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
+flowchart TB
+  %% Example only. Replace the nodes with verified users, systems, and trust
+  %% boundaries; delete the block when none is evidenced.
+  user["User (replace)"] -->|request| system["System (replace)"]
+  system -->|data| store["Data store (replace)"]
+```
+
+Replace the example nodes with verified evidence, then explain the boundary
+table below. A Mermaid block is rendered as written, so a template token inside
+it breaks the page instead of marking a gap.
 
 | Boundary | What changes here | Expected control |
 |---|---|---|
 | {{BOUNDARY}} | {{TRUST_OR_PRIVILEGE_CHANGE}} | {{AUTHENTICATION_VALIDATION_OR_ISOLATION}} |
 
-Keep the diagram to about 5–8 nodes. Show only relationships verified in code
-or configuration; omit the diagram rather than inventing one.
+Keep the diagram to about 5–8 nodes and show only relationships verified in
+code or configuration; omit the diagram rather than inventing one.
 
 ## Threats and controls
 

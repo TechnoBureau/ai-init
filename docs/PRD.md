@@ -99,6 +99,9 @@ No adoption target or date has been confirmed.
 | D-14 | Documents describe current state and link the file that owns each value | A duplicated value drifts while still reading as fact |
 | D-15 | Documents carry no bookkeeping status, date, owner, evidence, verification, baseline, target, alternative, or supersession data | Nothing consumes those fields, and a stale value reads as fact |
 | D-16 | Titles name the document type, and template links resolve in the generated repository | A renamed project or skipped document must not leave a broken reference |
+| D-17 | Templates name documents instead of linking them | A template copied elsewhere cannot promise a path that exists only after generation |
+| D-18 | A Mermaid block never contains a template token | The renderer parses the block before any substitution |
+| D-19 | A diagram template is a valid example, not a blank | The init line must reach the generated document |
 
 Full context and consequences are in [decisions.md](./decisions.md).
 
@@ -159,6 +162,7 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-22 | Generated documents MUST link only to files that exist in the target repository, and a title MUST name the document type rather than the project | Every template link resolves to an always-created output; no H1 carries a project name |
 | FR-23 | A template MUST NOT contain a relative link; it MUST name the document and the skill MUST write the link only for a file it wrote | `check_links.py` and `tests/test_template_links.py` find no relative link in a template; generated pages link every generated document |
 | FR-24 | A generated Mermaid block MUST be valid as written: canonical init block, a diagram type on the first code line, and no template token | `tests/test_diagrams.py` passes and no diagram renders a parse error |
+| FR-25 | A template that generates a diagram MUST carry the canonical init line in a valid example block, and the skill MUST replace every example node before delivery | Working example has no `(replace)` label; generated diagrams keep the init line |
 
 ## 8. Non-Functional Requirements
 

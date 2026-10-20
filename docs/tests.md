@@ -25,7 +25,8 @@ defined in a manifest, workflow, or hook configuration.
 | `tests/test_validate_skills.py` | Frontmatter, metadata, links, size, eval rules | Unit | `unittest` | File |
 | `tests/test_check_links.py` | Link resolution and template exclusion | Unit | `unittest` | File |
 | `tests/test_working_example.py` | Template-to-`docs/` and starter-file correspondence | Unit | `unittest` | File |
-| `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, and hook wiring | Unit | `unittest` | File |
+| `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, hook flags, and dependency wiring | Unit | `unittest` | File |
+| `tests/test_pinning.py` | Version-tag pinning for hooks and actions, and Dependabot coverage | Unit | `unittest` | File |
 | `scripts/validate_skills.py` | Every checked-in skill and eval fixture | Static | Project script | File |
 | `scripts/check_links.py` | All non-template Markdown | Static | Project script | File |
 | `.pre-commit-config.yaml` | Format, hygiene, secrets, lint | Static | pre-commit | Configuration |
@@ -34,7 +35,7 @@ defined in a manifest, workflow, or hook configuration.
 
 | Purpose | Exact command | Defined in | Last verified |
 |---|---|---|---|
-| Unit tests | `python -m unittest discover -s tests -v` | `tests/` | Local run, 31 tests passing |
+| Unit tests | `python -m unittest discover -s tests -v` | `tests/` | Local run, 38 tests passing |
 | Skill validation | `python scripts/validate_skills.py --strict` | `scripts/validate_skills.py` | Local run, 6 skills, 0 errors |
 | Link check | `python scripts/check_links.py` | `scripts/check_links.py` | Local run, 0 broken links |
 | Markdown lint | `pre-commit run markdownlint-cli2 --all-files` | `.pre-commit-config.yaml` | Local run, 0 issues |
@@ -78,7 +79,7 @@ They are marked `Partial` where no automated evidence exists.
 
 | Area | Status | Evidence / gap |
 |---|---|---|
-| Unit and error paths | Verified | 31 tests across four modules |
+| Unit and error paths | Verified | 38 tests across five modules |
 | Integration and contracts | Partial | Skills CLI discovery is verified manually, not in CI |
 | Authentication and authorization | Not applicable | No authenticated surface in this repository |
 | Input validation and injection | Partial | Validator validates structure; no fuzzing |
@@ -126,7 +127,7 @@ Output: 0 broken local link(s) found.
 
 Command: python -m unittest discover -s tests -v
 Result: Passed
-Output: 31 tests, OK.
+Output: 38 tests, OK.
 
 Command: pre-commit run --all-files
 Result: Passed (gitleaks executed in CI; skipped locally where the sandbox

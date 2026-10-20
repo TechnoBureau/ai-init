@@ -20,6 +20,7 @@ never renumbered or deleted.
 | D-10 | Generated documents carry no branch, revision, or tool-version provenance | Accepted | 2026-10-20 | TechnoBureau | `tests/test_working_example.py` |
 | D-11 | Ship one merged `.gitignore` baseline, not per-language fragments | Accepted | 2026-10-20 | TechnoBureau | `skills/ai-init/files/.gitignore` |
 | D-12 | Ship an IBM detect-secrets baseline with keyword scanning off | Accepted | 2026-10-20 | TechnoBureau | `.secrets.baseline` |
+| D-13 | Pin hooks and actions by version tag, not commit SHA | Accepted | 2026-10-20 | TechnoBureau | `.pre-commit-config.yaml` |
 
 ## Decision Records
 
@@ -276,6 +277,33 @@ never renumbered or deleted.
 - **Evidence:** `skills/ai-init/files/.secrets.baseline`,
   `skills/ai-init/references/secret-scanning.md`,
   `tests/test_secret_scanning.py`.
+- **Supersedes / superseded by:** None.
+
+### D-13 — Pin hooks and actions by version tag, not commit SHA
+
+- **Status:** Accepted
+- **Date:** 2026-10-20
+- **Owner:** TechnoBureau
+- **Context:** Commit-SHA pins are immutable but unreadable: a reviewer cannot
+  tell which release a hash refers to, and every automated update shows up as
+  an opaque hash change. The IBM detect-secrets fork publishes version tags
+  such as `0.13.1+ibm.64.dss` that carry the upstream and fork revisions.
+- **Decision:** Pin every remote pre-commit hook and GitHub Action by exact
+  version tag. Do not float branches, and do not use raw commit SHAs in the
+  configuration. Keep Dependabot enabled for Actions, pre-commit, and pip so
+  updates arrive as reviewable pull requests.
+- **Consequences:** Pins are readable and match a release note. A tag is a
+  mutable reference, so an upstream could move it; review the diff and the
+  upstream release on every update, and keep the CI token read-only. A
+  repository that requires immutability can still pin a SHA for a specific
+  hook, but then it must record why.
+- **Reason:** Reviewers act on readable references. An unreadable pin gets
+  rubber-stamped, which is a weaker control than a tag that is actually read.
+- **Alternatives rejected:** SHA pins with the version in a trailing comment —
+  rejected because the comment drifts and the hash stays authoritative.
+  Branch pins — rejected as unreviewable and unauditable.
+- **Evidence:** `.pre-commit-config.yaml`, `.github/workflows/validate.yml`,
+  `tests/test_pinning.py`.
 - **Supersedes / superseded by:** None.
 
 ## Related Docs

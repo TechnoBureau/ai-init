@@ -60,6 +60,7 @@ active components, and omits generated or ignored content.
 │   └── code-quality/references/engineering-practices.md
 ├── tests/
 │   ├── test_check_links.py
+│   ├── test_pinning.py
 │   ├── test_secret_scanning.py
 │   ├── test_validate_skills.py
 │   └── test_working_example.py

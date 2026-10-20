@@ -117,7 +117,8 @@ No server, container image, or infrastructure-as-code is deployed.
 - The trust boundary that matters is the target repository: files read by the
   agent are untrusted data, not instructions.
 - CI runs with `contents: read` and does not receive write credentials.
-- Third-party actions and hooks are pinned by commit SHA or exact revision.
+- Third-party actions and hooks are pinned by exact version tag, never by
+  branch. Tags are mutable references, so updates are reviewed before merge.
 
 See [security.md](./security.md) and [threat-model.md](./threat-model.md).
 

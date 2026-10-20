@@ -20,6 +20,9 @@ STARTER = REPO_ROOT / "skills" / "ai-init" / "files" / ".secrets.baseline"
 PRE_COMMIT = REPO_ROOT / ".pre-commit-config.yaml"
 STARTER_PRE_COMMIT = REPO_ROOT / "skills" / "ai-init" / "files" / ".pre-commit-config.yaml"
 DETECT_SECRETS_REPO = "https://github.com/IBM/detect-secrets"
+# Exact version tag of the IBM fork; the baseline version must match it.
+DETECT_SECRETS_REV = "0.13.1+ibm.64.dss"
+VERSION_TAG_RE = re.compile(r"^\d+\.\d+\.\d+(\+[0-9A-Za-z.\-]+)?$")
 
 # `detect-secrets scan --update` appends its own path to the exclusion regex.
 SELF_EXCLUDE = "|^.secrets.baseline$"
@@ -54,6 +57,7 @@ EXCLUDED_SAMPLES = (
     "src/app.js.map",
     "coverage.sum",
     "schema.snap",
+    "design/architecture.drawio",
 )
 
 # Files a secret can hide in; the policy must still scan them.
@@ -94,14 +98,37 @@ class SecretScanningTests(unittest.TestCase):
             self.assertEqual({}, baseline["results"], f"{path.name} records findings")
             names = plugin_names(baseline)
             self.assertNotIn("KeywordDetector", names, f"{path.name} enables keyword scanning")
+            # --use-all-plugins is expected, so the baseline records the full set.
             for required in (
                 "AWSKeyDetector",
+                "AzureStorageKeyDetector",
+                "BoxDetector",
+                "GitHubTokenDetector",
+                "GheDetector",
                 "IbmCloudIamDetector",
                 "IbmCosHmacDetector",
+                "NpmDetector",
                 "PrivateKeyDetector",
+                "SquareOAuthDetector",
             ):
                 self.assertIn(required, names, f"{path.name} dropped {required}")
-            self.assertRegex(baseline["version"], r"^\d+\.\d+\.\d+$")
+            self.assertGreaterEqual(len(names), 20, f"{path.name} lost plugins")
+            self.assertEqual(
+                DETECT_SECRETS_REV,
+                baseline["version"],
+                f"{path.name} version must match the pinned hook",
+            )
+
+    def test_baseline_version_matches_the_hook_rev(self) -> None:
+        version = load_baseline(BASELINE)["version"]
+        for path in (PRE_COMMIT, STARTER_PRE_COMMIT):
+            config = yaml.safe_load(path.read_text(encoding="utf-8"))
+            repos = {repo["repo"]: repo for repo in config["repos"]}
+            self.assertEqual(
+                version,
+                str(repos[DETECT_SECRETS_REPO]["rev"]),
+                f"{path.name} rev and baseline version diverged",
+            )
 
     def test_repository_baseline_keeps_the_starter_policy(self) -> None:
         root = load_baseline(BASELINE)
@@ -126,15 +153,46 @@ class SecretScanningTests(unittest.TestCase):
             repo = repos[DETECT_SECRETS_REPO]
             self.assertRegex(
                 str(repo["rev"]),
-                r"^[0-9a-f]{40}$",
-                f"{path.name} must pin the scanner by commit",
+                VERSION_TAG_RE,
+                f"{path.name} must pin the scanner by exact version tag",
             )
             hooks = {hook["id"]: hook for hook in repo["hooks"]}
             self.assertIn("detect-secrets", hooks, f"{path.name} lacks the hook")
-            args = hooks["detect-secrets"].get("args", [])
-            self.assertIn("--baseline", args)
-            self.assertIn(".secrets.baseline", args)
-            self.assertIn("--no-keyword-scan", args)
+            hook = hooks["detect-secrets"]
+            args = hook.get("args", [])
+            for expected in (
+                "--baseline",
+                ".secrets.baseline",
+                "--use-all-plugins",
+                "--no-keyword-scan",
+                "--fail-on-unaudited",
+            ):
+                self.assertIn(expected, args, f"{path.name} is missing {expected}")
+            deps = hook.get("additional_dependencies", [])
+            self.assertIn("boxsdk<4", deps, f"{path.name} is missing boxsdk<4")
+            self.assertIn("chardet<7", deps, f"{path.name} is missing chardet<7")
+
+    def test_hook_exclude_matches_the_baseline_policy(self) -> None:
+        policy = normalized_exclude(load_baseline(BASELINE))
+        for path in (PRE_COMMIT, STARTER_PRE_COMMIT):
+            config = yaml.safe_load(path.read_text(encoding="utf-8"))
+            repos = {repo["repo"]: repo for repo in config["repos"]}
+            hooks = {hook["id"]: hook for hook in repos[DETECT_SECRETS_REPO]["hooks"]}
+            self.assertEqual(
+                policy,
+                hooks["detect-secrets"]["exclude"],
+                f"{path.name} exclude drifted from .secrets.baseline",
+            )
+
+    def test_hook_exclude_skips_generated_files_only(self) -> None:
+        config = yaml.safe_load(PRE_COMMIT.read_text(encoding="utf-8"))
+        repos = {repo["repo"]: repo for repo in config["repos"]}
+        hooks = {hook["id"]: hook for hook in repos[DETECT_SECRETS_REPO]["hooks"]}
+        regex = re.compile(hooks["detect-secrets"]["exclude"])
+        missed = [path for path in EXCLUDED_SAMPLES if not regex.search(path)]
+        caught = [path for path in INCLUDED_SAMPLES if regex.search(path)]
+        self.assertEqual([], missed, "hook does not exclude: " + ", ".join(missed))
+        self.assertEqual([], caught, "hook wrongly excludes: " + ", ".join(caught))
 
 
 if __name__ == "__main__":

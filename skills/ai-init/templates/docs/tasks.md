@@ -10,7 +10,7 @@
 
 ## In Progress
 
-- [ ] T-002: {{TASK}} (owner: {{OWNER}}, started: {{DATE}})
+- [ ] T-002: {{TASK}}
 
 ## In Review
 
@@ -18,17 +18,15 @@
 
 ## Done
 
-- [x] T-000: {{COMPLETED_TASK}} (completed: {{DATE}})
+- [x] T-000: {{COMPLETED_TASK}}
 
 ## Task Format
 
 ```text
 - [ ] T-XXX: <short description>
   - Ref: <requirement ID, decision ID, incident, or none>
-  - Owner: <person or team, if known>
   - Acceptance: <observable completion criterion>
   - Notes: <implementation context and risks>
-  - Evidence: <test, review, or deployment reference>
 ```
 
 ## Definition of Done
@@ -38,14 +36,14 @@
 - Security, privacy, and accessibility impacts were considered.
 - Public contracts and documentation are updated.
 - No secrets or personal data were introduced.
-- The change is reviewed by the required owner.
+- The change is reviewed per `CODEOWNERS`.
 
 ## Board Rules
 
 - Task IDs are permanent; do not renumber completed work.
 - Do not invent priority tiers, deadlines, or owners.
 - Blocked tasks state the blocker and the next decision needed.
-- Completed tasks retain links to evidence, not just a checkbox.
+- Completed tasks record the outcome, not just a checkbox.
 
 ______________________________________________________________________
 

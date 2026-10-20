@@ -6,8 +6,8 @@ configuration, and automation.
 
 ## Scope and principles
 
-- Decisions are recorded with their evidence, alternatives, and consequences
-  in [decisions.md](./decisions.md).
+- Decisions are recorded with their context, consequences, and reason in
+  [decisions.md](./decisions.md).
 - Changes are reviewable, reversible, and traceable through Git history.
 - Safety and correctness take precedence over speed.
 - Security and privacy concerns can block a change until resolved.
@@ -23,9 +23,9 @@ configuration, and automation.
 | Security reviewer | Threat model, destructive instructions, secret handling, supply chain, vulnerability response |
 | Contributor | Proposes changes, supplies evidence, updates tests and documentation |
 
-The current accountable owner is recorded in
-[.github/CODEOWNERS](../.github/CODEOWNERS). Roles may be combined in a small
-project; the review requirements below still apply.
+Accountability is recorded once in
+[.github/CODEOWNERS](../.github/CODEOWNERS), not repeated per document. Roles
+may be combined in a small project; the review requirements below still apply.
 
 ## Decision making
 
@@ -39,7 +39,7 @@ project; the review requirements below still apply.
 
 ## Change classes
 
-| Class | Examples | Required evidence |
+| Class | Examples | Required checks |
 |---|---|---|
 | Editorial | Typos, link repair, clarity without behavior change | Validator and link check |
 | Capability | New check, new optional section, new reference or template | Tests, eval case, review |
@@ -73,8 +73,7 @@ privacy, and destructive-action impacts stated?
 ## Approval and exceptions
 
 An exception requires the rule being waived, a documented rationale and
-compensating control, an accountable owner, an expiry or review date, and
-maintainer approval. For security rules, the security reviewer must also
+compensating control, and maintainer approval. For security rules, the security reviewer must also
 approve. Undocumented exceptions are defects. The current known gaps are
 recorded in [security.md](./security.md#exceptions-and-risk-acceptance); they
 are gaps, not approved exceptions.

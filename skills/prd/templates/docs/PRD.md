@@ -33,13 +33,13 @@ name the closest supported type and what evidence is missing.
 
 ## 3. Goals and Objectives
 
-| ID | Outcome | Baseline | Target / measure | Verification source |
-|---|---|---|---|---|
-| G-1 | {{MEASURABLE_OUTCOME}} | {{CONFIRMED_BASELINE_OR_NOT_MEASURED}} | {{EVIDENCED_TARGET_OR_TBD}} | {{METRIC_REPORT_OR_NOT_EVIDENCED}} |
+| ID | Outcome |
+|---|---|
+| G-1 | {{MEASURABLE_OUTCOME}} |
 
 If no goal is confirmed, replace the example row with `No confirmed goals
-recorded`; do not assign a G-ID to a placeholder. Do not invent numeric
-targets, dates, or baselines.
+recorded`; do not assign a G-ID to a placeholder. State the outcome only; do
+not invent a measure, threshold, or date.
 
 ## 4. Scope
 
@@ -59,24 +59,23 @@ targets, dates, or baselines.
 
 ## 5. Architectural Decisions
 
-| ID | Status | Decision | Reason | Alternatives Rejected | Evidence | Owner / date |
-|---|---|---|---|---|---|---|
-| D-1 | {{PROPOSED_ACCEPTED_SUPERSEDED}} | {{DECISION}} | {{EVIDENCE_OR_NOT_DOCUMENTED}} | {{EVIDENCE_OR_NOT_DOCUMENTED}} | `{{PATH_OR_RECORD}}` | {{OWNER_AND_DATE_OR_NOT_DOCUMENTED}} |
+| ID | Decision | Reason |
+|---|---|---|
+| D-1 | {{DECISION}} | {{REASON_OR_NOT_DOCUMENTED}} |
 
 If there are no decisions, state `No decisions recorded yet` and remove the
 example row. Do not create a D-ID for an implementation observation unless the
 PRD clearly distinguishes it from an approved decision. Never recycle a
-retired ID; use `Superseded by D-XX`.
+retired ID.
 
-See [decisions.md](./decisions.md) for supporting context. Preserve existing
-D-IDs when refining this document. Do not invent reasons or rejected
-alternatives.
+See [decisions.md](./decisions.md) for context and consequences. Preserve
+existing D-IDs when refining this document. Do not invent a reason.
 
 ## 6. User Personas
 
-| Persona | Responsibilities | Needs | Evidence |
-|---|---|---|---|
-| {{EVIDENCED_PERSONA}} | {{RESPONSIBILITIES}} | {{NEEDS}} | {{SOURCE_OR_NOT_DOCUMENTED}} |
+| Persona | Responsibilities | Needs |
+|---|---|---|
+| {{EVIDENCED_PERSONA}} | {{RESPONSIBILITIES}} | {{NEEDS}} |
 
 Include operational, security, audit, and accessibility perspectives when the
 evidence supports them. If no persona is confirmed or evidenced, state `Not
@@ -86,9 +85,9 @@ documented` and remove the example row. Do not invent demographic detail.
 
 ### {{MODULE_NAME}}
 
-| ID | Requirement | Acceptance criteria | Verification | Evidence | Status |
-|---|---|---|---|---|---|
-| FR-1 | {{ATOMIC_NORMATIVE_BEHAVIOR}} | {{OBSERVABLE_ACCEPTANCE_CRITERION}} | {{TEST_OR_ANALYSIS_METHOD}} | `{{CODE_OR_TEST_PATH}}` | {{IMPLEMENTED_PARTIAL_PLANNED_NOT_EVIDENCED}} |
+| ID | Requirement | Acceptance criteria |
+|---|---|---|
+| FR-1 | {{ATOMIC_NORMATIVE_BEHAVIOR}} | {{OBSERVABLE_ACCEPTANCE_CRITERION}} |
 
 If no functional requirement is confirmed or evidenced, state `No confirmed
 functional requirements recorded` and remove the example row.
@@ -105,18 +104,18 @@ sequential for new requirements; do not reuse retired IDs. Apply these rules:
 
 ### Traceability Summary
 
-| Requirement | Acceptance criterion | Test / evidence | Status |
-|---|---|---|---|
-| FR-1 | {{CRITERION}} | `{{TEST_PATH_OR_MANUAL_PROCEDURE}}` | {{COVERED_PARTIAL_GAP}} |
+| Requirement | Acceptance criterion | Test | Level | Coverage |
+|---|---|---|---|---|
+| FR-1 | {{CRITERION}} | `{{TEST_PATH_OR_MANUAL_PROCEDURE}}` | {{LEVEL}} | {{COVERED_PARTIAL_GAP}} |
 
-A `Covered` status requires a runnable or executed artifact. Do not claim
-coverage from a test name alone. Record gaps explicitly.
+A `Covered` entry requires a runnable or executed artifact. Do not claim
+coverage from a test name alone. Record gaps explicitly in the same cell.
 
 ## 8. Non-Functional Requirements
 
-| ID | Category | Requirement | Verification criteria | Status |
-|---|---|---|---|---|
-| NFR-1 | {{SECURITY_PRIVACY_RELIABILITY_PERFORMANCE_ACCESSIBILITY_OPERABILITY}} | {{QUALITY_OR_CONSTRAINT}} | {{CONCRETE_CHECK_WITHOUT_INVENTED_THRESHOLD}} | {{VERIFIED_PARTIAL_NOT_EVIDENCED_NOT_ASSESSED}} |
+| ID | Category | Requirement | Assessment |
+|---|---|---|---|
+| NFR-1 | {{SECURITY_PRIVACY_RELIABILITY_PERFORMANCE_ACCESSIBILITY_OPERABILITY}} | {{QUALITY_OR_CONSTRAINT}} | {{VERIFIED_PARTIAL_NOT_EVIDENCED_NOT_ASSESSED}} |
 
 If no non-functional requirement is confirmed or evidenced, state `No
 confirmed non-functional requirements recorded` and remove the example row.
@@ -125,7 +124,7 @@ Consider and record the disposition of each applicable category. Include only
 requirements supported by evidence or a confirmed decision; do not fabricate
 SLOs, coverage percentages, latency budgets, or compliance targets.
 
-| Category | Applicable? | Evidence / target / gap |
+| Category | Applicable? | Confirmed obligation or gap |
 |---|---|---|
 | Security | {{YES_NO_NOT_ASSESSED}} | {{CONFIRMED_CONTROL_OR_GAP}} |
 | Privacy and retention | {{YES_NO_NOT_ASSESSED}} | {{CONFIRMED_OBLIGATION_OR_NOT_DOCUMENTED}} |
@@ -140,9 +139,9 @@ SLOs, coverage percentages, latency budgets, or compliance targets.
 
 ## 9. Pipeline / Workflow Inventory
 
-| Filename | Trigger | Target | Evidence |
-|---|---|---|---|
-| `{{EXACT_REPOSITORY_PATH}}` | {{CONFIGURED_EVENT_OR_SCHEDULE}} | {{CONFIGURED_ARTIFACT_SERVICE_OR_ENVIRONMENT}} | `{{WORKFLOW_PATH}}` |
+| Filename | Trigger | Deploys to |
+|---|---|---|
+| `{{EXACT_REPOSITORY_PATH}}` | {{CONFIGURED_EVENT_OR_SCHEDULE}} | {{CONFIGURED_ARTIFACT_SERVICE_OR_ENVIRONMENT}} |
 
 Include only pipelines and workflows found in repository configuration. State
 `No pipelines configured` when none exist. Do not infer a trigger from a

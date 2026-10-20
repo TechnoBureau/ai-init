@@ -23,14 +23,14 @@ Assumptions:
 
 ## Assets
 
-| Asset | Why it matters | Evidence |
-|---|---|---|
-| Skill instructions | Can cause file writes, Git operations, or analysis | `skills/*/SKILL.md` |
-| Metadata integrity | A corrupted `SKILL.md` is undiscoverable | `scripts/validate_skills.py` |
-| Permanent IDs | Traceability across document revisions | `docs/decisions.md` |
-| Target repository content | Read by the agent; may contain secrets | Skill operating constraints |
-| Release artifacts | Installed by users | Git tags, repository content |
-| Trust in published guidance | Overclaim causes bad decisions | `docs/security.md` |
+| Asset | Why it matters |
+|---|---|
+| Skill instructions | Can cause file writes, Git operations, or analysis |
+| Metadata integrity | A corrupted `SKILL.md` is undiscoverable |
+| Permanent IDs | Traceability across document revisions |
+| Target repository content | Read by the agent; may contain secrets |
+| Release artifacts | Installed by users |
+| Trust in published guidance | Overclaim causes bad decisions |
 
 ## Trust boundaries
 
@@ -94,20 +94,20 @@ sensitive values.
 
 ## Controls mapped to threats
 
-| Control | Threat IDs | Type | Status | Evidence |
-|---|---|---|---|---|
-| Frontmatter and metadata validator | T-04 | Prevent | Verified | `scripts/validate_skills.py` |
-| Regression tests for the corruption failure | T-04 | Detect | Verified | `tests/test_validate_skills.py` |
-| Pre-commit and CI gates | T-04, T-13 | Prevent | Verified | `.pre-commit-config.yaml`, `.github/workflows/validate.yml` |
-| Secret scanning and private-key detection | T-02 | Detect | Verified | `.pre-commit-config.yaml`, `.secrets.baseline` |
-| Operating constraints in every skill | T-01, T-02, T-03, T-06 | Prevent | Verified as design | `skills/*/SKILL.md` |
-| Claim-status vocabulary | T-05 | Prevent | Verified as design | `docs/README.md`, templates |
-| Pinned dependencies and actions | T-07 | Prevent | Verified | `requirements-dev.txt`, workflow |
-| Read-only CI token | T-07 | Limit | Verified | Workflow `permissions` |
-| Template correspondence test | T-10 | Detect | Verified | `tests/test_working_example.py` |
-| Private vulnerability reporting policy | T-05, T-13 | Respond | Verified as policy | `SECURITY.md` |
-| Host tool and permission enforcement | T-01, T-06 | Limit | Not assessed | Host responsibility |
-| Automated model-behavior evaluation | T-01, T-14 | Detect | Not evidenced | `evals/` fixtures only |
+| Control | Threat IDs | Type |
+|---|---|---|
+| Frontmatter and metadata validator | T-04 | Prevent |
+| Regression tests for the corruption failure | T-04 | Detect |
+| Pre-commit and CI gates | T-04, T-13 | Prevent |
+| Secret scanning and private-key detection | T-02 | Detect |
+| Operating constraints in every skill | T-01, T-02, T-03, T-06 | Prevent |
+| Claim-status vocabulary | T-05 | Prevent |
+| Pinned dependencies and actions | T-07 | Prevent |
+| Read-only CI token | T-07 | Limit |
+| Template correspondence test | T-10 | Detect |
+| Private vulnerability reporting policy | T-05, T-13 | Respond |
+| Host tool and permission enforcement | T-01, T-06 | Limit |
+| Automated model-behavior evaluation | T-01, T-14 | Detect |
 
 ## Review triggers
 

@@ -71,9 +71,9 @@ configuration enforces it.
 
 ## Exceptions
 
-| Rule | Exception | Rationale | Approver | Expiry |
-|---|---|---|---|---|
-| {{RULE_OR_NONE}} | {{EXCEPTION_OR_NONE}} | {{CONFIRMED_RATIONALE}} | {{APPROVER_OR_UNKNOWN}} | {{DATE_OR_NOT_DECIDED}} |
+| Rule | Exception | Rationale |
+|---|---|---|
+| {{RULE_OR_NONE}} | {{EXCEPTION_OR_NONE}} | {{CONFIRMED_RATIONALE}} |
 
 Record only real, approved exceptions. An undocumented exception is a
 compliance gap, not a rule.

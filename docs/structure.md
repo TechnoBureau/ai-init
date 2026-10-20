@@ -81,18 +81,18 @@ active components, and omits generated or ignored content.
 
 ## Components
 
-| Path | Responsibility | Active entry point / evidence | Owner |
-|---|---|---|---|
-| `skills/*/SKILL.md` | Skill entry point, frontmatter, workflow, operating constraints | Loaded by an agent host | TechnoBureau |
-| `skills/*/templates/` | Output templates whose directory layout mirrors the target repository | Copied into a target by the skill | TechnoBureau |
-| `skills/*/references/` | Detailed standards loaded on demand | Linked from `SKILL.md` | TechnoBureau |
-| `skills/ai-init/files/` | `.gitignore`, IBM detect-secrets baseline, EditorConfig, Git attributes, and pre-commit starters | Copied or merged only when absent | TechnoBureau |
-| `evals/*.yaml` | Trigger, non-trigger, and adversarial evaluation cases | `scripts/validate_skills.py` | TechnoBureau |
-| `scripts/validate_skills.py` | Specification and enterprise metadata gate | `python scripts/validate_skills.py --strict` | TechnoBureau |
-| `scripts/check_links.py` | Local Markdown link integrity | `python scripts/check_links.py` | TechnoBureau |
-| `tests/` | Regression tests for the validators, the working example, pinning, documentation state, and the secret-scanning policy | `python -m unittest discover -s tests` | TechnoBureau |
-| `.github/workflows/validate.yml` | CI enforcement of every gate | Push and pull request | TechnoBureau |
-| `docs/` | Generated documentation, this folder | Regenerated from `skills/*/templates/` | TechnoBureau |
+| Path | Responsibility | Active entry point |
+|---|---|---|
+| `skills/*/SKILL.md` | Skill entry point, frontmatter, workflow, operating constraints | Loaded by an agent host |
+| `skills/*/templates/` | Output templates whose directory layout mirrors the target repository | Copied into a target by the skill |
+| `skills/*/references/` | Detailed standards loaded on demand | Linked from `SKILL.md` |
+| `skills/ai-init/files/` | `.gitignore`, IBM detect-secrets baseline, EditorConfig, Git attributes, and pre-commit starters | Copied or merged only when absent |
+| `evals/*.yaml` | Trigger, non-trigger, and adversarial evaluation cases | `scripts/validate_skills.py` |
+| `scripts/validate_skills.py` | Specification and enterprise metadata gate | `python scripts/validate_skills.py --strict` |
+| `scripts/check_links.py` | Local Markdown link integrity | `python scripts/check_links.py` |
+| `tests/` | Regression tests for the validators, the working example, pinning, documentation state, and the secret-scanning policy | `python -m unittest discover -s tests` |
+| `.github/workflows/validate.yml` | CI enforcement of every gate | Push and pull request |
+| `docs/` | Generated documentation, this folder | Regenerated from `skills/*/templates/` |
 
 ## Build and Generated Content
 

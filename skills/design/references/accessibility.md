@@ -61,7 +61,7 @@ Each interactive component definition should state:
 
 ## Verification methods
 
-| Method | Evidence | Limitation |
+| Method | What it records | Limitation |
 |---|---|---|
 | Automated scan | axe-core or configured tool, version and result | Detects only a subset of issues |
 | Keyboard-only | Recorded steps and focus order | Requires human judgment |
@@ -82,7 +82,7 @@ Scope: <routes, components, platforms>
 Method: <automated tool + manual checks>
 Result: <pass | partial | fail | not assessed>
 Exceptions: <criterion, scope, workaround, owner, review date>
-Evidence: <paths, reports, recordings>
+Recorded artifacts: <paths, reports, recordings>
 ```
 
 If a target has not been selected, write `Not selected` and document observed

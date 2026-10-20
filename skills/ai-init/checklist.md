@@ -9,6 +9,10 @@ item means it was verified in the current worktree, not assumed.
   security configuration before using existing Markdown for context.
 - [ ] No branch, revision, or tool-version provenance header appears in the
   output; claims cite paths, commands, or results.
+- [ ] No table carries a status, date, owner, evidence, verification, baseline,
+  target, or measure column, and no decision record carries a status, date,
+  owner, evidence, rejected-option, or supersession field. At most one
+  `Assessment` (`Coverage`) column states whether a row holds.
 - [ ] No volatile state is copied into the output: exact version pins, hook
   revisions, test counts, run dates, or coverage percentages. The document
   links the config or workflow that owns the value instead.

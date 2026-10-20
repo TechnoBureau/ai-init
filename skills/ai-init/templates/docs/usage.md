@@ -52,9 +52,9 @@ do not infer a gate from a script name.
 
 {{VERIFIED_DEPLOYMENT_COMMANDS_OR_TARGETS}}
 
-| Environment | Method | Required approvals | Evidence |
-|---|---|---|---|
-| {{ENVIRONMENT}} | {{CONFIGURED_MECHANISM}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} | `{{PATH}}` |
+| Environment | Method | Required approvals |
+|---|---|---|
+| {{ENVIRONMENT}} | {{CONFIGURED_MECHANISM}} | {{CONFIRMED_OR_NOT_DOCUMENTED}} |
 
 ## Troubleshooting
 

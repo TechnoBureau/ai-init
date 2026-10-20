@@ -21,17 +21,17 @@ defined in a manifest, workflow, or hook configuration.
 
 ## Test Layout
 
-| Path / pattern | Scope | Level | Framework or tool | Evidence |
-|---|---|---|---|---|
-| `tests/test_validate_skills.py` | Frontmatter, metadata, links, size, eval rules | Unit | `unittest` | File |
-| `tests/test_check_links.py` | Link resolution and template exclusion | Unit | `unittest` | File |
-| `tests/test_working_example.py` | Template-to-`docs/` and starter-file correspondence | Unit | `unittest` | File |
-| `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, hook flags, and dependency wiring | Unit | `unittest` | File |
-| `tests/test_pinning.py` | Version-tag pinning for hooks and actions, and Dependabot coverage | Unit | `unittest` | File |
-| `tests/test_docs_state.py` | Documents describe current state; no frozen runs or duplicated pins, and the structure doc lists every reference | Unit | `unittest` | File |
-| `scripts/validate_skills.py` | Every checked-in skill and eval fixture | Static | Project script | File |
-| `scripts/check_links.py` | All non-template Markdown | Static | Project script | File |
-| `.pre-commit-config.yaml` | Format, hygiene, secrets, lint | Static | pre-commit | Configuration |
+| Path / pattern | Scope | Level | Framework or tool |
+|---|---|---|---|
+| `tests/test_validate_skills.py` | Frontmatter, metadata, links, size, eval rules | Unit | `unittest` |
+| `tests/test_check_links.py` | Link resolution and template exclusion | Unit | `unittest` |
+| `tests/test_working_example.py` | Template-to-`docs/` and starter-file correspondence | Unit | `unittest` |
+| `tests/test_secret_scanning.py` | IBM detect-secrets baseline policy, exclusions, hook flags, and dependency wiring | Unit | `unittest` |
+| `tests/test_pinning.py` | Version-tag pinning for hooks and actions, and Dependabot coverage | Unit | `unittest` |
+| `tests/test_docs_state.py` | Documents describe current state; no frozen runs, duplicated pins, or bookkeeping columns, and the structure doc lists every reference | Unit | `unittest` |
+| `scripts/validate_skills.py` | Every checked-in skill and eval fixture | Static | Project script |
+| `scripts/check_links.py` | All non-template Markdown | Static | Project script |
+| `.pre-commit-config.yaml` | Format, hygiene, secrets, lint | Static | pre-commit |
 
 ## Commands
 
@@ -59,7 +59,7 @@ in the hosting platform and is not visible in this tree.
 
 ## Requirement Traceability
 
-| Requirement | Acceptance criterion | Test / evidence | Level | Status |
+| Requirement | Acceptance criterion | Test | Level | Coverage |
 |---|---|---|---|---|
 | FR-1 | Frontmatter parses and name matches directory | `test_valid_skill_passes`, `test_name_must_match_directory` | Unit | Covered |
 | FR-2 | Description contains a trigger clause | `test_description_requires_trigger` | Unit | Covered |
@@ -79,18 +79,18 @@ They are marked `Partial` where no automated evidence exists.
 
 ## Mandatory Verification Areas
 
-| Area | Status | Evidence / gap |
-|---|---|---|
-| Unit and error paths | Verified | The modules listed in the table above cover every script and starter policy |
-| Integration and contracts | Partial | Skills CLI discovery is verified manually, not in CI |
-| Authentication and authorization | Not applicable | No authenticated surface in this repository |
-| Input validation and injection | Partial | Validator validates structure; no fuzzing |
-| Dependency and secret scanning | Verified | gitleaks and private-key detection in pre-commit and CI |
-| Accessibility (WCAG 2.2 target) | Partial | Markdown structure rules only; no target level selected |
-| Performance and load | Not applicable | No runtime |
-| Resilience and recovery | Not applicable | No runtime state |
-| Migration and rollback | Not applicable | No schema or database |
-| Backup restore | Not applicable | Git history is the recovery mechanism |
+| Area | Assessment |
+|---|---|
+| Unit and error paths | Verified — the modules listed in the table above cover every script and starter policy, including the docs-state rules |
+| Integration and contracts | Partial — Skills CLI discovery is verified manually, not in CI |
+| Authentication and authorization | Not applicable — no authenticated surface in this repository |
+| Input validation and injection | Partial — the validator checks structure; no fuzzing |
+| Dependency and secret scanning | Verified — gitleaks, IBM detect-secrets, and private-key detection run in pre-commit and CI |
+| Accessibility (WCAG 2.2 target) | Partial — Markdown structure rules only; no target level selected |
+| Performance and load | Not applicable — no runtime |
+| Resilience and recovery | Not applicable — no runtime state |
+| Migration and rollback | Not applicable — no schema or database |
+| Backup restore | Not applicable — Git history is the recovery mechanism |
 
 ## Coverage and Quality Gates
 
@@ -115,7 +115,7 @@ They are marked `Partial` where no automated evidence exists.
   exit.
 - External services: none contacted by the test suite.
 
-## Verification Status
+## Gate Enforcement
 
 Every command in the table above is defined in a manifest, workflow, or hook
 configuration, and the CI job runs each one on every push and pull request. The
@@ -129,12 +129,12 @@ and requires no network access after its environment is installed.
 
 ## Defects, Gaps, and Actions
 
-| Gap | Risk | Proposed action | Owner / target |
-|---|---|---|---|
-| No coverage measurement | Unmeasured test completeness | Add coverage reporting for `scripts/` | Not decided |
-| Skill discovery not asserted in CI | A host could reject a valid-looking skill | Add a Skills CLI discovery check to CI | Not decided |
-| No eval harness | Model behavior drift is not measured | Wire `evals/` into a runner | Not decided |
-| Accessibility target not selected | Conformance is unknown | Choose a documentation accessibility target | Not decided |
+| Gap | Risk | Proposed action |
+|---|---|---|
+| No coverage measurement | Unmeasured test completeness | Add coverage reporting for `scripts/` |
+| Skill discovery not asserted in CI | A host could reject a valid-looking skill | Add a Skills CLI discovery check to CI |
+| No eval harness | Model behavior drift is not measured | Wire `evals/` into a runner |
+| Accessibility target not selected | Conformance is unknown | Choose a documentation accessibility target |
 
 No dates or owners are invented; the gaps are recorded for triage.
 

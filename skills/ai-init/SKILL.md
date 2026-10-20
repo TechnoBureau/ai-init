@@ -213,8 +213,14 @@ every generated document.
 - **Document classes.** Apply Diátaxis deliberately: tutorials teach, how-to
   guides solve tasks, reference states facts, and explanation gives rationale.
   Do not mix all four in one page.
-- **Decisions.** Use MADR-style records: context, decision, consequences,
-  alternatives, status, owner, date, and supersession. Preserve permanent IDs.
+- **Decisions.** Use a short ADR-style record: context, decision,
+  consequences, and reason. Preserve permanent IDs and never delete or
+  renumber a record.
+- **No bookkeeping metadata.** Do not add status, date, owner, evidence,
+  verification, baseline, target, measure, rejected-option, or supersession
+  columns to a table, and do not add those fields to a decision. When a table
+  must say whether something holds, use one `Assessment` column (`Coverage` for
+  requirement traceability) and the claim vocabulary.
 - **Architecture.** Use C4-style boundaries (context, container, component) and
   ISO/IEC/IEEE 42010 concerns, viewpoints, and views. Keep diagrams small and
   verify every node and edge.
@@ -229,8 +235,8 @@ every generated document.
   not add a changelog or per-document version number unless the project has
   adopted a release policy that requires one. Never recycle retired
   requirement, decision, or task IDs; mark superseded items instead.
-- **Ownership.** Record accountability in `CODEOWNERS` and, when the project
-  needs it, `docs/governance.md`. Do not repeat an owner on every page.
+- **Ownership.** Record accountability once in `CODEOWNERS` and, when the
+  project needs it, `docs/governance.md`. Never repeat an owner on every table.
 
 ## Empty or scaffold-only repositories
 

@@ -1,9 +1,9 @@
 """Keep generated documentation on the current state of the repository.
 
 Documents describe what exists now and point at the file that owns a value.
-They must not freeze a snapshot of one run, and they must not duplicate a pin
-that the configuration already owns, because both go stale without any code
-change.
+They must not freeze a snapshot of one run, must not duplicate a pin that the
+configuration already owns, and must not carry bookkeeping metadata beside the
+content, because all three go stale without any code change.
 """
 
 from __future__ import annotations
@@ -36,6 +36,55 @@ FROZEN_STATE_PATTERNS = (
     ),
     re.compile(r"tests?,?\s+ok\b", re.IGNORECASE),
 )
+
+# Bookkeeping columns and decision fields record a document's own state, not
+# the subject it documents. Nothing consumes them, so they drift.
+FORBIDDEN_COLUMNS = frozenset(
+    name.lower()
+    for name in (
+        "Status",
+        "Date",
+        "Owner",
+        "Owner / date",
+        "Owner / target",
+        "Evidence",
+        "Evidence / gap",
+        "Evidence / owner",
+        "Evidence / verification",
+        "Evidence / target / gap",
+        "Evidence-based description",
+        "Active entry point / evidence",
+        "Claim type",
+        "Verification",
+        "Verification source",
+        "Verification criteria",
+        "Verification / owner",
+        "Baseline",
+        "Target",
+        "Target / measure",
+        "Measure",
+        "Alternatives rejected",
+        "Supersedes / superseded by",
+        "Review date",
+        "Expiry",
+        "Expiry / review date",
+        "Required evidence",
+        "Configuration evidence",
+        "Scanner/version",
+        "Impact / evidence",
+        "Residual risk / evidence",
+    )
+)
+
+# The only fields a decision record may carry.
+DECISION_FIELDS = frozenset({"context", "decision", "consequences", "reason"})
+
+DECISION_RECORDS = (
+    DOCS / "decisions.md",
+    REPO_ROOT / "skills" / "ai-init" / "templates" / "docs" / "decisions.md",
+)
+
+TABLE_SEPARATOR = re.compile(r"^\|(?:\s*:?-{3,}:?\s*\|)+$")
 
 # Paths whose basenames must appear in the structure document.
 STARTERS = REPO_ROOT / "skills" / "ai-init" / "files"
@@ -139,6 +188,49 @@ class DocumentationStateTests(unittest.TestCase):
             "structure.md does not list: " + ", ".join(missing),
         )
 
+
+    def generated_documents(self) -> list[Path]:
+        documents = [README, *sorted(DOCS.glob("*.md"))]
+        documents.extend(sorted((REPO_ROOT / "skills").glob("*/templates/**/*.md")))
+        return [document for document in documents if document.is_file()]
+
+    def test_documents_carry_no_bookkeeping_columns(self) -> None:
+        offenders = []
+        for document in self.generated_documents():
+            lines = document.read_text(encoding="utf-8").splitlines()
+            for index, line in enumerate(lines[:-1]):
+                if not line.lstrip().startswith("|"):
+                    continue
+                if not TABLE_SEPARATOR.match(lines[index + 1].strip()):
+                    continue
+                for cell in re.split(r"(?<!\\)\|", line.strip())[1:-1]:
+                    name = cell.strip().lower()
+                    if name in FORBIDDEN_COLUMNS:
+                        offenders.append(
+                            f"{document.relative_to(REPO_ROOT)}:{index + 1}: {cell.strip()}"
+                        )
+        self.assertEqual(
+            [],
+            offenders,
+            "bookkeeping columns belong in Git or the owning config: "
+            + ", ".join(offenders),
+        )
+
+    def test_decision_records_carry_only_narrative_fields(self) -> None:
+        offenders = []
+        for document in DECISION_RECORDS:
+            for index, line in enumerate(document.read_text(encoding="utf-8").splitlines()):
+                match = re.match(r"^- \*\*(.+?):\*\*", line.strip())
+                if match and match.group(1).lower() not in DECISION_FIELDS:
+                    offenders.append(
+                        f"{document.relative_to(REPO_ROOT)}:{index + 1}: {match.group(1)}"
+                    )
+        self.assertEqual(
+            [],
+            offenders,
+            "a decision record is context, decision, consequences, and reason: "
+            + ", ".join(offenders),
+        )
 
 if __name__ == "__main__":
     unittest.main()

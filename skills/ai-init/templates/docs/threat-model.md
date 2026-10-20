@@ -14,9 +14,9 @@ State assumptions explicitly. An unstated assumption cannot be reviewed.
 
 ## Assets
 
-| Asset | Why it matters | Evidence |
-|---|---|---|
-| {{ASSET}} | {{IMPACT_IF_COMPROMISED}} | `{{PATH_OR_NOT_DOCUMENTED}}` |
+| Asset | Why it matters |
+|---|---|
+| {{ASSET}} | {{IMPACT_IF_COMPROMISED}} |
 
 Typical assets include identities and sessions, credentials and keys, personal
 or regulated data, source and build artifacts, availability of the service, and
@@ -71,9 +71,9 @@ retention obligation from the presence of data; record only confirmed policy.
 
 ## Controls mapped to threats
 
-| Control | Threat IDs | Type | Status | Evidence |
-|---|---|---|---|---|
-| {{CONTROL}} | {{T_IDS}} | {{PREVENT_DETECT_RECOVER}} | {{VERIFIED_PARTIAL_NOT_EVIDENCED}} | `{{PATH}}` |
+| Control | Threat IDs | Type |
+|---|---|---|
+| {{CONTROL}} | {{T_IDS}} | {{PREVENT_DETECT_RECOVER}} |
 
 A control listed here reduces risk; it does not prove operating effectiveness.
 

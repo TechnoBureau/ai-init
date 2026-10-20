@@ -14,9 +14,9 @@
 
 ## Test Layout
 
-| Path / pattern | Scope | Level | Framework or tool | Evidence |
-|---|---|---|---|---|
-| `{{EXACT_TEST_PATH_OR_PATTERN}}` | {{TESTED_COMPONENT}} | {{UNIT_INTEGRATION_E2E}} | {{CONFIGURED_TOOL}} | `{{CONFIG_PATH}}` |
+| Path / pattern | Scope | Level | Framework or tool |
+|---|---|---|---|
+| `{{EXACT_TEST_PATH_OR_PATTERN}}` | {{TESTED_COMPONENT}} | {{UNIT_INTEGRATION_E2E}} | {{CONFIGURED_TOOL}} |
 
 ## Commands
 
@@ -43,7 +43,7 @@ enforces it; state the evidence.
 
 ## Requirement Traceability
 
-| Requirement | Acceptance criterion | Test / evidence | Level | Status |
+| Requirement | Acceptance criterion | Test | Level | Coverage |
 |---|---|---|---|---|
 | {{FR_OR_NFR_ID}} | {{CRITERION}} | `{{TEST_PATH_OR_MANUAL_PROCEDURE}}` | {{LEVEL}} | {{COVERED_PARTIAL_GAP}} |
 
@@ -52,18 +52,18 @@ a test name alone.
 
 ## Mandatory Verification Areas
 
-| Area | Status | Evidence / gap |
-|---|---|---|
-| Unit and error paths | {{VERIFIED_PARTIAL_NOT_EVIDENCED}} | `{{PATH_OR_GAP}}` |
-| Integration and contracts | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Authentication and authorization | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Input validation and injection | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Dependency and secret scanning | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Accessibility (WCAG 2.2 target) | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Performance and load | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Resilience and recovery | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Migration and rollback | {{STATUS}} | `{{PATH_OR_GAP}}` |
-| Backup restore | {{STATUS}} | `{{PATH_OR_GAP}}` |
+| Area | Assessment |
+|---|---|
+| Unit and error paths | {{VERIFIED_PARTIAL_NOT_EVIDENCED}} — `{{PATH_OR_GAP}}` |
+| Integration and contracts | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Authentication and authorization | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Input validation and injection | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Dependency and secret scanning | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Accessibility (WCAG 2.2 target) | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Performance and load | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Resilience and recovery | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Migration and rollback | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
+| Backup restore | {{ASSESSMENT}} — `{{PATH_OR_GAP}}` |
 
 Record `Not applicable` with a reason; do not leave a blank cell.
 
@@ -87,7 +87,7 @@ configured validation checks. Do not present coverage as quality by itself.
 - Cleanup and isolation: {{VERIFIED_OR_NOT_DOCUMENTED}}
 - External services or network dependencies: {{VERIFIED_OR_NOT_DOCUMENTED}}
 
-## Verification Status
+## Gate Enforcement
 
 State which gates pass and where they are enforced. CI is the record of a run;
 do not paste a dated log, a revision, an exact tool version, or a test count
@@ -106,9 +106,9 @@ Not covered: <explicit gaps>
 
 ## Defects, Gaps, and Actions
 
-| Gap | Risk | Proposed action | Owner / target |
-|---|---|---|---|
-| {{EVIDENCED_GAP_OR_NONE}} | {{WHY_IT_MATTERS}} | {{ACTION_OR_NONE}} | {{OWNER_OR_UNKNOWN}} |
+| Gap | Risk | Proposed action |
+|---|---|---|
+| {{EVIDENCED_GAP_OR_NONE}} | {{WHY_IT_MATTERS}} | {{ACTION_OR_NONE}} |
 
 ______________________________________________________________________
 

@@ -39,15 +39,15 @@ package entry point.
 
 ## 3. Goals and Objectives
 
-| ID | Outcome | Baseline | Target / measure | Verification source |
-|---|---|---|---|---|
-| G-1 | Every skill is loadable by a compliant agent host | 6 of 6 skills pass the validator | Remain 6 of 6 with zero errors | `scripts/validate_skills.py` |
-| G-2 | Generated documents never invent facts | Policy stated in every skill | No unresolved placeholder or fabricated claim found in review | `scripts/validate_skills.py`, review checklist |
-| G-3 | Metadata regressions are caught before merge | Validator plus 17 regression tests | CI fails on missing or malformed frontmatter | `tests/`, `.github/workflows/validate.yml` |
-| G-4 | The collection demonstrates its own output | `docs/` generated from templates | Every template has a generated counterpart | `tests/test_working_example.py` |
-| G-5 | Enterprise standards are applied consistently | 6 skills declare standards and risk | Every skill passes metadata validation | `scripts/validate_skills.py` |
+| ID | Outcome |
+|---|---|
+| G-1 | Every skill is loadable by a compliant agent host |
+| G-2 | Generated documents never invent facts |
+| G-3 | Metadata regressions are caught before merge |
+| G-4 | The collection demonstrates its own output |
+| G-5 | Enterprise standards are applied consistently |
 
-No target date or numeric adoption target is recorded; none has been confirmed.
+No adoption target or date has been confirmed.
 
 ## 4. Scope
 
@@ -81,105 +81,108 @@ No target date or numeric adoption target is recorded; none has been confirmed.
 
 ## 5. Architectural Decisions
 
-| ID | Status | Decision | Reason | Alternatives Rejected | Evidence | Owner / date |
-|---|---|---|---|---|---|---|
-| D-1 | Accepted | Six focused skills, not one monolith | Progressive disclosure, independent install | Monolith, nested skills | `skills/` | TechnoBureau / 2026-10-20 |
-| D-2 | Accepted | Agent Skills 1.0 with YAML frontmatter | Cross-host discovery | Vendor format, no frontmatter | `docs/skill-standard.md` | TechnoBureau / 2026-10-20 |
-| D-3 | Accepted | Validate format in pre-commit, CI, and tests | Human review misses metadata corruption | Guidance only, Markdown lint alone | `scripts/validate_skills.py` | TechnoBureau / 2026-10-20 |
-| D-4 | Accepted | Small `SKILL.md`, detail in `references/` | Context economy | Everything inline, external site | Validator size limits | TechnoBureau / 2026-10-20 |
-| D-5 | Accepted | Template paths mirror output paths | Self-documenting, avoids ambiguous names | Manifest, flat prefixed names | `skills/*/templates/` | TechnoBureau / 2026-10-20 |
-| D-6 | Accepted | Meta files only from confirmed facts | Wrong legal or routing data is harmful | Best-guess defaults, placeholders | `references/licensing.md` | TechnoBureau / 2026-10-20 |
-| D-7 | Accepted | Lowercase kebab-case in `docs/` | Link portability | All uppercase, mixed case | `docs/` | TechnoBureau / 2026-10-20 |
-| D-8 | Accepted | Generate this repository's `docs/` from templates | Dogfooding, prevents template drift | Separate example repository | `tests/test_working_example.py` | TechnoBureau / 2026-10-20 |
-| D-9 | Accepted | No changelog or release numbering initially | Avoids unused version churn | SemVer per skill, repository version | `docs/governance.md` | TechnoBureau / 2026-10-20 |
-| D-10 | Accepted | No branch, revision, or tool-version provenance in generated documents | Stale metadata invites false precision | Revision in a footer | `tests/test_working_example.py` | TechnoBureau / 2026-10-20 |
-| D-11 | Accepted | One merged `.gitignore` baseline, not per-language fragments | Reviewable, no composition order to test | Generated fragments | `skills/ai-init/files/.gitignore` | TechnoBureau / 2026-10-20 |
-| D-12 | Accepted | IBM detect-secrets baseline with keyword scanning off and generated files excluded | High-signal scanner; provider and entropy detectors remain | Keyword detector with broad exclusions, replacing gitleaks | `.secrets.baseline` | TechnoBureau / 2026-10-20 |
-| D-13 | Accepted | Pin hooks and actions by exact version tag, not commit SHA | Reviewers can check a release; Dependabot keeps pins current | SHA pins with a version comment, branch pins | `.pre-commit-config.yaml` | TechnoBureau / 2026-10-20 |
+| ID | Decision | Reason |
+|---|---|---|
+| D-1 | Six focused skills, not one monolith | Progressive disclosure, independent install |
+| D-2 | Agent Skills 1.0 with YAML frontmatter | Cross-host discovery |
+| D-3 | Validate format in pre-commit, CI, and tests | Human review misses metadata corruption |
+| D-4 | Small `SKILL.md`, detail in `references/` | Context economy |
+| D-5 | Template paths mirror output paths | Self-documenting, avoids ambiguous names |
+| D-6 | Meta files only from confirmed facts | Wrong legal or routing data is harmful |
+| D-7 | Lowercase kebab-case in `docs/` | Link portability |
+| D-8 | Generate this repository's `docs/` from templates | Dogfooding, prevents template drift |
+| D-9 | No changelog or release numbering initially | Avoids unused version churn |
+| D-10 | No branch, revision, or tool-version provenance in generated documents | Stale metadata invites false precision |
+| D-11 | One merged `.gitignore` baseline, not per-language fragments | Reviewable, no composition order to test |
+| D-12 | IBM detect-secrets baseline with keyword scanning off and generated files excluded | High-signal scanner; provider and entropy detectors remain |
+| D-13 | Pin hooks and actions by exact version tag, not commit SHA | Reviewers can check a release; Dependabot keeps pins current |
+| D-14 | Documents describe current state and link the file that owns each value | A duplicated value drifts while still reading as fact |
+| D-15 | Documents carry no bookkeeping status, date, owner, evidence, verification, baseline, target, alternative, or supersession data | Nothing consumes those fields, and a stale value reads as fact |
 
 Full context and consequences are in [decisions.md](./decisions.md).
 
 ## 6. User Personas
 
-| Persona | Responsibilities | Needs | Evidence |
-|---|---|---|---|
-| Platform engineer | Bootstraps repositories, keeps docs current | Safe, repeatable generation that preserves existing content | `skills/ai-init/SKILL.md` |
-| Product manager | Owns scope and requirements | Traceable requirement IDs with acceptance criteria | `skills/prd/SKILL.md` |
-| Security reviewer | Assesses posture and threats | Evidence-based statuses, no compliance overclaim | `skills/security/SKILL.md` |
-| QA engineer | Maintains tests and evidence | Exact commands, coverage gaps, deterministic fixtures | `skills/tests/SKILL.md` |
-| Design and accessibility lead | Owns design system and accessibility | Token and WCAG 2.2 evidence without invented conformance | `skills/design/SKILL.md` |
-| Maintainer of this collection | Reviews and releases skills | Automated gates and clear authoring rules | `docs/skill-standard.md` |
-| AI agent | Executes a skill in a target repository | Unambiguous instructions, scope boundaries, fail-safe rules | `SKILL.md` operating constraints |
+| Persona | Responsibilities | Needs |
+|---|---|---|
+| Platform engineer | Bootstraps repositories, keeps docs current | Safe, repeatable generation that preserves existing content |
+| Product manager | Owns scope and requirements | Traceable requirement IDs with acceptance criteria |
+| Security reviewer | Assesses posture and threats | Claim statuses grounded in inspected files, no compliance overclaim |
+| QA engineer | Maintains tests and evidence | Exact commands, coverage gaps, deterministic fixtures |
+| Design and accessibility lead | Owns design system and accessibility | Token and WCAG 2.2 evidence without invented conformance |
+| Maintainer of this collection | Reviews and releases skills | Automated gates and clear authoring rules |
+| AI agent | Executes a skill in a target repository | Unambiguous instructions, scope boundaries, fail-safe rules |
 
 ## 7. Functional Requirements
 
 ### Skill entry points (`skills/*/SKILL.md`)
 
-| ID | Requirement | Acceptance criteria | Verification | Evidence | Status |
-|---|---|---|---|---|---|
-| FR-1 | Each skill MUST declare `name` and `description` in YAML frontmatter, and `name` MUST equal its directory | Frontmatter parses and matches directory | Validator | `skills/*/SKILL.md` | Implemented |
-| FR-2 | The `description` MUST state both capability and trigger conditions | Contains an explicit "Use when/for/to" clause | Validator rule `SKILL030` | `skills/*/SKILL.md` | Implemented |
-| FR-3 | Each skill MUST declare enterprise metadata `spec`, `standards`, and `risk`, and MUST NOT declare `owner`, `reviewed`, or `classification` | Metadata validates; disallowed keys rejected | Validator rules `SKILL060`–`SKILL073` | `scripts/validate_skills.py` | Implemented |
-| FR-4 | Each skill body MUST state operating constraints covering untrusted content, secrets, scope, destructive actions, and evidence honesty | Section present and specific | Review checklist | `skills/*/SKILL.md` | Implemented |
-| FR-5 | Each skill MUST stay under 500 lines and roughly 5,000 tokens | No size violation | Validator rules `SKILL044`–`SKILL046` | `scripts/validate_skills.py` | Implemented |
+| ID | Requirement | Acceptance criteria |
+|---|---|---|
+| FR-1 | Each skill MUST declare `name` and `description` in YAML frontmatter, and `name` MUST equal its directory | Frontmatter parses and matches directory |
+| FR-2 | The `description` MUST state both capability and trigger conditions | Contains an explicit "Use when/for/to" clause |
+| FR-3 | Each skill MUST declare enterprise metadata `spec`, `standards`, and `risk`, and MUST NOT declare `owner`, `reviewed`, or `classification` | Metadata validates; disallowed keys rejected |
+| FR-4 | Each skill body MUST state operating constraints covering untrusted content, secrets, scope, destructive actions, and evidence honesty | Section present and specific |
+| FR-5 | Each skill MUST stay under 500 lines and roughly 5,000 tokens | No size violation |
 
 ### Documentation generation (`ai-init`)
 
-| ID | Requirement | Acceptance criteria | Verification | Evidence | Status |
-|---|---|---|---|---|---|
-| FR-6 | `ai-init` MUST create root `README.md` and relative symlinks `AGENTS.md` and `CLAUDE.md` | Links resolve to `README.md`; conflicts reported | Manual check; link checker | `skills/ai-init/SKILL.md` | Implemented |
-| FR-7 | `ai-init` MUST create the default `docs/` set: index, PRD, structure, decisions, security | Files generated with no placeholders | `tests/test_working_example.py` | `docs/` | Implemented |
-| FR-8 | `ai-init` MUST create conditional documents only when evidence supports them | `docs/design.md` absent without a UI | `docs/README.md` | `docs/` | Implemented |
-| FR-9 | `ai-init` MUST generate `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CODEOWNERS`, and `LICENSE` only from confirmed facts | No invented owner, licence, or contact | Checklist section | `skills/ai-init/SKILL.md`, `checklist.md` | Implemented |
+| ID | Requirement | Acceptance criteria |
+|---|---|---|
+| FR-6 | `ai-init` MUST create root `README.md` and relative symlinks `AGENTS.md` and `CLAUDE.md` | Links resolve to `README.md`; conflicts reported |
+| FR-7 | `ai-init` MUST create the default `docs/` set: index, PRD, structure, decisions, security | Files generated with no placeholders |
+| FR-8 | `ai-init` MUST create conditional documents only when evidence supports them | `docs/design.md` absent without a UI |
+| FR-9 | `ai-init` MUST generate `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CODEOWNERS`, and `LICENSE` only from confirmed facts | No invented owner, licence, or contact |
 
 ### Validation and evaluation
 
-| ID | Requirement | Acceptance criteria | Verification | Evidence | Status |
-|---|---|---|---|---|---|
-| FR-10 | The validator MUST fail on missing or malformed frontmatter and name the formatter failure | Non-zero exit with `SKILL010`/`SKILL011` | Unit test | `tests/test_validate_skills.py` | Implemented |
-| FR-11 | The validator MUST check that every relative link in skills and references resolves | Broken link reported with path | `scripts/check_links.py`, validator rule `SKILL080` | `scripts/` | Implemented |
-| FR-12 | Every skill MUST have an eval fixture with trigger, non-trigger, and adversarial cases | Both trigger states present; unique IDs | Validator rules `EVAL001`–`EVAL015` | `evals/*.yaml` | Implemented |
-| FR-13 | CI MUST run the validator, link checker, tests, Markdown lint, and hygiene hooks on push and pull request | Workflow green on the default branch | GitHub Actions | `.github/workflows/validate.yml` | Implemented |
-| FR-14 | The repository MUST demonstrate its own output | Every template has a generated counterpart or a documented exemption | `tests/test_working_example.py` | `docs/` | Implemented |
-| FR-20 | Every remote hook and action MUST be pinned by exact version tag, never by branch or raw commit SHA | No branch or SHA reference remains in configuration | `tests/test_pinning.py` | `.pre-commit-config.yaml`, `.github/workflows/validate.yml` | Implemented |
-| FR-19 | `ai-init` MUST ship starter configuration for `.gitignore`, the IBM detect-secrets baseline, EditorConfig, Git attributes, and pre-commit, merging into existing files instead of overwriting them | Existing entries preserved; baseline and hook policy match | `tests/test_working_example.py`, `tests/test_secret_scanning.py` | `skills/ai-init/files/` | Implemented |
+| ID | Requirement | Acceptance criteria |
+|---|---|---|
+| FR-10 | The validator MUST fail on missing or malformed frontmatter and name the formatter failure | Non-zero exit with `SKILL010`/`SKILL011` |
+| FR-11 | The validator MUST check that every relative link in skills and references resolves | Broken link reported with path |
+| FR-12 | Every skill MUST have an eval fixture with trigger, non-trigger, and adversarial cases | Both trigger states present; unique IDs |
+| FR-13 | CI MUST run the validator, link checker, tests, Markdown lint, and hygiene hooks on push and pull request | Workflow green on the default branch |
+| FR-14 | The repository MUST demonstrate its own output | Every template has a generated counterpart or a documented exemption |
+| FR-21 | Generated documents MUST NOT carry per-row status, date, owner, evidence, verification, baseline, target, alternative, or supersession metadata | No such column or decision field remains |
+| FR-20 | Every remote hook and action MUST be pinned by exact version tag, never by branch or raw commit SHA | No branch or SHA reference remains in configuration |
+| FR-19 | `ai-init` MUST ship starter configuration for `.gitignore`, the IBM detect-secrets baseline, EditorConfig, Git attributes, and pre-commit, merging into existing files instead of overwriting them | Existing entries preserved; baseline and hook policy match |
 
 ### Documentation content
 
-| ID | Requirement | Acceptance criteria | Verification | Evidence | Status |
-|---|---|---|---|---|---|
-| FR-15 | Generated documents MUST distinguish `Verified`, `Observed`, `Planned`, `Not documented`, and `Not assessed` claims | Vocabulary used consistently | Review | `skills/ai-init/references/documentation-standard.md` | Implemented |
-| FR-16 | Requirement and decision IDs MUST be permanent and never recycled | Supersession recorded instead of renumbering | Review | `docs/decisions.md` | Implemented |
-| FR-17 | PRDs MUST contain exactly the ten required sections in order | Section headings match | Template review | `skills/prd/templates/docs/PRD.md` | Implemented |
-| FR-18 | Security documents MUST use only the defined control statuses and MUST NOT claim certification | Status vocabulary enforced by instruction and template | Review | `skills/security/templates/docs/security.md` | Implemented |
+| ID | Requirement | Acceptance criteria |
+|---|---|---|
+| FR-15 | Generated documents MUST distinguish `Verified`, `Observed`, `Planned`, `Not documented`, and `Not assessed` claims | Vocabulary used consistently |
+| FR-16 | Requirement and decision IDs MUST be permanent | A record is never renumbered or deleted |
+| FR-17 | PRDs MUST contain exactly the ten required sections in order | Section headings match |
+| FR-18 | Security documents MUST use only the defined control statuses and MUST NOT claim certification | Status vocabulary enforced by instruction and template |
 
 ## 8. Non-Functional Requirements
 
-| ID | Category | Requirement | Verification criteria | Status |
-|---|---|---|---|---|
-| NFR-1 | Security | Generated documents MUST NOT contain secrets, credentials, private keys, or unredacted personal data | gitleaks, private-key detection, and review find no secret | Verified |
-| NFR-2 | Security | No skill may present an assessment, scan, or control mapping as certification or compliance | All templates avoid certification claims; review | Verified |
-| NFR-3 | Privacy | The collection processes only public repository content and stores no personal data | Data inventory shows no personal data | Verified |
-| NFR-4 | Reliability | The validator MUST exit non-zero on any error and produce deterministic output for a given tree | Repeated runs produce identical findings | Verified |
-| NFR-5 | Performance | The full validation suite SHOULD complete within a few seconds locally and under 15 minutes in CI | CI job completes in about one minute | Verified |
-| NFR-6 | Maintainability | Every validator rule MUST have a regression test or an exercised fixture | `tests/test_validate_skills.py`, `tests/test_check_links.py` | Verified |
-| NFR-7 | Portability | Skills MUST work on POSIX and Windows; symlink failure is reported, never silently copied | Constraint documented and handled | Verified |
-| NFR-8 | Compatibility | Frontmatter MUST remain valid Agent Skills 1.0 for compliant hosts | Skills CLI lists all six skills | Verified |
-| NFR-9 | Accessibility | Documentation MUST use one H1, sequential headings, table headers, and text explanations for diagrams | markdownlint plus review | Verified |
-| NFR-10 | Observability | CI MUST surface the failing rule identifier and path | Validator output includes code and path | Verified |
-| NFR-11 | Supply chain | Actions, hooks, and Python dependencies MUST be pinned by exact version and updated by automation | Version-tag pins and Dependabot configuration | Verified |
-| NFR-12 | Localization | Not applicable; the collection ships English-only instructions | No locale files | Not applicable |
-| NFR-13 | Compliance | No certification or regulatory scope has been confirmed for this repository | No compliance claim made | Not assessed |
+| ID | Category | Requirement | Assessment |
+|---|---|---|---|
+| NFR-1 | Security | Generated documents MUST NOT contain secrets, credentials, private keys, or unredacted personal data | Verified |
+| NFR-2 | Security | No skill may present an assessment, scan, or control mapping as certification or compliance | Verified |
+| NFR-3 | Privacy | The collection processes only public repository content and stores no personal data | Verified |
+| NFR-4 | Reliability | The validator MUST exit non-zero on any error and produce deterministic output for a given tree | Verified |
+| NFR-5 | Performance | The full validation suite SHOULD complete within a few seconds locally and under 15 minutes in CI | Verified |
+| NFR-6 | Maintainability | Every validator rule MUST have a regression test or an exercised fixture | Verified |
+| NFR-7 | Portability | Skills MUST work on POSIX and Windows; symlink failure is reported, never silently copied | Verified |
+| NFR-8 | Compatibility | Frontmatter MUST remain valid Agent Skills 1.0 for compliant hosts | Verified |
+| NFR-9 | Accessibility | Documentation MUST use one H1, sequential headings, table headers, and text explanations for diagrams | Verified |
+| NFR-10 | Observability | CI MUST surface the failing rule identifier and path | Verified |
+| NFR-11 | Supply chain | Actions, hooks, and Python dependencies MUST be pinned by exact version and updated by automation | Verified |
+| NFR-12 | Localization | Not applicable; the collection ships English-only instructions | Not applicable |
+| NFR-13 | Compliance | No certification or regulatory scope has been confirmed for this repository | Not assessed |
 
 Categories that do not apply are recorded rather than omitted silently.
 
 ## 9. Pipeline / Workflow Inventory
 
-| Filename | Trigger | Target | Evidence |
-|---|---|---|---|
-| `.github/workflows/validate.yml` | `push`, `pull_request`, `workflow_dispatch` | Ubuntu runner; validator, link check, unit tests, pre-commit hooks | Workflow file |
-| `.github/dependabot.yml` | Weekly schedule | Updates for `github-actions`, `pre-commit`, and `pip` ecosystems | Configuration file |
-| `.pre-commit-config.yaml` | Local commit hook, and CI `pre-commit run --all-files` | Hygiene, secret scanning, Markdown lint, skill validation, link check, tests | Configuration file |
+| Filename | Trigger | Deploys to |
+|---|---|---|
+| `.github/workflows/validate.yml` | `push`, `pull_request`, `workflow_dispatch` | Ubuntu runner; validator, link check, unit tests, pre-commit hooks |
+| `.github/dependabot.yml` | Weekly schedule | Updates for `github-actions`, `pre-commit`, and `pip` ecosystems |
+| `.pre-commit-config.yaml` | Local commit hook, and CI `pre-commit run --all-files` | Hygiene, secret scanning, Markdown lint, skill validation, link check, tests |
 
 No deployment pipeline exists; the repository publishes content only.
 

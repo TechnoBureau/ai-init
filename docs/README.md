@@ -14,7 +14,7 @@ collection's own output.
 | [Product requirements](./PRD.md) | Goals, scope, requirements, workflows, product type |
 | [Architecture](./architecture.md) | Components, data flows, deployment, trust boundaries |
 | [Repository structure](./structure.md) | Verified directory and component map |
-| [Decisions](./decisions.md) | Decision records with context and alternatives |
+| [Decisions](./decisions.md) | Decision records with context and consequences |
 | [Security](./security.md) | Security posture, applicable profiles, gaps |
 | [Threat model](./threat-model.md) | Assets, trust boundaries, threats, controls |
 | [Tests](./tests.md) | Test layout, commands, coverage gaps |
@@ -40,6 +40,10 @@ documented rather than fabricated.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
 - Do not add a per-document changelog or control block. Change history lives in
   Git and the pull request.
+- Do not add per-row status, date, owner, evidence, verification, baseline,
+  target, or measure columns, and do not record rejected options or supersession
+  on a decision. Use one `Assessment` (`Coverage`) column when a table must say
+  whether a row holds.
 - Describe the state that exists now and link the file that owns a value. Do
   not copy exact version pins, hook revisions, test counts, or run dates into
   prose; they drift from the configuration that owns them.
@@ -59,4 +63,4 @@ documented rather than fabricated.
 - Ownership and review routing: [CODEOWNERS](../.github/CODEOWNERS).
 - Review process and cadence: [Governance](./governance.md).
 - Review security and architecture documents at least quarterly.
-- Re-verify commands, paths, links, and control statuses when reviewing.
+- Re-verify commands, paths, links, and control descriptions when reviewing.

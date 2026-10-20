@@ -24,15 +24,16 @@ accessibility and exploratory risk.
 
 For each `FR-`/`NFR-` ID, record:
 
-| Requirement | Acceptance criterion | Test or evidence | Level | Status |
+| Requirement | Acceptance criterion | Test | Level | Coverage |
 |---|---|---|---|---|
 | FR-1 | Observable behavior | `tests/path::case` or manual procedure | Unit/Integration/E2E | Covered / Partial / Gap |
 
 Rules:
 
 - `Covered` requires an executed or clearly runnable artifact.
-- `Partial` names the uncovered branch or environment.
-- `Gap` names the risk and owner where known; do not invent a test result.
+- `Partial` names the uncovered branch or environment in the same cell.
+- `Gap` names the risk; do not invent a test result.
+- Do not add status, owner, date, or evidence columns beside the coverage cell.
 - A test title alone is not evidence that the test is meaningful. Confirm it
   fails when the behavior is broken where practical.
 
@@ -49,7 +50,7 @@ Rules:
 
 ## Security testing
 
-| Control area | Evidence to look for |
+| Control area | What to look for |
 |---|---|
 | Authentication | Invalid, expired, revoked, and replayed credentials are rejected |
 | Authorization | Horizontal and vertical privilege boundaries are enforced server-side |
@@ -105,13 +106,13 @@ confirmed. A passing scanner is not proof of application security.
 
 A gate is real only when CI or a documented release process enforces it.
 
-| Gate | Evidence | Blocking? |
+| Gate | How it is confirmed | Blocking? |
 |---|---|---|
 | Build and type checks | CI job or exact local command | Confirm from configuration |
 | Unit/integration suite | Passing result on the tested code | Confirm from configuration |
 | Security scans | SAST/SCA/secret/IaC results and triage | Confirm from configuration |
 | Accessibility | Automated plus manual checklist for UI changes | Confirm from policy |
-| Performance | Baseline comparison for hot paths | Confirm from policy |
+| Performance | Comparison against a recorded run for hot paths | Confirm from policy |
 | Migration | Forward and rollback test on representative data | Confirm from policy |
 
 Do not infer a gate from a dependency, script name, or badge. Read the workflow
@@ -120,26 +121,24 @@ triggers and required checks.
 ## Flaky tests and quarantine
 
 - A flaky test is a defect in the test or the system under test.
-- Quarantine requires a linked issue, owner, reason, start date, and removal
-  condition. Quarantined tests do not count as coverage.
+- Quarantine requires a linked issue, a reason, and a removal condition. Quarantined tests do not count as coverage.
 - Retries may reduce noise but must not hide deterministic failures. Record
   retry counts.
 - Fix root causes: shared state, time dependence, port collisions, unordered
   assertions, external network, or insufficient synchronisation.
 
-## Evidence format
+## Failure investigation format
 
-Record test evidence as:
+A passing suite is recorded by the CI run, not by a pasted log. Record a run
+only while a failure is open:
 
 ```text
 Command: <exact command>
-Environment: <OS/runtime/framework versions>
-Result: Passed | Failed | Blocked | Not run
-Duration: <time>
-Artifacts: <paths or links, if any>
+Environment: <OS/runtime>
+Result: Failed | Blocked
 Failures: <test IDs and short diagnostics>
 Not covered: <explicit gaps>
 ```
 
-This format prevents the most common documentation failure: claiming a suite
-passed without saying what ran, where, and against which code state.
+Remove the record once the failure is fixed. Keeping a green log in the
+document is what makes a document stale.

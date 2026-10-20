@@ -72,8 +72,8 @@ and a record does not carry paperwork that no process consumes.
 
 ## Titles and links
 
-A generated repository contains `README.md`, the `AGENTS.md` and `CLAUDE.md`
-symlinks, and the default `docs/` set. Every other document is created only when
+A generated repository contains `README.md`, the `AGENTS.md` symlink, and the
+default `docs/` set. Every other document is created only when
 the repository supports it, so the output set differs per repository.
 
 - A title names the document type, not the project. Do not carry a project name
@@ -179,6 +179,9 @@ competing indexes.
 - Set a review cadence by risk: security and architecture documents at least
   quarterly, operational runbooks more often, stable reference pages annually.
 - On review, re-verify commands, paths, links, and control descriptions.
+- An existing document is a previous snapshot, not an authority. Re-derive its
+  statements from the current tree, correct what no longer matches, and add what
+  appeared; a file is never current merely because it exists.
 
 ## Data handling
 

@@ -71,7 +71,7 @@ permanent.
 | T-06 | Over-broad tool or permission grant | Elevation of privilege | Unintended reads or writes | Least-agency metadata, scope boundaries, documented host enforcement requirement | Metadata is not enforcement |
 | T-07 | Supply-chain compromise of actions, hooks, or dependencies | Tampering | Code execution in CI or on contributor machines | Exact version pins, Dependabot, read-only token, review | A version tag is mutable and can move before review |
 | T-08 | Malicious or compromised template content | Tampering | Copied unsafe guidance into a target | Templates reviewed as code; no remote includes at runtime | External links can change after review |
-| T-09 | Symlink replacement of `AGENTS.md` or `CLAUDE.md` | Spoofing | Highest-precedence attacker instructions | Inspect path before replacing; preserve unique content; report conflicts | User could approve a malicious merge |
+| T-09 | Symlink replacement of `AGENTS.md` | Spoofing | Highest-precedence attacker instructions | Inspect path before replacing; preserve unique content; report conflicts | User could approve a malicious merge |
 | T-10 | Template drift between template and generated document | Tampering | Documentation contradicts the template | `tests/test_working_example.py`, review | Manual edits can slip through review |
 | T-11 | Personal or customer data copied into docs or fixtures | Privacy | Regulatory and reputational harm | Synthetic-data rules, minimization, review | Agent may not recognise an unfamiliar identifier |
 | T-12 | Resource exhaustion through huge files or recursive traversal | Denial of service | Cost, timeouts | Bounded inspection guidance; no unbounded scanners; host limits | Repository size varies |

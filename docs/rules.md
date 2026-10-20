@@ -79,7 +79,7 @@ recommendations.
 - Preserve permanent requirement and decision IDs; mark superseded items
   instead of renumbering or deleting them.
 - Keep generated project documentation under `docs/`, except root
-  `README.md` and its two symbolic links.
+  `README.md` and its symbolic link.
 - Do not add per-document control blocks, bookkeeping fields, or a changelog.
   Do not record status, date, owner, evidence, baseline, target, alternatives,
   or supersession in a table or on a decision.

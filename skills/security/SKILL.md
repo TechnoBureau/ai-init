@@ -228,9 +228,8 @@ or tool allowlist as an enforceable sandbox unless the host enforces it.
 
 Use [templates/docs/security.md](./templates/docs/security.md). After this skill runs,
 if root `README.md` exists, update its index when this task creates or updates
-`docs/security.md`, and ensure `AGENTS.md` and `CLAUDE.md` are relative
-symbolic links to it. Inspect
-both alias paths first. Preserve regular files or links to other targets;
+`docs/security.md`, and ensure `AGENTS.md` is a relative symbolic link to it.
+Inspect that path first. Preserve regular files or links to other targets;
 merge unique instructions into the README before replacing only when safe. If
 preservation is uncertain or symbolic-link creation is unsupported, keep the
 existing path and report the conflict. Never make broken links or copied-file

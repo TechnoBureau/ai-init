@@ -19,13 +19,13 @@ repos:
         args: [--maxkb=512]
       - id: fix-byte-order-marker
       - id: end-of-file-fixer
-        exclude: ^(AGENTS|CLAUDE)\.md$
+        exclude: ^AGENTS\.md$
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
-        exclude: ^(AGENTS|CLAUDE)\.md$
+        exclude: ^AGENTS\.md$
       - id: mixed-line-ending
         args: [--fix=lf]
-        exclude: ^(AGENTS|CLAUDE)\.md$
+        exclude: ^AGENTS\.md$
       - id: detect-private-key
   # =============================================================================
   # Secret scanning

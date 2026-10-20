@@ -140,7 +140,7 @@ selection is needed.
 ## README agent-entry links
 
 After this skill runs, if root `README.md` exists, ensure
-`AGENTS.md` and `CLAUDE.md` are relative symbolic links to it. Inspect each
+`AGENTS.md` is a relative symbolic link to it. Inspect each
 path first. Preserve regular files or links to other targets; merge unique
 instructions into the README before replacing only when safe. If preservation
 is uncertain or symlink creation is unsupported, do not replace the path and

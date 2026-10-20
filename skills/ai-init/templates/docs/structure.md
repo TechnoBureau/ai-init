@@ -32,7 +32,7 @@
 - Test layout follows: {{VERIFIED_OR_NOT_DOCUMENTED}}
 - Generated code is handled by: {{VERIFIED_COMMAND_OR_NOT_CONFIGURED}}
 - Do not place generated project documentation outside `docs/`, except root
-  `README.md` and its symbolic links.
+  `README.md` and its symbolic link.
 
 ______________________________________________________________________
 

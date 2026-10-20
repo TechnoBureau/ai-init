@@ -24,7 +24,10 @@ pre-commit hook, and CI are mandatory rather than recommended.
 skills/<name>/
 ├── SKILL.md          # required: frontmatter + instructions
 ├── references/       # optional: detailed guidance, loaded on demand
-├── templates/        # optional: output templates
+├── templates/
+│   ├── root/         # files generated at the repository root
+│   └── docs/         # files generated under docs/
+├── files/            # optional: starter configuration
 └── files/            # optional: starter configuration
 ```
 
@@ -34,8 +37,11 @@ skills/<name>/
 - Keep progressive disclosure: `SKILL.md` holds the workflow and
   non-negotiables; long catalogs, standards, and templates live in
   `references/` and `templates/`.
-- Templates under `templates/` must record the output path they target, either
-  in `SKILL.md` or in the template itself, so an agent cannot guess wrong.
+- A template's path mirrors its output path: `templates/root/x` produces `x`
+  and `templates/docs/x.md` produces `docs/x.md`. Never invent a flattened name
+  such as `docs-README.md`; it duplicates the real path and confuses reviewers.
+- Record any path exception, such as `CODEOWNERS` targeting `.github/`, in the
+  skill body.
 - Keep `SKILL.md` under 500 lines and roughly 5,000 tokens.
 - Use relative links. Every referenced path must exist.
 - Do not add executable scripts unless the skill genuinely needs them. If you

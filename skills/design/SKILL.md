@@ -134,7 +134,7 @@ A design-system document is ready when:
 - asset licensing and source-of-truth links are recorded;
 - no placeholder values or invented conformance claims remain.
 
-Use [templates/design.md](./templates/design.md) and consult
+Use [templates/docs/design.md](./templates/docs/design.md) and consult
 [references/catalog.md](./references/catalog.md) only when design-system
 selection is needed.
 

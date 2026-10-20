@@ -49,23 +49,36 @@ Invoke a skill by name where supported, such as `$ai-init`, `$security`, or
 
 `ai-init` owns the complete repository baseline, not just the README.
 
+Template paths mirror output paths, so there is no separate mapping to keep in
+sync: `templates/root/x` produces `x`, and `templates/docs/x.md` produces
+`docs/x.md`.
+
 | Output | Source template | Created when |
 |---|---|---|
-| `README.md` + `AGENTS.md` / `CLAUDE.md` symlinks | `templates/README.md` | Always |
+| `README.md` + `AGENTS.md` / `CLAUDE.md` symlinks | `templates/root/README.md` | Always |
 | `LICENSE` | `references/licensing.md` | A licence is confirmed by file, manifest, or user |
-| `CONTRIBUTING.md` | `templates/CONTRIBUTING.md` | The repository accepts contributions or the user asks |
-| `CODE_OF_CONDUCT.md` | `templates/CODE_OF_CONDUCT.md` | The repository is public or the user asks |
-| `SECURITY.md` | `templates/SECURITY.md` | The repository has a security contact or the user asks |
-| `.github/CODEOWNERS` | `templates/CODEOWNERS` | Owners are confirmed by the user or existing configuration |
-| `docs/` index | `templates/docs-README.md` | Always, alongside the first generated document |
-| `docs/PRD.md` | `$prd` skill | Always |
-| `docs/structure.md`, `docs/decisions.md` | `templates/` | Always |
-| `docs/security.md` | `$security` skill | Always |
+| `CONTRIBUTING.md` | `templates/root/CONTRIBUTING.md` | The repository accepts contributions or the user asks |
+| `CODE_OF_CONDUCT.md` | `templates/root/CODE_OF_CONDUCT.md` | A private enforcement contact is confirmed |
+| `SECURITY.md` | `templates/root/SECURITY.md` | A private reporting channel is confirmed |
+| `.github/CODEOWNERS` | `templates/root/CODEOWNERS` | Owners are confirmed by the user or existing configuration |
+| `docs/README.md` | `templates/docs/README.md` | Always, alongside the first generated document |
+| `docs/PRD.md` | `skills/prd/templates/docs/PRD.md` | Always |
+| `docs/structure.md`, `docs/decisions.md` | `templates/docs/` | Always |
+| `docs/security.md` | `skills/security/templates/docs/security.md` | Always |
 | `docs/architecture.md`, `docs/design.md`, `docs/tests.md` | Dedicated templates | When the repository evidence warrants it |
-| `docs/rules.md`, `docs/style.md`, `docs/usage.md`, `docs/governance.md`, `docs/threat-model.md` | `templates/` | When evidence or the user requires them |
+| `docs/rules.md`, `docs/style.md`, `docs/usage.md`, `docs/governance.md`, `docs/threat-model.md` | `templates/docs/` | When evidence or the user requires them |
 
 Missing evidence is never invented. If an owner, licence, security contact, or
 approval is unknown, the file is not fabricated; the skill reports the gap.
+
+### The `docs/` folder is a working example
+
+This repository's [`docs/`](./docs/README.md) is generated from the same
+templates it ships, so every template is exercised by a real document.
+`tests/test_working_example.py` fails when a template has no generated
+counterpart, when a generated document still contains a placeholder, or when a
+document is missing from the index. `docs/design.md` is intentionally absent
+because this repository has no UI.
 
 ## What every skill declares
 
@@ -108,6 +121,7 @@ pre-commit run --all-files
 | [`tests/`](./tests) | Validator rules and a regression that reproduces frontmatter corruption |
 | [markdownlint-cli2](./.markdownlint-cli2.yaml) | Markdown structure and consistency without rewriting YAML frontmatter |
 | [pre-commit](./.pre-commit-config.yaml) | YAML/JSON/TOML validity, whitespace, merge markers, large files, private keys, gitleaks, Markdown lint, skill validation |
+| `tests/test_working_example.py` | Every template has a generated counterpart in `docs/`; no placeholders or orphan documents |
 | [CI](./.github/workflows/validate.yml) | All of the above on push and pull request with pinned actions and read-only permissions |
 
 The validator is deliberately strict: a missing `---` on line 1 is a blocking
@@ -129,7 +143,7 @@ error, and the error message names the formatter failure directly.
 - **Contribution** — setup, gates, commit conventions, and review expectations
   in [CONTRIBUTING.md](./CONTRIBUTING.md).
 - **Code of conduct** — [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
-- **Ownership** — [CODEOWNERS](./CODEOWNERS).
+- **Ownership** — [CODEOWNERS](./.github/CODEOWNERS).
 - **Architecture** — [docs/architecture.md](./docs/architecture.md).
 
 These are engineering controls, not a certification. The collection does not
@@ -188,20 +202,22 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 │   │   │   ├── style/                 # Adaptable language guidance
 │   │   │   ├── documentation-standard.md
 │   │   │   └── licensing.md           # Licence rules
-│   │   ├── templates/                 # README plus repo meta files and docs
+│   │   ├── templates/
+│   │   │   ├── root/                  # README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, CODEOWNERS
+│   │   │   └── docs/                  # docs/ document set
 │   │   └── files/                     # EditorConfig, Git attributes, pre-commit starters
-│   ├── prd/templates/                 # PRD
+│   ├── prd/templates/docs/PRD.md
 │   ├── security/
 │   │   ├── references/                # Modular enterprise security baseline
-│   │   └── templates/                 # Security posture
+│   │   └── templates/docs/security.md
 │   ├── tests/
 │   │   ├── references/test-standard.md
-│   │   └── templates/tests.md
+│   │   └── templates/docs/tests.md
 │   ├── design/
 │   │   ├── references/                # Catalog + accessibility standard
-│   │   └── templates/design.md
+│   │   └── templates/docs/design.md
 │   └── code-quality/references/       # Repository-fit engineering practices
-├── tests/                      # Validator regression tests
+├── tests/                      # Validator and working-example tests
 ├── AGENTS.md -> README.md      # AI agent entry point
 ├── CLAUDE.md -> README.md      # AI agent entry point
 ├── CONTRIBUTING.md

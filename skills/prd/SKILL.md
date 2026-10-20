@@ -161,7 +161,7 @@ category is relevant but unresolved; do not fabricate targets.
 - Avoid personal data, customer names, internal hostnames, and secret values in
   examples.
 
-Use [templates/PRD.md](./templates/PRD.md) as the structure. The companion
+Use [templates/docs/PRD.md](./templates/docs/PRD.md) as the structure. The companion
 security skill owns the detailed security posture at `docs/security.md`.
 
 ## README agent-entry links

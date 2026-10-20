@@ -68,7 +68,7 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
 
 ## Root README and agent links
 
-- Create or refresh root `README.md` from [the README template](./templates/README.md).
+- Create or refresh root `README.md` from [the README template](./templates/root/README.md).
   It is the one shared project summary and documentation index for people and
   agents.
 - Create root relative symbolic links `AGENTS.md -> README.md` and
@@ -92,16 +92,18 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
 
 Create or refresh the standard repository files from confirmed evidence. Each
 one has a template in `templates/` except `LICENSE`, which follows
-[the licence guidance](./references/licensing.md).
+[the licence guidance](./references/licensing.md). The path under `templates/`
+mirrors the output path: `templates/root/x` produces `x`, and
+`templates/docs/x.md` produces `docs/x.md`.
 
 | Output | Template | Rule |
 |---|---|---|
-| `README.md` | `templates/README.md` | Always |
+| `README.md` | `templates/root/README.md` | Always |
 | `LICENSE` | none | Only when a licence is evidenced or confirmed; never choose one silently |
-| `CONTRIBUTING.md` | `templates/CONTRIBUTING.md` | Create for any repository that accepts contributions |
-| `CODE_OF_CONDUCT.md` | `templates/CODE_OF_CONDUCT.md` | Create only with a confirmed private enforcement contact |
-| `SECURITY.md` | `templates/SECURITY.md` | Create only with a confirmed private reporting channel |
-| `.github/CODEOWNERS` | `templates/CODEOWNERS` | Create only when owners are confirmed |
+| `CONTRIBUTING.md` | `templates/root/CONTRIBUTING.md` | Create for any repository that accepts contributions |
+| `CODE_OF_CONDUCT.md` | `templates/root/CODE_OF_CONDUCT.md` | Create only with a confirmed private enforcement contact |
+| `SECURITY.md` | `templates/root/SECURITY.md` | Create only with a confirmed private reporting channel |
+| `.github/CODEOWNERS` | `templates/root/CODEOWNERS` | Create only when owners are confirmed |
 | `.github/PULL_REQUEST_TEMPLATE.md` | none | Create only when the review process is confirmed |
 
 Rules:
@@ -134,6 +136,18 @@ Always create or refresh, preserving existing content:
 - `docs/decisions.md` — confirmed decisions distinguished from observations.
 - `docs/security.md` with `$security` — modular, evidence-based security
   posture.
+
+Each document comes from the template at the matching path, so generation never
+requires a mapping table:
+
+| Output | Template owner |
+|---|---|
+| `docs/README.md` | `ai-init` — `templates/docs/README.md` |
+| `docs/PRD.md` | `prd` — `templates/docs/PRD.md` |
+| `docs/security.md` | `security` — `templates/docs/security.md` |
+| `docs/tests.md` | `tests` — `templates/docs/tests.md` (opt-in) |
+| `docs/design.md` | `design` — `templates/docs/design.md` (UI only) |
+| Other `docs/` files | `ai-init` — `templates/docs/` |
 
 Do not create or refresh `docs/tests.md` by default. Use `$tests` only when
 the user asks for test creation, test strategy, test documentation, or
@@ -238,7 +252,10 @@ handles its applicable profile and migration assessment.
 
 ## Resources
 
-- `templates/` — README, repository meta files, and the `docs/` document set.
+- `templates/root/` — README and repository meta files; output paths are the
+  repository root, except `CODEOWNERS` which targets `.github/CODEOWNERS`.
+- `templates/docs/` — the `docs/` document set; each file produces the same path
+  under `docs/`.
 - `files/` — EditorConfig, Git attributes, and pre-commit starters.
 - `references/licensing.md` — licence detection, selection rules, and SPDX
   identifiers.

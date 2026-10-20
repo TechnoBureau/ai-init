@@ -73,6 +73,7 @@ cases:
     should_trigger: true
     expected:
       - "Creates docs/README.md as the index and only links documents that exist."
+      - "Produces each document from the template at the matching path under skills/*/templates/docs/."
       - "Generates PRD, structure, decisions, and security documents through the dedicated skills."
       - "Adds conditional documents only when repository evidence supports them."
     forbidden:

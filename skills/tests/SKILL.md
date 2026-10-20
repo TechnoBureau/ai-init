@@ -49,7 +49,7 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 - Preserve existing tests and local changes. Do not replace a suite or test
   configuration wholesale.
 - If the user requested test documentation, inspect `docs/tests.md` first and
-  preserve useful content. Create it from [the template](./templates/tests.md)
+  preserve useful content. Create it from [the template](./templates/docs/tests.md)
   only when absent.
 - If the user requested test code, use the current framework and conventions.
   Do not add dependencies, broad test infrastructure, coverage thresholds, or

@@ -224,7 +224,7 @@ or tool allowlist as an enforceable sandbox unless the host enforces it.
 - Never include live secrets, private keys, customer records, or unredacted
   production identifiers in the profile.
 
-Use [templates/security.md](./templates/security.md). After this skill runs,
+Use [templates/docs/security.md](./templates/docs/security.md). After this skill runs,
 if root `README.md` exists, update its index when this task creates or updates
 `docs/security.md`, and ensure `AGENTS.md` and `CLAUDE.md` are relative
 symbolic links to it. Inspect

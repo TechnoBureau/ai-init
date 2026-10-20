@@ -44,6 +44,10 @@ pre-commit run --all-files
 The validator is the authoritative check for missing or malformed YAML
 frontmatter, which makes a skill undiscoverable. Do not bypass it.
 
+Because `docs/` is generated from the templates, a template change requires
+regenerating the matching document. `tests/test_working_example.py` fails when
+the two diverge.
+
 ## Adding a skill
 
 1. Create `skills/<name>/SKILL.md`; the directory name must equal `name`.
@@ -51,7 +55,7 @@ frontmatter, which makes a skill undiscoverable. Do not bypass it.
 3. Write the operating constraints, workflow, scope boundary, and evidence
    rules.
 4. Move detailed standards into `references/` and output templates into
-   `templates/`.
+   `templates/root/` or `templates/docs/`, mirroring the output path.
 5. Add `evals/<name>.yaml` with trigger, non-trigger, and adversarial cases.
 6. Update the README skill table.
 7. Run the validation gates.

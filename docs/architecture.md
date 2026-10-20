@@ -1,10 +1,26 @@
-# Architecture
+# Architecture — AI Init Skills
 
-This repository is a collection of six Agent Skills plus the validation and
-governance machinery that keeps them loadable and safe. It is documentation and
-instruction content, not a running service.
+This repository distributes instructions, templates, and validation tooling. It
+is not a running service. The architecture exists to keep generated
+documentation evidence-based and to keep the skills loadable.
 
-## Context
+## Overview
+
+Two consumers use the repository: contributors who change the skills, and users
+who install one or more skill directories with the Skills CLI. Once installed, a
+skill is loaded by an agent host and applied to a target repository.
+
+### Stakeholders and concerns
+
+| Stakeholder | Concern | Addressed by |
+|---|---|---|
+| Skill maintainer | Changes must not break discovery or safety rules | Validator, tests, CI, authoring standard |
+| Platform engineer | Generated documents must be trustworthy | Evidence taxonomy, templates, checklists |
+| Security reviewer | No secret leakage or compliance overclaim | Operating constraints, anti-overclaim rules |
+| AI agent | Unambiguous workflow and scope boundaries | `SKILL.md` structure |
+| Reader | Documentation that matches reality | Generated `docs/`, link checker |
+
+## System Context
 
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
@@ -17,125 +33,108 @@ flowchart TB
   AgentHost --> TargetRepo
 ```
 
-The repository is consumed in two ways: contributors change it through pull
-requests, and users install one or more skill directories with the Skills CLI.
-Once installed, a skill is loaded by an agent host and applied to a target
-repository.
+The contributor path ends at CI. The user path ends at a target repository,
+where the agent reads evidence and writes documents.
 
-## Components
+## Containers and Components
 
-| Component | Responsibility | Evidence |
-|---|---|---|
-| `skills/<name>/SKILL.md` | Entry point, frontmatter, workflow, operating constraints | `skills/*/SKILL.md` |
-| `skills/<name>/references/` | Detailed standards loaded on demand | `skills/*/references/` |
-| `skills/<name>/templates/` | Output templates copied into target repositories | `skills/*/templates/` |
-| `skills/ai-init/files/` | EditorConfig, Git attributes, and pre-commit starters | `skills/ai-init/files/` |
-| `evals/` | Trigger and non-trigger evaluation fixtures | `evals/*.yaml` |
-| `scripts/validate_skills.py` | Specification and enterprise metadata gate | `scripts/validate_skills.py` |
-| `scripts/check_links.py` | Local Markdown link integrity | `scripts/check_links.py` |
-| `tests/` | Regression tests for the validators | `tests/` |
-| `.github/workflows/validate.yml` | CI enforcement | `.github/workflows/validate.yml` |
-| `skills/ai-init/templates/` | README, meta files, and `docs/` templates | `skills/ai-init/templates/` |
+| Component | Responsibility | Technology | Interfaces | Evidence |
+|---|---|---|---|---|
+| Skill entry points | Trigger, workflow, constraints | Markdown with YAML frontmatter | Agent host skill loader | `skills/*/SKILL.md` |
+| Template set | Output documents whose paths mirror the target (`templates/root/` and `templates/docs/`) | Markdown, plain text | Copied by the skill | `skills/*/templates/` |
+| Reference set | Standards loaded on demand | Markdown | Relative links from `SKILL.md` | `skills/*/references/` |
+| Starter files | EditorConfig, Git attributes, pre-commit | Configuration | Copied only when absent | `skills/ai-init/files/` |
+| Validator | Schema, metadata, size, link, and eval gate | Python 3.11, PyYAML | CLI exit status | `scripts/validate_skills.py` |
+| Link checker | Local Markdown link integrity | Python standard library | CLI exit status | `scripts/check_links.py` |
+| Evaluation fixtures | Trigger and non-trigger cases | YAML | Read by validator and reviewers | `evals/*.yaml` |
+| CI workflow | Enforcement on push and pull request | GitHub Actions | Repository events | `.github/workflows/validate.yml` |
 
-## Validation pipeline
+## Interfaces and Data Flow
+
+| Interface | Direction | Protocol / schema | Authentication | Evidence |
+|---|---|---|---|---|
+| Skill discovery | Inbound to agent | Agent Skills frontmatter (`name`, `description`) | Host-defined | `scripts/validate_skills.py` |
+| Validator CLI | Local and CI | Process exit status, text or JSON output | None | `scripts/validate_skills.py` |
+| Link checker CLI | Local and CI | Process exit status, text or JSON output | None | `scripts/check_links.py` |
+| Pre-commit hooks | Local commit | Git hook protocol | None | `.pre-commit-config.yaml` |
+| CI trigger | Repository event | GitHub Actions workflow schema | GitHub token, read-only | `.github/workflows/validate.yml` |
+
+### Validation pipeline
 
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
 flowchart TB
   Edit --> PreCommit
-  PreCommit -->|frontmatter, links, secrets| Valid
-  PreCommit -->|failure| Fix
-  Valid --> Push
-  Push --> CI
-  CI -->|validator and tests| Merge
-  CI -->|failure| Fix
-  Merge --> Release
+  PreCommit -->|pass| CI
+  PreCommit -->|fail| Fix
+  CI -->|pass| Merge
+  CI -->|fail| Fix
+  Fix --> Edit
 ```
 
-The local hook gives fast feedback; CI is authoritative. A release is cut only
-from a green commit and a signed tag.
+The local hook gives fast feedback; CI is authoritative because hooks can be
+skipped and because branch protection should require the CI check.
 
-## Progressive disclosure
+## Data Architecture
 
-Each skill keeps its entry point small enough to load on activation and moves
-long material into references:
+| Data store | Data class | Owner | Retention / backup | Evidence |
+|---|---|---|---|---|
+| Git repository | Public | TechnoBureau | Retained in Git history; mirrored by the hosting platform | Repository |
+| Generated `docs/` | Public | TechnoBureau | Committed, regenerated on template change | `docs/` |
+| Evaluation fixtures | Public | TechnoBureau | Committed | `evals/` |
 
-| Tier | Content | Approximate budget |
-|---|---|---|
-| Catalog | `name` and `description` | 50–100 tokens per skill |
-| Instructions | `SKILL.md` body | Under 5,000 tokens and 500 lines |
-| Resources | References, templates, files | Loaded only when linked |
+No database, queue, cache, or user data store exists.
 
-This is why the security and test standards live in `references/` rather than
-being inlined into every skill body.
+## Quality Attributes
 
-## Skill relationship
+| Attribute | Requirement / target | Architectural mechanism | Evidence |
+|---|---|---|---|
+| Reliability | Validation must be deterministic and fail closed | Pure functions, explicit exit codes | `scripts/validate_skills.py` |
+| Security | No secrets in the repository or generated output | gitleaks, private-key detection, review | `.pre-commit-config.yaml` |
+| Privacy | No personal data processed | Public repository content only | `docs/security.md` |
+| Observability | Failures identify the rule and path | Rule codes such as `SKILL010`, `EVAL015` | Validator output |
+| Maintainability | Every rule is tested | Unit tests and fixtures | `tests/` |
+| Compatibility | Agent Skills 1.0 frontmatter | Validator plus Skills CLI check | `docs/skill-standard.md` |
+| Performance | CI completes in minutes | Small tree, pinned dependencies, pip cache | Workflow file |
+| Accessibility | Readable documents | markdownlint, one H1, table headers, diagram text | `.markdownlint-cli2.yaml` |
+| Portability | POSIX and Windows | Python standard library, relative paths | Scripts |
 
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#fafaf5','primaryTextColor':'#1a1a1a','primaryBorderColor':'#3553ff','lineColor':'#3553ff','fontFamily':'JetBrains Mono','fontSize':'12px'}}}%%
-flowchart TB
-  AIInit[ai-init] --> PRD[prd]
-  AIInit --> Security[security]
-  AIInit --> Design[design]
-  AIInit --> Tests[tests]
-  AIInit --> CodeQuality[code-quality]
-  PRD -.->|requirement IDs| Tests
-  Security -.->|controls| CodeQuality
-  Design -.->|accessibility| Tests
-```
+Targets that are not confirmed, such as explicit SLOs, are not invented.
 
-`ai-init` is the bootstrap coordinator. `prd`, `security`, `design`, `tests`,
-and `code-quality` are independent skills; each can be installed alone, so
-none may depend on another skill's reference files at load time.
+## Deployment and Environments
 
-## Repository layout
+| Environment / target | Deployment mechanism | Configuration source | Evidence |
+|---|---|---|---|
+| Contributor workstation | Git clone, virtual environment, pre-commit install | `requirements-dev.txt`, `.pre-commit-config.yaml` | Repository files |
+| CI | GitHub Actions on `ubuntu-latest` | `.github/workflows/validate.yml` | Workflow file |
+| Distribution | Skills CLI installs from the repository | `README.md` install section | Documentation |
 
-```text
-.
-├── .github/                 # CI, Dependabot, pull-request template
-├── docs/                    # Index, governance, standard, threat model, architecture
-├── evals/                   # Trigger/non-trigger fixtures per skill
-├── scripts/                 # Validators (stdlib + PyYAML)
-├── skills/
-│   ├── ai-init/             # Bootstrap + document standard + starters
-│   ├── prd/                 # Requirements + traceability
-│   ├── security/            # Security posture + enterprise controls
-│   ├── tests/               # Test work + test standard
-│   ├── design/              # Design system + accessibility
-│   └── code-quality/        # Cleanup + engineering practices
-├── tests/                   # Validator regression tests
-├── CONTRIBUTING.md
-├── SECURITY.md
-└── README.md
-```
+No server, container image, or infrastructure-as-code is deployed.
 
-## Failure modes and design decisions
+## Security Boundaries
 
-| Failure mode | Design response |
-|---|---|
-| Formatter corrupts frontmatter | Strict validator, regression test, pre-commit, CI |
-| Agent invents facts or compliance | Evidence taxonomy, status vocabulary, anti-overclaim rules |
-| Agent overreaches scope | Operating constraints, scope boundaries, read-only defaults |
-| Secrets copied into docs | Explicit prohibition, redaction rule, gitleaks |
-| Broken documentation index | Link checker and generation rules that omit skipped docs |
-| Skill bloat | Progressive disclosure and body size limits |
-| Inconsistent enterprise coverage | Shared standard, per-skill standards metadata, evals |
-| Silent regression | Evals, required review, and CI gates |
+- The repository content is public; there is no confidential data boundary.
+- The trust boundary that matters is the target repository: files read by the
+  agent are untrusted data, not instructions.
+- CI runs with `contents: read` and does not receive write credentials.
+- Third-party actions and hooks are pinned by commit SHA or exact revision.
 
-## Operational assumptions
+See [security.md](./security.md) and [threat-model.md](./threat-model.md).
 
-- Markdown and YAML are interpreted by agent hosts; no runtime service is
-  deployed.
-- CI runs on GitHub Actions with read-only repository permissions by default.
-- The validator requires Python 3.11 or later and a pinned PyYAML version.
-- Local hooks are advisory because they can be bypassed; CI and branch
-  protection are the enforcement points.
-- The skill content is public; no secrets or private customer data belong in
-  this repository.
+## Operations and Recovery
 
-## Related documents
+- Health checks: not applicable; there is no runtime.
+- Metrics, logs, and traces: CI logs and workflow run history only.
+- Backup and restore: the Git history and hosting-platform mirrors.
+- Recovery objectives: not applicable; no runtime service commitment exists.
+- Capacity and scaling: not applicable; the tree is small and static.
+- Runbooks: [usage.md](./usage.md) covers local validation and recovery from a
+  failed gate.
 
-- [Skill authoring standard](./skill-standard.md)
-- [Governance](./governance.md)
-- [Threat model](./threat-model.md)
-- [Contributing](../CONTRIBUTING.md)
+## Decisions
+
+See [decisions.md](./decisions.md) for D-IDs, context, and alternatives.
+
+## Related Docs
+
+[README](../README.md) · [PRD](./PRD.md) · [Structure](./structure.md) · [Decisions](./decisions.md) · [Security](./security.md)

@@ -13,13 +13,9 @@ compatibility: >-
   skill must not contact production services.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; ISO/IEC/IEEE 29119-1:2022; ISTQB CTFL 4.0; OWASP
     ASVS 5.0; OWASP WSTG; WCAG 2.2; ISO/IEC 25010:2023
-  classification: "Public"
   risk: "medium"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---
@@ -53,7 +49,7 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 - Preserve existing tests and local changes. Do not replace a suite or test
   configuration wholesale.
 - If the user requested test documentation, inspect `docs/tests.md` first and
-  preserve useful content. Create it from [the template](./templates/tests.md)
+  preserve useful content. Create it from [the template](./templates/docs/tests.md)
   only when absent.
 - If the user requested test code, use the current framework and conventions.
   Do not add dependencies, broad test infrastructure, coverage thresholds, or

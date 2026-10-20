@@ -1,0 +1,122 @@
+# Usage — AI Init Skills
+
+Commands below are verified from `requirements-dev.txt`, the scripts, and the
+workflow configuration. Commands that do not exist are marked
+`Not configured` rather than shown as placeholders.
+
+## Prerequisites
+
+- Python 3.11 or later (verified in CI).
+- Git.
+- Optional: Node.js with `npx` for the Skills CLI install and for running
+  `markdownlint-cli2` through pre-commit.
+- Required access or credentials: none for local validation. Publication to a
+  registry is not part of this repository.
+
+## Installation
+
+```bash
+git clone https://github.com/TechnoBureau/ai-init.git
+cd ai-init
+python -m venv .venv
+. .venv/bin/activate        # Windows: .venv\Scripts\activate
+python -m pip install -r requirements-dev.txt
+pre-commit install
+```
+
+## Configuration
+
+| Setting | Purpose | Required? | Default / source | Secret? |
+|---|---|---|---|---|
+| `--root` (validator, link checker) | Repository root to inspect | No | Parent of `scripts/` | No |
+| `--strict` (validator) | Treat warnings as errors | No | Off | No |
+| `--format text\|json` (validator, link checker) | Output format | No | `text` | No |
+| `PYTHONPATH` | Not required; tests add `scripts/` themselves | No | Not set | No |
+| Python interpreter | Version used by scripts and tests | Yes | 3.11 or later | No |
+
+No environment variable carries a secret for this repository.
+
+## Run Locally
+
+### Install the skills into an agent
+
+```bash
+npx skills add technobureau/ai-init --all --agent '*'
+```
+
+Install a single skill:
+
+```bash
+npx skills add technobureau/ai-init --skill ai-init --agent claude-code
+```
+
+List the skills available in a checkout without installing:
+
+```bash
+npx skills add . --list
+```
+
+### Validate the repository
+
+```bash
+python scripts/validate_skills.py --strict
+python scripts/check_links.py
+python -m unittest discover -s tests -v
+pre-commit run --all-files
+```
+
+Expected local result: six skills validated, zero broken links, all tests
+passing, and every hook passing. `gitleaks` may be skipped in a restricted
+environment where the hook cannot download its runtime; that is reported as
+skipped, never as passed.
+
+- Expected startup indicator: `6 skills checked; 0 error(s), 0 warning(s).`
+- Local dependencies: none beyond the pinned Python packages.
+
+## Validate
+
+```bash
+python scripts/validate_skills.py --strict
+python scripts/check_links.py
+python -m unittest discover -s tests -v
+```
+
+Detailed test inventory is in [tests.md](./tests.md). Coverage thresholds are
+`Not configured`.
+
+## Deployment
+
+There is no deployment step. Distribution is a `git push` followed by the
+Skills CLI reading the repository. CI runs on every push and pull request.
+
+| Environment | Method | Required approvals | Evidence |
+|---|---|---|---|
+| Contributor workstation | Local commands above | None | This document |
+| CI | GitHub Actions `Validate` workflow | Pull-request review per CODEOWNERS | `.github/workflows/validate.yml` |
+
+## Troubleshooting
+
+| Symptom | Likely cause | Diagnostic | Resolution |
+|---|---|---|---|
+| `SKILL010 missing YAML frontmatter` | Formatter replaced `---` with a rule | Inspect line 1 of the file | Restore the frontmatter block from Git; never edit the rendered heading |
+| `SKILL025 name must match directory` | Directory renamed or name typo | Compare `name` with the folder | Rename one to match the other |
+| `SKILL073` for `owner`/`reviewed`/`classification` | Removed document-control metadata reintroduced | Inspect the metadata block | Delete the key; ownership belongs in CODEOWNERS |
+| `SKILL080 relative link target does not exist` | Renamed or missing file | Open the reported path | Fix the link target |
+| `EVAL001 evals/ directory is missing` | Fixtures not created | `ls evals/` | Add `evals/<skill>.yaml` with trigger and non-trigger cases |
+| `gitleaks` hook fails to install | No network access to the hook repository | Hook log | Report the hook as not run; CI executes it |
+| `check_links` reports a template path | Template added outside `templates/` | Reported path | Move it under `templates/`; templates are excluded by design |
+
+## Operational and Security Notes
+
+- Backup/restore: the Git history is the recovery mechanism; no local state
+  matters.
+- Data created locally: virtual environment, `__pycache__`, and pre-commit
+  caches. All are ignored by `.gitignore`.
+- Network egress: only during dependency installation and the optional Skills
+  CLI usage. The scripts perform no network calls.
+- Safe defaults: validation is read-only; `--strict` only changes the exit
+  status. No command in this repository modifies a target repository.
+
+## Related Docs
+
+[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Security](./security.md)

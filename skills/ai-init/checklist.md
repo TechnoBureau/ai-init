@@ -7,8 +7,8 @@ item means it was verified in the current worktree, not assumed.
 
 - [ ] Inspected source code, manifests, tests, workflows, deployment, and
   security configuration before using existing Markdown for context.
-- [ ] Recorded the reviewed commit SHA and inspection date in each generated
-  document or its control block.
+- [ ] Recorded the commit SHA and inspected files where a document makes claims
+  about current behavior.
 - [ ] Checked every destination before writing; existing content and
   permanent IDs are preserved rather than replaced wholesale.
 - [ ] If a lowercase root `readme.md` exists, its content was reviewed and
@@ -25,12 +25,8 @@ item means it was verified in the current worktree, not assumed.
 - [ ] Existing or unreferenced code is not described as active product
   behavior; relevant exclusions are explained.
 
-## Standard document controls
+## Standard document conventions
 
-- [ ] Every generated document starts with a control line: owner (or
-  `Not documented`), status, SemVer version, last-reviewed date,
-  classification, and source of truth.
-- [ ] Status is `Draft` unless a human review or approval is recorded.
 - [ ] Claims are labeled `Verified`, `Observed`, `Planned`, `Not documented`, or
   `Not assessed` as appropriate.
 - [ ] RFC 2119/8174 keywords are used only for real requirements; ordinary prose
@@ -39,6 +35,22 @@ item means it was verified in the current worktree, not assumed.
   explanation have distinct purposes and cross-links.
 - [ ] Filenames follow the naming rule: root meta files uppercase, `docs/`
   lowercase kebab-case, `PRD.md` as the recorded acronym exception.
+
+## Repository meta files
+
+- [ ] `LICENSE` exists only when a licence was evidenced or explicitly
+  confirmed; the text is canonical, the SPDX identifier matches the manifest
+  and README, and no holder was invented.
+- [ ] `CONTRIBUTING.md` records only verified setup, test, and review commands.
+- [ ] `CODE_OF_CONDUCT.md` contains a confirmed private enforcement contact, not
+  a placeholder address.
+- [ ] `SECURITY.md` contains a confirmed private reporting channel and does not
+  claim an unconfirmed response target.
+- [ ] `CODEOWNERS` uses real users or teams and is placed where the hosting
+  platform reads it; enforcement is verified rather than assumed.
+- [ ] No meta file was created from an invented owner, licence, or contact.
+- [ ] Conflicts between manifest, `LICENSE`, and README were reported, not
+  silently resolved.
 
 ## Root README and agent links
 
@@ -70,6 +82,8 @@ item means it was verified in the current worktree, not assumed.
 
 ## Supporting documents
 
+- [ ] `docs/README.md` indexes exactly the documents that exist; no skipped
+  document is linked.
 - [ ] `docs/structure.md`, `docs/decisions.md`, and `docs/security.md`
   reflect inspected evidence and do not invent facts.
 - [ ] Decisions use context, decision, consequences, alternatives, status,

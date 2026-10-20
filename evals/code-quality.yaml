@@ -1,5 +1,4 @@
 skill: code-quality
-version: "2.0.0"
 cases:
   - id: safe-dead-code-removal
     prompt: >-

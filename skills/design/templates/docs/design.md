@@ -1,9 +1,5 @@
 # Design System — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > **Applicability:** ONLY for projects with a UI/UX surface (web, mobile,
 > desktop apps). Not applicable to CLIs, APIs, CI/CD pipelines, scripts,
 > or libraries without a visual interface. If not applicable, delete this

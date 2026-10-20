@@ -14,13 +14,9 @@ compatibility: >-
   produce the document.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; NIST SSDF SP 800-218 v1.1; NIST CSF 2.0; ISO/IEC
     27001:2022; OWASP ASVS 5.0; SLSA v1.x; FIPS 203/204/205; FIPS 140-3
-  classification: "Public"
   risk: "medium"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---
@@ -228,7 +224,7 @@ or tool allowlist as an enforceable sandbox unless the host enforces it.
 - Never include live secrets, private keys, customer records, or unredacted
   production identifiers in the profile.
 
-Use [templates/security.md](./templates/security.md). After this skill runs,
+Use [templates/docs/security.md](./templates/docs/security.md). After this skill runs,
 if root `README.md` exists, update its index when this task creates or updates
 `docs/security.md`, and ensure `AGENTS.md` and `CLAUDE.md` are relative
 symbolic links to it. Inspect

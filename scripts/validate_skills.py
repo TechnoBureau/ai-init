@@ -3,8 +3,7 @@
 
 The validator is intentionally strict. It is the release gate that prevents a
 formatter, merge, or manual edit from silently corrupting ``SKILL.md``
-frontmatter again -- the failure mode that made every skill in this collection
-unloadable before version 2.0.0.
+frontmatter again -- the failure mode that makes a skill undiscoverable.
 
 Checks implemented
 ------------------
@@ -13,8 +12,8 @@ Checks implemented
 * ``name`` matches the parent directory and the specification grammar.
 * Optional fields (``license``, ``compatibility``, ``metadata``,
   ``allowed-tools``) conform to the specification.
-* Enterprise metadata (``version``, ``owner``, ``reviewed``, ``standards``,
-  ``classification``, ``risk``, ``spec``) is present as strings.
+* Enterprise metadata (``spec``, ``standards``, ``risk``) is present as
+  strings.
 * The body has one H1, stays within progressive-disclosure limits, contains no
   unresolved ``{{PLACEHOLDER}}`` tokens, and every relative link resolves.
 * ``evals/<name>.yaml`` exists, matches the skill version, and contains both
@@ -33,7 +32,6 @@ also fails on warnings.
 from __future__ import annotations
 
 import argparse
-import datetime
 import json
 import re
 import sys
@@ -64,14 +62,12 @@ REQUIRED_FIELDS = {"name", "description"}
 # Enterprise profile: every skill in this repository must declare these.
 REQUIRED_METADATA = {
     "spec",
-    "version",
-    "owner",
-    "reviewed",
     "standards",
-    "classification",
     "risk",
 }
-CLASSIFICATIONS = {"Public", "Internal", "Confidential", "Restricted"}
+# Removed from this collection's standard on purpose. Document-control fields
+# belong in CODEOWNERS, governance, and Git history, not in every document.
+DISALLOWED_METADATA = {"owner", "reviewed", "classification"}
 RISK_LEVELS = {"low", "medium", "high", "critical"}
 ALLOWED_TOOLS = {
     "Read",
@@ -87,11 +83,6 @@ RESERVED_WORDS = ("anthropic", "claude")
 SUPPORTED_SPEC_VERSION = "1.0"
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-SEMVER_RE = re.compile(
-    r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
-    r"(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$"
-)
-DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 TRIGGER_RE = re.compile(r"\bUse (when|for|to|after|before|only)\b", re.IGNORECASE)
 XML_TAG_RE = re.compile(r"<\/?[A-Za-z][^>]*>")
 PLACEHOLDER_RE = re.compile(r"\{\{[^}]+\}\}")
@@ -453,6 +444,15 @@ def _validate_frontmatter(
                     f"metadata.{key} must be a string (quote dates, versions, and numbers)",
                 )
             )
+    for key in sorted(DISALLOWED_METADATA & set(metadata)):
+        findings.append(
+            error(
+                rel,
+                "SKILL073",
+                f"metadata.{key} is not part of this collection's standard; "
+                "document-control metadata was removed deliberately",
+            )
+        )
     missing_meta = REQUIRED_METADATA - set(metadata)
     if missing_meta:
         findings.append(
@@ -463,41 +463,6 @@ def _validate_frontmatter(
             )
         )
 
-    version = metadata.get("version")
-    if isinstance(version, str) and not SEMVER_RE.match(version):
-        findings.append(
-            error(rel, "SKILL065", f"metadata.version '{version}' is not SemVer (MAJOR.MINOR.PATCH)")
-        )
-    reviewed = metadata.get("reviewed")
-    if isinstance(reviewed, str):
-        valid_date = bool(DATE_RE.match(reviewed))
-        if valid_date:
-            try:
-                datetime.date.fromisoformat(reviewed)
-            except ValueError:
-                valid_date = False
-        if not valid_date:
-            findings.append(
-                error(
-                    rel,
-                    "SKILL066",
-                    f"metadata.reviewed '{reviewed}' must be a real ISO 8601 date",
-                )
-            )
-    classification = metadata.get("classification")
-    if isinstance(classification, str) and classification not in CLASSIFICATIONS:
-        findings.append(
-            error(
-                rel,
-                "SKILL067",
-                f"metadata.classification must be one of {sorted(CLASSIFICATIONS)}",
-            )
-        )
-    risk = metadata.get("risk")
-    if isinstance(risk, str) and risk not in RISK_LEVELS:
-        findings.append(
-            error(rel, "SKILL068", f"metadata.risk must be one of {sorted(RISK_LEVELS)}")
-        )
     spec = metadata.get("spec")
     if isinstance(spec, str) and spec != SUPPORTED_SPEC_VERSION:
         findings.append(
@@ -507,9 +472,6 @@ def _validate_frontmatter(
                 f"metadata.spec must be '{SUPPORTED_SPEC_VERSION}'",
             )
         )
-    owner = metadata.get("owner")
-    if isinstance(owner, str) and not owner.strip():
-        findings.append(error(rel, "SKILL071", "metadata.owner must not be empty"))
     standards = metadata.get("standards")
     if isinstance(standards, str) and not standards.strip():
         findings.append(error(rel, "SKILL072", "metadata.standards must not be empty"))
@@ -559,30 +521,6 @@ def _validate_reference_files(skill_dir: Path, repo_root: Path) -> list[Finding]
 # --------------------------------------------------------------------------
 
 
-def _skill_version(skill_dir: Path) -> str | None:
-    """Return ``metadata.version`` from a skill, or ``None`` when unavailable."""
-
-    if yaml is None:
-        return None
-    skill_file = skill_dir / "SKILL.md"
-    if not skill_file.is_file():
-        return None
-    frontmatter, _ = split_frontmatter(skill_file.read_text(encoding="utf-8"))
-    if not frontmatter:
-        return None
-    try:
-        data = yaml.safe_load(frontmatter)
-    except yaml.YAMLError:
-        return None
-    if not isinstance(data, dict):
-        return None
-    metadata = data.get("metadata")
-    if not isinstance(metadata, dict):
-        return None
-    version = metadata.get("version")
-    return version if isinstance(version, str) else None
-
-
 def validate_evals(repo_root: Path, skills: Sequence[Path]) -> list[Finding]:
     findings: list[Finding] = []
     evals_dir = repo_root / "evals"
@@ -609,22 +547,6 @@ def validate_evals(repo_root: Path, skills: Sequence[Path]) -> list[Finding]:
         if data.get("skill") != skill_dir.name:
             findings.append(
                 error(rel, "EVAL006", f"skill must be '{skill_dir.name}'")
-            )
-
-        eval_version = data.get("version")
-        skill_version = _skill_version(skill_dir)
-        if not isinstance(eval_version, str) or not SEMVER_RE.match(eval_version):
-            findings.append(
-                error(rel, "EVAL016", "version must be a SemVer string matching the skill")
-            )
-        elif skill_version and eval_version != skill_version:
-            findings.append(
-                error(
-                    rel,
-                    "EVAL017",
-                    f"version '{eval_version}' must match SKILL.md metadata.version "
-                    f"'{skill_version}'",
-                )
             )
 
         cases = data.get("cases")

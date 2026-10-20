@@ -1,9 +1,5 @@
 # Decisions — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
-
 This is the supporting register for the D-IDs summarized in
 [docs/PRD.md](./PRD.md). Preserve IDs once assigned. Separate decisions
 explicitly recorded by maintainers from choices merely visible in the current

@@ -1,9 +1,5 @@
 # Architecture — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > Generate this document for repositories with multiple components, data
 > flows, deployment topology, or pipeline stages. Derive every component and
 > connection from active code or configuration. Use ISO/IEC/IEEE 42010

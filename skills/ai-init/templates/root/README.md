@@ -1,9 +1,5 @@
 # {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
-
 {{ONE_SENTENCE_DESCRIPTION_BASED_ON_CODE}}
 
 This is the shared starting point for people and AI agents. It summarizes the
@@ -70,6 +66,7 @@ documents; a broken or aspirational index is worse than a short one.
 
 | Document | Purpose |
 |---|---|
+| [Documentation index](./docs/README.md) | Entry point for everything under `docs/` |
 | [Product requirements](./docs/PRD.md) | Goals, scope, requirements, workflows, and product type |
 | [Architecture](./docs/architecture.md) | Components, data flows, deployment, and system boundaries |
 | [Repository structure](./docs/structure.md) | Verified directory and component map |
@@ -81,6 +78,8 @@ documents; a broken or aspirational index is worse than a short one.
 | [Tasks](./docs/tasks.md) | Maintained project task board |
 | [Memory](./docs/memory.md) | Append-only project context and outcomes |
 | [Usage](./docs/usage.md) | Verified installation, configuration, and run commands |
+| [Governance](./docs/governance.md) | Roles, change classes, and review cadence |
+| [Threat model](./docs/threat-model.md) | Assets, trust boundaries, threats, and controls |
 
 If `docs/tests.md` exists, add this index row; otherwise omit it:
 
@@ -99,18 +98,18 @@ secrets.
 
 ## Contributing and Support
 
-- Contribution workflow and review requirements: {{LINK_TO_CONTRIBUTING_OR_NOT_CONFIGURED}}
-- Security reporting: {{LINK_TO_SECURITY_POLICY_OR_NOT_CONFIGURED}}
-- Code of conduct: {{LINK_OR_NOT_CONFIGURED}}
+- Contribution workflow and review requirements: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Security reporting: [SECURITY.md](./SECURITY.md)
+- Code of conduct: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+- Ownership and review routing: [CODEOWNERS](./.github/CODEOWNERS)
 - Support channel and service expectations: {{CONFIRMED_CHANNEL_OR_NOT_DOCUMENTED}}
 
-Include only links whose files or external records exist. Do not invent a
-support commitment or response time.
+Include only links whose files or external records exist. Remove a row when
+that file was not generated; do not invent a support commitment or response
+time.
 
 ## Documentation Maintenance
 
-- Every document carries a control block with owner, status, version, review
-  date, and classification.
 - Requirements and decision IDs are permanent; mark items superseded instead of
   deleting or renumbering them.
 - Review security and architecture documents at least quarterly; review this

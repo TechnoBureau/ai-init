@@ -1,5 +1,4 @@
 skill: design
-version: "2.0.0"
 cases:
   - id: document-existing-design-system
     prompt: >-

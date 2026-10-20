@@ -13,13 +13,9 @@ compatibility: >-
   project's own pinned dependencies.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; ISO/IEC 25010:2023; CWE Top 25; OWASP ASVS 5.0;
-    SemVer 2.0.0; OpenAPI 3.1; RFC 8594; RFC 9745
-  classification: "Public"
+    SemVer; OpenAPI 3.1; RFC 8594; RFC 9745
   risk: "medium"
 allowed-tools: "Read Grep Glob Write Edit Bash"
 ---
@@ -146,7 +142,8 @@ Prefer the simplest design that meets the evidenced requirement.
   fields (RFC 9745 and RFC 8594) for HTTP APIs where applicable.
 - Preserve wire compatibility: field names, nullability, enum evolution,
   error shapes, idempotency keys, and pagination semantics.
-- Document contract changes in the changelog and architecture decision record.
+- Record contract changes in the architecture decision record, and in the
+  repository's changelog when the project maintains one.
 
 ## Dependencies and supply chain
 

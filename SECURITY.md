@@ -1,14 +1,11 @@
 # Security Policy
 
-## Supported versions
+## Supported state
 
-| Version | Supported | Notes |
-|---|---|---|
-| 2.x | Yes | Current release line |
-| 1.x | No | Missing YAML frontmatter made every skill undiscoverable; upgrade to 2.x |
+Security fixes are applied to the default branch. There is no maintained
+release line or backport policy while the collection is at its initial state.
 
-Security fixes are released for the current major version. If you maintain a
-fork, you are responsible for applying updates.
+If you maintain a fork, you are responsible for applying updates from upstream.
 
 ## Reporting a vulnerability
 

@@ -1,9 +1,5 @@
 # Project Log — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > Use for ongoing projects that benefit from shared historical context. Keep
 > entries append-only: add a dated correction instead of rewriting history.
 > Never record secrets, credentials, personal data, or unredacted logs.

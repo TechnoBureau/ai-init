@@ -12,13 +12,9 @@ compatibility: >-
   own tooling; no network access is required for documentation.
 metadata:
   spec: "1.0"
-  version: "2.0.0"
-  owner: "TechnoBureau"
-  reviewed: "2026-10-20"
   standards: >-
     Agent Skills 1.0; WCAG 2.2; W3C Design Tokens Community Group format;
     WAI-ARIA Authoring Practices 1.2; EN 301 549; ISO 9241-210:2019
-  classification: "Public"
   risk: "low"
 allowed-tools: "Read Grep Glob Write Edit"
 ---
@@ -138,7 +134,7 @@ A design-system document is ready when:
 - asset licensing and source-of-truth links are recorded;
 - no placeholder values or invented conformance claims remain.
 
-Use [templates/design.md](./templates/design.md) and consult
+Use [templates/docs/design.md](./templates/docs/design.md) and consult
 [references/catalog.md](./references/catalog.md) only when design-system
 selection is needed.
 

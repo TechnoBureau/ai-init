@@ -1,10 +1,6 @@
 # Security Profile — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
-> **Evidence base:** reviewed commit `{{COMMIT_SHA}}` on {{DATE}}; tool/version:
+> **Evidence base:** commit `{{COMMIT_SHA}}`; tool/version:
 > {{SCANNER_OR_TOOL_VERSION_OR_NONE}}. This document is not a certification,
 > audit opinion, or compliance attestation.
 
@@ -13,7 +9,6 @@
 {{PLAIN_LANGUAGE_SUMMARY_OF_SCOPE_AND_EVIDENCED_POSTURE}}
 
 **Assessment scope:** {{REPOSITORY_PATHS_AND_SYSTEM_BOUNDARY}}\
-**Assessment date:** {{DATE}}\
 **Assessment type:** {{DESIGN_REVIEW / IMPLEMENTATION_REVIEW / CONFIGURATION_REVIEW / SCAN_REVIEW}}\
 **Applicable profiles:** {{NIST_SSDF_AND_CONFIRMED_CONDITIONAL_PROFILES}}
 

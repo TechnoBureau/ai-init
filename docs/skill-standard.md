@@ -1,7 +1,5 @@
 # Skill Authoring Standard
 
-> **Document control** — Owner: TechnoBureau · Status: Draft · Version: 2.0.0 · Last reviewed: 2026-10-20 · Classification: Public
-
 This standard is normative for every skill in this repository. `metadata.risk`
 determines review depth, but these requirements apply to all skills.
 
@@ -11,11 +9,10 @@ and adds the enterprise profile enforced by
 
 ## Why this standard exists
 
-Version 1.x of this collection shipped six skills with no YAML frontmatter. A
-Markdown formatter converted the opening `---` into a horizontal rule and
-collapsed `name` and `description` into a heading. The files were still valid
-Markdown and looked almost correct in a rendered diff, but every skill became
-invisible to compliant agents and the Skills CLI.
+A `SKILL.md` without YAML frontmatter is still valid Markdown and can look
+almost correct in a rendered diff, yet compliant agents cannot discover or load
+it. A formatter can reproduce that failure in one pass by rendering `---` as a
+horizontal rule and collapsing `name` and `description` into a heading.
 
 The lesson is structural: machine-readable metadata needs an automated gate,
 not reviewer attention. That is why frontmatter validation, unit tests, a
@@ -27,7 +24,10 @@ pre-commit hook, and CI are mandatory rather than recommended.
 skills/<name>/
 ├── SKILL.md          # required: frontmatter + instructions
 ├── references/       # optional: detailed guidance, loaded on demand
-├── templates/        # optional: output templates
+├── templates/
+│   ├── root/         # files generated at the repository root
+│   └── docs/         # files generated under docs/
+├── files/            # optional: starter configuration
 └── files/            # optional: starter configuration
 ```
 
@@ -37,6 +37,11 @@ skills/<name>/
 - Keep progressive disclosure: `SKILL.md` holds the workflow and
   non-negotiables; long catalogs, standards, and templates live in
   `references/` and `templates/`.
+- A template's path mirrors its output path: `templates/root/x` produces `x`
+  and `templates/docs/x.md` produces `docs/x.md`. Never invent a flattened name
+  such as `docs-README.md`; it duplicates the real path and confuses reviewers.
+- Record any path exception, such as `CODEOWNERS` targeting `.github/`, in the
+  skill body.
 - Keep `SKILL.md` under 500 lines and roughly 5,000 tokens.
 - Use relative links. Every referenced path must exist.
 - Do not add executable scripts unless the skill genuinely needs them. If you
@@ -56,10 +61,7 @@ compatibility: >-
 metadata:
   spec: "1.0"
   version: "1.2.3"
-  owner: "TechnoBureau"
-  reviewed: "YYYY-MM-DD"
   standards: "Agent Skills 1.0; <applicable standards>"
-  classification: "Public"
   risk: "low"
 allowed-tools: "Read Grep Glob"
 ---
@@ -81,15 +83,11 @@ allowed-tools: "Read Grep Glob"
 | Key | Rule |
 |---|---|
 | `spec` | Agent Skills specification version; currently `"1.0"` |
-| `version` | SemVer `MAJOR.MINOR.PATCH`; bumped with the changelog |
-| `owner` | Accountable team or role, not an individual's personal identity |
-| `reviewed` | ISO 8601 date of the last evidence review |
 | `standards` | Semicolon-separated standards actually applied |
-| `classification` | `Public`, `Internal`, `Confidential`, or `Restricted` |
 | `risk` | `low`, `medium`, `high`, or `critical`; drives review depth |
 
-All metadata values must be quoted strings. Unquoted dates, versions, and
-numbers parse as YAML date/number types and violate the specification.
+All metadata values must be quoted strings. An unquoted numeric value parses as
+a YAML number and violates the specification.
 
 ### Description quality
 
@@ -165,7 +163,6 @@ cases:
 Requirements:
 
 - at least one trigger and one non-trigger case;
-- version matches `metadata.version`;
 - each case has a unique ID, a realistic prompt, and observable expectations;
 - include at least one adversarial case per skill: secret exposure, fabricated
   evidence, destructive scope, or prompt injection.
@@ -196,20 +193,23 @@ python -m unittest discover -s tests -v
 pre-commit run --all-files
 ```
 
-## Versioning and deprecation
+## Change management
 
-- Follow [Semantic Versioning 2.0.0](https://semver.org/).
-- Major: skill removal, renamed skill, incompatible output path or required
-  behavior change.
-- Minor: new capability, new required document section, new optional standard.
-- Patch: clarifications, typo fixes, link repairs, non-behavioral edits.
-- Update `CHANGELOG.md` and every affected `metadata.version` and eval version
-  in the same change.
-- Deprecate before removal: mark the skill deprecated in `metadata` and
-  `CHANGELOG.md`, publish the replacement, and keep the skill available for at
-  least one major release.
+This collection does not maintain a changelog or release version numbers while
+it is at its initial state. Change history lives in Git and in the pull request
+that makes the change.
+
+- Describe the problem, evidence, and behavior change in the pull request.
+- Update affected documentation in the same change.
+- Deprecate before removal: mark the skill deprecated in `SKILL.md` and the
+  README, publish the replacement, and keep the skill available for at least
+  one review cycle.
 - Never silently change a permanent document path. Provide migration guidance
   and preserve existing IDs.
+- Add a regression test for every fixed defect.
+
+If the project later adopts releases, define the version scheme and changelog
+policy in [governance](./governance.md) before applying it.
 
 ## Review depth by risk
 

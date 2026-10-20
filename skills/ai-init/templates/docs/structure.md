@@ -1,9 +1,5 @@
 # Repository Structure — {{PROJECT_NAME}}
 
-> **Document control** — Owner: {{OWNER_OR_NOT_DOCUMENTED}} · Status:
-> {{DRAFT_REVIEWED_APPROVED}} · Version: {{SEMVER}} · Last reviewed:
-> {{YYYY-MM-DD}} · Classification: {{PUBLIC_INTERNAL_CONFIDENTIAL_RESTRICTED}}
->
 > This map must match the repository tree. Include primary directories and
 > key active components; omit generated, vendored, and obsolete content unless
 > its role is important to understand the build.

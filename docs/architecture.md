@@ -43,7 +43,7 @@ where the agent reads evidence and writes documents.
 | Skill entry points | Trigger, workflow, constraints | Markdown with YAML frontmatter | Agent host skill loader | `skills/*/SKILL.md` |
 | Template set | Output documents whose paths mirror the target (`templates/root/` and `templates/docs/`) | Markdown, plain text | Copied by the skill | `skills/*/templates/` |
 | Reference set | Standards loaded on demand | Markdown | Relative links from `SKILL.md` | `skills/*/references/` |
-| Starter files | `.gitignore`, EditorConfig, Git attributes, pre-commit | Configuration | Copied or merged only when absent | `skills/ai-init/files/` |
+| Starter files | `.gitignore`, `.secrets.baseline`, EditorConfig, Git attributes, pre-commit | Configuration | Copied or merged only when absent | `skills/ai-init/files/` |
 | Validator | Schema, metadata, size, link, and eval gate | Python 3.11, PyYAML | CLI exit status | `scripts/validate_skills.py` |
 | Link checker | Local Markdown link integrity | Python standard library | CLI exit status | `scripts/check_links.py` |
 | Evaluation fixtures | Trigger and non-trigger cases | YAML | Read by validator and reviewers | `evals/*.yaml` |
@@ -117,7 +117,8 @@ No server, container image, or infrastructure-as-code is deployed.
 - The trust boundary that matters is the target repository: files read by the
   agent are untrusted data, not instructions.
 - CI runs with `contents: read` and does not receive write credentials.
-- Third-party actions and hooks are pinned by commit SHA or exact revision.
+- Third-party actions and hooks are pinned by exact version tag, never by
+  branch. Tags are mutable references, so updates are reviewed before merge.
 
 See [security.md](./security.md) and [threat-model.md](./threat-model.md).
 

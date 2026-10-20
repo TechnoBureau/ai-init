@@ -19,6 +19,8 @@ never renumbered or deleted.
 | D-9 | No changelog or release numbering at the initial state | Accepted | 2026-10-20 | TechnoBureau | `docs/governance.md` |
 | D-10 | Generated documents carry no branch, revision, or tool-version provenance | Accepted | 2026-10-20 | TechnoBureau | `tests/test_working_example.py` |
 | D-11 | Ship one merged `.gitignore` baseline, not per-language fragments | Accepted | 2026-10-20 | TechnoBureau | `skills/ai-init/files/.gitignore` |
+| D-12 | Ship an IBM detect-secrets baseline with keyword scanning off | Accepted | 2026-10-20 | TechnoBureau | `.secrets.baseline` |
+| D-13 | Pin hooks and actions by version tag, not commit SHA | Accepted | 2026-10-20 | TechnoBureau | `.pre-commit-config.yaml` |
 
 ## Decision Records
 
@@ -245,6 +247,63 @@ never renumbered or deleted.
 - **Evidence:** `skills/ai-init/files/.gitignore`,
   `skills/ai-init/references/gitignore-standard.md`,
   `tests/test_working_example.py`.
+- **Supersedes / superseded by:** None.
+
+### D-12 — Ship an IBM detect-secrets baseline with keyword scanning off
+
+- **Status:** Accepted
+- **Date:** 2026-10-20
+- **Owner:** TechnoBureau
+- **Context:** gitleaks covers regular-expression and entropy patterns but has
+  no audited baseline or provider plugins. The IBM detect-secrets keyword
+  detector flags ordinary prose such as `password: example`, and dependency
+  lockfiles are full of high-entropy hashes, so a default scan produces noise
+  that reviewers learn to ignore.
+- **Decision:** Ship one `.secrets.baseline` for IBM detect-secrets 0.13.1 with
+  the keyword detector omitted, dependency and generated paths excluded, and no
+  findings. Wire the hook with `--baseline` and `--no-keyword-scan`, pinned by
+  commit, and keep gitleaks as the complementary gate.
+- **Consequences:** Keyword-only secrets are not detected by this scanner; the
+  reference records that trade-off and keeps provider and entropy detectors on.
+  Two scanners must be maintained. Tests pin the policy so a regenerated
+  baseline cannot silently re-enable keyword scanning.
+- **Reason:** Signal quality matters more than rule count: a scanner reviewers
+  trust is a control, and a noisy scanner is a ritual.
+- **Alternatives rejected:** Keyword detector with a broad exclusion regex —
+  rejected as brittle and hard to review. Excluding `tests/` wholesale —
+  rejected because a real key pasted into a fixture is the accident the scanner
+  exists to catch. Replacing gitleaks — rejected because it scans history and
+  detects patterns detect-secrets does not.
+- **Evidence:** `skills/ai-init/files/.secrets.baseline`,
+  `skills/ai-init/references/secret-scanning.md`,
+  `tests/test_secret_scanning.py`.
+- **Supersedes / superseded by:** None.
+
+### D-13 — Pin hooks and actions by version tag, not commit SHA
+
+- **Status:** Accepted
+- **Date:** 2026-10-20
+- **Owner:** TechnoBureau
+- **Context:** Commit-SHA pins are immutable but unreadable: a reviewer cannot
+  tell which release a hash refers to, and every automated update shows up as
+  an opaque hash change. The IBM detect-secrets fork publishes version tags
+  such as `0.13.1+ibm.64.dss` that carry the upstream and fork revisions.
+- **Decision:** Pin every remote pre-commit hook and GitHub Action by exact
+  version tag. Do not float branches, and do not use raw commit SHAs in the
+  configuration. Keep Dependabot enabled for Actions, pre-commit, and pip so
+  updates arrive as reviewable pull requests.
+- **Consequences:** Pins are readable and match a release note. A tag is a
+  mutable reference, so an upstream could move it; review the diff and the
+  upstream release on every update, and keep the CI token read-only. A
+  repository that requires immutability can still pin a SHA for a specific
+  hook, but then it must record why.
+- **Reason:** Reviewers act on readable references. An unreadable pin gets
+  rubber-stamped, which is a weaker control than a tag that is actually read.
+- **Alternatives rejected:** SHA pins with the version in a trailing comment —
+  rejected because the comment drifts and the hash stays authoritative.
+  Branch pins — rejected as unreviewable and unauditable.
+- **Evidence:** `.pre-commit-config.yaml`, `.github/workflows/validate.yml`,
+  `tests/test_pinning.py`.
 - **Supersedes / superseded by:** None.
 
 ## Related Docs

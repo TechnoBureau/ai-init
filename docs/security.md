@@ -57,8 +57,8 @@ Full detail is in [threat-model.md](./threat-model.md).
 |---|---|---|---|
 | `SKILL.md` metadata | Tampering | Strict validator, regression test, CI gate | A bypassed hook is caught by CI; a compromised CI is out of scope |
 | Agent instructions | Spoofing / Elevation | Operating constraints, scope boundaries, review | Model behavior is probabilistic; instructions reduce, not eliminate |
-| Repository secrets | Information disclosure | gitleaks, private-key detection, explicit prohibition | Secrets already present could be copied by a careless run |
-| CI workflow | Tampering | Pinned action SHAs, read-only permissions, Dependabot review | Upstream compromise before pinning |
+| Repository secrets | Information disclosure | gitleaks, IBM detect-secrets baseline, private-key detection, explicit prohibition | Secrets already present could be copied; keyword-only secrets are missed |
+| CI workflow | Tampering | Version-pinned actions, read-only permissions, Dependabot review | A tag can be moved upstream before the next review |
 | Generated documentation | Repudiation (overclaim) | Evidence taxonomy, anti-overclaim rules, review checklist | Reviewer may accept unsupported prose |
 
 ## Selected Profiles
@@ -112,8 +112,9 @@ skill performs the inventory there.
 | Artifacts signed and verified | Not configured | None | No release artifact is published |
 | Provenance attestation (SLSA) | Not configured | None | Not required at this stage |
 | CI token and release permissions minimized | `contents: read` | `.github/workflows/validate.yml` | Verified |
-| Third-party actions pinned | Pinned by commit SHA | Workflow file | Verified |
-| Pre-commit hooks pinned | Pinned by commit SHA or exact revision | `.pre-commit-config.yaml` | Verified |
+| Third-party actions pinned | Pinned by exact version tag | Workflow file | Verified; tags are mutable, so updates are reviewed |
+| Pre-commit hooks pinned | Pinned by exact version tag | `.pre-commit-config.yaml` | Verified; tags are mutable, so updates are reviewed |
+| Secret-scanning baseline policy | All plugins except keyword scanning; dependency and generated files excluded; no unaudited entries | `.secrets.baseline` | Accepted trade-off; `--fail-on-unaudited` keeps suppressions reviewed |
 | Dependency update automation | Dependabot for actions, pre-commit, and pip | `.github/dependabot.yml` | Verified |
 
 No SBOM is generated. This is recorded as a gap rather than implied coverage.
@@ -184,8 +185,9 @@ prioritise them.
 - No penetration test, red-team exercise, or model-behavior evaluation was run.
 - GitHub repository settings (branch protection, required checks, private
   vulnerability reporting, secret scanning) were not inspected from this tree.
-- gitleaks and pre-commit were configured but not executed for this assessment
-  in the authoring environment; CI executes them on push.
+- IBM detect-secrets was exercised against synthetic inputs locally; gitleaks
+  runs in CI. Detection efficacy over this repository's history was not
+  measured.
 - Operating effectiveness of any control was not measured over time.
 - Target repositories that a skill is applied to were not assessed here.
 

@@ -1,9 +1,14 @@
+# Starter pre-commit configuration. Copy it only when the repository has no
+# equivalent, then remove hooks for tools the project does not use.
+#
+# Pinning policy: every remote hook uses an exact version tag. A tag is a
+# mutable reference, so review the release before merging a Dependabot update.
 repos:
   # =============================================================================
   # Repository hygiene
   # =============================================================================
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
       - id: check-json
@@ -23,15 +28,33 @@ repos:
   # Secret scanning
   # =============================================================================
   - repo: https://github.com/gitleaks/gitleaks
-    rev: 6eaad039603a4de39fddd1cf5f727391efe9974e # v8.30.0
+    rev: v8.30.1
     hooks:
       - id: gitleaks
+  # IBM detect-secrets fork. Copy .secrets.baseline from this skill before
+  # enabling; the baseline disables keyword scanning and records the same
+  # exclude policy as the hook below.
+  - repo: https://github.com/IBM/detect-secrets
+    rev: 0.13.1+ibm.64.dss
+    hooks:
+      - id: detect-secrets
+        description: Detect and prevent accidental secret commits.
+        additional_dependencies:
+          - boxsdk<4
+          - chardet<7
+        args:
+          - --baseline
+          - .secrets.baseline
+          - --use-all-plugins
+          - --no-keyword-scan
+          - --fail-on-unaudited
+        exclude: '(^|/)(requirements[^/]*\.txt|go\.mod|go\.sum|pom\.xml|build\.gradle(\.kts)?|package-lock\.json|npm-shrinkwrap\.json|yarn\.lock|pnpm-lock\.yaml|bun\.lockb|Cargo\.lock|poetry\.lock|Pipfile\.lock|Gemfile\.lock|composer\.lock|\.secrets\.baseline)$|(^|/)(node_modules|vendor|third_party|dist|build|\.venv|venv|__pycache__)/|\.(min\.js|min\.css|map|lock|sum|snap|drawio)$'
   # =============================================================================
   # Optional Markdown consistency check for projects that use Node.js.
-  # Uncomment and pin a reviewed revision before enabling.
+  # Uncomment before enabling.
   # =============================================================================
   # - repo: https://github.com/DavidAnson/markdownlint-cli2
-  #   rev: <REVIEWED_COMMIT_SHA>  # v0.23.3 or later
+  #   rev: v0.23.3
   #   hooks:
   #     - id: markdownlint-cli2
   # =============================================================================

@@ -131,9 +131,18 @@ item means it was verified in the current worktree, not assumed.
   exists.
 - [ ] Coding standards reflect repository instructions, language needs, and
   configured tools; recommendations are distinguished from existing rules.
-- [ ] Applicable `.gitignore`, `.editorconfig`, `.gitattributes`, and
-  `.pre-commit-config.yaml` are copied or merged into the target repository
-  root without overwriting existing configuration.
+- [ ] Applicable `.gitignore`, `.secrets.baseline`, `.editorconfig`,
+  `.gitattributes`, and `.pre-commit-config.yaml` are copied or merged into the
+  target repository root without overwriting existing configuration.
+- [ ] `.secrets.baseline` disables keyword scanning, excludes only generated
+  and dependency files, and contains no real findings.
+- [ ] The IBM detect-secrets hook is pinned by version tag, passes
+  `--baseline`, `--use-all-plugins`, `--no-keyword-scan`, and
+  `--fail-on-unaudited`, declares `boxsdk<4` and `chardet<7` as additional
+  dependencies, and its version matches the baseline `version`.
+- [ ] The hook `exclude` and the baseline `exclude.files` are the same regex,
+  and every remote hook and action is pinned by version tag rather than a
+  branch or commit SHA.
 - [ ] `.gitignore` keeps existing entries, adds only sections for languages in
   use, and still covers OS metadata, editors, swap and temporary files,
   secrets, and logs.

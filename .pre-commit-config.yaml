@@ -1,9 +1,14 @@
 repos:
   # =============================================================================
+  # Pinning policy: every remote hook and action uses an exact version tag.
+  # Tags are readable and Dependabot can propose updates, but a tag is a
+  # mutable reference, so review the release before merging an update.
+  # =============================================================================
+  # =============================================================================
   # Repository hygiene
   # =============================================================================
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
       - id: check-json
@@ -26,14 +31,32 @@ repos:
   # Secret scanning
   # =============================================================================
   - repo: https://github.com/gitleaks/gitleaks
-    rev: 83d9cd684c87d95d656c1458ef04895a7f1cbd8e # v8.30.1
+    rev: v8.30.1
     hooks:
       - id: gitleaks
+  # IBM detect-secrets fork: provider plugins, an audited baseline, and
+  # additional-dependency support. The exclude list is the same policy recorded
+  # in .secrets.baseline; change both together.
+  - repo: https://github.com/IBM/detect-secrets
+    rev: 0.13.1+ibm.64.dss
+    hooks:
+      - id: detect-secrets
+        description: Detect and prevent accidental secret commits.
+        additional_dependencies:
+          - boxsdk<4
+          - chardet<7
+        args:
+          - --baseline
+          - .secrets.baseline
+          - --use-all-plugins
+          - --no-keyword-scan
+          - --fail-on-unaudited
+        exclude: '(^|/)(requirements[^/]*\.txt|go\.mod|go\.sum|pom\.xml|build\.gradle(\.kts)?|package-lock\.json|npm-shrinkwrap\.json|yarn\.lock|pnpm-lock\.yaml|bun\.lockb|Cargo\.lock|poetry\.lock|Pipfile\.lock|Gemfile\.lock|composer\.lock|\.secrets\.baseline)$|(^|/)(node_modules|vendor|third_party|dist|build|\.venv|venv|__pycache__)/|\.(min\.js|min\.css|map|lock|sum|snap|drawio)$'
   # =============================================================================
   # Markdown consistency (frontmatter-aware; does not rewrite YAML)
   # =============================================================================
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 916ad0aaa108c64d294101002066f530ea170b10 # v0.23.3
+    rev: v0.23.3
     hooks:
       - id: markdownlint-cli2
   # =============================================================================

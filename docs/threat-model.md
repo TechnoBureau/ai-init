@@ -64,12 +64,12 @@ permanent.
 | ID | Threat | Category | Impact | Controls | Residual risk |
 |---|---|---|---|---|---|
 | T-01 | Indirect prompt injection through target repository files, issues, or fixtures | Tampering, Spoofing | Agent follows attacker instructions or widens scope | Operating constraints in every skill; host permissions; diff review | Probabilistic; instructions alone cannot guarantee resistance |
-| T-02 | Secret exposure in generated documents, logs, or examples | Information disclosure | Credential compromise | Explicit prohibition, redaction rules, gitleaks, private-key detection, review | Secrets already present may be copied by a careless run |
+| T-02 | Secret exposure in generated documents, logs, or examples | Information disclosure | Credential compromise | Explicit prohibition, redaction rules, gitleaks, IBM detect-secrets, private-key detection, review | Secrets already present may be copied by a careless run |
 | T-03 | Destructive action: file deletion, force-push, history rewrite, infrastructure change | Tampering, Denial of service | Data loss, outage | Read-only defaults; `$security` and `$code-quality` scope boundaries; explicit authorization required | User may explicitly request a destructive action |
 | T-04 | Corrupted machine-readable metadata | Tampering | Skills unloadable; silent regression | Validator, regression tests, pre-commit, CI, formatter guidance | Bypassed hook or new tool could reintroduce it; CI is authoritative |
 | T-05 | Fabricated evidence or compliance overclaim | Spoofing, Repudiation | Wrong decisions, audit exposure | Evidence taxonomy, status vocabulary, anti-overclaim rules, checklist | Reviewer may accept unsupported prose |
 | T-06 | Over-broad tool or permission grant | Elevation of privilege | Unintended reads or writes | Least-agency metadata, scope boundaries, documented host enforcement requirement | Metadata is not enforcement |
-| T-07 | Supply-chain compromise of actions, hooks, or dependencies | Tampering | Code execution in CI or on contributor machines | Pinned SHAs and versions, Dependabot, read-only token, review | Upstream compromise before pinning |
+| T-07 | Supply-chain compromise of actions, hooks, or dependencies | Tampering | Code execution in CI or on contributor machines | Exact version pins, Dependabot, read-only token, review | A version tag is mutable and can move before review |
 | T-08 | Malicious or compromised template content | Tampering | Copied unsafe guidance into a target | Templates reviewed as code; no remote includes at runtime | External links can change after review |
 | T-09 | Symlink replacement of `AGENTS.md` or `CLAUDE.md` | Spoofing | Highest-precedence attacker instructions | Inspect path before replacing; preserve unique content; report conflicts | User could approve a malicious merge |
 | T-10 | Template drift between template and generated document | Tampering | Documentation contradicts the template | `tests/test_working_example.py`, review | Manual edits can slip through review |
@@ -99,7 +99,7 @@ sensitive values.
 | Frontmatter and metadata validator | T-04 | Prevent | Verified | `scripts/validate_skills.py` |
 | Regression tests for the corruption failure | T-04 | Detect | Verified | `tests/test_validate_skills.py` |
 | Pre-commit and CI gates | T-04, T-13 | Prevent | Verified | `.pre-commit-config.yaml`, `.github/workflows/validate.yml` |
-| Secret scanning and private-key detection | T-02 | Detect | Verified | `.pre-commit-config.yaml` |
+| Secret scanning and private-key detection | T-02 | Detect | Verified | `.pre-commit-config.yaml`, `.secrets.baseline` |
 | Operating constraints in every skill | T-01, T-02, T-03, T-06 | Prevent | Verified as design | `skills/*/SKILL.md` |
 | Evidence taxonomy and status vocabulary | T-05 | Prevent | Verified as design | `docs/README.md`, templates |
 | Pinned dependencies and actions | T-07 | Prevent | Verified | `requirements-dev.txt`, workflow |

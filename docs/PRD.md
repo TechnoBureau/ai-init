@@ -94,6 +94,8 @@ No target date or numeric adoption target is recorded; none has been confirmed.
 | D-9 | Accepted | No changelog or release numbering initially | Avoids unused version churn | SemVer per skill, repository version | `docs/governance.md` | TechnoBureau / 2026-10-20 |
 | D-10 | Accepted | No branch, revision, or tool-version provenance in generated documents | Stale metadata invites false precision | Revision in a footer | `tests/test_working_example.py` | TechnoBureau / 2026-10-20 |
 | D-11 | Accepted | One merged `.gitignore` baseline, not per-language fragments | Reviewable, no composition order to test | Generated fragments | `skills/ai-init/files/.gitignore` | TechnoBureau / 2026-10-20 |
+| D-12 | Accepted | IBM detect-secrets baseline with keyword scanning off and generated files excluded | High-signal scanner; provider and entropy detectors remain | Keyword detector with broad exclusions, replacing gitleaks | `.secrets.baseline` | TechnoBureau / 2026-10-20 |
+| D-13 | Accepted | Pin hooks and actions by exact version tag, not commit SHA | Reviewers can check a release; Dependabot keeps pins current | SHA pins with a version comment, branch pins | `.pre-commit-config.yaml` | TechnoBureau / 2026-10-20 |
 
 Full context and consequences are in [decisions.md](./decisions.md).
 
@@ -163,7 +165,7 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | NFR-8 | Compatibility | Frontmatter MUST remain valid Agent Skills 1.0 for compliant hosts | Skills CLI lists all six skills | Verified |
 | NFR-9 | Accessibility | Documentation MUST use one H1, sequential headings, table headers, and text explanations for diagrams | markdownlint plus review | Verified |
 | NFR-10 | Observability | CI MUST surface the failing rule identifier and path | Validator output includes code and path | Verified |
-| NFR-11 | Supply chain | Actions, hooks, and Python dependencies MUST be pinned and updated by automation | Pinned SHAs and Dependabot configuration | Verified |
+| NFR-11 | Supply chain | Actions, hooks, and Python dependencies MUST be pinned by exact version and updated by automation | Version-tag pins and Dependabot configuration | Verified |
 | NFR-12 | Localization | Not applicable; the collection ships English-only instructions | No locale files | Not applicable |
 | NFR-13 | Compliance | No certification or regulatory scope has been confirmed for this repository | No compliance claim made | Not assessed |
 

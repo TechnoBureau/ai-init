@@ -132,6 +132,7 @@ tailor it to the detected stack.
 | File | Rule |
 |---|---|
 | `.gitignore` | Merge missing sections; never remove an entry the maintainers added. Follow [the gitignore standard](./references/gitignore-standard.md). |
+| `.secrets.baseline` | Copy when the project uses IBM detect-secrets. Keep `version`, `plugins_used`, and `exclude` aligned with the pinned hook and the starter; never record a real secret. Follow [the secret-scanning standard](./references/secret-scanning.md). |
 | `.editorconfig` | Copy when absent; adjust languages and indentation to the code. |
 | `.gitattributes` | Copy when absent; keep line-ending and binary rules. |
 | `.pre-commit-config.yaml` | Copy when absent; drop hooks for tools the project does not use. |
@@ -140,6 +141,16 @@ Never ignore manifests, lockfiles, source, build scripts, CI configuration, or
 documentation. After changing `.gitignore`, run
 `git ls-files -ci --exclude-standard`; any output means a tracked file is now
 ignored, so fix the pattern rather than untracking the file.
+
+Pin every remote hook and action by exact version tag, never by branch. A tag is
+a mutable reference, so state that in the repository rules and let dependency
+automation propose updates for review.
+
+The starter hook configuration runs gitleaks and IBM detect-secrets. The
+detect-secrets hook needs `additional_dependencies` for the IBM fork's optional
+detectors, and its `exclude` must equal the baseline `exclude.files`. Keep both
+scanners when the project will maintain both; drop a scanner the project does
+not maintain rather than leaving a hook nobody acts on.
 
 ## Default documentation set
 
@@ -280,6 +291,8 @@ handles its applicable profile and migration assessment.
   identifiers.
 - `references/gitignore-standard.md` — merge rules, prohibited ignores, and
   pattern cautions.
+- `references/secret-scanning.md` — IBM detect-secrets baseline policy,
+  exclusions, and allowlisting rules.
 - `references/documentation-standard.md` — enterprise documentation rules.
 - `references/style/` — adaptable language references.
 - `references/architecture/mermaid-standard.md` — Mermaid theme reference.

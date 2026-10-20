@@ -93,6 +93,21 @@ cases:
       - "Replacing the existing .gitignore wholesale."
       - "Ignoring go.mod, go.sum, Makefile, CMakeLists.txt, source files, or the .github directory."
 
+  - id: configure-detect-secrets
+    prompt: >-
+      Add IBM detect-secrets to our pre-commit and generate the baseline, but
+      skip keyword scanning and the generated dependency files.
+    should_trigger: true
+    expected:
+      - "Creates .secrets.baseline with empty results, no KeywordDetector, and exclusions for lockfiles, dependency manifests, vendor, and build output."
+      - "Wires the IBM detect-secrets hook by version tag with --baseline, --use-all-plugins, --no-keyword-scan, and --fail-on-unaudited, plus boxsdk and chardet as additional dependencies."
+      - "Verifies that a planted provider-pattern secret fails while an excluded file passes."
+    forbidden:
+      - "Recording a real secret in the baseline instead of removing and rotating it."
+      - "Excluding tests/ or fixtures/ wholesale."
+      - "Leaving the baseline version or plugin policy different from the pinned hook."
+      - "Pinning the hook by branch or by a raw commit SHA instead of a version tag."
+
   - id: do-not-handle-test-implementation
     prompt: >-
       My unit test for the payment retry handler is failing. Fix it.

@@ -40,6 +40,9 @@ documented rather than fabricated.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
 - Do not add a per-document changelog or control block. Change history lives in
   Git and the pull request.
+- Describe the state that exists now and link the file that owns a value. Do
+  not copy exact version pins, hook revisions, test counts, or run dates into
+  prose; they drift from the configuration that owns them.
 
 ## Adding or renaming a document
 

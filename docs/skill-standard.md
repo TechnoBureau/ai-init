@@ -59,7 +59,6 @@ compatibility: >-
   Environment requirements, supported platforms, and network needs.
 metadata:
   spec: "1.0"
-  version: "1.2.3"
   standards: "Agent Skills 1.0; <applicable standards>"
   risk: "low"
 allowed-tools: "Read Grep Glob"
@@ -84,6 +83,9 @@ allowed-tools: "Read Grep Glob"
 | `spec` | Agent Skills specification version; currently `"1.0"` |
 | `standards` | Semicolon-separated standards actually applied |
 | `risk` | `low`, `medium`, `high`, or `critical`; drives review depth |
+
+There is no `version` key. The collection has no release line, so a per-skill
+version would be a number no process consumes. Change history lives in Git.
 
 All metadata values must be quoted strings. An unquoted numeric value parses as
 a YAML number and violates the specification.
@@ -143,7 +145,6 @@ Every skill has `evals/<name>.yaml`:
 
 ```yaml
 skill: example-skill
-version: "1.2.3"
 cases:
   - id: positive-case
     prompt: A realistic user request.
@@ -178,7 +179,7 @@ does not claim automated model-behavior scoring.
 | Validator regression tests | `python -m unittest discover -s tests` | Yes |
 | Local link integrity | `scripts/check_links.py` | Yes |
 | Whitespace, YAML, JSON, TOML, merge markers, large files | pre-commit hooks | Yes |
-| Secret scanning | gitleaks pre-commit hook | Yes |
+| Secret scanning | gitleaks and IBM detect-secrets pre-commit hooks | Yes |
 | Markdown consistency | `markdownlint-cli2` with `.markdownlint-cli2.yaml` | Yes |
 | Human review | CODEOWNERS | Yes |
 

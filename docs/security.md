@@ -59,7 +59,7 @@ Full detail is in [threat-model.md](./threat-model.md).
 | Agent instructions | Spoofing / Elevation | Operating constraints, scope boundaries, review | Model behavior is probabilistic; instructions reduce, not eliminate |
 | Repository secrets | Information disclosure | gitleaks, IBM detect-secrets baseline, private-key detection, explicit prohibition | Secrets already present could be copied; keyword-only secrets are missed |
 | CI workflow | Tampering | Version-pinned actions, read-only permissions, Dependabot review | A tag can be moved upstream before the next review |
-| Generated documentation | Repudiation (overclaim) | Evidence taxonomy, anti-overclaim rules, review checklist | Reviewer may accept unsupported prose |
+| Generated documentation | Repudiation (overclaim) | Claim-status vocabulary, anti-overclaim rules, review checklist | Reviewer may accept unsupported prose |
 
 ## Selected Profiles
 

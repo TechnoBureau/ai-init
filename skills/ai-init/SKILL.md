@@ -203,6 +203,10 @@ every generated document.
 
 - **Claim status.** Distinguish `Verified`, `Observed`, `Planned`, and
   `Not documented` claims. A file's existence is not proof that it runs.
+- **Current state, not a snapshot.** Document what exists now and link the file
+  that owns each value. Do not copy exact version pins, hook revisions, test
+  counts, run dates, or coverage percentages into prose, because they drift
+  from the configuration that owns them.
 - **Normative language.** Use RFC 2119/8174 keywords (`MUST`, `MUST NOT`,
   `SHOULD`, `MAY`) only for actual requirements, and define their meaning once.
   Descriptive prose must not masquerade as a requirement.

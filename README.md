@@ -126,6 +126,7 @@ pre-commit run --all-files
 | `tests/test_pinning.py` | Every remote hook and action pinned by version tag, never a branch or raw commit SHA |
 | `tests/test_working_example.py` | Every template has a generated counterpart in `docs/`; no placeholders or orphan documents |
 | `tests/test_secret_scanning.py` | Baseline policy: no keyword scan, no findings, standard files excluded, hook flags, dependencies, and exclude parity |
+| `tests/test_docs_state.py` | Documents describe current state, not a frozen run or a duplicated configuration pin |
 | [CI](./.github/workflows/validate.yml) | All of the above on push and pull request with version-pinned actions and read-only permissions |
 
 The validator is deliberately strict: a missing `---` on line 1 is a blocking
@@ -166,7 +167,7 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 - Documentation is grounded in source and configuration. Existing content,
   permanent IDs, and unrelated work are preserved; empty repositories get a
   clearly labeled initial format rather than invented project facts.
-- Claims use an explicit evidence taxonomy (`Verified`, `Observed`, `Planned`,
+- Claims use an explicit status vocabulary (`Verified`, `Observed`, `Planned`,
   `Not documented`, `Not assessed`) and requirement language follows RFC
   2119/8174.
 - Security profiles are modular. They conditionally map relevant controls to
@@ -188,51 +189,48 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 ├── .github/
 │   ├── workflows/validate.yml  # CI gate
 │   ├── dependabot.yml          # Action and dependency updates
-│   └── PULL_REQUEST_TEMPLATE.md
-├── docs/
-│   ├── README.md               # Documentation index
-│   ├── architecture.md         # Collection structure and pipeline
-│   ├── governance.md           # Roles, review, deprecation
-│   ├── skill-standard.md       # Normative authoring standard
-│   └── threat-model.md         # Asset, threat, and control model
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── CODEOWNERS
+├── docs/                       # Generated document set, indexed in docs/README.md
 ├── evals/                      # Trigger/non-trigger/adversarial fixtures
 ├── scripts/
 │   ├── validate_skills.py      # Spec + enterprise gate
 │   └── check_links.py          # Local link integrity
 ├── skills/
 │   ├── ai-init/
+│   │   ├── SKILL.md
+│   │   ├── checklist.md
+│   │   ├── files/              # .editorconfig, .gitattributes, .gitignore, .secrets.baseline, .pre-commit-config.yaml
 │   │   ├── references/
-│   │   │   ├── architecture/          # Mermaid standard
-│   │   │   ├── style/                 # Adaptable language guidance
+│   │   │   ├── architecture/mermaid-standard.md
+│   │   │   ├── style/style-*.md
 │   │   │   ├── documentation-standard.md
-│   │   │   └── licensing.md           # Licence rules
-│   │   ├── templates/
-│   │   │   ├── root/                  # README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, CODEOWNERS
-│   │   │   └── docs/                  # docs/ document set
-│   │   └── files/                     # .gitignore, .secrets.baseline, EditorConfig, Git attributes, pre-commit starters
+│   │   │   ├── gitignore-standard.md
+│   │   │   ├── licensing.md
+│   │   │   └── secret-scanning.md
+│   │   └── templates/
+│   │       ├── root/           # README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, CODEOWNERS
+│   │       └── docs/           # docs/ document set
 │   ├── prd/templates/docs/PRD.md
 │   ├── security/
-│   │   ├── references/                # Modular enterprise security baseline
+│   │   ├── references/security-baseline.md
 │   │   └── templates/docs/security.md
 │   ├── tests/
 │   │   ├── references/test-standard.md
 │   │   └── templates/docs/tests.md
 │   ├── design/
-│   │   ├── references/                # Catalog + accessibility standard
+│   │   ├── references/         # Catalog + accessibility standard
 │   │   └── templates/docs/design.md
-│   └── code-quality/references/       # Repository-fit engineering practices
-├── tests/                      # Validator, working-example, and secret-scanning tests
+│   └── code-quality/references/engineering-practices.md
+├── tests/                      # Validator, docs-state, pinning, template, and secret-scanning tests
 ├── AGENTS.md -> README.md      # AI agent entry point
 ├── CLAUDE.md -> README.md      # AI agent entry point
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
 ├── SECURITY.md
 ├── LICENSE
-├── .github/
-│   ├── CODEOWNERS
-│   ├── PULL_REQUEST_TEMPLATE.md
-│   ├── dependabot.yml
-│   └── workflows/validate.yml
+├── .editorconfig
+├── .gitattributes
 ├── .gitignore
 ├── .markdownlint-cli2.yaml
 ├── .pre-commit-config.yaml
@@ -244,12 +242,15 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 
 - Skill format: Agent Skills 1.0 (YAML frontmatter, `name`, `description`,
   optional `license`, `compatibility`, `metadata`, `allowed-tools`).
-- Validator: Python 3.11 or later; PyYAML 6.0.3; pre-commit 4.7.0;
-  markdownlint-cli2 0.23.3.
-- Secret scanning: gitleaks `v8.30.1` and IBM detect-secrets
-  `0.13.1+ibm.64.dss`, pinned by version tag in `.pre-commit-config.yaml`.
+- Python 3.11 or later.
+- Exact tool versions are pinned in [`requirements-dev.txt`](./requirements-dev.txt)
+  and [`.pre-commit-config.yaml`](./.pre-commit-config.yaml); this list does not
+  repeat them, so it cannot drift from the pin.
 - Pinning: every remote hook and action uses an exact version tag. Tags are
   mutable references, so dependency updates are reviewed before merge.
+- Secret scanning: gitleaks and IBM detect-secrets, both configured in
+  `.pre-commit-config.yaml` and described in
+  [`skills/ai-init/references/secret-scanning.md`](./skills/ai-init/references/secret-scanning.md).
 - Platforms: POSIX and Windows. `ai-init` needs symlink support for the agent
   entry points; if unavailable, it reports the constraint rather than copying.
 - Network: skills do not require network access. CI installs pinned tooling.

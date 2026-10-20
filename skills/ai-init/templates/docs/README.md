@@ -37,6 +37,9 @@ worse than a short one.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
 - Do not add a per-document changelog or control block unless the project has
   adopted a policy that requires one.
+- Describe the state that exists now and link the file that owns a value. Do
+  not copy exact version pins, hook revisions, test counts, or run dates into
+  prose; they drift from the configuration that owns them.
 
 ## Adding or renaming a document
 

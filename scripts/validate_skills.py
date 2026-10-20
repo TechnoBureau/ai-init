@@ -16,8 +16,8 @@ Checks implemented
   strings.
 * The body has one H1, stays within progressive-disclosure limits, contains no
   unresolved ``{{PLACEHOLDER}}`` tokens, and every relative link resolves.
-* ``evals/<name>.yaml`` exists, matches the skill version, and contains both
-  positive and negative trigger cases.
+* ``evals/<name>.yaml`` exists and contains both positive and negative trigger
+  cases.
 
 Usage
 -----

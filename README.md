@@ -61,6 +61,7 @@ sync: `templates/root/x` produces `x`, and `templates/docs/x.md` produces
 | `CODE_OF_CONDUCT.md` | `templates/root/CODE_OF_CONDUCT.md` | A private enforcement contact is confirmed |
 | `SECURITY.md` | `templates/root/SECURITY.md` | A private reporting channel is confirmed |
 | `.github/CODEOWNERS` | `templates/root/CODEOWNERS` | Owners are confirmed by the user or existing configuration |
+| `.gitignore` | `files/.gitignore` | Always; merge missing sections into an existing file |
 | `docs/README.md` | `templates/docs/README.md` | Always, alongside the first generated document |
 | `docs/PRD.md` | `skills/prd/templates/docs/PRD.md` | Always |
 | `docs/structure.md`, `docs/decisions.md` | `templates/docs/` | Always |
@@ -96,8 +97,8 @@ The skill bodies add:
 - **Enterprise standards** — ISO/IEC/IEEE 29148, ISO/IEC 25010, NIST SSDF and
   CSF, ISO/IEC 27001, OWASP ASVS, SLSA, WCAG 2.2, DTCG tokens, RFC 2119/8174,
   and conditional frameworks only when scope is confirmed.
-- **Mandatory outputs** — evidence provenance, traceability, acceptance
-  criteria, control status vocabulary, exceptions, and assessment limits.
+- **Mandatory outputs** — claim status, traceability, acceptance criteria,
+  control status vocabulary, exceptions, and assessment limits.
 - **Fail-safe behavior** — unknowns stay `Not documented`, `Not assessed`, or
   `TBD`; no invented owners, licences, controls, test results, or compliance.
 - **Evaluation cases** — trigger, non-trigger, and adversarial fixtures in
@@ -205,7 +206,7 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 │   │   ├── templates/
 │   │   │   ├── root/                  # README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, CODEOWNERS
 │   │   │   └── docs/                  # docs/ document set
-│   │   └── files/                     # EditorConfig, Git attributes, pre-commit starters
+│   │   └── files/                     # .gitignore, EditorConfig, Git attributes, pre-commit starters
 │   ├── prd/templates/docs/PRD.md
 │   ├── security/
 │   │   ├── references/                # Modular enterprise security baseline
@@ -222,9 +223,13 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 ├── CLAUDE.md -> README.md      # AI agent entry point
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
-├── CODEOWNERS
 ├── SECURITY.md
 ├── LICENSE
+├── .github/
+│   ├── CODEOWNERS
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── dependabot.yml
+│   └── workflows/validate.yml
 ├── .gitignore
 ├── .markdownlint-cli2.yaml
 ├── .pre-commit-config.yaml

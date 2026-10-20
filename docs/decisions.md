@@ -18,6 +18,7 @@ never renumbered or deleted.
 | D-8 | Keep this repository's `docs/` as generated output, not hand-written prose | Accepted | 2026-10-20 | TechnoBureau | `tests/test_working_example.py` |
 | D-9 | No changelog or release numbering at the initial state | Accepted | 2026-10-20 | TechnoBureau | `docs/governance.md` |
 | D-10 | Generated documents carry no branch, revision, or tool-version provenance | Accepted | 2026-10-20 | TechnoBureau | `tests/test_working_example.py` |
+| D-11 | Ship one merged `.gitignore` baseline, not per-language fragments | Accepted | 2026-10-20 | TechnoBureau | `skills/ai-init/files/.gitignore` |
 
 ## Decision Records
 
@@ -218,6 +219,32 @@ never renumbered or deleted.
   header — rejected as the same stale metadata in a different position.
 - **Evidence:** `tests/test_working_example.py`,
   `skills/ai-init/references/documentation-standard.md`.
+- **Supersedes / superseded by:** None.
+
+### D-11 — Ship one merged `.gitignore` baseline, not per-language fragments
+
+- **Status:** Accepted
+- **Date:** 2026-10-20
+- **Owner:** TechnoBureau
+- **Context:** Repositories mix C, C++, Go, shell, Python, Node.js tooling, and
+  editors. Separate per-language ignore files multiply maintenance and leave
+  gaps; a single uncommented dump hides rules that contributors cannot safely
+  delete.
+- **Decision:** Ship one commented baseline in `files/.gitignore`, grouped by
+  ecosystem. Copy it when absent; merge missing sections when one exists, and
+  never remove an entry the maintainers added.
+- **Consequences:** One file to review, and section comments make each rule
+  auditable. Unusual build output must be tailored. A pattern that hides a
+  tracked file is caught by `git ls-files -ci --exclude-standard`.
+- **Reason:** A merged baseline is reviewable and avoids the composition order,
+  duplicate patterns, and empty sections of generated fragments.
+- **Alternatives rejected:** Per-language fragments assembled at generation
+  time — rejected because ordering and duplicates become another thing to
+  test. A single uncommented dump — rejected because contributors cannot tell
+  which rules are safe to remove.
+- **Evidence:** `skills/ai-init/files/.gitignore`,
+  `skills/ai-init/references/gitignore-standard.md`,
+  `tests/test_working_example.py`.
 - **Supersedes / superseded by:** None.
 
 ## Related Docs

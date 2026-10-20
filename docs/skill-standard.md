@@ -27,7 +27,6 @@ skills/<name>/
 ├── templates/
 │   ├── root/         # files generated at the repository root
 │   └── docs/         # files generated under docs/
-├── files/            # optional: starter configuration
 └── files/            # optional: starter configuration
 ```
 

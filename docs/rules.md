@@ -10,7 +10,7 @@ policy, or an explicit decision. Advisory material is labelled as such.
 3. Directory-specific instructions: `skills/*/SKILL.md` constraints apply when
    that skill runs.
 4. Tool configuration: `.pre-commit-config.yaml`,
-   `.markdownlint-cli2.yaml`, `.editorconfig`, `.gitattributes`.
+   `.markdownlint-cli2.yaml`, `.gitignore`, `.editorconfig`, `.gitattributes`.
 5. Recommendations in references: advisory only.
 
 When rules conflict, the higher level wins. Record the conflict instead of

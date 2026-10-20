@@ -93,6 +93,7 @@ No target date or numeric adoption target is recorded; none has been confirmed.
 | D-8 | Accepted | Generate this repository's `docs/` from templates | Dogfooding, prevents template drift | Separate example repository | `tests/test_working_example.py` | TechnoBureau / 2026-10-20 |
 | D-9 | Accepted | No changelog or release numbering initially | Avoids unused version churn | SemVer per skill, repository version | `docs/governance.md` | TechnoBureau / 2026-10-20 |
 | D-10 | Accepted | No branch, revision, or tool-version provenance in generated documents | Stale metadata invites false precision | Revision in a footer | `tests/test_working_example.py` | TechnoBureau / 2026-10-20 |
+| D-11 | Accepted | One merged `.gitignore` baseline, not per-language fragments | Reviewable, no composition order to test | Generated fragments | `skills/ai-init/files/.gitignore` | TechnoBureau / 2026-10-20 |
 
 Full context and consequences are in [decisions.md](./decisions.md).
 

@@ -29,6 +29,11 @@ FROZEN_STATE_PATTERNS = (
     re.compile(r"local run[,:]?", re.IGNORECASE),
     re.compile(r"environment:\s*python\s+\d+\.\d+\.\d+", re.IGNORECASE),
     re.compile(r"\b\d+\s+tests?\b", re.IGNORECASE),
+    re.compile(
+        r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten)\s+test\s+"
+        r"(?:modules?|files?|suites?)\b",
+        re.IGNORECASE,
+    ),
     re.compile(r"tests?,?\s+ok\b", re.IGNORECASE),
 )
 

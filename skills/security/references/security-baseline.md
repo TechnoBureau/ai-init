@@ -217,7 +217,8 @@ Use this when prompts, models, RAG, agents, or tool calling are in scope.
 State the claim type as well as the status:
 
 - **Design claim:** an approved design or policy describes the control.
-- **Implementation claim:** code or configuration implements it in this commit.
+- **Implementation claim:** code or configuration implements it in the
+  inspected code.
 - **Operating-effectiveness claim:** evidence shows it works over time; rarely
   supportable from a repository review.
 

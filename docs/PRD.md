@@ -1,11 +1,5 @@
 # Product Requirements Document — AI Init Skills
 
-> **Evidence base:** commit `HEAD` of `arena/94ccada2-ai-init`; files inspected:
-> `skills/*/SKILL.md`, `skills/*/references/`, `skills/*/templates/`,
-> `scripts/`, `tests/`, `evals/`, `.github/workflows/validate.yml`,
-> `.pre-commit-config.yaml`. Existing Markdown is treated as history, not proof
-> that behavior is active.
-
 ## 1. Overview
 
 **Summary:** A modular collection of six Agent Skills that produce
@@ -98,6 +92,7 @@ No target date or numeric adoption target is recorded; none has been confirmed.
 | D-7 | Accepted | Lowercase kebab-case in `docs/` | Link portability | All uppercase, mixed case | `docs/` | TechnoBureau / 2026-10-20 |
 | D-8 | Accepted | Generate this repository's `docs/` from templates | Dogfooding, prevents template drift | Separate example repository | `tests/test_working_example.py` | TechnoBureau / 2026-10-20 |
 | D-9 | Accepted | No changelog or release numbering initially | Avoids unused version churn | SemVer per skill, repository version | `docs/governance.md` | TechnoBureau / 2026-10-20 |
+| D-10 | Accepted | No branch, revision, or tool-version provenance in generated documents | Stale metadata invites false precision | Revision in a footer | `tests/test_working_example.py` | TechnoBureau / 2026-10-20 |
 
 Full context and consequences are in [decisions.md](./decisions.md).
 

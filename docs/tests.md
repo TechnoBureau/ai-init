@@ -114,7 +114,7 @@ They are marked `Partial` where no automated evidence exists.
 
 ```text
 Command: python scripts/validate_skills.py --strict
-Environment: Python 3.11.2, PyYAML 6.0.2, Linux
+Environment: Python 3.11.2, PyYAML 6.0.3, Linux
 Result: Passed
 Output: 6 skills checked; 0 error(s), 0 warning(s).
 

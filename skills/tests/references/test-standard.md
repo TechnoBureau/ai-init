@@ -108,7 +108,7 @@ A gate is real only when CI or a documented release process enforces it.
 | Gate | Evidence | Blocking? |
 |---|---|---|
 | Build and type checks | CI job or exact local command | Confirm from configuration |
-| Unit/integration suite | Passing result on the target commit | Confirm from configuration |
+| Unit/integration suite | Passing result on the tested code | Confirm from configuration |
 | Security scans | SAST/SCA/secret/IaC results and triage | Confirm from configuration |
 | Accessibility | Automated plus manual checklist for UI changes | Confirm from policy |
 | Performance | Baseline comparison for hot paths | Confirm from policy |
@@ -134,7 +134,6 @@ Record test evidence as:
 ```text
 Command: <exact command>
 Environment: <OS/runtime/framework versions>
-Commit: <SHA>
 Result: Passed | Failed | Blocked | Not run
 Duration: <time>
 Artifacts: <paths or links, if any>
@@ -143,4 +142,4 @@ Not covered: <explicit gaps>
 ```
 
 This format prevents the most common documentation failure: claiming a suite
-passed without saying what ran, where, and against which commit.
+passed without saying what ran, where, and against which code state.

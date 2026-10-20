@@ -3,12 +3,12 @@
 Use this checklist before reporting documentation work as complete. A checked
 item means it was verified in the current worktree, not assumed.
 
-## Evidence and preservation
+## Verification and preservation
 
 - [ ] Inspected source code, manifests, tests, workflows, deployment, and
   security configuration before using existing Markdown for context.
-- [ ] Recorded the commit SHA and inspected files where a document makes claims
-  about current behavior.
+- [ ] No branch, revision, or tool-version provenance header appears in the
+  output; claims cite paths, commands, or results.
 - [ ] Checked every destination before writing; existing content and
   permanent IDs are preserved rather than replaced wholesale.
 - [ ] If a lowercase root `readme.md` exists, its content was reviewed and

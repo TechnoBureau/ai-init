@@ -1,10 +1,5 @@
 # Security Profile — AI Init Skills
 
-> **Evidence base:** commit `HEAD` of `arena/94ccada2-ai-init`; tool/version:
-> gitleaks 8.30.0 and pre-commit 4.3.0 as configured, not executed for this
-> document. This document is not a certification, audit opinion, or compliance
-> attestation.
-
 ## Executive Summary
 
 This repository distributes agent instructions and templates; it runs no
@@ -23,6 +18,10 @@ implied to be complete.
 scripts, tests, and CI configuration.\
 **Assessment type:** design and implementation review of repository content; no
 runtime or production testing.\
+
+This document is not a certification, audit opinion, or compliance
+attestation.
+
 **Applicable profiles:** NIST SSDF (SP 800-218 v1.1) practice mapping, OWASP
 supply-chain and secrets guidance, and CIS-style repository hygiene where it
 maps to configured controls.

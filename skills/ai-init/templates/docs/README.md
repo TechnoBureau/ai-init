@@ -8,7 +8,7 @@ root entry point for people and AI agents; this page is the index for `docs/`.
 Keep only the rows for documents that exist. A broken or aspirational index is
 worse than a short one.
 
-| Document | Purpose | Evidence base |
+| Document | Purpose |
 |---|---|---|
 | [Product requirements](./PRD.md) | Goals, scope, requirements, workflows, product type | Code, configuration, confirmed decisions |
 | [Architecture](./architecture.md) | Components, data flows, deployment, trust boundaries | Active code and deployment configuration |
@@ -35,7 +35,6 @@ worse than a short one.
   header rows.
 - Link only to files that exist. Keep links relative and verify them.
 - Diagrams must be evidence-based, compact, and explained in text nearby.
-- Record the commit SHA where a document makes claims about current behavior.
 - Do not add a per-document changelog or control block unless the project has
   adopted a policy that requires one.
 

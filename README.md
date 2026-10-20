@@ -235,7 +235,7 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 
 - Skill format: Agent Skills 1.0 (YAML frontmatter, `name`, `description`,
   optional `license`, `compatibility`, `metadata`, `allowed-tools`).
-- Validator: Python 3.11 or later; PyYAML 6.0.2; pre-commit 4.3.0;
+- Validator: Python 3.11 or later; PyYAML 6.0.3; pre-commit 4.7.0;
   markdownlint-cli2 0.23.3.
 - Platforms: POSIX and Windows. `ai-init` needs symlink support for the agent
   entry points; if unavailable, it reports the constraint rather than copying.

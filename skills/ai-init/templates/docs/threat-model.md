@@ -9,7 +9,6 @@ test, an audit opinion, or proof that a control operates effectively.
 - Assessed components: {{VERIFIED_COMPONENTS}}
 - Environments: {{VERIFIED_ENVIRONMENTS}}
 - Out of scope: {{EXCLUSIONS_OR_NONE}}
-- Evidence base: commit {{COMMIT_SHA}}; sources: {{PATHS}}
 
 State assumptions explicitly. An unstated assumption cannot be reviewed.
 

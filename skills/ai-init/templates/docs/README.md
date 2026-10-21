@@ -1,8 +1,8 @@
 # Documentation
 
 This directory holds the project documentation. The repository root
-`README.md` is the entry point for people and AI agents; this page is the index
-for `docs/`.
+`README.md` summarizes the project; this page indexes the documents under
+`docs/`.
 
 ## Documents
 

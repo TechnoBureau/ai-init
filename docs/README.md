@@ -1,7 +1,7 @@
 # Documentation
 
-This directory holds the project documentation. [README.md](../README.md) is the
-root entry point for people and AI agents; this page is the index for `docs/`.
+This directory holds the project documentation. [README.md](../README.md)
+summarizes the project; this page indexes the documents under `docs/`.
 
 Every document here is generated from the templates in
 `skills/*/templates/`, so this folder is also the working example of the

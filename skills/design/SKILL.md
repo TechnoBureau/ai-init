@@ -137,14 +137,14 @@ Use [templates/docs/design.md](./templates/docs/design.md) and consult
 [references/catalog.md](./references/catalog.md) only when design-system
 selection is needed.
 
-## README agent-entry links
+## README index and AGENTS link
 
-After this skill runs, if root `README.md` exists, ensure
-`AGENTS.md` is a relative symbolic link to it. Inspect each
-path first. Preserve regular files or links to other targets; merge unique
-instructions into the README before replacing only when safe. If preservation
-is uncertain or symlink creation is unsupported, do not replace the path and
-report the conflict. Never create broken links or copied-file substitutes;
-remove README links to absent aliases and report the missing links.
-Update the README's documentation index to include `docs/design.md`. If
-README is absent, report that `ai-init` is needed to create the shared index.
+After this skill runs, if root `README.md` exists, update its documentation
+index to include `docs/design.md`. Ensure root `AGENTS.md` is a relative
+symbolic link to it only when this does not replace existing unique
+instructions. Inspect the path first; preserve a regular file or link to
+another target and report the conflict. If symlink creation is unsupported,
+preserve the path and report it. Never merge those instructions into README or
+use a copied-file substitute. Do not add an AGENTS link or
+agent-directed instructions to README. If README is absent, report that
+`ai-init` is needed to create the project overview.

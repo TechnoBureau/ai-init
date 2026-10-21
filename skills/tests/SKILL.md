@@ -139,17 +139,16 @@ A test change is complete when:
 - documentation states exactly what is and is not verified;
 - links resolve and no placeholder text remains.
 
-## README agent-entry links
+## README index and AGENTS link
 
-After this skill runs, if root `README.md` exists, ensure
-`AGENTS.md` is a relative symbolic link to it. Inspect each
-path first. Leave a correct link unchanged. Preserve regular files or links
-with other targets; merge unique instructions into the README before replacing
-only when preservation is safe. If uncertain or symlink creation is not
-supported, preserve the existing path and report the conflict. Do not create
-broken links or copied-file substitutes; remove README links to absent aliases
-and report the missing links. If `README.md` is absent, report that
-`ai-init` is needed to create the shared index before these aliases can exist.
+After this skill runs, if root `README.md` exists, ensure root `AGENTS.md` is a
+relative symbolic link to it only when this does not replace existing unique
+instructions. Inspect the path first; preserve a regular file or link to another
+target and report the conflict. If symlink creation is unsupported, preserve
+the path and report it. Never merge those instructions into README or use a
+copied-file substitute. Do not add an AGENTS link or agent-directed
+instructions to README. If README is absent, report that `ai-init` is needed to
+create the project overview.
 
 When the task is test documentation, update root `README.md` to index
 `docs/tests.md`; keep it as the single document index and avoid duplicating

@@ -207,16 +207,13 @@ generation. The user must have requested cleanup, refactoring, or code
 standards work. If code ownership, dynamic use, public compatibility, or
 security impact is unclear, preserve the code and report the uncertainty.
 
-## README agent-entry links
+## README index and AGENTS link
 
-After this skill runs, if root `README.md` exists, ensure
-`AGENTS.md` is a relative symbolic link to it. Inspect each
-path first. Preserve regular files or links to other targets; merge unique
-instructions into the README before replacing only when safe. If preservation
-is uncertain or symlink creation is unsupported, do not replace the path and
-report the conflict. Never create broken links or copied-file substitutes;
-remove README links to absent aliases and report the missing links.
-If README is absent, report that `ai-init` is needed to create the shared
-index. Do not otherwise edit README content for a code-only change; preserving
-unique instructions or removing links to absent aliases while satisfying the
-requested alias behavior is the only exception.
+After this skill runs, if root `README.md` exists, ensure root `AGENTS.md` is a
+relative symbolic link to it only when this does not replace existing unique
+instructions. Inspect the path first; preserve a regular file or link to another
+target and report the conflict. If symlink creation is unsupported, preserve
+the path and report it. Never merge those instructions into README or use a
+copied-file substitute. Do not add an AGENTS link or agent-directed
+instructions to README. If README is absent, report that `ai-init` is needed to
+create it. Do not otherwise edit README content for a code-only change.

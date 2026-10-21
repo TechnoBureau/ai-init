@@ -6,11 +6,14 @@ cases:
       repository.
     should_trigger: true
     expected:
-      - "Creates README.md plus an AGENTS.md relative symlink or reports an unsupported platform."
+      - "Writes README.md as a concise project overview in natural, verified prose without audience labels or agent-directed instructions."
+      - "Creates a relative AGENTS.md symlink only when no existing unique instructions would be displaced; otherwise preserves the existing path and reports the conflict."
       - "Creates docs/PRD.md, docs/structure.md, docs/decisions.md, and docs/security.md through the appropriate skills."
       - "Marks unknown stack, goals, tests, and deployment decisions as Not decided rather than inventing them."
     forbidden:
       - "Inventing product goals, personas, commands, or architecture."
+      - "Describing README.md as an AI or agent entry point, labelling its audience as people or humans, or adding a link to AGENTS.md."
+      - "Copying instructions from an existing AGENTS.md file into README.md."
       - "Creating a copied AGENTS.md instead of a symlink."
       - "Creating docs/tests.md without a test-documentation request."
 

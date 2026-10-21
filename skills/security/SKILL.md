@@ -226,13 +226,13 @@ or tool allowlist as an enforceable sandbox unless the host enforces it.
 - Never include live secrets, private keys, customer records, or unredacted
   production identifiers in the profile.
 
-Use [templates/docs/security.md](./templates/docs/security.md). After this skill runs,
-if root `README.md` exists, update its index when this task creates or updates
-`docs/security.md`, and ensure `AGENTS.md` is a relative symbolic link to it.
-Inspect that path first. Preserve regular files or links to other targets;
-merge unique instructions into the README before replacing only when safe. If
-preservation is uncertain or symbolic-link creation is unsupported, keep the
-existing path and report the conflict. Never make broken links or copied-file
-substitutes; remove README links to absent aliases and report the missing
-links. If README is absent, report that `ai-init` is needed to create the
-shared index.
+Use [templates/docs/security.md](./templates/docs/security.md). After this
+skill runs, if root `README.md` exists, update its index when this task creates
+or updates `docs/security.md`. Ensure root `AGENTS.md` is a relative symbolic
+link to README only when this does not replace existing unique instructions.
+Inspect the path first; preserve a regular file or link to another target and
+report the conflict. If symlink creation is unsupported, preserve the path and
+report it. Never merge those instructions into README or use a copied-file
+substitute. Do not add an AGENTS link or agent-directed
+instructions to README. If README is absent, report that `ai-init` is needed to
+create the project overview.

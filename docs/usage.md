@@ -56,6 +56,35 @@ List the skills available in a checkout without installing:
 npx skills add . --list
 ```
 
+### Use the skills
+
+Skills run inside a compatible host; they are not shell commands. Invoke a skill
+by name where supported, or include the skill name in a natural-language task.
+For routine documentation updates, name the changed path and desired result so
+`ai-init` can inspect only the relevant files. Ask explicitly for a full refresh
+when a repository-wide review is intended.
+
+- **Targeted documentation update:** “`$ai-init` Update the README Quick Start
+  for the new `dev` script in `package.json`. Inspect the manifest, referenced
+  script, and README; leave unrelated documents unchanged.”
+- **Full documentation refresh:** “`$ai-init` Perform a full refresh of the
+  repository documentation and reconcile all managed documents with current
+  source and configuration.”
+- **Requirements:** “`$prd` Update the requirements affected by the new account
+  recovery flow; preserve existing IDs and inspect only related code and tests.”
+- **Tests:** “`$tests` Add coverage for the new account recovery behavior using
+  the existing test framework.”
+- **Security:** “`$security` Review the changed API-key rotation path and its
+  direct storage/auth dependencies; do not inventory unrelated services.”
+- **Design:** “`$design` Update the focus-ring token for the shared Button
+  component. Check its styles and keyboard behavior; leave other components
+  unchanged.”
+- **Code quality:** “`$code-quality` Remove the unused helper in
+  `src/account.py`; check references, dynamic entry points, and related tests.”
+
+A narrow request does not automatically trigger a full documentation, security,
+design, or test audit.
+
 ### Validate the repository
 
 ```bash

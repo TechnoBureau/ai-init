@@ -42,10 +42,13 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 
 ## Before changes
 
-- Inspect repository instructions, worktree changes, test directories,
-  manifests, fixtures, mocks, CI workflows, and exact test commands.
-- Identify the current test levels, frameworks, coverage configuration,
-  supported runtimes, and any existing quality gates.
+- For a targeted test task, start from the requested behavior or changed code
+  path. Inspect its related tests, fixtures/mocks, and only the manifests, CI
+  workflow, and commands needed for that task. Inventory all test levels and
+  gates only for a requested strategy review, framework change, or broad audit;
+  ask before broadening if the behavior/path remains unclear.
+- In a Git worktree, inspect status and relevant diffs to preserve user changes;
+  do not scan or rewrite unrelated test areas.
 - Preserve existing tests and local changes. Do not replace a suite or test
   configuration wholesale.
 - If the user requested test documentation, inspect `docs/tests.md` first and
@@ -54,8 +57,8 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 - If the user requested test code, use the current framework and conventions.
   Do not add dependencies, broad test infrastructure, coverage thresholds, or
   CI gates unless requested or justified by the task.
-- Record the starting state: which commands pass before your change, and which fail
-  for pre-existing reasons.
+- Establish a baseline with the narrowest relevant command; record broader
+  pre-existing failures only when the task or risk requires broader checks.
 
 ## Test strategy and traceability
 
@@ -75,11 +78,13 @@ evidence.
 - Keep tests independent and parallel-safe unless the repository explicitly
   serializes them.
 
-## Mandatory coverage review
+## Coverage review
 
-Consider each area and record `Applicable`, `Not applicable`, or
-`Not evidenced` with a reason. Implement only what the request and evidence
-justify.
+For a targeted test change, consider only coverage areas relevant to the
+requested behavior and its risk. Review every area below only for a requested
+test strategy, `docs/tests.md`, or broad coverage audit. Record
+`Applicable`, `Not applicable`, or `Not evidenced` with a reason when doing that
+full review; implement only what the request and evidence justify.
 
 | Area | Minimum consideration |
 |---|---|
@@ -141,15 +146,10 @@ A test change is complete when:
 
 ## README index and AGENTS link
 
-After this skill runs, if root `README.md` exists, ensure root `AGENTS.md` is a
-relative symbolic link to it only when this does not replace existing unique
-instructions. Inspect the path first; preserve a regular file or link to another
-target and report the conflict. If symlink creation is unsupported, preserve
-the path and report it. Never merge those instructions into README or use a
-copied-file substitute. Do not add an AGENTS link or agent-directed
-instructions to README. If README is absent, report that `ai-init` is needed to
-create the project overview.
-
-When the task is test documentation, update root `README.md` to index
-`docs/tests.md`; keep it as the single document index and avoid duplicating
-the test inventory elsewhere.
+- For test documentation, update the `docs/tests.md` index entry only when the
+  task creates/removes the document or the entry is missing/stale; otherwise
+  leave README unchanged. `ai-init` owns README creation.
+- Handle the `AGENTS.md` symlink only during Bootstrap or explicit README/link
+  work; targeted test tasks do not inspect or change it. Keep link handling
+  separate from README prose, preserve conflicts, and never copy AGENTS
+  instructions into README.

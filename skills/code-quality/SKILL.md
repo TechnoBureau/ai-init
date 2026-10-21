@@ -46,12 +46,12 @@ on unrelated projects.
 
 ## Safe dead-code cleanup
 
-1. Inspect repository instructions, status, build manifests, code generation,
-   module exports, entry points, tests, plugins, dependency injection,
-   reflection, dynamic imports, serialization, configuration, and deployment
-   references before choosing candidates. Review the working-tree diff and
-   preserve unrelated or pre-existing user changes; do not overwrite files
-   wholesale.
+1. Inspect repository instructions and worktree status, then start from the
+   requested paths/symbols or changed-file list. For each candidate, follow
+   direct references and the specific dynamic/public entry points, generated
+   code, configuration, tests, or deployment hooks that could affect it. Do a
+   repository-wide inventory only for an explicitly repo-wide cleanup; ask if
+   the target cannot be bounded. Preserve unrelated or pre-existing changes.
 1. Remove only unused declarations supported by reliable evidence such as a
    compiler, configured linter, static analyzer, or a complete reference and
    call-path search. Include unused imports, local variables, private
@@ -207,13 +207,9 @@ generation. The user must have requested cleanup, refactoring, or code
 standards work. If code ownership, dynamic use, public compatibility, or
 security impact is unclear, preserve the code and report the uncertainty.
 
-## README index and AGENTS link
+## README and AGENTS scope
 
-After this skill runs, if root `README.md` exists, ensure root `AGENTS.md` is a
-relative symbolic link to it only when this does not replace existing unique
-instructions. Inspect the path first; preserve a regular file or link to another
-target and report the conflict. If symlink creation is unsupported, preserve
-the path and report it. Never merge those instructions into README or use a
-copied-file substitute. Do not add an AGENTS link or agent-directed
-instructions to README. If README is absent, report that `ai-init` is needed to
-create it. Do not otherwise edit README content for a code-only change.
+This skill owns code-quality work, not root `README.md` or `AGENTS.md`; leave
+both unchanged for code-only tasks. Route documentation to its owning skill
+and shared README/Bootstrap work to `ai-init`. Keep AGENTS link handling
+separate from README prose and preserve any existing AGENTS path.

@@ -163,7 +163,7 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-23 | A template MUST NOT contain a relative link; it MUST name the document and the skill MUST write the link only for a file it wrote | `check_links.py` and `tests/test_template_links.py` find no relative link in a template; generated pages link every generated document |
 | FR-24 | A generated Mermaid block MUST be valid as written: canonical init block, a diagram type on the first code line, and no template token | `tests/test_diagrams.py` passes and no diagram renders a parse error |
 | FR-25 | A template that generates a diagram MUST carry the canonical init line in a valid example block, and the skill MUST replace every example node before delivery | Working example has no `(replace)` label; generated diagrams keep the init line |
-| FR-26 | `ai-init` MUST refresh an existing document against the current tree instead of skipping it, and MUST preserve permanent IDs and user-authored sections | A changed configuration is reflected in the existing document; no stale statement survives because the file existed |
+| FR-26 | `ai-init` MUST default to targeted scope for identifiable changes, using named paths, worktree/staged diffs, or user-supplied commit/PR ranges; targeted updates MUST inspect and update only affected documents. Bootstrap or an explicit full refresh MUST reconcile all managed documents. When impact cannot be established, `ai-init` MUST ask before widening scope. Both modes MUST preserve permanent IDs and user-authored sections | A targeted change leaves unrelated docs unchanged; a full refresh reconciles the managed set against relevant evidence; an ambiguous scope prompts for clarification |
 
 ## 8. Non-Functional Requirements
 

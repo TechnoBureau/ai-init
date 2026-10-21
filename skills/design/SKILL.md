@@ -45,11 +45,13 @@ project-specific decisions in the generated document.
 ## Preflight
 
 - Check whether `docs/design.md` exists. Preserve current project decisions,
-  tokens, and asset links; update the relevant sections in place.
-- Inspect actual UI code, styles, design tokens, component libraries,
-  accessibility checks, localization files, and assets before making claims.
-- Identify supported platforms, browsers/devices, input modes, locales, themes,
-  and assistive technologies from configuration and code.
+  tokens, and asset links; update affected sections in place.
+- For a targeted update, inspect the requested or changed UI components and
+  their related styles, tokens, assets, and accessibility/localization evidence.
+  Review the full design system only when requested or when direct evidence
+  shows cross-component impact; ask if the affected boundary remains unclear.
+- Identify only the supported platforms, input modes, locales, themes, or
+  assistive technologies relevant to the affected component.
 - If no UI exists, do not create `docs/design.md`. If a new UI repository has
   no implemented system yet, document `Not selected` rather than inventing a
   design system, palette, or assets.
@@ -73,9 +75,11 @@ project-specific decisions in the generated document.
 - Keep related-document links only when their target files exist; use the
   README as the shared documentation index.
 
-## Mandatory design-system content
+## Design-system content
 
-Include these areas when applicable; omit only with an explicit reason:
+For a new document or explicit full design audit, consider every applicable area
+below and document justified omissions. For a targeted update, update only the
+affected areas and preserve unrelated sections unchanged.
 
 | Area | Minimum content |
 |---|---|
@@ -94,7 +98,8 @@ Include these areas when applicable; omit only with an explicit reason:
 ## Accessibility baseline
 
 Use [the accessibility reference](./references/accessibility.md) for criteria
-and test methods.
+and test methods. For targeted work, assess criteria relevant to the affected
+component; use the complete list for a new document or full accessibility audit.
 
 - Default target is WCAG 2.2 Level AA only when the product has adopted it;
   record `Not selected` otherwise. Never claim conformance without a completed
@@ -112,6 +117,9 @@ and test methods.
 
 ## Privacy, safety, and ethics
 
+For targeted work, consider the relevant affected UI surfaces; review the full
+product only for a requested full audit.
+
 - Identify dark patterns and manipulative defaults: forced continuity,
   confirmshaming, hidden costs, roach motel, and obstructed cancellation.
 - Document consent, data collection, tracking, and retention surfaces visible
@@ -123,7 +131,8 @@ and test methods.
 
 ## Design quality gates
 
-A design-system document is ready when:
+For a new document or full audit, verify all gates below. A targeted update
+verifies only affected components/tokens and preserves unrelated sections.
 
 - every token and component maps to an implementation path;
 - states are documented (default, hover, focus, active, disabled, loading,
@@ -139,12 +148,10 @@ selection is needed.
 
 ## README index and AGENTS link
 
-After this skill runs, if root `README.md` exists, update its documentation
-index to include `docs/design.md`. Ensure root `AGENTS.md` is a relative
-symbolic link to it only when this does not replace existing unique
-instructions. Inspect the path first; preserve a regular file or link to
-another target and report the conflict. If symlink creation is unsupported,
-preserve the path and report it. Never merge those instructions into README or
-use a copied-file substitute. Do not add an AGENTS link or
-agent-directed instructions to README. If README is absent, report that
-`ai-init` is needed to create the project overview.
+- Update the `docs/design.md` index entry only when this task creates/removes
+  the document or the entry is missing/stale; otherwise leave README unchanged.
+  `ai-init` owns README creation.
+- Handle the `AGENTS.md` symlink only during Bootstrap or explicit README/link
+  work; targeted design updates do not inspect or change it. Keep link handling
+  separate from README prose, preserve conflicts, and never copy AGENTS
+  instructions into README.

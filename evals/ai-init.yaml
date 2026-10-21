@@ -19,8 +19,8 @@ cases:
 
   - id: refresh-existing-documents
     prompt: >-
-      Refresh the repository documentation, preserving existing decision IDs
-      and the lowercase readme.md content.
+      Perform a full repository documentation refresh, preserving existing
+      decision IDs and the lowercase readme.md content.
     should_trigger: true
     expected:
       - "Inspects source and configuration before trusting existing Markdown."
@@ -30,6 +30,32 @@ cases:
     forbidden:
       - "Replacing existing documents wholesale."
       - "Leaving two competing README indexes."
+
+  - id: targeted-doc-update
+    prompt: >-
+      Only package.json changed: it now defines a lint:docs script that runs
+      scripts/docs_lint.py. Update the root README and docs/usage.md with the
+      verified command, and leave unrelated documents alone.
+    should_trigger: true
+    expected:
+      - "Uses targeted-update mode and inspects package.json, scripts/docs_lint.py, README.md, and docs/usage.md only as needed."
+      - "Updates only the affected setup/usage text and direct links."
+      - "Does not invoke every companion skill or run a repository-wide documentation audit."
+    forbidden:
+      - "Scanning every repository file despite the narrow change scope."
+      - "Rewriting unrelated PRD, security, design, test, or governance documents."
+
+  - id: ambiguous-doc-scope
+    prompt: >-
+      Update the documentation to reflect the latest changes. I do not have a
+      list of changed paths or a commit/PR range to provide.
+    should_trigger: true
+    expected:
+      - "Asks which changes or document area the user means before widening the inspection."
+      - "Does not silently treat the request as a full repository audit."
+    forbidden:
+      - "Scanning the entire repository without establishing the affected scope."
+      - "Rewriting documentation based on assumptions about the latest changes."
 
   - id: migrate-architecture-filename
     prompt: >-
@@ -172,16 +198,17 @@ cases:
 
   - id: refresh-existing-documentation
     prompt: >-
-      This repository already has a README.md and a docs/ set. Last month the
-      service moved from Heroku to Fly.io. Refresh the documentation.
+      This repository already has a README.md and a docs/ set. The service
+      moved from Heroku to Fly.io. Perform a full documentation refresh across
+      all managed documents.
     should_trigger: true
     expected:
-      - "Reads the current configuration and rewrites the deployment statements for the new platform."
-      - "Keeps permanent requirement and decision IDs and the hand-written sections."
-      - "Updates the index and cross-links for the documents that exist after the change."
+      - "Uses full-refresh mode to reconcile every managed document against relevant current sources and configuration."
+      - "Rewrites deployment claims for the new platform and updates related architecture, usage, security, and indexes where evidence warrants."
+      - "Keeps permanent requirement and decision IDs and hand-written sections."
     forbidden:
       - "Skipping the update because the files already exist."
-      - "Appending a note that the platform changed while leaving the old statements in the body."
+      - "Appending a note that the platform changed while leaving stale claims in the body."
 
   - id: do-not-handle-security-assessment
     prompt: >-

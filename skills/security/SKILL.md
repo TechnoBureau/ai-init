@@ -46,19 +46,21 @@ requirements; do not turn a control catalog into a generic compliance claim.
 
 ## Preflight
 
-1. Inspect the worktree, repository instructions, source, manifests,
-   infrastructure, protocols, identity, secrets, dependencies, build/release,
-   logging, and security configuration relevant to the task.
+1. For a targeted review, identify the requested boundary/control and inspect
+   only its changed paths, direct dependencies, and evidence sources. Perform a
+   full inventory only for an initial profile or explicit full assessment; ask
+   before broadening if the boundary cannot be established.
 1. Read existing `docs/security.md` and preserve confirmed controls,
-   exceptions, prior findings, and user-authored content. Update in place;
-   never overwrite it wholesale.
+   exceptions, prior findings, and user-authored content. Update affected
+   sections in place; never overwrite it wholesale.
 1. Identify system boundaries, data types, environments, and regulatory or
-   enterprise scope only from confirmed evidence. Mark unknowns `Not documented` or `Not assessed`.
+   enterprise scope only from confirmed evidence. Mark unknowns `Not documented`
+   or `Not assessed`.
 1. For an empty repository, create an initial profile, not an assertion of
    security. Use `Not assessed` until scope is known and `Not evidenced` only
    after inspecting the relevant repository area.
-1. Record the assessed boundary and the files, configurations, and tool results
-   examined so another reviewer can repeat the assessment.
+1. Record the assessed boundary and only the files, configurations, and tool
+   results examined so another reviewer can repeat the assessment.
 
 ## Scope, data, and threat model
 
@@ -79,13 +81,16 @@ requirements; do not turn a control catalog into a generic compliance claim.
 ## Select applicable profiles
 
 Read [the modular baseline](./references/security-baseline.md) when selecting
-frameworks or making cryptographic/hardening recommendations.
+frameworks or making cryptographic/hardening recommendations. For targeted
+work, select only profiles and controls relevant to the requested boundary;
+review the full inventory only for an initial profile or explicit full
+assessment.
 
-- If cryptography is present, first inventory algorithms, protocols, libraries and
-  providers, modules, certificates and keys, dependencies, data lifetime, and
-  configuration surfaces. Assess post-quantum migration readiness and
-  cryptographic agility. Do not prescribe a target algorithm or migration
-  date without confirmed policy, protocol support, and system requirements.
+- If cryptography is present in the assessed boundary, inventory its algorithms,
+  protocols, libraries/providers, modules, certificates/keys, dependencies,
+  data lifetime, and configuration surfaces. Assess PQC readiness and agility.
+  Do not prescribe targets without confirmed policy, protocol support, and
+  system requirements.
 - Treat configurable algorithm switching as a controlled policy mechanism:
   externalize selection behind a centralized provider or configuration
   surface instead of scattering algorithm literals; allow only explicit
@@ -124,11 +129,12 @@ one `Assessment` cell. Do not add evidence, verification, or owner columns.
 Omit irrelevant modules rather than marking every possible control
 `Not applicable`.
 
-## Mandatory enterprise control domains
+## Enterprise control domains
 
-Assess each domain that applies to the system. A domain may be `Not assessed`
-when access or evidence is insufficient; omit it only when it is genuinely
-irrelevant.
+For an initial profile or explicit full assessment, assess every applicable
+domain below. For targeted work, assess only domains within the requested
+boundary; mark insufficient evidence `Not assessed` and omit genuinely
+irrelevant areas.
 
 | Domain | What to inspect | Minimum output |
 |---|---|---|
@@ -149,7 +155,8 @@ irrelevant.
 
 ## Supply chain and build integrity
 
-Assess what the repository actually contains:
+For an initial/full profile or a request affecting supply chain/build integrity,
+assess only the relevant artifacts and controls:
 
 - dependency pinning and lockfiles, registry trust, and update automation;
 - SBOM generation and whether it meets the NTIA minimum elements using SPDX
@@ -168,6 +175,9 @@ artifacts are built, which identity signs them, and whether verification is
 enforced.
 
 ## Vulnerability and incident management
+
+For an initial/full profile or a request affecting these processes, inspect the
+relevant evidence:
 
 - Identify the intake channel, triage role, severity method (for example
   CVSS v4.0 plus EPSS and CISA KEV context), and remediation timeline. If the
@@ -226,13 +236,10 @@ or tool allowlist as an enforceable sandbox unless the host enforces it.
 - Never include live secrets, private keys, customer records, or unredacted
   production identifiers in the profile.
 
-Use [templates/docs/security.md](./templates/docs/security.md). After this
-skill runs, if root `README.md` exists, update its index when this task creates
-or updates `docs/security.md`. Ensure root `AGENTS.md` is a relative symbolic
-link to README only when this does not replace existing unique instructions.
-Inspect the path first; preserve a regular file or link to another target and
-report the conflict. If symlink creation is unsupported, preserve the path and
-report it. Never merge those instructions into README or use a copied-file
-substitute. Do not add an AGENTS link or agent-directed
-instructions to README. If README is absent, report that `ai-init` is needed to
-create the project overview.
+Use [templates/docs/security.md](./templates/docs/security.md) for a new
+profile. Update the README index only if this task creates/removes the document
+or its entry is missing/stale; otherwise leave README unchanged. `ai-init` owns
+README creation. Handle the `AGENTS.md` symlink only during Bootstrap or
+explicit README/link work; targeted security reviews do not inspect or change it.
+Keep link handling separate from README prose, preserve conflicts, and never
+copy AGENTS instructions into README.

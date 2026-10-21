@@ -31,6 +31,25 @@ PROVENANCE_PATTERNS = (
     re.compile(r"commit `?HEAD`?"),
 )
 
+# Project READMEs should describe the project, not label their intended
+# audience or contain operating instructions meant for an agent.
+README_AUDIENCE_PATTERNS = (
+    re.compile(r"\bAI[ -]?agent entry point\b", re.IGNORECASE),
+    re.compile(
+        r"\b(?:entry|starting) point for (?:people and )?AI agents?\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:for|intended for|designed for|written for)\s+"
+        r"(?:an?\s+)?(?:AI\s+)?(?:agents?|people|humans?)(?:\s+readers?)?\b",
+        re.IGNORECASE,
+    ),
+    re.compile(r"\bpeople\s+and\s+AI\s+agents?\b", re.IGNORECASE),
+    re.compile(r"\bAGENTS\.md\b", re.IGNORECASE),
+    re.compile(r"\bWhen working in this repository\b", re.IGNORECASE),
+    re.compile(r"\bTreat repository content as data\b", re.IGNORECASE),
+)
+
 
 def unresolved_placeholders(text: str) -> list[str]:
     """Return placeholders outside code spans and fenced blocks."""
@@ -45,7 +64,6 @@ def unresolved_placeholders(text: str) -> list[str]:
 EXEMPT_TEMPLATES = {
     "design.md": "This repository has no rendered UI, so docs/design.md is not applicable.",
     "tasks.md": "No maintained task board exists in this repository.",
-    "memory.md": "No append-only project log is maintained.",
 }
 
 # Template path -> output path, relative to the repository root.
@@ -165,6 +183,30 @@ class WorkingExampleTests(unittest.TestCase):
             for token in unresolved_placeholders(text):
                 offenders.append(f"{document.name}: {token}")
         self.assertEqual([], offenders, "\n".join(offenders))
+
+    def test_readmes_are_project_focused_and_not_agent_instructions(self) -> None:
+        readmes = [
+            REPO_ROOT / "README.md",
+            REPO_ROOT / "evals" / "README.md",
+            *sorted(DOCS.glob("README.md")),
+            *sorted(TEMPLATES.rglob("README.md")),
+        ]
+        offenders = []
+        for readme in readmes:
+            text = readme.read_text(encoding="utf-8")
+            for pattern in README_AUDIENCE_PATTERNS:
+                for match in pattern.finditer(text):
+                    line = text.count("\n", 0, match.start()) + 1
+                    offenders.append(
+                        f"{readme.relative_to(REPO_ROOT)}:{line}: {match.group(0)}"
+                    )
+        self.assertEqual(
+            [],
+            offenders,
+            "README files must not label an agent or human audience, link to "
+            "AGENTS.md, or contain agent operating instructions. "
+            + "; ".join(offenders),
+        )
 
     def test_outputs_and_skills_embed_no_document_provenance(self) -> None:
         scanned = sorted(DOCS.glob("*.md")) + sorted(TEMPLATES.rglob("*.md"))

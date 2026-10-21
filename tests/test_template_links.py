@@ -57,7 +57,6 @@ CONDITIONAL = {
     "docs/governance.md",
     "docs/threat-model.md",
     "docs/tasks.md",
-    "docs/memory.md",
 }
 
 # Outputs produced from a reference, not a template file.

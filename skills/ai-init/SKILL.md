@@ -83,23 +83,31 @@ managed output as something to verify and update, not to skip.
 4. Update the README index and cross-links to the documents that exist after the
    change, then report what changed and what could not be verified.
 
-## Root README and agent links
+## Root README and AGENTS link
 
 - Create or refresh root `README.md` from [the README template](./templates/root/README.md).
-  It is the one shared project summary and documentation index for people and
-  agents.
-- Create the root relative symbolic link `AGENTS.md -> README.md` at execution
-  time. There is no AGENTS template.
+  Write it as a concise, project-focused overview in clear, natural prose.
+- Do not describe the README as an entry point for an agent, AI, people, or
+  humans. Do not add an agent-specific heading, link to `AGENTS.md`, or
+  instructions addressed to an agent. Keep operating and safety instructions
+  in skill documentation, not in the project README.
+- Do not copy template-authoring notes into the generated README. Replace
+  placeholders with verified project information and remove generic
+  instructions that do not help someone use or understand the project.
+- When refreshing an existing README, remove generic agent-audience or
+  entry-point boilerplate and skill operating instructions while preserving
+  unrelated project-specific content.
+- Create the root relative symbolic link `AGENTS.md -> README.md` separately
+  when it is safe. There is no AGENTS template, and the README does not mention
+  the link.
 - Before creating the link, inspect that exact path. Leave an existing
   symlink to `README.md` unchanged. If a regular file or a link to another
-  target exists, preserve its unique instructions by merging them into the
-  README before replacing it with the requested link. If safe preservation is
-  uncertain, do not replace it; report the conflict. Never make a broken link.
+  target exists, preserve it and report the conflict; do not merge its unique
+  instructions into the README or replace it. Never make a broken link.
 - Use a relative symlink target. On POSIX use `ln -s README.md AGENTS.md`; on
   Windows use the equivalent symbolic-link operation. If the platform cannot
   create symlinks, report that constraint; do not silently substitute a copied
-  file. Remove a link to an absent alias from `README.md` so it has no broken
-  links, and report the missing alias.
+  file.
 - Follow the open `AGENTS.md` convention: the nearest AGENTS file to the edited
   path applies, and more specific files override broader ones. Do not create
   nested AGENTS files unless the repository already uses that structure.
@@ -175,7 +183,8 @@ not maintain rather than leaving a hook nobody acts on.
 Always create or refresh from the current tree, preserving permanent IDs and
 sections a maintainer wrote by hand:
 
-- Root `README.md`, plus the agent-entry symbolic link described above.
+- Root `README.md`, plus a root `AGENTS.md` symlink when no existing
+  instructions would be displaced.
 - `docs/README.md` — the documentation index. Create it with the first
   generated document and keep it in step with the files that exist.
 - `docs/PRD.md` with `$prd`.
@@ -215,8 +224,8 @@ a gap. Follow the full rules in
 [`references/architecture/mermaid-standard.md`](./references/architecture/mermaid-standard.md).
 Create `docs/governance.md` when roles, review rules, or change classes must be
 recorded; create `docs/threat-model.md` with `$security` when a dedicated threat
-model is requested. Create tasks or memory documents only when requested or
-clearly useful to ongoing work.
+model is requested. Create task documents only when requested or clearly
+useful to ongoing work.
 
 ## Enterprise documentation standard
 

@@ -73,15 +73,19 @@ item means it was verified in the current worktree, not assumed.
 - [ ] Conflicts between manifest, `LICENSE`, and README were reported, not
   silently resolved.
 
-## Root README and agent links
+## Root README and AGENTS link
 
-- [ ] Root `README.md` is the shared summary and index for humans and AI,
-  summarizes goals from `docs/PRD.md`, and links to root `AGENTS.md`.
-- [ ] Root `AGENTS.md` is a relative symbolic link to `README.md` where
-  supported; a substantive conflict is preserved or reported, and README
-  contains no link to an alias that could not be created.
-- [ ] No nested `AGENTS.md` was invented; any existing agent instruction
-  hierarchy is preserved.
+- [ ] Root `README.md` is a concise, project-focused summary and index that
+  uses natural, factual prose and summarizes goals from `docs/PRD.md`.
+- [ ] README does not describe itself as an entry point for agents, AI,
+  people, or humans; it has no agent-specific heading, agent-directed
+  instructions, or link to `AGENTS.md`.
+- [ ] Root `AGENTS.md` is a relative symbolic link to `README.md` only when
+  this does not replace existing unique instructions. Preserve conflicting
+  files or links and report the conflict; do not copy instructions into README
+  or substitute a copied file for a symlink.
+- [ ] No nested `AGENTS.md` was invented; any existing instruction hierarchy
+  is preserved.
 
 ## PRD and traceability
 

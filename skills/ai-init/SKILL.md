@@ -1,12 +1,11 @@
 ---
 name: ai-init
 description: >-
-  Bootstrap or refresh an evidence-grounded, stakeholder-readable documentation
-  set for a new or existing repository. Use when asked to initialize AI context,
-  create or refresh README.md or AGENTS.md, map repository
-  structure, record architecture decisions, or establish baseline project
-  documentation. Routes PRD, security, tests, design, and code-quality work to
-  dedicated skills.
+  Bootstrap repository documentation or make a scoped update to common project
+  docs such as README.md, structure, or usage. Use for a new repository, an
+  explicit full documentation refresh, or a requested update whose impact is
+  limited to common docs. Route PRD, security, tests, design, and code-quality
+  work to dedicated skills.
 license: MIT
 compatibility: >-
   Requires a writable Git worktree with file and symlink support. POSIX and
@@ -23,9 +22,10 @@ allowed-tools: "Read Grep Glob Write Edit Bash"
 
 # AI Init
 
-Create the shared root `README.md` and common project documentation. Keep
-domain-specific PRD, security, test, design, and code-quality guidance in the
-dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
+Bootstrap common repository documentation or update only the files affected by
+a requested change. Keep domain-specific PRD, security, test, design, and
+code-quality work in the dedicated `prd`, `security`, `tests`, `design`, and
+`code-quality` skills.
 
 ## Operating constraints
 
@@ -45,48 +45,65 @@ dedicated `prd`, `security`, `tests`, `design`, and `code-quality` skills.
 - Keep machine-readable metadata intact. YAML frontmatter and requirement IDs
   are contractual; never let a Markdown formatter rewrite them.
 
+## Choose the inspection scope
+
+Use **targeted update** by default for a named path, document, change, or
+outcome; do not turn routine work into a repository-wide audit.
+
+- **Bootstrap:** a new repository or missing baseline; inspect enough evidence to
+  establish initial facts.
+- **Targeted update:** a specific document or code/config change with clear
+  impact; inspect named/changed paths, direct dependencies, relevant tests and
+  configuration, and affected existing documents only.
+- **Full refresh:** only for Bootstrap or an explicit request. If evidence shows
+  wider impact, expand to affected areas; ask if scope cannot be bounded.
+
+For targeted work, start with user-named paths. In a Git worktree, use
+`git status --short`, `git diff --name-only`, and `git diff --cached --name-only`;
+use only supplied commit/PR ranges. Without changed paths, inspect request-implied
+files and nearest docs; ask if impact remains unclear. Read relevant instructions
+and evidence. Route specialist work only to needed skills.
+
+| Change area | Inspect and update |
+|---|---|
+| Product scope or requirements | Relevant evidence and `$prd`; README summary/index only if affected |
+| Commands or configuration | Owning manifest/script/config and affected README or `docs/usage.md` sections |
+| Layout or component boundaries | Changed paths and direct references; `docs/structure.md` or architecture only if affected |
+| Security, identity, data, dependencies | Relevant control surface; `$security` only when requested or materially affected |
+| Tests, framework, CI gates | Relevant tests/config; `$tests` when test work or docs are requested |
+| UI, tokens, accessibility | Relevant UI paths; `$design` when design-system work is in scope |
+
 ## Preflight and preservation
 
-1. Inspect the repository tree, source, manifests, workflows, tests, deployment
-   and security configuration before using Markdown as evidence.
-1. Check every output path before writing. Preserve user-authored sections,
-   valid IDs, local conventions, and unrelated working-tree changes. Update in
-   place; do not replace an existing file wholesale merely because a template
-   exists.
-1. Detect root README names case-insensitively. If only `readme.md` exists,
-   preserve useful content while migrating the index to uppercase `README.md`.
-   If both spellings exist, merge unique information before removing a
-   duplicate. Do not silently discard content or leave two competing indexes.
-1. Detect `docs/architecture.md` case-insensitively. If `docs/Architecture.md`
-   exists, preserve its content and migrate to the lowercase canonical name.
-   On case-insensitive filesystems, rename in two steps
-   (`Architecture.md` → temporary name → `architecture.md`) and update links.
-1. Compare `.gitignore`, `.editorconfig`, `.gitattributes`, and
-   `.pre-commit-config.yaml` before adding starter files; never copy over an
-   existing configuration.
+- Check every output path before writing. Preserve user-authored sections,
+  permanent IDs, local conventions, and unrelated working-tree changes. Update
+  in place; do not replace a file wholesale merely because a template exists.
+- Handle README case variants only when in scope: migrate `readme.md` to
+  `README.md`, merging unique content if both exist; never discard content or
+  leave competing indexes.
+- When architecture docs are in scope, migrate `docs/Architecture.md` to
+  `docs/architecture.md`, preserving content and links; use a temporary name
+  between paths on case-insensitive filesystems.
+- Compare `.gitignore`, `.editorconfig`, `.gitattributes`, and
+  `.pre-commit-config.yaml` only when adding or changing starter configuration;
+  never copy over an existing configuration.
 
-## Refreshing an existing repository
+## Refreshing existing documents
 
-An existing document is a previous snapshot, not an authority. It was true when
-it was written, and its presence is not evidence that its statements still hold.
-Generating only the missing files leaves the stale ones in place, so treat every
-managed output as something to verify and update, not to skip.
-
-1. Read each existing document for permanent IDs, decision records, and sections
-   a maintainer wrote by hand; keep them.
-2. Re-derive the facts from the current tree: source, manifests, tests,
-   workflows, deployment, and security configuration.
-3. Edit in place. Correct a statement that no longer matches, re-scope or remove
-   a section whose subject no longer exists, and add evidence that appeared
-   since the last update. Never leave a stale claim because the file already
-   exists, and never replace a file wholesale merely because a template exists.
-4. Update the README index and cross-links to the documents that exist after the
-   change, then report what changed and what could not be verified.
+Existing documentation is a snapshot, not proof that every claim is current.
+For a targeted update, read the affected document to preserve IDs and
+maintainer-written content; verify only impacted claims and direct links, leaving
+unrelated sections and documents untouched. For a full refresh, inspect all
+managed documents and relevant source, manifests, workflows, tests, deployment,
+and security evidence; correct stale claims, re-scope obsolete sections, and
+add newly supported facts. In either mode, report changes, evidence checked, and
+remaining unknowns; do not retain a known-stale claim because its file exists.
 
 ## Root README and AGENTS link
 
-- Create or refresh root `README.md` from [the README template](./templates/root/README.md).
-  Write it as a concise, project-focused overview in clear, natural prose.
+- During Bootstrap or Full refresh, create/reconcile root `README.md` from
+  [the template](./templates/root/README.md). In Targeted mode, edit it only when
+  requested or its summary/index is affected; keep it factual and project-focused.
 - Do not describe the README as an entry point for an agent, AI, people, or
   humans. Do not add an agent-specific heading, link to `AGENTS.md`, or
   instructions addressed to an agent. Keep operating and safety instructions
@@ -97,9 +114,9 @@ managed output as something to verify and update, not to skip.
 - When refreshing an existing README, remove generic agent-audience or
   entry-point boilerplate and skill operating instructions while preserving
   unrelated project-specific content.
-- Create the root relative symbolic link `AGENTS.md -> README.md` separately
-  when it is safe. There is no AGENTS template, and the README does not mention
-  the link.
+- Create root relative symlink `AGENTS.md -> README.md` as a separate output
+  only during Bootstrap/Full refresh or when explicitly requested. There is no
+  AGENTS template; README prose must not mention the link.
 - Before creating the link, inspect that exact path. Leave an existing
   symlink to `README.md` unchanged. If a regular file or a link to another
   target exists, preserve it and report the conflict; do not merge its unique
@@ -114,11 +131,11 @@ managed output as something to verify and update, not to skip.
 
 ## Repository meta files
 
-Create or refresh the standard repository files from confirmed evidence. Each
-one has a template in `templates/` except `LICENSE`, which follows
-[the licence guidance](./references/licensing.md). The path under `templates/`
-mirrors the output path: `templates/root/x` produces `x`, and
-`templates/docs/x.md` produces `docs/x.md`.
+In Bootstrap or Full refresh, reconcile the standard repository files from
+confirmed evidence. In Targeted mode, handle only requested or demonstrably
+affected meta files. Each file has a template in `templates/` except `LICENSE`,
+which follows [the licence guidance](./references/licensing.md); template paths
+mirror output paths (`templates/root/x` produces `x`).
 
 | Output | Template | Rule |
 |---|---|---|
@@ -151,9 +168,10 @@ Rules:
 
 ## Starter configuration
 
-`files/` holds copy-ready configuration for the target repository. Compare each
-file with the existing one, copy only when the repository has no equivalent, and
-tailor it to the detected stack.
+`files/` holds copy-ready configuration. For a targeted task, inspect only the
+requested or affected starter file; compare the complete set only during
+Bootstrap or Full refresh. Copy only when no equivalent exists, and tailor it to
+the detected stack.
 
 | File | Rule |
 |---|---|
@@ -178,10 +196,12 @@ detectors, and its `exclude` must equal the baseline `exclude.files`. Keep both
 scanners when the project will maintain both; drop a scanner the project does
 not maintain rather than leaving a hook nobody acts on.
 
-## Default documentation set
+## Bootstrap and full-refresh document set
 
-Always create or refresh from the current tree, preserving permanent IDs and
-sections a maintainer wrote by hand:
+Create or refresh this baseline only in Bootstrap or explicit full-refresh
+mode, preserving permanent IDs and maintainer-authored sections. In targeted
+mode, update only the requested or demonstrably affected outputs; do not create
+missing baseline files as a side effect.
 
 - Root `README.md`, plus a root `AGENTS.md` symlink when no existing
   instructions would be displaced.
@@ -292,12 +312,13 @@ handles its applicable profile and migration assessment.
 
 ## Verification and readability
 
-- Derive current behavior from code, manifests, tests, workflows, deployment
-  and security configuration, and the actual tree. Markdown is useful for
-  history and ID continuity, not proof that behavior is active.
-- Verify filenames, commands, workflow triggers, and targets. Exclude dead or
-  obsolete implementation from product and architecture summaries; perform
-  code cleanup only when `$code-quality` is requested.
+- Verify affected claims against the source, manifest, workflow, tests,
+  deployment, or security files that own them; Markdown is history, not proof
+  that behavior is active. Targeted mode excludes unrelated files; inspect the
+  full relevant surface only for Bootstrap or Full refresh.
+- Verify only filenames, commands, triggers, and targets touched by the request.
+  Exclude obsolete implementation; do code cleanup only when `$code-quality`
+  is requested.
 - Write for product, engineering, security, operations, and leadership
   readers: lead with a plain-language summary, expand acronyms, separate
   verified facts from observations and unknowns, and use concise tables for
@@ -311,23 +332,17 @@ handles its applicable profile and migration assessment.
 
 ## Workflow
 
-1. Inventory the repository and inspect active source/configuration.
-1. Check each output and agent-link path; refresh an existing document
-   against the current tree, preserving permanent IDs and user-authored
-   sections.
-1. Create only the default documents and conditional documents that apply,
-   including the repository meta files whose required facts are confirmed.
-   Invoke dedicated skills for PRD, security, design, or requested test/code
-   quality tasks. If a required companion is not installed, finish common
-   documents, omit that companion-owned output, and report what is missing;
-   do not imitate a specialist skill from stale or incomplete instructions.
-1. Create or merge starter configurations only after tailoring them to the
-   actual stack and tools.
-1. Update the README index to include generated documents and omit skipped
-   optional documents.
-1. Run [checklist.md](./checklist.md). Verify uppercase `README.md`, valid
-   relative links, relative symlink targets, requirement-ID continuity, and
-   absence of unresolved placeholders.
+1. Select Bootstrap, Targeted update, or Full refresh; record scope and changed
+   paths before inspecting evidence.
+1. Read repository instructions, relevant evidence, and affected documents;
+   expand only for a direct dependency or contradiction.
+1. Update affected outputs owned here; use the relevant companion skill for
+   specialist work, never every companion by default.
+1. Add or merge starter configuration only when required, tailoring it to the
+   stack. Update the README index only when linked files or affected entries
+   change.
+1. Run focused checks for changed outputs; use the full checklist and
+   repository-wide gates for Bootstrap, Full refresh, or skill-collection edits.
 
 ## Resources
 

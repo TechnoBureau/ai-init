@@ -1,16 +1,18 @@
 # Pre-Delivery Review
 
-Use this checklist before reporting documentation work as complete. A checked
-item means it was verified in the current worktree, not assumed.
+Use the applicable items for a Targeted update; use the complete checklist for
+Bootstrap, Full refresh, or changes to this skill collection. A checked item
+means it was verified in the current worktree, not assumed.
 
 ## Verification and preservation
 
-- [ ] Inspected source code, manifests, tests, workflows, deployment, and
-  security configuration before using existing Markdown for context.
-- [ ] Refreshed every existing document against the current tree: stale
-  statements corrected, dead sections removed or re-scoped, new evidence added,
-  and permanent IDs plus hand-written sections preserved. No file was skipped
-  because it already existed.
+- [ ] Selected Bootstrap, Targeted update, or Full refresh based on the request;
+  Targeted mode uses the named/changed paths and direct dependencies only.
+- [ ] Inspected the source, manifests, tests, workflows, deployment, or security
+  configuration relevant to the affected claims, not unrelated repository areas.
+- [ ] Updated only affected documents in Targeted mode. For Bootstrap or Full
+  refresh, reconciled the managed set. In either case, stale claims in scope were
+  corrected and permanent IDs plus hand-written sections were preserved.
 - [ ] No branch, revision, or tool-version provenance header appears in the
   output; claims cite paths, commands, or results.
 - [ ] No table carries a status, date, owner, evidence, verification, baseline,
@@ -41,8 +43,8 @@ item means it was verified in the current worktree, not assumed.
 - [ ] Empty/scaffold-only repositories use the initial-document format and
   mark unknowns explicitly rather than inventing a stack, goals, tests,
   controls, commands, or architecture.
-- [ ] Verified active scripts, commands, file paths, workflow triggers, and
-  targets directly from repository files.
+- [ ] Verified only the active scripts, commands, paths, workflow triggers, and
+  targets that support claims changed in this run.
 - [ ] Existing or unreferenced code is not described as active product
   behavior; relevant exclusions are explained.
 

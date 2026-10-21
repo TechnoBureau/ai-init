@@ -11,7 +11,7 @@ focused work.
 
 ## Install
 
-Install every skill for all agents supported by the Skills CLI:
+Install every skill with the Skills CLI for a supported host:
 
 ```bash
 npx skills add technobureau/ai-init --all --agent '*'
@@ -26,28 +26,34 @@ npx skills add technobureau/ai-init --all --agent '*' -g
 To install one skill, replace `--all` with `--skill` and one of: `ai-init`,
 `prd`, `security`, `tests`, `design`, or `code-quality`. See the [Skills CLI
 documentation](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)
-for supported agents and options.
-
-After installation, verify that each `SKILL.md` starts with `---` and that the
-agent lists the skill. A skill without frontmatter does not load.
+for supported host integrations and options.
 
 ## Skills
 
 | Skill | Use it for | Guide |
 |---|---|---|
-| `ai-init` | Safe bootstrap and refresh of repository documentation, meta files, and the `docs/` set | [SKILL.md](./skills/ai-init/SKILL.md) |
+| `ai-init` | Bootstrap, targeted updates, and explicit full refresh of repository documentation, meta files, and the `docs/` set | [SKILL.md](./skills/ai-init/SKILL.md) |
 | `prd` | Evidence-grounded PRD, requirement quality, and traceability | [SKILL.md](./skills/prd/SKILL.md) |
 | `security` | Security posture, threat model, supply chain, PQC, FIPS, CIS, NIST, ISO/IEC 27001, OWASP | [SKILL.md](./skills/security/SKILL.md) |
 | `tests` | Test implementation, strategy, security/accessibility/performance coverage | [SKILL.md](./skills/tests/SKILL.md) |
 | `design` | Design systems, tokens, WCAG 2.2 accessibility, localization | [SKILL.md](./skills/design/SKILL.md) |
 | `code-quality` | Dead-code cleanup, modularity, secure coding, API compatibility | [SKILL.md](./skills/code-quality/SKILL.md) |
 
-Invoke a skill by name where supported, such as `$ai-init`, `$security`, or
-`$tests`, or describe the task to an agent that has installed it.
+Invoke a skill by name where supported, or describe the task. For example:
+
+> `$ai-init` Update the README Quick Start for the new `dev` script in
+> `package.json`. Inspect the manifest, the script it invokes, and the README;
+> leave unrelated documents unchanged.
+
+Use `$prd`, `$security`, `$tests`, `$design`, or `$code-quality` for their
+corresponding work. See the [Usage guide](./docs/usage.md) for installation,
+invocation, and local validation examples.
 
 ## What `ai-init` generates
 
-`ai-init` owns the complete repository baseline, not just the README.
+`ai-init` owns the complete repository baseline, not just the README. This
+table describes Bootstrap and explicit full refresh; targeted updates touch only
+affected outputs.
 
 Template paths mirror output paths, so there is no separate mapping to keep in
 sync: `templates/root/x` produces `x`, and `templates/docs/x.md` produces
@@ -157,17 +163,18 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
 
 ## Defaults and safeguards
 
-- `ai-init` creates the root `README.md` and common documentation. It does not
-  create `docs/tests.md`; use `$tests` when test work or that document is
+- During Bootstrap or Full refresh, `ai-init` reconciles the root `README.md`
+  and common documentation. Targeted tasks touch only affected outputs. It does
+  not create `docs/tests.md`; use `$tests` when test work or that document is
   requested.
 - Repository meta files are generated only from confirmed evidence. A licence
   is never chosen on the user's behalf; an owner handle is never invented.
 - Documentation is grounded in source and configuration. Existing content,
   permanent IDs, and unrelated work are preserved; empty repositories get a
   clearly labeled initial format rather than invented project facts.
-- An existing document is refreshed against the current tree, not skipped:
-  statements that no longer match are corrected, sections about behavior that
-  is gone are re-scoped or removed, and evidence that appeared is added.
+- Documentation updates are scoped to the request: targeted changes verify
+  only affected documents and direct evidence, while bootstrap or an explicit
+  full refresh reconciles the complete managed set.
 - Claims use an explicit status vocabulary (`Verified`, `Observed`, `Planned`,
   `Not documented`, `Not assessed`) and requirement language follows RFC
   2119/8174.
@@ -261,9 +268,6 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
   `.pre-commit-config.yaml` and described in
   [`skills/ai-init/references/secret-scanning.md`](./skills/ai-init/references/secret-scanning.md).
 - Network: skills do not require network access. CI installs pinned tooling.
-
-`allowed-tools` is declarative. Hosts may ignore it; it is not a security
-sandbox. Enforce permissions in the agent host.
 
 ## Security
 

@@ -42,13 +42,16 @@ operations, and leadership readers.
 
 ## Before writing
 
-- Inspect code, manifests, build and deployment configuration, CI workflows,
-  tests, and the repository tree before treating existing Markdown as facts.
-- Check whether `docs/PRD.md` exists. If it does, read it fully and preserve
-  valid permanent IDs and useful user-authored content; update it in place
-  rather than replacing it wholesale.
+- For a targeted change, start from the named requirement or changed paths and
+  inspect only source, tests, and configuration that bear on those claims. Use
+  a repository-wide inventory only for a new PRD or explicit full audit; ask
+  before broadening if affected IDs or paths cannot be established.
+- Check whether `docs/PRD.md` exists. If it does, read that document fully to
+  preserve permanent IDs and useful user-authored content; update affected
+  sections in place rather than replacing it wholesale.
 - Use prior Markdown only for ID history, confirmed decisions, and context.
-  Verify all claims about current behavior against source/configuration.
+  Verify changed claims about current behavior against the relevant
+  source/configuration.
 - For an empty or scaffold-only repository, use the standard ten-section
   structure and clearly label unknowns `Not decided` or `TBD`. Do not invent
   users, goals, features, architecture, workflows, or targets. If no goal,
@@ -57,8 +60,9 @@ operations, and leadership readers.
 
 ## Required document structure
 
-Use exactly these ten numbered sections, in this order. Sub-headings are
-allowed inside a section; additional top-level numbered sections are not.
+For a new PRD or full audit, use exactly these ten numbered sections, in this
+order; sub-headings are allowed within them. For a targeted update, preserve the
+existing structure and edit only affected sections.
 
 1. **Overview** — concise summary, evidenced problem, value proposition,
    confirmed constraints, dependencies, and assumptions.
@@ -92,7 +96,8 @@ source or the user. Preserve existing IDs; never recycle retired IDs.
 
 ## Requirement quality rules
 
-Apply these rules to every G-, FR-, and NFR-ID:
+Apply these rules to IDs created or changed in a targeted update; review every
+G-, FR-, and NFR-ID only for a new PRD or full audit.
 
 - **Atomic.** One requirement states one testable obligation.
 - **Unambiguous.** Define domain terms and units; avoid "fast", "secure",
@@ -115,9 +120,11 @@ Apply these rules to every G-, FR-, and NFR-ID:
 
 ## Non-functional requirement catalog
 
-Consider each category, then include only those supported by evidence, an
-approved decision, or a confirmed product need. Record `Not assessed` where the
-category is relevant but unresolved; do not fabricate targets.
+For a new PRD or full audit, consider every category; for a targeted update,
+consider only categories relevant to the changed requirements. Include only
+categories supported by evidence, an approved decision, or confirmed need.
+Record `Not assessed` when a relevant category is unresolved; do not invent
+targets.
 
 | Category | Evidence to look for | Example verification method |
 |---|---|---|
@@ -137,10 +144,10 @@ category is relevant but unresolved; do not fabricate targets.
 
 ## Traceability and change control
 
-- Keep a requirement index or table mapping `FR/NFR → acceptance criteria →
-  test → coverage`.
-- If tests exist, reference exact test paths or identifiers; do not claim
-  coverage that was not measured.
+- For new/full PRDs, map each `FR/NFR → acceptance criteria → test → coverage`;
+  for targeted updates, maintain traceability only for changed IDs.
+- Reference exact test paths or identifiers where they exist; never claim
+  unmeasured coverage.
 - Record requirement changes with the reason and keep retired IDs reserved.
 - Do not mark a requirement `Implemented` without evidence in the current
   code. Use `Observed`, `Partial`, `Planned`, or `Not evidenced` precisely.
@@ -166,12 +173,11 @@ security skill owns the detailed security posture at `docs/security.md`.
 
 ## README index and AGENTS link
 
-After this skill runs, if root `README.md` exists, update its documentation
-index to include `docs/PRD.md`. Ensure root `AGENTS.md` is a relative
-symbolic link to it only when this does not replace existing unique
-instructions. Inspect the path first; preserve a regular file or link to
-another target and report the conflict. If symlink creation is unsupported,
-preserve the path and report it. Never merge those instructions into README or
-use a copied-file substitute. Do not add an AGENTS link or
-agent-directed instructions to README. If README is absent, report that
-`ai-init` is needed to create the project overview.
+- Update the `docs/PRD.md` index entry only when this task creates/removes the
+  document or the entry is missing/stale; otherwise leave README unchanged.
+  `ai-init` owns README creation.
+- Keep `AGENTS.md` link handling separate from README prose. During Bootstrap
+  or explicit README/link work, inspect the exact path and create a relative
+  symlink only if safe; preserve conflicts and report unsupported platforms.
+  Targeted PRD updates do not inspect or change `AGENTS.md`. Never merge its
+  instructions into README or mention the link in README.

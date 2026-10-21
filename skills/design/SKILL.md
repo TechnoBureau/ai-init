@@ -45,7 +45,9 @@ project-specific decisions in the generated document.
 ## Preflight
 
 - Check whether `docs/design.md` exists. Preserve current project decisions,
-  tokens, and asset links; update affected sections in place.
+  tokens, and asset links; update affected sections in place. For UI behavior
+  changes, use the authoritative request/spec and its design/accessibility
+  acceptance criteria before implementation.
 - For a targeted update, inspect the requested or changed UI components and
   their related styles, tokens, assets, and accessibility/localization evidence.
   Review the full design system only when requested or when direct evidence

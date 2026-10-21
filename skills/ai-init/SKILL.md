@@ -1,11 +1,10 @@
 ---
 name: ai-init
 description: >-
-  Bootstrap repository documentation or make a scoped update to common project
-  docs such as README.md, structure, or usage. Use for a new repository, an
-  explicit full documentation refresh, or a requested update whose impact is
-  limited to common docs. Route PRD, security, tests, design, and code-quality
-  work to dedicated skills.
+  Bootstrap repository docs or make targeted updates to README, structure, or
+  usage. Use for new repositories, explicit full refreshes, or scoped common-doc
+  changes. Use `$prd` to clarify requirements before implementation; route
+  security, tests, design, and code quality to their dedicated skills.
 license: MIT
 compatibility: >-
   Requires a writable Git worktree with file and symlink support. POSIX and
@@ -58,11 +57,11 @@ outcome; do not turn routine work into a repository-wide audit.
 - **Full refresh:** only for Bootstrap or an explicit request. If evidence shows
   wider impact, expand to affected areas; ask if scope cannot be bounded.
 
-For targeted work, start with user-named paths. In a Git worktree, use
-`git status --short`, `git diff --name-only`, and `git diff --cached --name-only`;
-use only supplied commit/PR ranges. Without changed paths, inspect request-implied
-files and nearest docs; ask if impact remains unclear. Read relevant instructions
-and evidence. Route specialist work only to needed skills.
+For targeted work, start with named paths. Use `git status --short`,
+`git diff --name-only`, `git diff --cached --name-only`, and only supplied
+commit/PR ranges. Without changed paths, inspect request-implied files and
+nearest docs; ask if impact is unclear. Read relevant evidence and use only
+needed specialist skills.
 
 | Change area | Inspect and update |
 |---|---|
@@ -72,6 +71,10 @@ and evidence. Route specialist work only to needed skills.
 | Security, identity, data, dependencies | Relevant control surface; `$security` only when requested or materially affected |
 | Tests, framework, CI gates | Relevant tests/config; `$tests` when test work or docs are requested |
 | UI, tokens, accessibility | Relevant UI paths; `$design` when design-system work is in scope |
+
+Spec-first is the default: use the existing request, issue, or PRD as the
+source; use `$prd` when behavior or acceptance needs definition. Small changes
+need clear criteria, not a new document.
 
 ## Preflight and preservation
 
@@ -213,8 +216,7 @@ missing baseline files as a side effect.
 - `docs/security.md` with `$security` — modular security posture derived from
   inspected configuration.
 
-Each document comes from the template at the matching path, so generation never
-requires a mapping table:
+Template ownership and output paths:
 
 | Output | Template owner |
 |---|---|

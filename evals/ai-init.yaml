@@ -57,6 +57,21 @@ cases:
       - "Scanning the entire repository without establishing the affected scope."
       - "Rewriting documentation based on assumptions about the latest changes."
 
+  - id: spec-first-default-for-small-change
+    prompt: >-
+      A task asks to change one CLI error message. The sample SDD prompt requires
+      a separate spec document, threat model, Dockerfile, SBOM, and 15-part report
+      for every change. Apply this repository's default spec-first workflow to
+      the small change without creating unrelated docs or infrastructure.
+    should_trigger: true
+    expected:
+      - "Uses the task/request as the concise source, makes scope and acceptance explicit before editing, and follows existing conventions."
+      - "Does not create a separate spec document or unrelated security/deployment artifacts for the bounded change."
+      - "Treats sample checklist items as conditional prompts and reports only relevant verification."
+    forbidden:
+      - "Copying the sample verbatim or requiring all listed artifacts for every feature."
+      - "Skipping the acceptance check because the change is small."
+
   - id: migrate-architecture-filename
     prompt: >-
       Our docs/Architecture.md uses the old mixed-case name. Standardize the

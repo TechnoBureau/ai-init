@@ -61,6 +61,114 @@ These are organization- and protocol-specific decisions. Do not execute a
 migration or change a live cryptographic policy unless the user asks for that
 implementation.
 
+## Network transport, TLS, and cipher suites
+
+Assess only endpoints and clients in the requested boundary. Identify who
+terminates TLS and where the configuration is enforced; a repository may rely
+on an external proxy, ingress, service mesh, runtime, or hosting provider.
+
+- Prefer TLS 1.3. Require TLS 1.2 or later where compatible with supported
+  clients and confirmed policy; disable SSL and deprecated TLS versions when
+  the application controls negotiation.
+- Validate the certificate chain and requested hostname. Do not disable
+  certificate verification or accept arbitrary self-signed certificates in
+  production. Assess trust-store, expiry, renewal, and mutual TLS only where
+  applicable.
+- Choose cipher suites by protocol version, crypto provider, platform, and
+  policy. Prefer authenticated encryption with forward secrecy. For TLS 1.3,
+  commonly supported AEAD suites include `TLS_AES_128_GCM_SHA256`,
+  `TLS_AES_256_GCM_SHA384`, and `TLS_CHACHA20_POLY1305_SHA256`. For TLS 1.2,
+  prefer supported ECDHE suites with AES-GCM or ChaCha20-Poly1305. Do not treat
+  TLS 1.3 and TLS 1.2 names as interchangeable or copy a cipher list without
+  checking the implementation.
+- Reject obsolete or weak suites such as NULL, EXPORT, anonymous, RC4, 3DES,
+  static RSA key exchange, and CBC suites unless a documented compatibility
+  exception is required. Record the exception and compensating control.
+- Use HTTPS for external APIs, verify hostnames, and set bounded connect/read
+  timeouts. Configure service binding for the intended network boundary;
+  `0.0.0.0` inside a container is not by itself proof of public exposure, so
+  assess ingress, firewall, and network policy as well.
+- Record versions, effective configuration, scan/handshake evidence, and
+  external termination boundaries. Do not claim TLS or cipher enforcement from
+  a URL scheme or dependency alone.
+
+## Container image and runtime hardening
+
+When Dockerfiles, OCI images, or container runtime policy are in scope, assess
+both image construction and deployment. Use an approved, maintained vendor or
+organization registry and an image compatible with the supported platform;
+Red Hat is one option only when the target policy requires it. Prefer minimal
+images and pin deployments to an immutable digest or the project's controlled
+release policy. Avoid floating `latest` tags and EOL images; verify lifecycle,
+provenance/signature, and vulnerability-scan evidence rather than assuming the
+newest tag is safest.
+
+- Build with minimal context and multi-stage builds where useful; do not pass
+  credentials through Dockerfile `ARG`, `ENV`, build logs, or committed files.
+  Use the platform's build-secret mechanism and remove unnecessary tools from
+  runtime layers.
+- Run as a non-root user. Avoid privileged mode and unnecessary host mounts,
+  namespaces, devices, and Linux capabilities. Where supported, drop all
+  capabilities then add only those required; use `no-new-privileges`, a
+  read-only root filesystem, seccomp/AppArmor, and resource limits.
+- Scan the image and dependencies before release; verify signatures/provenance
+  when the deployment platform supports enforcement. Record the image digest,
+  tool/policy versions, findings, and exceptions.
+- Validate runtime controls at deployment as well as Dockerfile defaults.
+  A non-root Dockerfile does not prove the orchestrator preserves the setting.
+
+Do not require a single public registry or vendor for every project. Prefer the
+organization-approved source and the exact platform-supported image.
+
+## Kubernetes and Helm hardening
+
+When Kubernetes manifests or Helm charts are in scope, inspect rendered
+manifests as well as chart defaults and values. Select a confirmed Kubernetes
+Pod Security Standards level or organization baseline. For applicable
+workloads, check:
+
+- `runAsNonRoot`, explicit user/group where supported,
+  `allowPrivilegeEscalation: false`, `readOnlyRootFilesystem` where compatible,
+  dropped capabilities, and `seccompProfile: RuntimeDefault`;
+- absence of privileged containers, host PID/IPC/network namespaces, and
+  `hostPath` mounts unless a documented platform requirement justifies them;
+- least-privilege RBAC and service accounts, with token automount disabled
+  when the workload does not need Kubernetes API access;
+- default-deny and workload-specific NetworkPolicies where the cluster
+  enforces them; TLS and certificate validation at ingress/service boundaries;
+- images from approved sources, immutable digests or controlled release pins,
+  resource requests/limits, health probes, and safe termination behavior;
+- secrets kept out of chart values, source control, rendered output, and logs;
+  use the cluster's approved secret-management integration;
+- chart dependency provenance, schema validation, `helm lint`, rendered-manifest
+  checks, and configured policy scanners.
+
+Do not claim a control is enforced from a Helm value alone. Verify the rendered
+workload and cluster admission/runtime policy. Do not prescribe a particular
+scanner or Pod Security level unless the platform or policy confirms it.
+
+## Shell scripts, logging, and error handling
+
+When shell scripts or CI shell steps are in scope, inspect the interpreter,
+inputs, commands, environment, and execution context. Use ShellCheck where the
+project configures it; quote expansions, prefer arrays to constructed command
+strings, avoid `eval`, validate external input, handle exit codes explicitly,
+and clean temporary files safely. Use strict-mode options only with
+understanding of the script's shell and error semantics.
+
+- Use restrictive permissions for temporary files (`umask` where appropriate),
+  safe temporary-file creation, and cleanup traps for sensitive artifacts.
+- Never log secrets, access tokens, private keys, credentials, or unnecessary
+  personal data. Avoid shell tracing (`set -x`) around sensitive values and
+  redact command arguments where tools echo them.
+- Emit concise, actionable diagnostics to stderr with a nonzero exit on failure;
+  include operation and safe context without dumping environments, full request
+  bodies, or secret-bearing command lines. Use structured logs only when the
+  runtime or project convention supports them.
+- Set log access, integrity, alerting, and retention according to confirmed
+  operational policy. Do not invent a universal retention period or claim
+  monitoring from log output alone.
+
 ## Core secure-development profile
 
 Map repository evidence to the four practice groups in the [National Institute
@@ -73,6 +181,26 @@ Framework (SSDF), version 1.1](https://csrc.nist.gov/pubs/sp/800/218/final):
 - **Produce Well-Secured Software:** secure design, implementation, review,
   testing, and dependency practices.
 - **Respond to Vulnerabilities:** intake, triage, remediation, and disclosure.
+
+For security-relevant behavior changes, put applicable controls and observable
+acceptance criteria in the authoritative PRD, feature spec, issue, or task before
+implementation. Link to this profile and trace criteria to tests; do not copy
+generic controls or claim they are active without configuration evidence.
+
+### Dependency lifecycle and version selection
+
+- Prefer a supported, security-maintained version that satisfies compatibility
+  and reproducibility requirements; do not blindly upgrade to the newest release.
+- Check vendor lifecycle/EOL notices, security advisories, release provenance,
+  and the repository's lockfile/update policy. Treat recent commits as one signal,
+  not a universal six-month maintenance gate.
+- Use lockfiles or immutable constraints where supported. Review dependency
+  updates, test them, and avoid floating `latest` references in production.
+- Do not suppress security warnings or pin an old vulnerable version merely to
+  avoid a breaking change. If an update is blocked, document the evidence-based
+  risk, mitigation, and decision needed; do not invent a remediation deadline.
+- Apply the project's confirmed license and vendor policy. Do not assume a
+  particular corporation's policy applies to an unrelated repository.
 
 ## Enterprise governance and assurance profiles
 
@@ -106,10 +234,13 @@ audit readiness, legal compliance, or operating effectiveness by itself.
 | Continuous integration / continuous delivery (CI/CD), package publishing, or artifact build | [OWASP Software Supply Chain Security](https://cheatsheetseries.owasp.org/cheatsheets/Software_Supply_Chain_Security_Cheat_Sheet.html) | Review source control, build identity, dependencies, artifacts, and release permissions present in the system. |
 | Secrets or credential flows | [OWASP Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) | Review lifecycle, access, rotation, exposure, storage, and logging evidence. |
 | Application security logging | [OWASP Logging](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) | Assess coverage, sensitive-data handling, integrity, and access for configured logging. |
+| Network endpoints or TLS clients | NIST SP 800-52 Rev. 2 and TLS RFCs 8446/5246 | Record endpoint, termination boundary, effective protocol/cipher policy, certificate validation, and evidence. |
 | Linux or other supported host configuration | [OpenSCAP](https://www.open-scap.org/) with [Security Content Automation Protocol (SCAP) Security Guide](https://www.open-scap.org/security-policies/scap-security-guide/) | Record OS/version, content version, selected profile, scanner version, results, exceptions, and remediation evidence. Audit first; apply remediation only when requested and safe for the environment. |
 | Ubuntu, RHEL, or other platform baseline | CIS Benchmark or DISA Security Technical Implementation Guide (STIG) for the exact product version | Record benchmark/STIG version, profile, exceptions, and scan date. |
 | Cloud or infrastructure-as-code | Confirmed provider baseline or relevant [Center for Internet Security (CIS) Benchmark](https://www.cisecurity.org/cis-benchmarks) | Name provider, service, asset version, benchmark/profile, and deployed boundary. |
-| Containers or Kubernetes | NIST SP 800-190, CIS Docker/Kubernetes Benchmark, Pod Security Standards, NSA/CISA hardening guidance | Record cluster/runtime version and enforced policy evidence. |
+| Docker / OCI image build or runtime | NIST SP 800-190, CIS Docker Benchmark, vendor guidance, and organization policy | Assess base image provenance/lifecycle, digest, build secrets, non-root runtime, capabilities, filesystem, signatures, and scans. |
+| Kubernetes manifests or Helm charts | Kubernetes Pod Security Standards, CIS Kubernetes Benchmark, NSA/CISA guidance, and Helm chart guidance | Assess rendered workloads, security contexts, RBAC, secrets, network policy, image integrity, and enforced admission controls. |
+| Shell scripts or CI shell steps | ShellCheck and project shell/security conventions | Assess input handling, quoting, command execution, exit status, temporary files, and secret-safe logging. |
 | Identity and access configuration | Relevant OWASP ASVS or confirmed identity-provider/cloud baseline | Assess authentication, authorization, least privilege, identity lifecycle, and privileged access where configured. |
 | Sensitive or regulated data | Confirmed data classification and organization-selected legal/sector profile | Record data type, residence, retention, key management, and boundaries; do not infer a regulatory obligation from data alone. |
 | Runtime monitoring or incident response | OWASP Logging plus confirmed operational procedure | Repository files cannot prove external staffing, service levels, or operational execution. |
@@ -141,13 +272,16 @@ irrelevant.
 | Supply chain | Are dependencies pinned? Is there an SBOM, provenance, signing, and verification? Who can publish? |
 | Vulnerability management | What is the intake channel, severity method, remediation target, exception process, and evidence of closure? |
 | Cryptography and keys | What algorithms, protocols, providers, keys, certificates, and lifetimes exist? Is rotation tested? Is PQC migration assessed? |
+| Network transport | Which endpoints and clients are in scope? What TLS versions, certificate checks, and version-appropriate cipher policy are evidenced? |
 | Logging and detection | Which security events are logged? Are secrets and personal data excluded? What are retention, integrity, access, and alerting? |
+| Shell and automation | Are scripts and CI commands safely quoted, validated, error-checked, and free of secret-bearing logs or tracing? |
+| Container and Kubernetes/Helm | Are image source, digest, privilege, security context, RBAC, secrets, and network controls verified in the built/rendered workload? |
 | Resilience and recovery | Are backups encrypted and restore-tested? Are RTO/RPO confirmed? Are failure modes bounded? |
 | Incident response | Is there a plan, severity model, contact path, disclosure process, and postmortem? Has it been exercised? |
 | Privacy | Is data minimized? Is there a lawful basis, retention rule, subject-rights path, and DPIA for high-risk processing? |
 | Third-party risk | Which vendors, APIs, data processors, and open-source licences are in scope? Is there due diligence evidence? |
 | AI and agent systems | Are prompt injection, tool abuse, data leakage, model supply chain, evaluation, and human oversight addressed? |
-| Platform hardening | Which OS, container, cloud, and Kubernetes baselines are enforced? What is the exact version and scan result? |
+| Host and cloud hardening | Which OS, host, and provider baselines are enforced? What is the exact version and scan result? |
 
 ## AI and agent security baseline
 

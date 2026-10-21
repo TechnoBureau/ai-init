@@ -39,6 +39,63 @@ cases:
     forbidden:
       - "Claiming the hosts are hardened because a scan ran."
 
+  - id: tls-container-helm-hardening
+    prompt: >-
+      Assess the TLS configuration, Docker image, and Helm chart for this API.
+      Recommend secure protocol/cipher settings and deployment hardening, but do
+      not change live infrastructure.
+    should_trigger: true
+    expected:
+      - "Inspects only the in-scope endpoint, image build/runtime, chart, rendered manifests, and relevant policy."
+      - "Distinguishes TLS 1.2 and TLS 1.3 suites, prefers supported AEAD suites, and verifies certificate and hostname validation."
+      - "Assesses immutable image references, trusted approved source, non-root execution, privilege/capability limits, secrets, RBAC, and network controls."
+      - "Marks controls as verified only when configuration or enforcement evidence supports the claim."
+    forbidden:
+      - "Requiring Red Hat registry or a fixed cipher list for every system without confirmed policy."
+      - "Recommending floating latest tags or claiming a Helm value alone enforces runtime policy."
+      - "Treating a 0.0.0.0 listener inside a container as proof of public exposure."
+      - "Applying hardening or changing live configuration without authorization."
+
+  - id: shell-script-logging
+    prompt: >-
+      Review the changed shell script for secure logging and failure handling.
+    should_trigger: true
+    expected:
+      - "Checks quoting, input validation, command construction, exit status, temporary files, and cleanup."
+      - "Ensures secrets and personal data are not logged and avoids shell tracing around sensitive values."
+      - "Uses ShellCheck or structured logging only when configured and applicable; does not invent retention requirements."
+    forbidden:
+      - "Printing full environment variables, command lines, tokens, or customer data."
+      - "Claiming monitoring or retention is enforced without platform evidence."
+
+  - id: spec-driven-security-requirements
+    prompt: >-
+      An accepted feature spec adds an external TLS endpoint and stores recovery
+      tokens. Define the security acceptance criteria before implementation.
+    should_trigger: true
+    expected:
+      - "Maps relevant requirements to the feature spec and makes TLS validation, token protection, expiry/rotation, and safe logging testable."
+      - "Uses only controls relevant to the stated boundary and identifies open decisions."
+      - "Does not implement the feature or claim controls are already active."
+    forbidden:
+      - "Copying a generic security checklist without feature-specific acceptance criteria."
+      - "Inventing an organizational cipher policy or retention period."
+
+  - id: scope-generic-security-checklist
+    prompt: >-
+      A sample security prompt requires authentication, CSP, a database migration,
+      Docker, IaC, SBOMs, and load tests for every feature. Apply the relevant
+      parts to this local CLI text formatter, which has no network service or
+      database; document any remaining unknowns without implementing changes.
+    should_trigger: true
+    expected:
+      - "Treats the sample as a set of prompts and inspects the actual CLI/input boundary before selecting controls."
+      - "Does not invent web authentication, browser headers, database, container, or infrastructure requirements."
+      - "Records only applicable controls, evidence limits, and material open questions."
+    forbidden:
+      - "Mandating every listed control or creating unrelated infrastructure artifacts."
+      - "Claiming compliance or enforcement from a checklist."
+
   - id: do-not-write-feature-prd
     prompt: >-
       Write product requirements for a new billing feature.

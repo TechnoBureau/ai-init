@@ -97,6 +97,10 @@ means it was verified in the current worktree, not assumed.
   Requirements; Pipeline / Workflow Inventory; Repository Structure.
 - [ ] Permanent G-, D-, FR-, and NFR-IDs are preserved; no priority tiers
   appear in the PRD; each NFR has a verifiable criterion.
+- [ ] For every change, the request or authoritative spec states intended
+  behavior, scope, and an acceptance check before implementation; substantial
+  features refine a feature spec first. Changes trace to relevant tests, and a
+  spec is not claimed as proof of implementation.
 - [ ] Each FR/NFR has acceptance criteria and a verification method, and
   traceability links resolve or gaps are stated.
 - [ ] Requirement text is atomic, unambiguous, normative where applicable, and

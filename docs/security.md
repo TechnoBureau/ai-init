@@ -87,9 +87,13 @@ no obligation has been confirmed for this repository.
 | Incident response and disclosure | Verified (design) | Private reporting channel and coordinated disclosure policy |
 | Privacy and data protection | Verified (implementation) | No personal data processed or stored |
 | Third-party and dependency risk | Partial (implementation) | Pinned versions and update automation; no SBOM or licence inventory |
-| Platform hardening | Not applicable | No host, container, or cluster is operated |
+| Network transport and TLS | Not assessed (external boundary) | No repository-owned TLS termination or cipher configuration; GitHub, PyPI, and npm are not independently assessed |
+| Container image/runtime | Not applicable | No Dockerfile, Compose file, OCI image, or container runtime policy exists |
+| Kubernetes and Helm | Not applicable | No Kubernetes manifests, Helm chart, or cluster policy exists |
+| Shell scripts and logging | Partial (implementation) | No standalone shell scripts; CI uses fixed workflow commands and GitHub Actions logs; external retention is not assessed |
+| Host and cloud hardening | Not applicable | No host or cloud platform is operated; container and Kubernetes domains are recorded separately |
 | AI/agent security | Verified (design) | Operating constraints on prompt injection, tool scope, data leakage, approvals |
-| Cryptographic inventory | Not applicable | No cryptography implemented by this repository; TLS is provided by the host and package registries |
+| Cryptographic inventory | Not applicable | No cryptography implemented by this repository; TLS is provided by external services |
 
 Operating effectiveness is not claimed for any row; each assessment names a
 design or implementation basis only.
@@ -103,6 +107,42 @@ delegated to GitHub, PyPI, and npm.
 No post-quantum migration assessment is required for repository content. If a
 skill is applied to a target repository that uses cryptography, the `security`
 skill performs the inventory there.
+
+## Network Transport and TLS
+
+This repository exposes no application endpoint and contains no TLS termination
+or cipher-suite configuration. GitHub Actions and package registries provide
+external network services; their protocol negotiation, certificates, and
+cipher policies were not independently assessed. No repository-level TLS
+control is claimed.
+
+## Container Image and Runtime Hardening
+
+Not applicable. No Dockerfile, Compose file, OCI image build, or container
+runtime policy exists in this repository. No image scan or signature verification
+was performed or claimed.
+
+## Kubernetes and Helm Hardening
+
+Not applicable. The repository contains no Kubernetes manifests, Helm chart, or
+cluster policy to assess. No Pod Security, RBAC, NetworkPolicy, or admission
+control enforcement is claimed.
+
+## Shell Script Security and Logging
+
+No standalone shell scripts are present. The CI workflow runs fixed validation
+commands in GitHub-hosted runners and does not pass repository secrets to those
+steps. GitHub Actions supplies workflow logs; external access controls and log
+retention were not assessed. No application logging or shell tracing control is
+claimed.
+
+## Security Requirements for Changes
+
+For security-relevant work, define applicable controls and observable
+acceptance criteria in the authoritative PRD, feature spec, issue, or task
+before implementation. The profile assesses controls from the actual boundary
+and evidence; it does not impose irrelevant controls or prove implementation.
+See FR-27 through FR-29 in [the PRD](./PRD.md).
 
 ## Supply Chain and Build Integrity
 
@@ -149,9 +189,10 @@ Repository files cannot prove staffing or response execution. Those are marked
 
 ## Platform Hardening Assessment
 
-Not applicable. The repository operates no host, container image, Kubernetes
-cluster, or cloud account. GitHub-hosted runners and repository settings are
-platform responsibilities outside this tree. No OpenSCAP, CIS, or STIG scan was
+Not applicable for host/OS or cloud hardening: this repository operates no
+managed host or cloud account. GitHub-hosted runners and repository settings
+are platform responsibilities outside this tree. Container and Kubernetes/Helm
+profiles are assessed separately above. No OpenSCAP, CIS, or STIG scan was
 performed, and none is claimed.
 
 ## Exceptions and Risk Acceptance

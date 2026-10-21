@@ -63,7 +63,11 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 ## Test strategy and traceability
 
 Use [the test standard](./references/test-standard.md) to select levels and
-evidence.
+evidence. For every behavior change, start from its authoritative request or
+spec and map relevant tests to observable acceptance criteria and requirement
+IDs. Choose test levels by behavior and risk; do not require every test type for
+each feature. Surface spec/code contradictions rather than silently redefining
+behavior.
 
 - Derive tests from observable behavior and requirements, including boundary
   cases, failure modes, and abuse cases.

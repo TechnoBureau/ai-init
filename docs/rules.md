@@ -18,6 +18,19 @@ When rules conflict, the higher level wins. Record the conflict instead of
 choosing silently. `MUST`/`MUST NOT` mark enforceable rules; `SHOULD` marks
 recommendations.
 
+## Specification-First Work
+
+Spec-first is the default for work performed with this skills collection.
+Before any change, identify the desired outcome, scope, and acceptance check
+in the authoritative PRD, feature spec, issue, task, or request. For a
+small, bounded change, the request plus a clear acceptance check is enough; do
+not create a separate document just to satisfy process. For substantial or
+cross-component features, refine the PRD or feature spec before coding and
+preserve permanent IDs. Ask about ambiguity that could materially change
+behavior or risk; label only low-impact, reversible assumptions. Scale security
+controls and other artifacts to the boundary and risk—generic checklists are
+prompts, not universal requirements.
+
 ## Contribution Workflow
 
 - Branch and review process: create a branch and open a pull request; do not

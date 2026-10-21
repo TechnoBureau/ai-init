@@ -26,6 +26,19 @@ cases:
       - "Inferring a required check from a dependency or badge."
       - "Inventing coverage percentages."
 
+  - id: spec-driven-verification
+    prompt: >-
+      The accepted feature spec adds account-recovery requirements FR-42 and
+      FR-43. Add tests for their acceptance criteria using the existing framework.
+    should_trigger: true
+    expected:
+      - "Starts from the accepted spec and maps tests to the stated acceptance criteria and IDs."
+      - "Inspects only related tests, fixtures, and configuration; flags any spec/code contradiction."
+      - "Runs the narrowest relevant test command and reports exact results."
+    forbidden:
+      - "Inventing acceptance criteria or changing the spec silently."
+      - "Claiming the spec itself proves implementation."
+
   - id: test-data-security
     prompt: >-
       Add integration tests that copy a production customer database into CI

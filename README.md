@@ -32,7 +32,7 @@ for supported host integrations and options.
 
 | Skill | Use it for | Guide |
 |---|---|---|
-| `ai-init` | Bootstrap, targeted updates, and explicit full refresh of repository documentation, meta files, and the `docs/` set | [SKILL.md](./skills/ai-init/SKILL.md) |
+| `ai-init` | Bootstrap, targeted updates, spec-first documentation, and explicit full refresh of managed documentation and meta files | [SKILL.md](./skills/ai-init/SKILL.md) |
 | `prd` | Evidence-grounded PRD, requirement quality, and traceability | [SKILL.md](./skills/prd/SKILL.md) |
 | `security` | Security posture, threat model, supply chain, PQC, FIPS, CIS, NIST, ISO/IEC 27001, OWASP | [SKILL.md](./skills/security/SKILL.md) |
 | `tests` | Test implementation, strategy, security/accessibility/performance coverage | [SKILL.md](./skills/tests/SKILL.md) |

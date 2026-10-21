@@ -29,6 +29,15 @@
   - Notes: <implementation context and risks>
 ```
 
+## Specification-linked planning
+
+Spec-first is the default for implementation work. Derive each task from the
+existing PRD, feature spec, issue, or accepted request; keep that source as the
+behavioral authority. Reference applicable permanent requirement IDs and define
+an observable acceptance check. Small changes do not need a separate task or
+specification document. If a requirement changes, update its source before
+marking related implementation complete.
+
 ## Definition of Done
 
 - Acceptance criteria are met and evidenced.

@@ -72,15 +72,15 @@ in the hosting platform and is not visible in this tree.
 | FR-12 | Eval fixtures carry both trigger states | `test_eval_fixture_requires_both_trigger_states` | Unit | Covered |
 | FR-13 | CI runs all gates | Workflow definition | Static | Covered |
 | FR-14 | Every template has a generated counterpart | `test_every_template_has_generated_document` | Unit | Covered |
-| FR-27 | SDD is opt-in and accepted requirements trace to tests | `test_sdd_guide_scales_checklists_to_scope`; `evals/prd.yaml`, `evals/tests.yaml` | Unit / eval fixtures | Partial |
+| FR-27 | Spec-first is the default; each change has scope and acceptance criteria before implementation | `test_spec_first_is_default_and_documented_in_existing_files`; `evals/ai-init.yaml`, `evals/prd.yaml`, `evals/tests.yaml` | Unit / eval fixtures | Partial |
 | FR-28 | Security domains are conditional and evidence-based | `test_security_profile_covers_scoped_hardening_domains`; `evals/security.yaml` | Unit / eval fixture | Partial |
-| FR-29 | SDD detail and artifacts scale to feature scope and risk | `test_sdd_guide_scales_checklists_to_scope`; `evals/prd.yaml`, `evals/security.yaml` | Unit / eval fixtures | Partial |
+| FR-29 | Separate specs and security artifacts scale to risk; generic checklists are not universal | `test_spec_first_is_default_and_documented_in_existing_files`; `evals/prd.yaml`, `evals/security.yaml` | Unit / eval fixtures | Partial |
 | NFR-4 | Validator is deterministic and fails closed | Repeated runs, explicit exit codes | Static | Covered |
 | NFR-7 | Symlink failure is reported, not copied | Instruction and checklist | Manual | Partial |
 
-When SDD is used, tests map to accepted feature specifications and permanent
-requirement IDs. The test plan does not replace the specification, and only
-covered acceptance criteria are claimed.
+For behavior changes, tests map to the authoritative PRD, feature spec, issue,
+or request and its permanent requirement IDs where available. The test plan does
+not replace that source, and only covered acceptance criteria are claimed.
 
 Requirements not listed here, including process and operational requirements,
 are verified by review rather than automation. Eval fixtures describe expected

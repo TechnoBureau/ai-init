@@ -29,13 +29,14 @@
   - Notes: <implementation context and risks>
 ```
 
-## Spec-driven planning
+## Specification-linked planning
 
-Use this only when the project has adopted SDD or the user requests it. Derive
-tasks from an accepted specification; keep the PRD/feature spec as the source of
-requirements. Each task references the applicable permanent requirement IDs and
-has an observable acceptance criterion. If a requirement changes, update the
-spec before treating implementation tasks as complete.
+Spec-first is the default for implementation work. Derive each task from the
+existing PRD, feature spec, issue, or accepted request; keep that source as the
+behavioral authority. Reference applicable permanent requirement IDs and define
+an observable acceptance check. Small changes do not need a separate task or
+specification document. If a requirement changes, update its source before
+marking related implementation complete.
 
 ## Definition of Done
 

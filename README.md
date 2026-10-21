@@ -32,7 +32,7 @@ for supported host integrations and options.
 
 | Skill | Use it for | Guide |
 |---|---|---|
-| `ai-init` | Bootstrap, targeted updates, opt-in spec-driven workflows, and explicit full refresh of managed documentation and meta files | [SKILL.md](./skills/ai-init/SKILL.md) |
+| `ai-init` | Bootstrap, targeted updates, spec-first documentation, and explicit full refresh of managed documentation and meta files | [SKILL.md](./skills/ai-init/SKILL.md) |
 | `prd` | Evidence-grounded PRD, requirement quality, and traceability | [SKILL.md](./skills/prd/SKILL.md) |
 | `security` | Security posture, threat model, supply chain, PQC, FIPS, CIS, NIST, ISO/IEC 27001, OWASP | [SKILL.md](./skills/security/SKILL.md) |
 | `tests` | Test implementation, strategy, security/accessibility/performance coverage | [SKILL.md](./skills/tests/SKILL.md) |
@@ -75,7 +75,6 @@ sync: `templates/root/x` produces `x`, and `templates/docs/x.md` produces
 | `docs/security.md` | `skills/security/templates/docs/security.md` | Always |
 | `docs/architecture.md`, `docs/design.md`, `docs/tests.md` | Dedicated templates | When the repository evidence warrants it |
 | `docs/rules.md`, `docs/style.md`, `docs/usage.md`, `docs/governance.md`, `docs/threat-model.md` | `templates/docs/` | When evidence or the user requires them |
-| `docs/spec-driven-development.md` | `skills/ai-init/templates/docs/spec-driven-development.md` | When SDD is requested or confirmed as a project practice |
 
 Missing evidence is never invented. If an owner, licence, security contact, or
 approval is unknown, the file is not fabricated; the skill reports the gap.

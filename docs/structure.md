@@ -21,7 +21,6 @@ active components, and omits generated or ignored content.
 │   ├── governance.md
 │   ├── security.md
 │   ├── skill-standard.md
-│   ├── spec-driven-development.md
 │   ├── structure.md
 │   ├── style.md
 │   ├── rules.md

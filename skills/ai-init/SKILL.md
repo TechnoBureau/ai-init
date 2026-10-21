@@ -3,8 +3,8 @@ name: ai-init
 description: >-
   Bootstrap repository docs or make targeted updates to README, structure, or
   usage. Use for new repositories, explicit full refreshes, or scoped common-doc
-  changes. Coordinate SDD requirements with `$prd`; route security, tests,
-  design, and code quality to their dedicated skills.
+  changes. Use `$prd` to clarify requirements before implementation; route
+  security, tests, design, and code quality to their dedicated skills.
 license: MIT
 compatibility: >-
   Requires a writable Git worktree with file and symlink support. POSIX and
@@ -72,8 +72,9 @@ needed specialist skills.
 | Tests, framework, CI gates | Relevant tests/config; `$tests` when test work or docs are requested |
 | UI, tokens, accessibility | Relevant UI paths; `$design` when design-system work is in scope |
 
-SDD is opt-in: preserve local spec conventions, coordinate `$prd` before
-implementation, and create the guide only when requested or adopted.
+Spec-first is the default: use the existing request, issue, or PRD as the
+source; use `$prd` when behavior or acceptance needs definition. Small changes
+need clear criteria, not a new document.
 
 ## Preflight and preservation
 
@@ -224,7 +225,6 @@ Template ownership and output paths:
 | `docs/security.md` | `security` — `templates/docs/security.md` |
 | `docs/tests.md` | `tests` — `templates/docs/tests.md` (opt-in) |
 | `docs/design.md` | `design` — `templates/docs/design.md` (UI only) |
-| `docs/spec-driven-development.md` | `ai-init` — `templates/docs/spec-driven-development.md` (opt-in) |
 | Other `docs/` files | `ai-init` — `templates/docs/` |
 
 Do not create or refresh `docs/tests.md` by default. Use `$tests` only when

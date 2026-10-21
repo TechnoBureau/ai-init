@@ -70,11 +70,11 @@ when a repository-wide review is intended.
 - **Full documentation refresh:** “`$ai-init` Perform a full refresh of the
   repository documentation and reconcile all managed documents with current
   source and configuration.”
-- **Spec-driven feature:** “`$prd` Write a concise feature spec for billing
-  idempotency before implementation, following this repository's conventions.
-  Include relevant scenarios, security/privacy and reliability criteria, and
-  observable tests. Ask about decisions that materially affect behavior; state
-  reversible assumptions and do not change code yet.”
+- **Spec-first change:** “Before implementing billing idempotency, use the
+  existing PRD, issue, or task as the source of truth. Clarify scope, relevant
+  risks, and an observable acceptance check; update a feature spec if the change
+  warrants one. Ask about material ambiguity, label reversible assumptions, and
+  don't start implementation until the behavior is clear.”
 - **Requirements:** “`$prd` Update the requirements affected by the new account
   recovery flow; preserve existing IDs and inspect only related code and tests.”
 - **Tests:** “`$tests` Add coverage for the new account recovery behavior using
@@ -160,4 +160,4 @@ Skills CLI reading the repository. CI runs on every push and pull request.
 
 ## Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Security](./security.md) · [Spec-driven development](./spec-driven-development.md)
+[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Security](./security.md)

@@ -51,8 +51,9 @@ requirements; do not turn a control catalog into a generic compliance claim.
   retention/SLA threshold across unrelated systems.
 - Call a control enforced only when code, configuration, or an active gate proves
   it; otherwise label it a proposal, external dependency, or assessment gap.
-- In SDD workflows, express applicable security controls as traceable acceptance
-  criteria before implementation.
+- For security-relevant changes, express applicable controls as traceable,
+  testable acceptance criteria before implementation, using the authoritative
+  spec or request as the source.
 
 ## Preflight
 

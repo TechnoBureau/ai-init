@@ -23,7 +23,6 @@ collection's own output.
 | [Usage](./usage.md) | Verified install, validation, and run commands |
 | [Governance](./governance.md) | Roles, change classes, review cadence |
 | [Skill authoring standard](./skill-standard.md) | Repository-specific skill format and review rules |
-| [Spec-driven development](./spec-driven-development.md) | Requirement-first workflow and traceability across specs, tasks, tests, and implementation |
 
 `docs/design.md` is intentionally absent: this repository has no rendered user
 interface, so the `design` skill does not apply. That conditional output is

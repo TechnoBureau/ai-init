@@ -4,8 +4,8 @@ description: >-
   Create or refine a concise, implementation-grounded Product Requirements
   Document with permanent G-, D-, FR-, and NFR-IDs, acceptance criteria, and
   enterprise traceability. Use when a repository PRD is requested, when
-  requirements must be clarified or audited, or when Spec-Driven Development
-  or a feature specification is requested.
+  requirements must be clarified or audited, or when a change needs explicit
+  behavior and acceptance criteria before implementation.
 license: MIT
 compatibility: >-
   Requires a writable Git worktree. Reads repository evidence; it does not need
@@ -58,35 +58,37 @@ operations, and leadership readers.
   requirement, decision, persona, or workflow is confirmed, say none is
   recorded instead of assigning a filler ID.
 
-## Spec-driven development
+## Specification-first development
 
-Use SDD only when the project has adopted it or the user requests it. Preserve
-an existing specification format and use `docs/PRD.md` as the product-level
-source of permanent requirements; do not create a competing source of truth.
+Spec-first is the default for implementation and behavior changes. Before code,
+identify the authoritative source of intended behavior: the PRD, a feature spec,
+an accepted issue/task, or the user's request. Use `docs/PRD.md` for product-level
+requirements and permanent IDs; do not create a competing source of truth.
 
-- For a bounded feature, create or update a feature spec only when requested
-  or established by repository convention. If SDD or a separate spec is
-  explicitly requested and no location exists, use `docs/specs/<slug>.md`; ask
-  when the feature boundary or required behavior remains unclear.
-- Specify context and outcome, scope/non-goals, relevant scenarios and edge
-  cases, requirements, dependencies, applicable security/privacy/accessibility
-  and operational constraints, observable acceptance criteria, verification,
-  and open questions. Use stable IDs or the repository's existing ID scheme.
-  Write plainly and distinguish confirmed behavior, assumptions, proposals,
-  and unresolved decisions. Ask when uncertainty could materially change
-  behavior, risk, data handling, compatibility, or operations; label only
-  low-impact, reversible assumptions.
-- Scale detail and sections to the feature's scope and risk. Do not force a
-  generic 15-section response or produce threat models, data flows, API
-  contracts, deployment plans, or other artifacts that do not apply.
-- Separate confirmed requirements from proposals. Ask about contradictions or
-  decisions that block implementation; do not invent approval or policy.
-- Map spec requirements to tasks and tests when those artifacts exist or are
-  requested. Preserve the repository's index convention; route shared index
-  changes to `$ai-init`. A spec is not evidence of implementation; verify code
+- For a small, bounded change, the accepted request or issue can be the concise
+  spec: make the outcome and an observable acceptance check explicit. Do not
+  create a separate document just to satisfy process.
+- For a substantial feature, cross-component change, or existing repository
+  convention, create or refine a feature spec before implementation. Preserve
+  the established format and location; if no convention exists, use
+  `docs/specs/<slug>.md`.
+- Specify scope/non-goals, relevant scenarios and edge cases, constraints,
+  dependencies, applicable security/privacy/accessibility/operational needs,
+  acceptance criteria, verification, and open questions. Use stable IDs or the
+  repository's existing scheme. Write plainly; distinguish confirmed behavior,
+  assumptions, proposals, and unresolved decisions.
+- Ask when ambiguity could materially change behavior, risk, data handling,
+  compatibility, or operations. State only low-impact, reversible assumptions;
+  do not invent policy, approvals, or requirements.
+- Scale detail to scope and risk. Do not force a fixed response structure or
+  produce threat models, data flows, API contracts, deployment plans, or other
+  artifacts that do not apply.
+- Map requirements to tasks/tests where used; route shared index changes to
+  `$ai-init`. A specification is not evidence of implementation; verify code
   and tests separately.
-- This skill authors requirements/specifications only. It does not implement
-  code or treat a generated plan as authorization to change production systems.
+
+This skill authors requirements and specifications only. It does not implement
+code or treat a plan as authorization to change production systems.
 
 ## Required document structure
 

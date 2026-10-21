@@ -212,7 +212,7 @@ class DocumentationStateTests(unittest.TestCase):
             "## Container Image and Runtime Hardening",
             "## Kubernetes and Helm Hardening",
             "## Shell Script Security and Logging",
-            "## Spec-Driven Security Requirements",
+            "## Security Requirements for Changes",
         )
         for heading in headings:
             with self.subTest(heading=heading):
@@ -222,26 +222,32 @@ class DocumentationStateTests(unittest.TestCase):
         self.assertIn("Do not require a single public registry", baseline)
         self.assertIn("Avoid floating `latest` tags", baseline)
 
-    def test_sdd_guide_scales_checklists_to_scope(self) -> None:
-        template = (
-            REPO_ROOT
-            / "skills"
-            / "ai-init"
-            / "templates"
-            / "docs"
-            / "spec-driven-development.md"
+    def test_spec_first_is_default_and_documented_in_existing_files(self) -> None:
+        rules = (DOCS / "rules.md").read_text(encoding="utf-8")
+        rules_template = (
+            REPO_ROOT / "skills" / "ai-init" / "templates" / "docs" / "rules.md"
         ).read_text(encoding="utf-8")
-        generated = (DOCS / "spec-driven-development.md").read_text(
+        prd_skill = (REPO_ROOT / "skills" / "prd" / "SKILL.md").read_text(
             encoding="utf-8"
         )
-        for name, text in (("template", template), ("generated", generated)):
-            with self.subTest(document=name):
-                self.assertIn("Scale the detail to the change", text)
-                self.assertIn(
-                    "not as requirements that apply to every repository", text
-                )
-                self.assertIn("Do not force a", text)
-                self.assertIn("15-section report", text)
+        self.assertIn("## Specification-First Work", rules)
+        self.assertIn("## Specification-First Work", rules_template)
+        self.assertIn("Spec-first is the default", rules)
+        self.assertIn("Spec-first is the default", rules_template)
+        self.assertIn("small, bounded change", rules)
+        self.assertIn("request plus a clear acceptance check is enough", rules)
+        self.assertIn("Spec-first is the default", prd_skill)
+        self.assertFalse((DOCS / "spec-driven-development.md").exists())
+        self.assertFalse(
+            (
+                REPO_ROOT
+                / "skills"
+                / "ai-init"
+                / "templates"
+                / "docs"
+                / "spec-driven-development.md"
+            ).exists()
+        )
 
     def generated_documents(self) -> list[Path]:
         documents = [README, *sorted(DOCS.glob("*.md"))]

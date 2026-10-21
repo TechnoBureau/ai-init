@@ -136,13 +136,13 @@ steps. GitHub Actions supplies workflow logs; external access controls and log
 retention were not assessed. No application logging or shell tracing control is
 claimed.
 
-## Spec-Driven Security Requirements
+## Security Requirements for Changes
 
-The collection's security-generation behavior is specified by FR-28 in
-[the PRD](./PRD.md). The requirement covers evidence-based, conditional
-assessment of cryptography/PQC, TLS/ciphers, containers, Kubernetes/Helm, and
-shell/logging. It does not assert that this repository operates those
-technologies or that generated documentation enforces controls by itself.
+For security-relevant work, define applicable controls and observable
+acceptance criteria in the authoritative PRD, feature spec, issue, or task
+before implementation. The profile assesses controls from the actual boundary
+and evidence; it does not impose irrelevant controls or prove implementation.
+See FR-27 through FR-29 in [the PRD](./PRD.md).
 
 ## Supply Chain and Build Integrity
 

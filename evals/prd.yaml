@@ -41,9 +41,9 @@ cases:
 
   - id: spec-first-feature
     prompt: >-
-      We are adopting Spec-Driven Development. Create a feature specification
-      for account recovery before implementation, covering scope, failure
-      scenarios, authorization, privacy, acceptance criteria, and tests.
+      We are planning account recovery. Use the default spec-first process and
+      prepare a feature specification before implementation, covering scope,
+      failure scenarios, authorization, privacy, acceptance criteria, and tests.
     should_trigger: true
     expected:
       - "Uses the existing requirement-ID scheme and links the feature to relevant PRD requirements."
@@ -55,8 +55,8 @@ cases:
 
   - id: risk-scaled-feature-spec
     prompt: >-
-      We use Spec-Driven Development. Before implementation, specify this local
-      CLI formatter change: an unsupported option displays “Unknown option; run
+      Use the default spec-first workflow before implementation. Specify this
+      local CLI formatter change: an unsupported option displays “Unknown option; run
       --help for valid options.” Define a relevant acceptance criterion; do not
       implement it. The CLI has no network service or database.
     should_trigger: true

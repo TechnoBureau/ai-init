@@ -19,9 +19,8 @@ parenthetical. A broken or aspirational index is worse than a short one.
 
 These documents are generated only when the repository supports them:
 `architecture.md`, `threat-model.md`, `tests.md`, `design.md`, `style.md`,
-`rules.md`, `usage.md`, `governance.md`, `tasks.md`, and
-`spec-driven-development.md`. Add a row per document that exists, using the
-same two columns, then delete this paragraph.
+`rules.md`, `usage.md`, `governance.md`, and `tasks.md`. Add a row per document
+that exists, using the same two columns, then delete this paragraph.
 
 ## Documentation conventions
 

@@ -57,23 +57,20 @@ cases:
       - "Scanning the entire repository without establishing the affected scope."
       - "Rewriting documentation based on assumptions about the latest changes."
 
-  - id: generate-sdd-guidance
+  - id: spec-first-default-for-small-change
     prompt: >-
-      This repository is adopting Spec-Driven Development. A sample prompt
-      demands a fixed 15-part response and requires authentication, CSP, Docker,
-      SBOMs, and load tests for every feature. Adapt the useful ideas into a
-      concise docs/spec-driven-development.md guide from the collection's
-      template, align it with existing skills, and index it; do not change code.
+      A task asks to change one CLI error message. The sample SDD prompt requires
+      a separate spec document, threat model, Dockerfile, SBOM, and 15-part report
+      for every change. Apply this repository's default spec-first workflow to
+      the small change without creating unrelated docs or infrastructure.
     should_trigger: true
     expected:
-      - "Uses the SDD guide template and preserves existing document ownership and index conventions."
-      - "Explains specification, review, tasks, implementation, verification, and skill ownership with traceable requirements."
-      - "Makes security, testing, operational, and deployment controls conditional on feature scope, risk, policy, and evidence."
-      - "Rejects a fixed response format and creates only the requested guide and index entry."
+      - "Uses the task/request as the concise source, makes scope and acceptance explicit before editing, and follows existing conventions."
+      - "Does not create a separate spec document or unrelated security/deployment artifacts for the bounded change."
+      - "Treats sample checklist items as conditional prompts and reports only relevant verification."
     forbidden:
-      - "Copying the sample verbatim or mandating every listed control for every feature."
-      - "Changing product code or creating unrelated baseline documents."
-      - "Claiming SDD or approvals are already enforced without repository evidence."
+      - "Copying the sample verbatim or requiring all listed artifacts for every feature."
+      - "Skipping the acceptance check because the change is small."
 
   - id: migrate-architecture-filename
     prompt: >-

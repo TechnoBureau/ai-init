@@ -182,10 +182,10 @@ Framework (SSDF), version 1.1](https://csrc.nist.gov/pubs/sp/800/218/final):
   testing, and dependency practices.
 - **Respond to Vulnerabilities:** intake, triage, remediation, and disclosure.
 
-When SDD is adopted, put boundary-specific security requirements and observable
-acceptance criteria in the feature specification before implementation. Link to
-this profile and trace criteria to tests; do not duplicate generic controls or
-claim they are active without configuration evidence.
+For security-relevant behavior changes, put applicable controls and observable
+acceptance criteria in the authoritative PRD, feature spec, issue, or task before
+implementation. Link to this profile and trace criteria to tests; do not copy
+generic controls or claim they are active without configuration evidence.
 
 ### Dependency lifecycle and version selection
 

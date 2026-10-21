@@ -57,7 +57,6 @@ CONDITIONAL = {
     "docs/governance.md",
     "docs/threat-model.md",
     "docs/tasks.md",
-    "docs/spec-driven-development.md",
 }
 
 # Outputs produced from a reference, not a template file.

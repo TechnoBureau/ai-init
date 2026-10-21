@@ -97,9 +97,10 @@ means it was verified in the current worktree, not assumed.
   Requirements; Pipeline / Workflow Inventory; Repository Structure.
 - [ ] Permanent G-, D-, FR-, and NFR-IDs are preserved; no priority tiers
   appear in the PRD; each NFR has a verifiable criterion.
-- [ ] When SDD is in scope, the accepted spec remains authoritative, affected
-  requirement IDs trace to acceptance and tests, and no spec is claimed as proof
-  of implementation. SDD is not imposed on unrelated work.
+- [ ] For every change, the request or authoritative spec states intended
+  behavior, scope, and an acceptance check before implementation; substantial
+  features refine a feature spec first. Changes trace to relevant tests, and a
+  spec is not claimed as proof of implementation.
 - [ ] Each FR/NFR has acceptance criteria and a verification method, and
   traceability links resolve or gaps are stated.
 - [ ] Requirement text is atomic, unambiguous, normative where applicable, and
@@ -119,9 +120,6 @@ means it was verified in the current worktree, not assumed.
   owner, date, and supersession; retired IDs are not recycled.
 - [ ] `docs/tests.md` was not created or refreshed by default; a pre-existing
   file is preserved, and requested test documentation is handled by `tests`.
-- [ ] `docs/spec-driven-development.md` exists only when SDD is requested or
-  confirmed; it documents the adopted source of truth and traceability without
-  claiming that tools enforce the process.
 - [ ] `docs/design.md` exists only when the project has a rendered UI and
   records accessibility evidence without claiming unverified conformance.
 - [ ] Every generated project document other than root `README.md` and its

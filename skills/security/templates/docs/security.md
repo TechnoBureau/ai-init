@@ -210,13 +210,13 @@ data; avoid `set -x` where sensitive values may appear. Prefer safe, concise
 stderr diagnostics and explicit exit handling. Use ShellCheck or structured
 logging only when configured and supported. Do not invent retention periods.
 
-## Spec-Driven Security Requirements
+## Security Requirements for Changes
 
-Include when the project uses SDD. Reference security requirements in the
-accepted PRD or feature spec and map applicable controls to observable
-acceptance criteria and tests. Keep the feature spec as the source of
-requirements; this profile records control posture and does not duplicate or
-approve the feature specification.
+For security-relevant implementation work, place applicable controls and
+observable acceptance criteria in the authoritative PRD, feature spec, issue,
+or task before coding. Link relevant requirements to tests. This profile records
+control posture; it does not replace the change specification or impose
+irrelevant controls.
 
 ## Supply Chain and Build Integrity
 

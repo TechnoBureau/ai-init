@@ -48,8 +48,9 @@ enforces it; state the evidence.
 | {{FR_OR_NFR_ID}} | {{CRITERION}} | `{{TEST_PATH_OR_MANUAL_PROCEDURE}}` | {{LEVEL}} | {{COVERED_PARTIAL_GAP}} |
 
 `Covered` requires a runnable or executed artifact. Do not claim coverage from
-a test name alone. When SDD is adopted, link tests to the accepted spec and its
-requirement IDs; the test plan does not replace the specification.
+a test name alone. For behavior changes, link tests to the authoritative spec or
+request and its requirement IDs where available; the test plan does not replace
+that source.
 
 ## Mandatory Verification Areas
 

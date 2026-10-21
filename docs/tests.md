@@ -72,6 +72,9 @@ in the hosting platform and is not visible in this tree.
 | FR-12 | Eval fixtures carry both trigger states | `test_eval_fixture_requires_both_trigger_states` | Unit | Covered |
 | FR-13 | CI runs all gates | Workflow definition | Static | Covered |
 | FR-14 | Every template has a generated counterpart | `test_every_template_has_generated_document` | Unit | Covered |
+| FR-27 | SDD is opt-in and accepted requirements trace to tests | `test_sdd_guide_scales_checklists_to_scope`; `evals/prd.yaml`, `evals/tests.yaml` | Unit / eval fixtures | Partial |
+| FR-28 | Security domains are conditional and evidence-based | `test_security_profile_covers_scoped_hardening_domains`; `evals/security.yaml` | Unit / eval fixture | Partial |
+| FR-29 | SDD detail and artifacts scale to feature scope and risk | `test_sdd_guide_scales_checklists_to_scope`; `evals/prd.yaml`, `evals/security.yaml` | Unit / eval fixtures | Partial |
 | NFR-4 | Validator is deterministic and fails closed | Repeated runs, explicit exit codes | Static | Covered |
 | NFR-7 | Symlink failure is reported, not copied | Instruction and checklist | Manual | Partial |
 
@@ -79,9 +82,11 @@ When SDD is used, tests map to accepted feature specifications and permanent
 requirement IDs. The test plan does not replace the specification, and only
 covered acceptance criteria are claimed.
 
-Requirements FR-4, FR-6 through FR-9, FR-15 through FR-18, and most
-non-functional requirements are verified by review rather than automation.
-They are marked `Partial` where no automated evidence exists.
+Requirements not listed here, including process and operational requirements,
+are verified by review rather than automation. Eval fixtures describe expected
+skill behavior but CI validates their structure; the fixtures are not evidence
+that a skill followed them. Coverage is `Partial` where no automated evidence
+exists.
 
 ## Mandatory Verification Areas
 

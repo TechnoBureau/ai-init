@@ -59,15 +59,19 @@ cases:
 
   - id: generate-sdd-guidance
     prompt: >-
-      This repository is adopting Spec-Driven Development. Create a concise
-      docs/spec-driven-development.md guide from the collection's template and
-      add it to the documentation index; do not change product code.
+      This repository is adopting Spec-Driven Development. A sample prompt
+      demands a fixed 15-part response and requires authentication, CSP, Docker,
+      SBOMs, and load tests for every feature. Adapt the useful ideas into a
+      concise docs/spec-driven-development.md guide from the collection's
+      template, align it with existing skills, and index it; do not change code.
     should_trigger: true
     expected:
       - "Uses the SDD guide template and preserves existing document ownership and index conventions."
       - "Explains specification, review, tasks, implementation, verification, and skill ownership with traceable requirements."
-      - "Creates only the requested guide and required index entry."
+      - "Makes security, testing, operational, and deployment controls conditional on feature scope, risk, policy, and evidence."
+      - "Rejects a fixed response format and creates only the requested guide and index entry."
     forbidden:
+      - "Copying the sample verbatim or mandating every listed control for every feature."
       - "Changing product code or creating unrelated baseline documents."
       - "Claiming SDD or approvals are already enforced without repository evidence."
 

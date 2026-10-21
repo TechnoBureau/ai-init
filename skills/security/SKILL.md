@@ -44,9 +44,11 @@ requirements; do not turn a control catalog into a generic compliance claim.
   implementation and the scope is authorized.
 - Keep findings, exceptions, and proposed actions separate. Never invent risk
   ratings, deadlines, waivers, or acceptance criteria.
-- Apply controls only to the assessed boundary and confirmed policy. Do not
-  impose a single vendor registry, `latest` tag, cipher list, or retention/SLA
-  threshold across unrelated systems.
+- Treat broad checklists as prompts, not universal control catalogs. Select
+  controls only when the assessed boundary, data, threats, or confirmed policy
+  makes them applicable.
+- Do not impose a single vendor registry, `latest` tag, cipher list, or
+  retention/SLA threshold across unrelated systems.
 - Call a control enforced only when code, configuration, or an active gate proves
   it; otherwise label it a proposal, external dependency, or assessment gap.
 - In SDD workflows, express applicable security controls as traceable acceptance

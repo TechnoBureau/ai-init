@@ -222,6 +222,27 @@ class DocumentationStateTests(unittest.TestCase):
         self.assertIn("Do not require a single public registry", baseline)
         self.assertIn("Avoid floating `latest` tags", baseline)
 
+    def test_sdd_guide_scales_checklists_to_scope(self) -> None:
+        template = (
+            REPO_ROOT
+            / "skills"
+            / "ai-init"
+            / "templates"
+            / "docs"
+            / "spec-driven-development.md"
+        ).read_text(encoding="utf-8")
+        generated = (DOCS / "spec-driven-development.md").read_text(
+            encoding="utf-8"
+        )
+        for name, text in (("template", template), ("generated", generated)):
+            with self.subTest(document=name):
+                self.assertIn("Scale the detail to the change", text)
+                self.assertIn(
+                    "not as requirements that apply to every repository", text
+                )
+                self.assertIn("Do not force a", text)
+                self.assertIn("15-section report", text)
+
     def generated_documents(self) -> list[Path]:
         documents = [README, *sorted(DOCS.glob("*.md"))]
         documents.extend(sorted((REPO_ROOT / "skills").glob("*/templates/**/*.md")))

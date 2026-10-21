@@ -70,10 +70,11 @@ when a repository-wide review is intended.
 - **Full documentation refresh:** “`$ai-init` Perform a full refresh of the
   repository documentation and reconcile all managed documents with current
   source and configuration.”
-- **Spec-driven feature:** “`$prd` Write a feature specification for billing
-  idempotency before implementation. Define scope, scenarios, permanent IDs,
-  security/privacy constraints, acceptance criteria, and verification; ask about
-  unresolved decisions and do not change code yet.”
+- **Spec-driven feature:** “`$prd` Write a concise feature spec for billing
+  idempotency before implementation, following this repository's conventions.
+  Include relevant scenarios, security/privacy and reliability criteria, and
+  observable tests. Ask about decisions that materially affect behavior; state
+  reversible assumptions and do not change code yet.”
 - **Requirements:** “`$prd` Update the requirements affected by the new account
   recovery flow; preserve existing IDs and inspect only related code and tests.”
 - **Tests:** “`$tests` Add coverage for the new account recovery behavior using

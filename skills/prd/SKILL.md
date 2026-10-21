@@ -68,10 +68,17 @@ source of permanent requirements; do not create a competing source of truth.
   or established by repository convention. If SDD or a separate spec is
   explicitly requested and no location exists, use `docs/specs/<slug>.md`; ask
   when the feature boundary or required behavior remains unclear.
-- Specify context and outcome, scope/non-goals, scenarios and edge cases,
-  requirements, dependencies, relevant security/privacy/accessibility and
-  operational constraints, observable acceptance criteria, verification, and
-  open questions. Use stable IDs or the repository's existing ID scheme.
+- Specify context and outcome, scope/non-goals, relevant scenarios and edge
+  cases, requirements, dependencies, applicable security/privacy/accessibility
+  and operational constraints, observable acceptance criteria, verification,
+  and open questions. Use stable IDs or the repository's existing ID scheme.
+  Write plainly and distinguish confirmed behavior, assumptions, proposals,
+  and unresolved decisions. Ask when uncertainty could materially change
+  behavior, risk, data handling, compatibility, or operations; label only
+  low-impact, reversible assumptions.
+- Scale detail and sections to the feature's scope and risk. Do not force a
+  generic 15-section response or produce threat models, data flows, API
+  contracts, deployment plans, or other artifacts that do not apply.
 - Separate confirmed requirements from proposals. Ask about contradictions or
   decisions that block implementation; do not invent approval or policy.
 - Map spec requirements to tasks and tests when those artifacts exist or are

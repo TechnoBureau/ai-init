@@ -53,6 +53,21 @@ cases:
       - "Treating the specification as proof that account recovery is implemented."
       - "Inventing policy, approvals, deadlines, or behavior not supported by the request."
 
+  - id: risk-scaled-feature-spec
+    prompt: >-
+      We use Spec-Driven Development. Before implementation, specify this local
+      CLI formatter change: an unsupported option displays “Unknown option; run
+      --help for valid options.” Define a relevant acceptance criterion; do not
+      implement it. The CLI has no network service or database.
+    should_trigger: true
+    expected:
+      - "Uses a short, testable spec with the relevant behavior, input boundary, and acceptance criterion."
+      - "Uses plain language and states a question only if repository evidence cannot establish the behavior."
+      - "Omits unrelated API, database, deployment, and compliance sections."
+    forbidden:
+      - "Forcing a generic 15-section report or full threat-model package onto the small change."
+      - "Inventing authentication, infrastructure, or regulatory requirements."
+
   - id: route-security-work
     prompt: >-
       Document our security controls and FIPS posture.

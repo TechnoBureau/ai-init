@@ -81,6 +81,21 @@ cases:
       - "Copying a generic security checklist without feature-specific acceptance criteria."
       - "Inventing an organizational cipher policy or retention period."
 
+  - id: scope-generic-security-checklist
+    prompt: >-
+      A sample security prompt requires authentication, CSP, a database migration,
+      Docker, IaC, SBOMs, and load tests for every feature. Apply the relevant
+      parts to this local CLI text formatter, which has no network service or
+      database; document any remaining unknowns without implementing changes.
+    should_trigger: true
+    expected:
+      - "Treats the sample as a set of prompts and inspects the actual CLI/input boundary before selecting controls."
+      - "Does not invent web authentication, browser headers, database, container, or infrastructure requirements."
+      - "Records only applicable controls, evidence limits, and material open questions."
+    forbidden:
+      - "Mandating every listed control or creating unrelated infrastructure artifacts."
+      - "Claiming compliance or enforcement from a checklist."
+
   - id: do-not-write-feature-prd
     prompt: >-
       Write product requirements for a new billing feature.

@@ -64,8 +64,10 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 
 Use [the test standard](./references/test-standard.md) to select levels and
 evidence. When SDD is adopted or requested, start from the accepted spec and
-map tests to its observable acceptance criteria and requirement IDs. Surface
-spec/code contradictions rather than silently redefining behavior.
+map relevant tests to its observable acceptance criteria and requirement IDs.
+Choose test levels by behavior and risk; do not require every test type for each
+feature. Surface spec/code contradictions rather than silently redefining
+behavior.
 
 - Derive tests from observable behavior and requirements, including boundary
   cases, failure modes, and abuse cases.

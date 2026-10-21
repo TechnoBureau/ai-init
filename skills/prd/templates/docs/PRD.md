@@ -111,6 +111,10 @@ sequential for new requirements; do not reuse retired IDs. Apply these rules:
 A `Covered` entry requires a runnable or executed artifact. Do not claim
 coverage from a test name alone. Record gaps explicitly in the same cell.
 
+When SDD is adopted, feature specifications refine these product-level
+requirements; they do not replace the PRD or duplicate its permanent IDs. Link
+features to the relevant FR/NFR IDs and trace their acceptance criteria to tests.
+
 ## 8. Non-Functional Requirements
 
 | ID | Category | Requirement | Assessment |

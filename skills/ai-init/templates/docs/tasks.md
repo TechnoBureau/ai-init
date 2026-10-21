@@ -29,6 +29,14 @@
   - Notes: <implementation context and risks>
 ```
 
+## Spec-driven planning
+
+Use this only when the project has adopted SDD or the user requests it. Derive
+tasks from an accepted specification; keep the PRD/feature spec as the source of
+requirements. Each task references the applicable permanent requirement IDs and
+has an observable acceptance criterion. If a requirement changes, update the
+spec before treating implementation tasks as complete.
+
 ## Definition of Done
 
 - Acceptance criteria are met and evidenced.

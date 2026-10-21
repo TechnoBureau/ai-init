@@ -1,11 +1,12 @@
 ---
 name: security
 description: >-
-  Create or refine an evidence-based, modular enterprise security profile,
-  including applicable threat modeling, supply-chain, cryptographic
-  agility/PQC, FIPS, OpenSCAP/SCAP, CIS, NIST, ISO/IEC 27001, OWASP, and AI/LLM
-  controls. Use for repository security analysis, secure-design review, audit
-  preparation, or posture documentation; implement hardening only when
+  Create or refine an evidence-based, modular security profile covering
+  applicable PQC/cryptography, TLS/ciphers, container and Kubernetes/Helm
+  hardening, shell-script safety/logging, supply chain, and relevant NIST, CIS,
+  OpenSCAP/SCAP, FIPS, ISO/IEC 27001, OWASP, or AI/LLM controls. Use for
+  security analysis,
+  secure-design review, or posture documentation; implement hardening only when
   explicitly requested.
 license: MIT
 compatibility: >-
@@ -43,6 +44,13 @@ requirements; do not turn a control catalog into a generic compliance claim.
   implementation and the scope is authorized.
 - Keep findings, exceptions, and proposed actions separate. Never invent risk
   ratings, deadlines, waivers, or acceptance criteria.
+- Apply controls only to the assessed boundary and confirmed policy. Do not
+  impose a single vendor registry, `latest` tag, cipher list, or retention/SLA
+  threshold across unrelated systems.
+- Call a control enforced only when code, configuration, or an active gate proves
+  it; otherwise label it a proposal, external dependency, or assessment gap.
+- In SDD workflows, express applicable security controls as traceable acceptance
+  criteria before implementation.
 
 ## Preflight
 
@@ -103,6 +111,10 @@ assessment.
 - Map secure development lifecycle evidence to NIST SP 800-218 SSDF, version
   1.1. Map governance and operations to NIST Cybersecurity Framework (CSF) 2.0
   functions: Govern, Identify, Protect, Detect, Respond, Recover.
+- Select supported, security-maintained package/image versions that meet
+  compatibility and reproducibility needs; check lifecycle and advisories. Do
+  not blindly require newest releases, floating `latest`, one vendor registry,
+  or an arbitrary maintenance-age threshold.
 - Select ISO/IEC 27001:2022 Annex A, SOC 2 Trust Services Criteria, NIST SP
   800-53 Rev. 5, or CIS Controls v8.1 only when an organizational certification,
   audit, contractual, or policy obligation is confirmed. Name the exact
@@ -145,13 +157,40 @@ irrelevant areas.
 | Supply chain | Lockfiles, registries, SBOM, provenance, signing, release permissions | SLSA/scorecard evidence |
 | Vulnerability management | Dependabot/Renovate, CVE intake, KEV/EPSS use, SLAs | Triage and remediation evidence |
 | Cryptography and keys | Algorithms, protocols, providers, HSM/KMS, rotation, PQC | Inventory and migration state |
+| Network transport | TLS termination, versions, certificate validation, cipher policy | Effective config or external boundary |
 | Logging and detection | Log coverage, sensitive-data handling, retention, integrity, SIEM | Detection evidence |
+| Shell and automation | Input handling, quoting, exit status, temporary files, secret-safe logs | Script/config evidence or gap |
+| Container images/runtime | Image source/digest, non-root, capabilities, filesystem, scanning/signatures | Build and runtime assessment |
+| Kubernetes and Helm | Rendered security context, RBAC, secrets, network policies, admission controls | Chart/manifest and enforcement evidence |
 | Resilience and recovery | Backups, restore tests, RTO/RPO, failover, DR | Tested recovery evidence |
 | Incident response | Runbooks, contacts, severity model, disclosure, postmortem | Exercised process evidence |
 | Privacy | Data minimization, lawful basis, retention, subject rights, DPIA | Confirmed obligations only |
 | Third-party risk | Vendors, APIs, data processors, open-source licenses | Dependency and vendor evidence |
 | AI/agent security | Prompts, tools, data flows, model providers, human oversight | AI threat and control record |
-| Platform hardening | OS/container/cloud/Kubernetes configuration | Exact baseline and scan result |
+| Host and cloud hardening | OS, host, and provider baseline in scope | Exact baseline and scan result |
+
+## TLS, containers, Helm, and shell security
+
+Use the matching sections in [the modular baseline](./references/security-baseline.md)
+for in-scope network, image/runtime, Kubernetes/Helm, and shell controls. The
+security-document template provides conditional sections for these areas. Fill
+only what evidence supports; mark absent technologies `Not applicable` with the
+boundary inspected. Do not claim enforcement from a recommendation or chart
+value alone.
+
+- For TLS, record termination boundary, negotiated/configured versions,
+  certificate and hostname validation, and version-appropriate cipher policy.
+  Prefer TLS 1.3; use TLS 1.2 minimum only when compatible with policy and
+  supported clients. Never prescribe one cipher list across all providers.
+- For containers, assess approved image source, lifecycle and digest, build
+  secrets, non-root runtime, capabilities, read-only filesystem, security
+  profiles, scans, and signature/provenance verification.
+- For Kubernetes/Helm, inspect rendered manifests as well as values; assess
+  security contexts, least-privilege RBAC, service accounts, secrets, network
+  policy, image integrity, resource bounds, and enforced admission policy.
+- For shell and CI scripts, assess quoting, input validation, error handling,
+  temporary files, and logging. Never expose secrets via output or shell trace;
+  use retention and structured logging only as confirmed by the environment.
 
 ## Supply chain and build integrity
 

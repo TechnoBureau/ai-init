@@ -75,6 +75,10 @@ in the hosting platform and is not visible in this tree.
 | NFR-4 | Validator is deterministic and fails closed | Repeated runs, explicit exit codes | Static | Covered |
 | NFR-7 | Symlink failure is reported, not copied | Instruction and checklist | Manual | Partial |
 
+When SDD is used, tests map to accepted feature specifications and permanent
+requirement IDs. The test plan does not replace the specification, and only
+covered acceptance criteria are claimed.
+
 Requirements FR-4, FR-6 through FR-9, FR-15 through FR-18, and most
 non-functional requirements are verified by review rather than automation.
 They are marked `Partial` where no automated evidence exists.

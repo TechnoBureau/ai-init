@@ -1,11 +1,10 @@
 ---
 name: ai-init
 description: >-
-  Bootstrap repository documentation or make a scoped update to common project
-  docs such as README.md, structure, or usage. Use for a new repository, an
-  explicit full documentation refresh, or a requested update whose impact is
-  limited to common docs. Route PRD, security, tests, design, and code-quality
-  work to dedicated skills.
+  Bootstrap repository docs or make targeted updates to README, structure, or
+  usage. Use for new repositories, explicit full refreshes, or scoped common-doc
+  changes. Coordinate SDD requirements with `$prd`; route security, tests,
+  design, and code quality to their dedicated skills.
 license: MIT
 compatibility: >-
   Requires a writable Git worktree with file and symlink support. POSIX and
@@ -58,11 +57,11 @@ outcome; do not turn routine work into a repository-wide audit.
 - **Full refresh:** only for Bootstrap or an explicit request. If evidence shows
   wider impact, expand to affected areas; ask if scope cannot be bounded.
 
-For targeted work, start with user-named paths. In a Git worktree, use
-`git status --short`, `git diff --name-only`, and `git diff --cached --name-only`;
-use only supplied commit/PR ranges. Without changed paths, inspect request-implied
-files and nearest docs; ask if impact remains unclear. Read relevant instructions
-and evidence. Route specialist work only to needed skills.
+For targeted work, start with named paths. Use `git status --short`,
+`git diff --name-only`, `git diff --cached --name-only`, and only supplied
+commit/PR ranges. Without changed paths, inspect request-implied files and
+nearest docs; ask if impact is unclear. Read relevant evidence and use only
+needed specialist skills.
 
 | Change area | Inspect and update |
 |---|---|
@@ -72,6 +71,9 @@ and evidence. Route specialist work only to needed skills.
 | Security, identity, data, dependencies | Relevant control surface; `$security` only when requested or materially affected |
 | Tests, framework, CI gates | Relevant tests/config; `$tests` when test work or docs are requested |
 | UI, tokens, accessibility | Relevant UI paths; `$design` when design-system work is in scope |
+
+SDD is opt-in: preserve local spec conventions, coordinate `$prd` before
+implementation, and create the guide only when requested or adopted.
 
 ## Preflight and preservation
 
@@ -213,8 +215,7 @@ missing baseline files as a side effect.
 - `docs/security.md` with `$security` — modular security posture derived from
   inspected configuration.
 
-Each document comes from the template at the matching path, so generation never
-requires a mapping table:
+Template ownership and output paths:
 
 | Output | Template owner |
 |---|---|
@@ -223,6 +224,7 @@ requires a mapping table:
 | `docs/security.md` | `security` — `templates/docs/security.md` |
 | `docs/tests.md` | `tests` — `templates/docs/tests.md` (opt-in) |
 | `docs/design.md` | `design` — `templates/docs/design.md` (UI only) |
+| `docs/spec-driven-development.md` | `ai-init` — `templates/docs/spec-driven-development.md` (opt-in) |
 | Other `docs/` files | `ai-init` — `templates/docs/` |
 
 Do not create or refresh `docs/tests.md` by default. Use `$tests` only when

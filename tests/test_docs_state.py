@@ -189,6 +189,39 @@ class DocumentationStateTests(unittest.TestCase):
         )
 
 
+    def test_security_profile_covers_scoped_hardening_domains(self) -> None:
+        template = (
+            REPO_ROOT
+            / "skills"
+            / "security"
+            / "templates"
+            / "docs"
+            / "security.md"
+        ).read_text(encoding="utf-8")
+        generated = (DOCS / "security.md").read_text(encoding="utf-8")
+        baseline = (
+            REPO_ROOT
+            / "skills"
+            / "security"
+            / "references"
+            / "security-baseline.md"
+        ).read_text(encoding="utf-8")
+        headings = (
+            "## Cryptographic Inventory and Migration",
+            "## Network Transport and TLS",
+            "## Container Image and Runtime Hardening",
+            "## Kubernetes and Helm Hardening",
+            "## Shell Script Security and Logging",
+            "## Spec-Driven Security Requirements",
+        )
+        for heading in headings:
+            with self.subTest(heading=heading):
+                self.assertIn(heading, template)
+                self.assertIn(heading, generated)
+        self.assertIn("TLS_CHACHA20_POLY1305_SHA256", template)
+        self.assertIn("Do not require a single public registry", baseline)
+        self.assertIn("Avoid floating `latest` tags", baseline)
+
     def generated_documents(self) -> list[Path]:
         documents = [README, *sorted(DOCS.glob("*.md"))]
         documents.extend(sorted((REPO_ROOT / "skills").glob("*/templates/**/*.md")))

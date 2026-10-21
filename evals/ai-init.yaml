@@ -57,6 +57,20 @@ cases:
       - "Scanning the entire repository without establishing the affected scope."
       - "Rewriting documentation based on assumptions about the latest changes."
 
+  - id: generate-sdd-guidance
+    prompt: >-
+      This repository is adopting Spec-Driven Development. Create a concise
+      docs/spec-driven-development.md guide from the collection's template and
+      add it to the documentation index; do not change product code.
+    should_trigger: true
+    expected:
+      - "Uses the SDD guide template and preserves existing document ownership and index conventions."
+      - "Explains specification, review, tasks, implementation, verification, and skill ownership with traceable requirements."
+      - "Creates only the requested guide and required index entry."
+    forbidden:
+      - "Changing product code or creating unrelated baseline documents."
+      - "Claiming SDD or approvals are already enforced without repository evidence."
+
   - id: migrate-architecture-filename
     prompt: >-
       Our docs/Architecture.md uses the old mixed-case name. Standardize the

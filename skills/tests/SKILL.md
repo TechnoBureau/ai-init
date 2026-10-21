@@ -63,7 +63,9 @@ refresh `docs/tests.md` as a side effect of ordinary documentation bootstrap.
 ## Test strategy and traceability
 
 Use [the test standard](./references/test-standard.md) to select levels and
-evidence.
+evidence. When SDD is adopted or requested, start from the accepted spec and
+map tests to its observable acceptance criteria and requirement IDs. Surface
+spec/code contradictions rather than silently redefining behavior.
 
 - Derive tests from observable behavior and requirements, including boundary
   cases, failure modes, and abuse cases.

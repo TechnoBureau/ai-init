@@ -70,6 +70,10 @@ when a repository-wide review is intended.
 - **Full documentation refresh:** “`$ai-init` Perform a full refresh of the
   repository documentation and reconcile all managed documents with current
   source and configuration.”
+- **Spec-driven feature:** “`$prd` Write a feature specification for billing
+  idempotency before implementation. Define scope, scenarios, permanent IDs,
+  security/privacy constraints, acceptance criteria, and verification; ask about
+  unresolved decisions and do not change code yet.”
 - **Requirements:** “`$prd` Update the requirements affected by the new account
   recovery flow; preserve existing IDs and inspect only related code and tests.”
 - **Tests:** “`$tests` Add coverage for the new account recovery behavior using
@@ -155,4 +159,4 @@ Skills CLI reading the repository. CI runs on every push and pull request.
 
 ## Related Docs
 
-[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Security](./security.md)
+[README](../README.md) · [PRD](./PRD.md) · [Architecture](./architecture.md) · [Security](./security.md) · [Spec-driven development](./spec-driven-development.md)

@@ -90,7 +90,11 @@ columns.
 | Incident response and disclosure | {{CLAIM_TYPE_AND_STATUS}} | {{RUNBOOK_AND_DISCLOSURE_PRACTICE}} |
 | Privacy and data protection | {{CLAIM_TYPE_AND_STATUS}} | {{MINIMIZATION_RETENTION_DPIA}} |
 | Third-party and dependency risk | {{CLAIM_TYPE_AND_STATUS}} | {{VENDOR_AND_LICENCE_STATE}} |
-| Platform hardening | {{CLAIM_TYPE_AND_STATUS}} | {{HARDENING_BASELINE_AND_SCAN_RESULT}} |
+| Network transport and TLS (if applicable) | {{CLAIM_TYPE_AND_STATUS}} | {{TLS_TERMINATION_VERSION_CERTIFICATE_AND_CIPHER_EVIDENCE}} |
+| Container image/runtime (if applicable) | {{CLAIM_TYPE_AND_STATUS}} | {{IMAGE_SOURCE_DIGEST_PRIVILEGE_AND_SCAN_STATE}} |
+| Kubernetes and Helm (if applicable) | {{CLAIM_TYPE_AND_STATUS}} | {{RENDERED_SECURITY_CONTEXT_RBAC_SECRETS_AND_POLICY}} |
+| Shell scripts and logging (if applicable) | {{CLAIM_TYPE_AND_STATUS}} | {{SCRIPT_VALIDATION_ERROR_HANDLING_AND_LOG_SAFETY}} |
+| Host and cloud hardening | {{CLAIM_TYPE_AND_STATUS}} | {{HOST_OR_CLOUD_BASELINE_AND_SCAN_RESULT}} |
 | AI/agent security (if applicable) | {{CLAIM_TYPE_AND_STATUS}} | {{PROMPT_TOOL_DATA_CONTROLS}} |
 | {{OTHER_CONFIRMED_PROFILE_AND_CONTROL_AREA}} | {{CLAIM_TYPE_AND_STATUS}} | {{DESCRIPTION}} |
 
@@ -130,6 +134,89 @@ explicitly approved, narrowly scoped, observable, time-bounded, and protected
 against downgrade attacks. A rollback must not re-enable a prohibited
 algorithm. Only document this as an existing control when configuration and
 tests prove it; otherwise label it a proposed action.
+
+## Network Transport and TLS
+
+Include this section only when network endpoints or clients are in scope. Record
+the TLS termination boundary; do not infer effective transport controls from an
+HTTPS URL or library dependency.
+
+| Surface | Assessment | Observed configuration or limit |
+|---|---|---|
+| TLS termination and protocol versions | {{ASSESSMENT}} | {{ENDPOINT_OWNER_BOUNDARY_AND_VERSION_EVIDENCE}} |
+| Certificate chain, hostname, renewal, and trust | {{ASSESSMENT}} | {{VALIDATION_AND_ROTATION_STATE}} |
+| Cipher policy by protocol version | {{ASSESSMENT}} | {{PROVIDER_SPECIFIC_CIPHER_CONFIG_OR_NOT_CONFIGURED}} |
+| External API transport and timeouts | {{ASSESSMENT}} | {{HTTPS_VALIDATION_AND_BOUNDED_TIMEOUTS}} |
+
+Prefer TLS 1.3; use TLS 1.2 minimum only when compatible with policy and
+supported clients, and disable SSL/TLS 1.0/1.1 where the service controls
+negotiation. For TLS 1.3, examples of AEAD suites include
+`TLS_AES_128_GCM_SHA256`, `TLS_AES_256_GCM_SHA384`, and
+`TLS_CHACHA20_POLY1305_SHA256`; for TLS 1.2, prefer supported ECDHE + AEAD
+suites. These are examples, not a universal allowlist. Do not mix TLS 1.2 and
+TLS 1.3 cipher names. Identify certificate validation and exceptions; see the
+modular baseline for selection criteria.
+
+## Container Image and Runtime Hardening
+
+Include only when Dockerfiles, OCI images, or container runtime settings are in
+scope. Assess build-time and deployed controls separately.
+
+| Control area | Assessment | Observed state or gap |
+|---|---|---|
+| Approved image source, lifecycle, immutable digest, signature/provenance | {{ASSESSMENT}} | {{IMAGE_REFERENCE_AND_VERIFICATION}} |
+| Build context, layers, dependency and secret handling | {{ASSESSMENT}} | {{BUILD_CONFIG_AND_SECRET_MECHANISM}} |
+| Non-root identity and privilege | {{ASSESSMENT}} | {{USER_PRIVILEGE_CAPABILITY_STATE}} |
+| Read-only filesystem, capabilities, seccomp/AppArmor, resource limits | {{ASSESSMENT}} | {{RUNTIME_POLICY_OR_GAP}} |
+| Vulnerability scan and SBOM | {{ASSESSMENT}} | {{CONFIGURED_SCAN_AND_ARTIFACT_STATE}} |
+
+Prefer supported minimal images from an approved source; do not require one
+vendor registry or floating `latest` tags. Verify deployment digest and runtime
+policy, not Dockerfile defaults alone. Never place secrets in image layers,
+`ARG`, `ENV`, source, or build logs.
+
+## Kubernetes and Helm Hardening
+
+Include only when Kubernetes manifests, clusters, or Helm charts are in scope.
+Inspect rendered manifests as well as chart templates and values.
+
+| Control area | Assessment | Observed state or gap |
+|---|---|---|
+| Pod/container security context and admission policy | {{ASSESSMENT}} | {{NON_ROOT_PRIVILEGE_CAPABILITY_SECCOMP_STATE}} |
+| RBAC, service accounts, and token mounting | {{ASSESSMENT}} | {{LEAST_PRIVILEGE_AND_AUTOMOUNT_STATE}} |
+| NetworkPolicy, ingress TLS, and trust boundaries | {{ASSESSMENT}} | {{ENFORCED_POLICY_OR_NOT_ASSESSED}} |
+| Image digest, secret source, resources, and probes | {{ASSESSMENT}} | {{RENDERED_WORKLOAD_STATE}} |
+| Chart dependencies and rendered-manifest validation | {{ASSESSMENT}} | {{HELM_LINT_SCHEMA_AND_POLICY_CHECKS}} |
+
+Where compatible, verify non-root execution, privilege escalation disabled,
+read-only root filesystem, dropped capabilities, and `RuntimeDefault` seccomp.
+Record exceptions for host namespaces, host mounts, or privileged workloads.
+Keep secrets out of values files and rendered output. A Helm value alone does
+not prove cluster enforcement.
+
+## Shell Script Security and Logging
+
+Include only when checked-in scripts or relevant CI shell steps are in scope.
+
+| Control area | Assessment | Observed state or gap |
+|---|---|---|
+| Input validation, quoting, and command construction | {{ASSESSMENT}} | {{SCRIPT_PATHS_AND_REVIEW_RESULT}} |
+| Exit status, error handling, temporary files, cleanup | {{ASSESSMENT}} | {{FAILURE_AND_CLEANUP_BEHAVIOR}} |
+| Secret-safe diagnostics and shell tracing | {{ASSESSMENT}} | {{LOGGING_OR_REDACTION_STATE}} |
+| Structured logs, access, alerting, and retention | {{ASSESSMENT}} | {{CONFIRMED_RUNTIME_POLICY_OR_NOT_ASSESSED}} |
+
+Never log secrets, tokens, private keys, credentials, or unnecessary personal
+data; avoid `set -x` where sensitive values may appear. Prefer safe, concise
+stderr diagnostics and explicit exit handling. Use ShellCheck or structured
+logging only when configured and supported. Do not invent retention periods.
+
+## Spec-Driven Security Requirements
+
+Include when the project uses SDD. Reference security requirements in the
+accepted PRD or feature spec and map applicable controls to observable
+acceptance criteria and tests. Keep the feature spec as the source of
+requirements; this profile records control posture and does not duplicate or
+approve the feature specification.
 
 ## Supply Chain and Build Integrity
 
@@ -177,9 +264,9 @@ response. Mark those `Not assessed` unless records exist.
 
 ## Platform Hardening Assessment
 
-Include this section only for a supported host/platform profile that is in
-scope. A scan is evidence of assessment, not proof that the system is
-compliant or hardened.
+Include this section only for a supported host/OS/cloud profile in scope;
+Docker and Kubernetes/Helm are assessed above. A scan is evidence of assessment,
+not proof that the system is compliant or hardened.
 
 | Platform / version | Profile and version | Result and exceptions |
 |---|---|---|

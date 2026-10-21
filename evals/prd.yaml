@@ -39,6 +39,20 @@ cases:
     forbidden:
       - "Inventing a product vision or personas to fill sections."
 
+  - id: spec-first-feature
+    prompt: >-
+      We are adopting Spec-Driven Development. Create a feature specification
+      for account recovery before implementation, covering scope, failure
+      scenarios, authorization, privacy, acceptance criteria, and tests.
+    should_trigger: true
+    expected:
+      - "Uses the existing requirement-ID scheme and links the feature to relevant PRD requirements."
+      - "States in-scope behavior, non-goals, edge cases, security/privacy constraints, and observable acceptance criteria."
+      - "Asks only about decisions that block a testable spec and does not implement code."
+    forbidden:
+      - "Treating the specification as proof that account recovery is implemented."
+      - "Inventing policy, approvals, deadlines, or behavior not supported by the request."
+
   - id: route-security-work
     prompt: >-
       Document our security controls and FIPS posture.

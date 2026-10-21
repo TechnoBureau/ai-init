@@ -4,8 +4,8 @@ description: >-
   Create or refine a concise, implementation-grounded Product Requirements
   Document with permanent G-, D-, FR-, and NFR-IDs, acceptance criteria, and
   enterprise traceability. Use when a repository PRD is requested, when
-  requirements must be clarified or audited, or when ai-init is documenting a
-  product repository.
+  requirements must be clarified or audited, or when Spec-Driven Development
+  or a feature specification is requested.
 license: MIT
 compatibility: >-
   Requires a writable Git worktree. Reads repository evidence; it does not need
@@ -57,6 +57,29 @@ operations, and leadership readers.
   users, goals, features, architecture, workflows, or targets. If no goal,
   requirement, decision, persona, or workflow is confirmed, say none is
   recorded instead of assigning a filler ID.
+
+## Spec-driven development
+
+Use SDD only when the project has adopted it or the user requests it. Preserve
+an existing specification format and use `docs/PRD.md` as the product-level
+source of permanent requirements; do not create a competing source of truth.
+
+- For a bounded feature, create or update a feature spec only when requested
+  or established by repository convention. If SDD or a separate spec is
+  explicitly requested and no location exists, use `docs/specs/<slug>.md`; ask
+  when the feature boundary or required behavior remains unclear.
+- Specify context and outcome, scope/non-goals, scenarios and edge cases,
+  requirements, dependencies, relevant security/privacy/accessibility and
+  operational constraints, observable acceptance criteria, verification, and
+  open questions. Use stable IDs or the repository's existing ID scheme.
+- Separate confirmed requirements from proposals. Ask about contradictions or
+  decisions that block implementation; do not invent approval or policy.
+- Map spec requirements to tasks and tests when those artifacts exist or are
+  requested. Preserve the repository's index convention; route shared index
+  changes to `$ai-init`. A spec is not evidence of implementation; verify code
+  and tests separately.
+- This skill authors requirements/specifications only. It does not implement
+  code or treat a generated plan as authorization to change production systems.
 
 ## Required document structure
 

@@ -224,8 +224,8 @@ a gap. Follow the full rules in
 [`references/architecture/mermaid-standard.md`](./references/architecture/mermaid-standard.md).
 Create `docs/governance.md` when roles, review rules, or change classes must be
 recorded; create `docs/threat-model.md` with `$security` when a dedicated threat
-model is requested. Create tasks or memory documents only when requested or
-clearly useful to ongoing work.
+model is requested. Create task documents only when requested or clearly
+useful to ongoing work.
 
 ## Enterprise documentation standard
 

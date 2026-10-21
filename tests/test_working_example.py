@@ -64,7 +64,6 @@ def unresolved_placeholders(text: str) -> list[str]:
 EXEMPT_TEMPLATES = {
     "design.md": "This repository has no rendered UI, so docs/design.md is not applicable.",
     "tasks.md": "No maintained task board exists in this repository.",
-    "memory.md": "No append-only project log is maintained.",
 }
 
 # Template path -> output path, relative to the repository root.

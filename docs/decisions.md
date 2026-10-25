@@ -28,6 +28,7 @@ replaces; there is no separate status field to maintain.
 | D-17 | Templates name documents instead of linking them |
 | D-18 | A Mermaid block never contains a template token |
 | D-19 | A diagram template is a valid example, not a blank |
+| D-20 | Ask open source or commercial, then generate the licence |
 
 ## Decision Records
 
@@ -96,7 +97,8 @@ replaces; there is no separate status field to maintain.
   contact address is worse than a missing file.
 - **Decision:** Create these files only when the licence, owner, enforcement
   contact, or security channel is confirmed. Otherwise skip the file and
-  report the gap.
+  report the gap. The licence is confirmed by asking the open source or
+  commercial question; see D-20.
 - **Consequences:** Some generated repositories will contain fewer meta files,
   with an explicit report explaining what is missing and who must decide.
 - **Reason:** Fabrication risk is asymmetric; wrong legal or routing data
@@ -335,6 +337,32 @@ replaces; there is no separate status field to maintain.
   the working example.
 - **Reason:** A template can show the shape of a diagram without inventing its
   content, and the init line is part of the shape rather than the content.
+
+### D-20 — Ask open source or commercial, then generate the licence
+
+- **Context:** D-6 said a licence is created only from confirmed facts and never
+  chosen on the owner's behalf. In practice that left `ai-init` with no path
+  forward: the most common real request is "add a licence to this repository",
+  and the correct answer is a one-question conversation, not a refusal. Refusing
+  taught nothing and produced repositories that shipped with no grant at all and
+  no explanation.
+- **Decision:** When no licence is evidenced, `ai-init` asks one question —
+  whether the project is open source or commercial — and generates from the
+  answer. An open-source answer writes canonical MIT text with a confirmed
+  copyright holder. A commercial answer writes no open-source grant: no
+  `LICENSE` file carrying a permissive or copyleft licence and no open-source
+  SPDX identifier anywhere, so the work stays under default copyright. The
+  answers are mutually exclusive; a request for both is dual licensing and is
+  referred to legal review. An existing `LICENSE` is still preserved
+  byte-for-byte and suppresses the question.
+- **Consequences:** `LICENSE` is the one meta file generated from an answer
+  rather than from repository evidence, so the question and the answer are
+  reported with the change. Commercial repositories gain an explicit
+  "all rights reserved" position instead of a silent gap, and the skill no
+  longer drafts commercial terms it cannot verify.
+- **Reason:** The owner holds the legal decision, but the decision is narrow
+  enough to ask. Asking converts an unanswerable default into a two-branch rule
+  that always produces a defensible result.
 
 ## Related Docs
 

@@ -62,7 +62,7 @@ sync: `templates/root/x` produces `x`, and `templates/docs/x.md` produces
 | Output | Source template | Created when |
 |---|---|---|
 | `README.md` | `templates/root/README.md` | Always |
-| `LICENSE` | `references/licensing.md` | A licence is confirmed by file, manifest, or user |
+| `LICENSE` | `references/licensing.md` | The owner answers open source (MIT) or commercial (no open-source grant), or a licence is already evidenced |
 | `CONTRIBUTING.md` | `templates/root/CONTRIBUTING.md` | The repository accepts contributions or the user asks |
 | `CODE_OF_CONDUCT.md` | `templates/root/CODE_OF_CONDUCT.md` | A private enforcement contact is confirmed |
 | `SECURITY.md` | `templates/root/SECURITY.md` | A private reporting channel is confirmed |
@@ -168,7 +168,9 @@ claim ISO/IEC 27001, SOC 2, FIPS 140-3, or any other certification.
   not create `docs/tests.md`; use `$tests` when test work or that document is
   requested.
 - Repository meta files are generated only from confirmed evidence. A licence
-  is never chosen on the user's behalf; an owner handle is never invented.
+  is never assumed: `ai-init` asks whether the project is open source or
+  commercial, writes MIT for open source and no open-source grant for
+  commercial, and never invents an owner handle.
 - Documentation is grounded in source and configuration. Existing content,
   permanent IDs, and unrelated work are preserved; empty repositories get a
   clearly labeled initial format rather than invented project facts.

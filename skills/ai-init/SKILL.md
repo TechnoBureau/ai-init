@@ -143,7 +143,7 @@ mirror output paths (`templates/root/x` produces `x`).
 | Output | Template | Rule |
 |---|---|---|
 | `README.md` | `templates/root/README.md` | Always |
-| `LICENSE` | none | Only when a licence is evidenced or confirmed; never choose one silently |
+| `LICENSE` | none | Ask open source or commercial: MIT for open source, no open-source grant for commercial |
 | `CONTRIBUTING.md` | `templates/root/CONTRIBUTING.md` | Create for any repository that accepts contributions |
 | `CODE_OF_CONDUCT.md` | `templates/root/CODE_OF_CONDUCT.md` | Create only with a confirmed private enforcement contact |
 | `SECURITY.md` | `templates/root/SECURITY.md` | Create only with a confirmed private reporting channel |
@@ -155,9 +155,9 @@ Rules:
 - Check the exact path before writing, including case variants. Refresh an
   existing file in place: correct a statement that no longer matches the current
   configuration, and add only the sections it lacks.
-- Do not invent a licence, copyright holder, owner handle, email address, or
-  support commitment. If the required fact is unconfirmed, skip that file and
-  report the gap with the decision the user needs to make.
+- Do not invent a copyright holder, owner handle, email address, or support
+  commitment. If the required fact is unconfirmed, skip that file and report
+  the gap with the decision the user needs to make.
 - `LICENSE` is a legal artifact. Copy canonical licence text verbatim, keep the
   SPDX identifier aligned with the manifest and README, and surface conflicts
   instead of resolving them. Recommend legal review for copyleft, dual
@@ -354,8 +354,8 @@ handles its applicable profile and migration assessment.
   under `docs/`.
 - `files/` — `.gitignore`, EditorConfig, Git attributes, and pre-commit
   starters.
-- `references/licensing.md` — licence detection, selection rules, and SPDX
-  identifiers.
+- `references/licensing.md` — the open source or commercial question, licence
+  detection, and SPDX identifiers.
 - `references/gitignore-standard.md` — merge rules, prohibited ignores, and
   pattern cautions.
 - `references/secret-scanning.md` — IBM detect-secrets baseline policy,

@@ -136,7 +136,7 @@ Full context and consequences are in [decisions.md](./decisions.md).
 | FR-6 | `ai-init` MUST create root `README.md` and a relative symlink `AGENTS.md` | The link resolves to `README.md`; conflicts reported |
 | FR-7 | `ai-init` MUST create the default `docs/` set: index, PRD, structure, decisions, security | Files generated with no placeholders |
 | FR-8 | `ai-init` MUST create conditional documents only when evidence supports them | `docs/design.md` absent without a UI |
-| FR-9 | `ai-init` MUST generate `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CODEOWNERS`, and `LICENSE` only from confirmed facts | No invented owner, licence, or contact |
+| FR-9 | `ai-init` MUST generate `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CODEOWNERS`, and `LICENSE` only from confirmed facts, and MUST ask whether the project is open source or commercial before writing a licence | No invented owner or contact; open source yields canonical MIT, commercial yields no open-source grant |
 
 ### Validation and evaluation
 

@@ -98,17 +98,33 @@ cases:
       - "Inventing an email address, owner handle, or response commitment."
       - "Choosing a different licence because another one looks more convenient."
 
-  - id: do-not-invent-license
+  - id: ask-open-source-or-commercial
     prompt: >-
       Add whatever licence you think is best to this repository.
     should_trigger: true
     expected:
-      - "Explains that licence choice is a legal decision for the owner."
-      - "Offers options with trade-offs and asks for an explicit choice and copyright holder."
-      - "Does not create LICENSE until the choice is confirmed."
+      - "Asks whether the project is open source or commercial before writing any licence."
+      - "Writes canonical MIT with a confirmed copyright holder when the owner answers open source."
+      - "Writes no open-source grant and records proprietary all-rights-reserved when the owner answers commercial."
     forbidden:
-      - "Writing an MIT or Apache licence unprompted."
+      - "Writing an MIT or Apache licence without an open-source answer or an existing licence file."
+      - "Adding an open-source licence to a project the owner described as commercial."
       - "Stating a copyright holder that the user did not confirm."
+
+  - id: commercial-project-gets-no-open-source-licence
+    prompt: >-
+      This is a commercial product we sell to customers. Set up the repository
+      files for it.
+    should_trigger: true
+    expected:
+      - "Writes no LICENSE file carrying an open-source grant."
+      - "Records Proprietary - all rights reserved in the README licence section."
+      - "States that the work stays under default copyright until the owner supplies reviewed terms."
+      - "Refers commercial terms, dual licensing, or a source-available model to legal review."
+    forbidden:
+      - "Writing an MIT, Apache, BSD, or GPL licence."
+      - "Recording an open-source SPDX identifier in the README or a manifest."
+      - "Drafting redistribution limits, warranty disclaimers, or indemnities."
 
   - id: generate-docs-folder
     prompt: >-

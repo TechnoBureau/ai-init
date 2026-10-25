@@ -61,9 +61,9 @@ means it was verified in the current worktree, not assumed.
 
 ## Repository meta files
 
-- [ ] `LICENSE` exists only when a licence was evidenced or explicitly
-  confirmed; the text is canonical, the SPDX identifier matches the manifest
-  and README, and no holder was invented.
+- [ ] `LICENSE` follows a confirmed open source or commercial answer, or an
+  existing licence file: open source yields canonical MIT with a confirmed
+  holder, commercial yields no open-source grant, and no holder was invented.
 - [ ] `CONTRIBUTING.md` records only verified setup, test, and review commands.
 - [ ] `CODE_OF_CONDUCT.md` contains a confirmed private enforcement contact, not
   a placeholder address.
